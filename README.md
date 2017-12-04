@@ -10,6 +10,11 @@ Lanakila is currently lacking a mass communication tool to send out notification
 ## Project Proposal
 Admin types out message, message gets converted to voice, that voice message gets sent out to the users. 
 
+Scope:
+1) Webpage for admins to access (login and password) and create messages to send out
+2) Natural Language Processing / changing the text to a voice memo
+3) Sending out mass 
+
 ## Project Plan
 List the milestones in your project and high level tasks for each, for example:
 - Create Design Wireframes and Mockups.
