@@ -8,7 +8,7 @@ Company: Lanakila Meals on Wheels
 Lanakila is currently lacking a mass communication tool to send out notifications to senior citizens; a better communication tool is need to relay messages quicker regarding natural disaster warnings, schedule changes, recalls, etc. with user confirmation that the notification was recieved. 
 
 ## Project Proposal
-Description of your team's solution, include tech stack you will be using.
+Admin types out message, message gets converted to voice, that voice message gets sent out to the users. 
 
 ## Project Plan
 List the milestones in your project and high level tasks for each, for example:
