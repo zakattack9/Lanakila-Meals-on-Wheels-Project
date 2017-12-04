@@ -1,10 +1,11 @@
 # Project Name
-Team Name: 
-Team Members: Zak Sakata, Angela Geronimo, Ian Acosta
-Project Manager: Zak Sakata
+Team Name: Lanakillahs <br/>
+Team Members: Zak Sakata, Angela Geronimo, Ian Acosta <br/>
+Project Manager: Zak Sakata <br/>
+Company: Lanakila Meals on Wheels
 
 ## Project Challenge
-Breif description of the challenge/problem your team is trying to solve.
+Lanakila is currently lacking a mass communication tool to send out notifications to senior citizens; a better communication tool is need to relay messages quicker regarding natural disaster warnings, schedule changes, recalls, etc. with user confirmation that the notification was recieved. 
 
 ## Project Proposal
 Description of your team's solution, include tech stack you will be using.
