@@ -1,4 +1,4 @@
-# Project Name
+# Lanakila Meals on Wheels
 Team Name: Lanakillahs <br/>
 Team Members: Zak Sakata, Angela Geronimo, Ian Acosta <br/>
 Project Manager: Zak Sakata <br/>
