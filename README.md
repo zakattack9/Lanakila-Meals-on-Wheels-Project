@@ -1,6 +1,7 @@
 # Project Name
-Team Name<br />
+Team Name: 
 Team Members: Zak Sakata, Angela Geronimo, Ian Acosta
+Project Manager: Zak Sakata
 
 ## Project Challenge
 Breif description of the challenge/problem your team is trying to solve.
