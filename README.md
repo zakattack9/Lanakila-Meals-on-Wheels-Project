@@ -8,7 +8,7 @@ Company: Lanakila Pacific
 Lanakila Meals On Wheels is currently lacking a mass communication tool to send out notifications to senior citizens; a better communication tool is needed to relay messages quicker regarding natural disaster warnings, schedule changes, recalls, etc. with user confirmation that the notification was received. 
 
 ## Project Proposal
-Our application will allow administrators to sends out mass messages via an automated phone call or voicemail to alert customers and volunteers regarding regarding natural disaster warnings, schedule changes, recalls, last minute changes etc. Administrators have the ability to create a text message to be sent to participants of the Meals on Wheels program; this message is then converted to a voice memo using natural language processing later sent to all users through call or text depending on each user’s medium. The application will also feature a web page that displays a record of sent messages; this enables the general public to stay notified on recent updates.
+Our application will allow administrators to sends out mass messages via text message to alert customers and volunteers regarding natural disaster warnings, schedule changes, recalls, last minute changes etc. Administrators have the ability to create a voice message to be sent to participants of the Meals on Wheels program; this message is then converted from voice to text using natural language processing later sent to all users through text messaging applications. The application will also feature a web page that displays a record of sent messages; this enables the general public to stay notified on recent updates.
 
 ### Tech Stack:
 1) Natural Language Processing
@@ -20,7 +20,7 @@ Our application will allow administrators to sends out mass messages via an auto
 
 ### Scope (MVP):
 1) Webpage for admins to access (login and password) and create messages to send out
-2) Integration of Natural Language Processing (changing the text to a voice memo)
+2) Integration of Natural Language Processing with text messaging (voice to text)
 3) Mass communication tool
 4) Different user access rights
 5) Visual asthetics
@@ -29,6 +29,8 @@ Our application will allow administrators to sends out mass messages via an auto
 ### Stretch Goals:
 - User confirmation that notification/message was received 
 - Schedule volunteers and manage shifts (Daizzy)
+- Convert text to voice (sent as an automated call/voicemail)
+- Different user mediums (phone calls, voicemail)
 
 <hr/>
 
@@ -54,11 +56,5 @@ List the milestones in your project and high level tasks for each, for example:
 - Stretch Goals 
     - Stretch Goal 1
     - Stretch Goal 2
-    
-## Key Findings
-Explain your hurdles throughout the project and how your team overcame them. Show how your project changed or scope changed throughout the development of your solution.
-
-## Skills Learned
-Explain what your team learned in developing this project. 
 
 **Note: Include a short description in the repo description field when creating your team's repo, also include a link to your final prototype.**
