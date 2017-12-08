@@ -1,11 +1,11 @@
-# Lanakila Meals on Wheels
+# Lanakila Bytes
 Team Name: Lanakillahs <br/>
 Team Members: Zak Sakata, Angela Geronimo, Ian Acosta <br/>
 Project Manager: Zak Sakata <br/>
-Company: Lanakila Meals on Wheels
+Company: Lanakila Pacific
 
 ## Project Challenge
-Lanakila is currently lacking a mass communication tool to send out notifications to senior citizens; a better communication tool is needed to relay messages quicker regarding natural disaster warnings, schedule changes, recalls, etc. with user confirmation that the notification was received. 
+Lanakila Meals On Wheels is currently lacking a mass communication tool to send out notifications to senior citizens; a better communication tool is needed to relay messages quicker regarding natural disaster warnings, schedule changes, recalls, etc. with user confirmation that the notification was received. 
 
 ## Project Proposal
 Our application will allow administrators to sends out mass messages via an automated phone call or voicemail to alert customers and volunteers regarding regarding natural disaster warnings, schedule changes, recalls, last minute changes etc. Administrators have the ability to create a text message to be sent to participants of the Meals on Wheels program; this message is then converted to a voice memo using natural language processing later sent to all users through call or text depending on each user’s medium. The application will also feature a web page that displays a record of sent messages; this enables the general public to stay notified on recent updates.
