@@ -5,15 +5,30 @@ Project Manager: Zak Sakata <br/>
 Company: Lanakila Meals on Wheels
 
 ## Project Challenge
-Lanakila is currently lacking a mass communication tool to send out notifications to senior citizens; a better communication tool is need to relay messages quicker regarding natural disaster warnings, schedule changes, recalls, etc. with user confirmation that the notification was recieved. 
+Lanakila is currently lacking a mass communication tool to send out notifications to senior citizens; a better communication tool is needed to relay messages quicker regarding natural disaster warnings, schedule changes, recalls, etc. with user confirmation that the notification was received. 
 
 ## Project Proposal
-Admin types out message, message gets converted to voice, that voice message gets sent out to the users. 
+Our application will allow administrators to sends out mass messages via an automated phone call or voicemail to alert customers and volunteers regarding regarding natural disaster warnings, schedule changes, recalls, last minute changes etc. Administrators have the ability to create a text message to be sent to participants of the Meals on Wheels program; this message is then converted to a voice memo using natural language processing later sent to all users through call or text depending on each user’s medium.The application will also feature a web page that displays a record of sent messages; this enables the general public to stay notified on recent updates.
 
-Scope:
+### Scope:
 1) Webpage for admins to access (login and password) and create messages to send out
 2) Natural Language Processing / changing the text to a voice memo
-3) Sending out mass 
+3) Sending out mass
+
+### Tech Stack:
+Natural Language Processing
+Amazon Web Services
+Third party mass messenger application
+Voice Recognition & Speech Synthesis
+Different User Access Rights
+SQL Databases
+
+### Stretch Goals:
+User confirmation that notification/message was received 
+Schedule volunteers and manage shifts (aka copy paste from Daizzy)
+
+
+<hr/>
 
 ## Project Plan
 List the milestones in your project and high level tasks for each, for example:
