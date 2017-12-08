@@ -28,7 +28,7 @@ Our application will allow administrators to sends out mass messages via an auto
 
 ### Stretch Goals:
 - User confirmation that notification/message was received 
-- Schedule volunteers and manage shifts (aka copy paste from Daizzy)
+- Schedule volunteers and manage shifts (Daizzy)
 
 <hr/>
 
