@@ -57,4 +57,4 @@ List the milestones in your project and high level tasks for each, for example:
     - Stretch Goal 1
     - Stretch Goal 2
 
-**Note: Include a short description in the repo description field when creating your team's repo, also include a link to your final prototype.**
+
