@@ -17,6 +17,7 @@ Our application will allow administrators to sends out mass messages via text me
 4) Voice Recognition & Speech Synthesis
 5) SQL Databases
 6) HTML, CSS, JavaScript
+7) Amazon Polly
 
 ### Scope (MVP):
 1) Webpage for admins to access (login and password) and create messages to send out
