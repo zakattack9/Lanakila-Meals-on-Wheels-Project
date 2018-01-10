@@ -23,10 +23,8 @@ Our application will allow administrators to sends out mass messages via text me
 ### Scope (MVP):
 1) Webpage for admins to access (login and password) and create messages to send out
 2) Integration of Natural Language Processing with text messaging (voice to text)
-3) Mass communication tool
-4) Different user access rights
-5) Visual asthetics
-6) Public webpage displaying previously sent messages
+3) Visual asthetics
+4) Public webpage displaying previously sent messages
 
 ### Stretch Goals:
 - User confirmation that notification/message was received 
