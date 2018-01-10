@@ -15,9 +15,10 @@ Our application will allow administrators to sends out mass messages via text me
 2) Amazon Web Services
 3) Third party mass messenger application
 4) Voice Recognition & Speech Synthesis
-5) SQL Databases
+5) SQL Relational Databases
 6) HTML, CSS, JavaScript
 7) Amazon Polly
+8) Different User Access Rights
 
 ### Scope (MVP):
 1) Webpage for admins to access (login and password) and create messages to send out
