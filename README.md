@@ -11,14 +11,13 @@ Lanakila Meals On Wheels is currently lacking a mass communication tool to send 
 Our application will allow administrators to sends out mass messages via text message to alert customers and volunteers regarding natural disaster warnings, schedule changes, recalls, last minute changes etc. Administrators have the ability to create a voice message to be sent to participants of the Meals on Wheels program; this message is then converted from voice to text using natural language processing later sent to all users through text messaging applications. The application will also feature a web page that displays a record of sent messages; this enables the general public to stay notified on recent updates.
 
 ### Tech Stack:
-1) Natural Language Processing
+1) Natural Language Processing (Amazon Polly)
 2) Amazon Web Services
 3) Third party mass messenger application
 4) Voice Recognition & Speech Synthesis
 5) SQL Relational Databases
 6) HTML, CSS, JavaScript
-7) Amazon Polly
-8) Different User Access Rights
+7) Different User Access Rights
 
 ### Scope (MVP):
 1) Webpage for admins to access (login and password) and create messages to send out
