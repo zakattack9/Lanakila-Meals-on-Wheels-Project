@@ -8,7 +8,7 @@ Company: Lanakila Pacific
 Lanakila Meals On Wheels is currently lacking a mass communication tool to send out notifications to senior citizens; a better communication tool is needed to relay messages quicker regarding natural disaster warnings, schedule changes, recalls, etc. with user confirmation that the notification was received. 
 
 ## Project Proposal
-Our application will allow administrators to sends out mass messages via text message to alert customers and volunteers regarding natural disaster warnings, schedule changes, recalls, last minute changes etc. Administrators have the ability to create a voice message to be sent to participants of the Meals on Wheels program; this message is then converted from voice to text using natural language processing later sent to all users through text messaging applications. The application will also feature a web page that displays a record of sent messages; this enables the general public to stay notified on recent updates.
+Our application will allow administrators to send out mass messages via text message to alert customers and volunteers regarding natural disaster warnings, schedule changes, recalls, last minute changes etc. Administrators have the ability to create a voice message to be sent to participants of the Meals on Wheels program; messages will be converted from text to voice using natural language processing (Amazon Polly) later sent to all users on mass scale through text messaging applications. The application will also feature a web page that displays a record of sent messages; this enables the general public to stay notified on recent updates.
 
 ### Tech Stack:
 1) Natural Language Processing (Amazon Polly)
