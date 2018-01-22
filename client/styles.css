@@ -83,6 +83,7 @@ body{
 
 .quickMsgBox textarea{
 	width: 80%;
+	height: auto;
 	display: none;
 }
 
