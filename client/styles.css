@@ -1,4 +1,30 @@
-#recentMsg,#upcomingEvents,#createMsg{
+body{
+	height:100vh;
+}
+#recentMsg,#upcomingEvents,#createMsg,.recentText,.events{
 	border-style: solid;
     border-width: 5px;
+    margin: 10px; 
+    padding: 10px;
 } 
+
+#leftPanel{
+	float: left;
+	margin: 10px;
+	width: 40%;
+	padding: 10px;
+}
+#rightPanel{
+	float: right;
+	margin: 10px;
+	width: 50%;
+	padding: 10px;
+}
+
+.scrolls{
+	height: 300px;
+	overflow-y: auto;
+}
+#recentMsg,#upcomingEvents{
+	height: 50%;
+}
