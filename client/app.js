@@ -1,6 +1,6 @@
 
 // how to make tabs on a single page
-function openCity(evt, cityName) {
+function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
     tabcontent = $('.tabcontent');
     for (i = 0; i < tabcontent.length; i++) {
@@ -10,6 +10,20 @@ function openCity(evt, cityName) {
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+function openMsgBox(evt, boxName) {
+    var i, tabcontent, tablinks;
+    tabcontent = $('.MsgTextbox');
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("quickMsgBox");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(boxName).style.display = "block";
     evt.currentTarget.className += " active";
 }
