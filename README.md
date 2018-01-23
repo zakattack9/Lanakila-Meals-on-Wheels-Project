@@ -57,3 +57,4 @@ List the milestones in your project and high level tasks for each, for example:
     - Stretch Goal 2
 
 https://medium.com/@anaptfox/getting-started-with-amazon-polly-using-node-js-345e84dbd23d
+https://stackoverflow.com/questions/41070795/how-to-play-audiostream-response-in-aws-polly-using-javascript-sdk
