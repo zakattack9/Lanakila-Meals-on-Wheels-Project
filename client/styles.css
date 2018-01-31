@@ -1,4 +1,96 @@
-#recentMsg,#upcomingEvents,#createMsg{
+body{
+	height:100vh;
+	margin: 0;
+}
+#topBar{
+	height: 50px;
+	background-color: black;
+}
+#recentMsg,#upcomingEvents,#createMsg,.recentText,.events, .quickMsgBox{
 	border-style: solid;
     border-width: 5px;
+    margin: 10px; 
+    padding: 10px;
 } 
+#wrapper{
+	width: 85%;
+	margin: 30px auto;
+}
+#leftPanel{
+	float: left;
+	width: 35%;
+}
+#rightPanel{
+	float: left;
+	width: 65%;
+}
+
+.scrolls{
+	height: 300px;
+	overflow-y: auto;
+}
+#recentMsg,#upcomingEvents{
+	height: 50%;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+#Urgent{
+	display: block;
+}
+.quickMsgBox{
+	width: auto;
+}
+
+.quickMsgBox h2{
+	margin: 10px;
+	text-align: center;
+}
+
+.quickMsgBox textarea{
+	width: 80%;
+	height: auto;
+	display: none;
+}
+
+.quickMsgBox:hover{
+	background-color: #ccc
+}
+
+.quickMsg.active{
+	background-color: #ccc
+}
