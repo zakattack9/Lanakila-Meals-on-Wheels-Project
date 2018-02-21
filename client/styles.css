@@ -2,35 +2,41 @@ body{
 	height:100vh;
 	margin: 0;
 }
+
 #topBar{
 	height: 70px;
 	background-color: black;
 }
+
 #recentMsg,#upcomingEvents,#createMsg,.recentText,.events, .quickMsgBox{
 	border-style: solid;
-    border-width: 5px;
+    border-width: 2px;
     margin: 10px; 
     padding: 10px;
 } 
+
 #wrapper{
-	width: 85%;
+	width: 90%;
 	margin: 30px auto;
 }
 #leftPanel{
 	float: left;
-	width: 35%;
+	width: 65%;
+	height: 100%;
 }
 #rightPanel{
 	float: left;
-	width: 65%;
+	width: 35%;
+	height: 100%;
+}
+
+#recentMsg,#upcomingEvents{
+	height: 50%;
 }
 
 .scrolls{
 	height: 300px;
 	overflow-y: auto;
-}
-#recentMsg,#upcomingEvents{
-	height: 50%;
 }
 
 .tab {
@@ -77,12 +83,12 @@ body{
 }
 
 .quickMsgBox h2{
-	margin: 10px;
+	margin: 10px 10px;
 	text-align: center;
 }
 
 .quickMsgBox textarea{
-	width: 80%;
+	width: 99%;
 	height: auto;
 	display: none;
 }
@@ -93,4 +99,8 @@ body{
 
 .quickMsg.active{
 	background-color: #ccc
+}
+
+textarea{
+	width: 99%;
 }
