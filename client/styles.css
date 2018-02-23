@@ -1,6 +1,14 @@
+/*Colors:
+#f08c23 - orange
+#4c4c4c - gray (dark)
+#aeaeae - gray (light)
+#008a6e - green*/
+
 body{
 	height:100vh;
 	margin: 0;
+/*	font-family: 'Lato', sans-serif;
+*/	font-family: 'Noto Sans', sans-serif;
 }
 
 #topBar{
@@ -8,9 +16,9 @@ body{
 	background-color: black;
 }
 
-#recentMsg,#upcomingEvents,#createMsg,.recentText,.events, .quickMsgBox{
-	border-style: solid;
-    border-width: 2px;
+#recentMsgs,#upcomingEvents, #createMsg, .recentText,.events, .quickMsgBox {
+    border: 1px solid;
+    border-color: #aeaeae;
     margin: 10px; 
     padding: 10px;
 } 
@@ -19,15 +27,21 @@ body{
 	width: 90%;
 	margin: 30px auto;
 }
+
 #leftPanel{
 	float: left;
-	width: 65%;
+	width: 70%;
 	height: 100%;
 }
+
 #rightPanel{
 	float: left;
-	width: 35%;
+	width: 30%;
 	height: 100%;
+}
+
+#createMsg h2{
+	color: #f08c23;
 }
 
 #recentMsg,#upcomingEvents{
@@ -55,24 +69,33 @@ body{
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
+    color: #F08C23;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: #ddd;
+    background-color: #f2ca9d;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-    background-color: #ccc;
+    background-color: #F08C23;
+    color: white;
 }
 
 /* Style the tab content */
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
+}
+
+.tabcontent h4 {
+	color: #4c4c4c;
+}
+
+.tablinks {
+	width: 50%;
+	border-color: #F08C23;
 }
 
 #Urgent{
@@ -80,6 +103,7 @@ body{
 }
 .quickMsgBox{
 	width: auto;
+	height: 3em;
 }
 
 .quickMsgBox h2{
