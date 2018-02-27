@@ -11,41 +11,69 @@ body{
 */	font-family: 'Noto Sans', sans-serif;
 }
 
+textarea {
+	resize: none;
+}
+
 #topBar{
-	height: 70px;
+	height: 60px;
+	width: 100%;
 	background-color: black;
 }
 
-#recentMsgs,#upcomingEvents, #createMsg, .recentText,.events, .quickMsgBox {
+#upcomingEvents, #createMsg, .recentText,.events, .quickMsgBox {
     border: 1px solid;
     border-color: #aeaeae;
-    margin: 10px; 
+    margin: 10px;
     padding: 10px;
-} 
-
-#wrapper{
-	width: 90%;
-	margin: 30px auto;
 }
 
 #leftPanel{
-	float: left;
-	width: 70%;
-	height: 100%;
+	width: 65%;
 }
 
 #rightPanel{
-	float: left;
 	width: 30%;
-	height: 100%;
 }
 
 #createMsg h2{
 	color: #f08c23;
 }
 
-#recentMsg,#upcomingEvents{
-	height: 50%;
+#recentMsgs {
+	border: 1px solid;
+	border-color: #aeaeae;
+	width: 100%;
+	padding: 10px;
+}
+
+#container {
+	display: table;
+	table-layout: fixed;
+	width: 100vw;
+	height: 100vh;
+}
+
+#topBar {
+	width: 100%;
+}
+
+#wrapper{
+	width: 100%;
+	margin: 30px auto;
+	display: table-row;
+}
+
+.cell {
+	display: table-cell;
+}
+
+.recentText {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	/* -webkit-line-clamp: 3;
+	-webkit-box-orient: vertical; */
 }
 
 .scrolls{
@@ -121,8 +149,9 @@ body{
 	background-color: #ccc
 }
 
-.quickMsg.active{
+.quickMsgBox.active{
 	background-color: #ccc
+	height: 6em;
 }
 
 textarea{
