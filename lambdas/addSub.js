@@ -1,10 +1,11 @@
 var AWS = require('aws-sdk');
 AWS.config.region = 'us-west-2';
 var sns = new AWS.SNS();
+var config = require('./config.json');
 
 var params = {
   Protocol: 'sms',
-  TopicArn: 'arn:aws:sns:us-west-2:110504385597:lanakila-messages', 
+  TopicArn: config.arn, 
   Endpoint: '+18085417092'
 };
 sns.subscribe(params, function(err, data) {
