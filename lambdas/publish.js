@@ -4,7 +4,7 @@ var sns = new AWS.SNS();
 var config = require('./config.json');
 
 var params = {
-  Message: "a",
+  Message: "enter Message here",
   MessageStructure: 'string',
   TopicArn: config.arn
 };
