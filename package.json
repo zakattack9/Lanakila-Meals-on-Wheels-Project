@@ -18,7 +18,15 @@
   },
   "homepage": "https://github.com/zakattack9/Lanakila-Meals-on-Wheels-Project#readme",
   "dependencies": {
+<<<<<<< HEAD
     "aws-sdk": "^2.200.0",
     "speaker": "^0.4.0"
   }
+=======
+    "aws-sdk": "^2.205.0",
+    "speaker": "^0.4.0",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {}
+>>>>>>> ee57b6c1eb5b25540efbabeeccd7c4739ec6961d
 }
