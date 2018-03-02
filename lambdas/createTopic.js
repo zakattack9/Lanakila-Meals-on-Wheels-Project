@@ -3,11 +3,9 @@ AWS.config.region = 'us-west-2';
 var sns = new AWS.SNS();
 
 var params = {
-  Protocol: 'sms',
-  TopicArn: '', // use seperate topic
-  Endpoint: '+18085619096'
+	Name: "name"
 };
-sns.subscribe(params, function(err, data) {
+sns.createTopic(params, function(err, data) {
   if (err) console.log(err, err.stack); // an error occurred
   else     console.log(data);           // successful response
 });
