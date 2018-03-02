@@ -1,36 +1,84 @@
+/*Colors:
+#f08c23 - orange
+#4c4c4c - gray (dark)
+#aeaeae - gray (light)
+#008a6e - green*/
+
 body{
 	height:100vh;
 	margin: 0;
+/*	font-family: 'Lato', sans-serif;
+*/	font-family: 'Noto Sans', sans-serif;
 }
+
+textarea {
+	resize: none;
+}
+
 #topBar{
-	height: 70px;
+	height: 60px;
+	width: 100%;
 	background-color: black;
 }
-#recentMsg,#upcomingEvents,#createMsg,.recentText,.events, .quickMsgBox{
-	border-style: solid;
-    border-width: 5px;
-    margin: 10px; 
+
+#upcomingEvents, #createMsg, .recentText,.events, .quickMsgBox {
+    border: 1px solid;
+    border-color: #aeaeae;
+    margin: 10px;
     padding: 10px;
-} 
-#wrapper{
-	width: 85%;
-	margin: 30px auto;
 }
+
 #leftPanel{
-	float: left;
-	width: 35%;
-}
-#rightPanel{
-	float: left;
 	width: 65%;
+}
+
+#rightPanel{
+	width: 30%;
+}
+
+#createMsg h2{
+	color: #f08c23;
+}
+
+#recentMsgs {
+	border: 1px solid;
+	border-color: #aeaeae;
+	width: 100%;
+	padding: 10px;
+}
+
+#container {
+	display: table;
+	table-layout: fixed;
+	width: 100vw;
+	height: 100vh;
+}
+
+#topBar {
+	width: 100%;
+}
+
+#wrapper{
+	width: 100%;
+	margin: 30px auto;
+	display: table-row;
+}
+
+.cell {
+	display: table-cell;
+}
+
+.recentText {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	/* -webkit-line-clamp: 3;
+	-webkit-box-orient: vertical; */
 }
 
 .scrolls{
 	height: 300px;
 	overflow-y: auto;
-}
-#recentMsg,#upcomingEvents{
-	height: 50%;
 }
 
 .tab {
@@ -49,24 +97,33 @@ body{
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
+    color: #F08C23;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: #ddd;
+    background-color: #f2ca9d;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-    background-color: #ccc;
+    background-color: #F08C23;
+    color: white;
 }
 
 /* Style the tab content */
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
+}
+
+.tabcontent h4 {
+	color: #4c4c4c;
+}
+
+.tablinks {
+	width: 50%;
+	border-color: #F08C23;
 }
 
 #Urgent{
@@ -74,15 +131,16 @@ body{
 }
 .quickMsgBox{
 	width: auto;
+	height: 3em;
 }
 
 .quickMsgBox h2{
-	margin: 10px;
+	margin: 10px 10px;
 	text-align: center;
 }
 
 .quickMsgBox textarea{
-	width: 80%;
+	width: 99%;
 	height: auto;
 	display: none;
 }
@@ -91,6 +149,11 @@ body{
 	background-color: #ccc
 }
 
-.quickMsg.active{
+.quickMsgBox.active{
 	background-color: #ccc
+	height: 6em;
+}
+
+textarea{
+	width: 99%;
 }
