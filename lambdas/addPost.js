@@ -34,7 +34,7 @@ console.log(msgID);
 	const sns = new AWS.SNS({apiVersion: '2010-03-31'});
 
 	sns.publish({ // send notification to sns
-    TopicArn: 'arn:aws:sns:us-west-2:116598778905:new_posts',
+    TopicArn: 'topicArn',
     Message: msgID,
   }, function(err, data) {
     if (err) {
