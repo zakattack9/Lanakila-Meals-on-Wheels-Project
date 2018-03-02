@@ -1,10 +1,13 @@
 const AWS = require('aws-sdk');
 AWS.config.update({region: 'us-west-2'});
 
-module.exports.hello = (event, context, callback) => {
+module.exports.triggered = (event, context, callback) => {
 	let msgID = event["Records"][0]["Sns"]["Message"]; //grabs message ID from lambda
 
 	const dynamoDB = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-10-08'});
+	const polly = new AWS.Polly({apiVersion: '2016-06-10'});
+	const s3 = new AWS.S3({apiVersion: '2006-03-01'});
+	const sns = new AWS.SNS({apiVersion: '2010-03-31'});
 
 	// Call DynamoDB to read the item from the table
 	dynamoDB.get({ 
@@ -18,17 +21,13 @@ module.exports.hello = (event, context, callback) => {
 	  }
 	});
 
-	// Create an Polly client
-	const polly = new AWS.Polly({apiVersion: '2016-06-10'});
-	const s3 = new AWS.S3({apiVersion: '2006-03-01'}); // s3 client
-
-	let params = {
+	let pollyparams = {
     Text: 'I am text converted by Polly',
     OutputFormat: 'mp3',
     VoiceId: 'Kimberly'
 	};
 
-	polly.synthesizeSpeech(params, (err, data) => { // Convert Text
+	polly.synthesizeSpeech(pollyparams, (err, data) => { // Convert Text
     if (err) {
       console.log(err.code)
     } else if (data) {
@@ -61,11 +60,23 @@ module.exports.hello = (event, context, callback) => {
 					    console.log("Successfully updated DB", data);
 					  }
 					});
+
+					// Send Notification out with SNS
+					var snsparams = {
+					  Message: "Here is a link to an audio file" + data.Location,
+					  MessageStructure: 'string',
+					  TopicArn: 'insert ARN here'
+					};
+
+					sns.publish(snsparams, function(err, data) {
+					  if (err) {
+					  	console.log("Error", err.stack); 
+					  } else {
+					  	console.log("Success", data);
+					  } 
+					});
         }
       });
     }
 	})
-
-
-
 }
