@@ -62,7 +62,7 @@ module.exports.triggered = (event, context, callback) => {
 					});
 
 					// Send Notification out with SNS
-					var snsparams = {
+					let snsparams = {
 					  Message: "Here is a link to an audio file" + data.Location,
 					  MessageStructure: 'string',
 					  TopicArn: 'insert ARN here'

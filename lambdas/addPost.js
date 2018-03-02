@@ -3,11 +3,10 @@ const AWS = require('aws-sdk');
 const uuid = require('uuid'); //used for unique user ID (replace current ID generator with this)
 AWS.config.update({region: 'us-west-2'});
 
-let msgID; //generated ID
-( function () { msgID = Math.random().toString(36).substr(2, 5) }() ); //self-invoking function generates ID
-console.log(msgID);
-
-//Stick in Lambda
+module.exports.hello = (event, context, callback) => {
+	let msgID; //generated ID
+	( function () { msgID = Math.random().toString(36).substr(2, 5) }() ); //self-invoking function generates ID
+	console.log(msgID);
 
 	// Create the DynamoDB item
 	const dynamoDB = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-10-08'});
@@ -41,8 +40,4 @@ console.log(msgID);
       console.log(err.stack);
     }
   });
-
-module.exports.hello = (event, context, callback) => {
-
-	
 }
