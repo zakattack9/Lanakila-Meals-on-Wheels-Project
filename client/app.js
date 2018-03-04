@@ -32,7 +32,7 @@ $('#msgInput').on('click', function(){
 $('#groupInput').on('click', function(){
 	$('#msgInput').removeAttr('ondrop ondragover');
 	$('#groupInput').attr({ondrop:'drop(event, this)', ondragover:'allowDrop(event)'});
-	
+
 	$('#msgOverlay')[0].style.width = "0";
 	$('#groupOverlay')[0].style.width = "400px";
 })
@@ -54,8 +54,7 @@ function allowDrop(event) {
 }
 
 function drop(event, element) {
-	console.log(event.dataTransfer.getData("Text"))
-	element.parentElement.id
+	//element.parentElement.id
   event.preventDefault();
   var data = event.dataTransfer.getData("Text");
   element.appendChild(document.getElementById(data));
