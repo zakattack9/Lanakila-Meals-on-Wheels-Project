@@ -1,159 +1,221 @@
-/*Colors:
-#f08c23 - orange
-#4c4c4c - gray (dark)
-#aeaeae - gray (light)
-#008a6e - green*/
-
-body{
-	height:100vh;
+body, html {
+	height: 100%;
+	width: 100%;
+	padding: 0;
 	margin: 0;
-/*	font-family: 'Lato', sans-serif;
-*/	font-family: 'Noto Sans', sans-serif;
-}
-
-textarea {
-	resize: none;
-}
-
-#topBar{
-	height: 60px;
-	width: 100%;
-	background-color: black;
-}
-
-#upcomingEvents, #createMsg, .recentText,.events, .quickMsgBox {
-    border: 1px solid;
-    border-color: #aeaeae;
-    margin: 10px;
-    padding: 10px;
-}
-
-#leftPanel{
-	width: 65%;
-}
-
-#rightPanel{
-	width: 30%;
-}
-
-#createMsg h2{
-	color: #f08c23;
-}
-
-#recentMsgs {
-	border: 1px solid;
-	border-color: #aeaeae;
-	width: 100%;
-	padding: 10px;
+	font-family: 'Lato', sans-serif;
 }
 
 #container {
-	display: table;
-	table-layout: fixed;
-	width: 100vw;
-	height: 100vh;
+	height: 100%;
+
 }
 
-#topBar {
+#sideBar {
+	font-family: 'Noto Sans', sans-serif;
+	height: 100%;
+	width: 220px;
+	background-color: #13896D;
+	float: left;
+}
+
+#workspace {
+	height: 100%;
+	overflow: auto;
+	background-color: white;
+	overflow-y: hidden;
+}
+
+#login {
+	height: 100px;
+}
+
+#logo {
+	width: 50px;
+	float: left;
+	margin: 7px;
+}
+
+#username {
+	font-size: 35px;
+	overflow: auto;
+	line-height: 65px;
+}
+
+#optionsGroup {
 	width: 100%;
-}
-
-#wrapper{
-	width: 100%;
-	margin: 30px auto;
-	display: table-row;
-}
-
-.cell {
-	display: table-cell;
-}
-
-.recentText {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	/* -webkit-line-clamp: 3;
-	-webkit-box-orient: vertical; */
-}
-
-.scrolls{
-	height: 300px;
-	overflow-y: auto;
-}
-
-.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    font-size: 17px;
-    color: #F08C23;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-    background-color: #f2ca9d;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-    background-color: #F08C23;
-    color: white;
-}
-
-/* Style the tab content */
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-}
-
-.tabcontent h4 {
-	color: #4c4c4c;
-}
-
-.tablinks {
-	width: 50%;
-	border-color: #F08C23;
-}
-
-#Urgent{
 	display: block;
 }
-.quickMsgBox{
-	width: auto;
-	height: 3em;
+
+.option {
+	height: 50px;
+	line-height: 50px;
+	padding-left: 30px;
 }
 
-.quickMsgBox h2{
-	margin: 10px 10px;
-	text-align: center;
+.option:hover {
+	background-color: white;
+	transition: 0.2s;
 }
 
-.quickMsgBox textarea{
-	width: 99%;
-	height: auto;
+.option:focus {
+	background-color: white;
+}
+
+.hidden {
 	display: none;
 }
 
-.quickMsgBox:hover{
-	background-color: #ccc
+.visible {
+	display: block;
 }
 
-.quickMsgBox.active{
-	background-color: #ccc
-	height: 6em;
+.active { /*keeps menu options active*/
+	background-color: white;
 }
 
-textarea{
-	width: 99%;
+/* Styles for broadcast workspace */
+#broadcast {
+	height: 100%;
+	width: 100%;
 }
+
+#msgMakerSpace {
+	height: 100%;
+	width: 650px;
+	float: left;
+}
+
+#msgMaker {
+	height: 90%;
+	width: 550px;
+	border-radius: 4%;
+	background-color: #F58F31;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5vh;
+}
+
+#msgSpace {
+	height: 45vh;
+	padding-top: 20px;
+}
+
+#msgSpace span {
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 30px;
+}
+
+#msgInput {
+	width: 90%;
+	height: 85%;
+	background-color: white;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+#groupSpace {
+	height: 33vh;
+	padding-top: 10px;
+}
+
+#groupSpace span {
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 30px;
+}
+
+#groupInput {
+	width: 90%;
+	height: 70%;
+	background-color: white;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+#sendButton {
+	background-color: #13896D;
+	height: 30px;
+	width: 70px;
+	text-align: center;
+	line-height: 30px;
+	float: right;
+	border-radius: 10px;
+	margin-right: 30px;
+}
+
+#recentMsgs {
+	height: 100%;
+	overflow-y: scroll;
+	overflow: auto;
+	border-left: 3px darkgray solid;
+}
+
+#groups {
+	height: 100%;
+	width: 100%;
+	background-color: yellow;
+}
+
+#msgOverlay {
+	z-index: 1;
+  position: fixed;
+  top: 0;
+	right: 0;
+  height: 100%;
+  width: 0;
+  background-color: lightyellow;
+  overflow-x: hidden;
+  transition: 0.3s;
+}
+
+#groupOverlay {
+	z-index: 1;
+  position: fixed;
+  top: 0;
+	right: 0;
+  height: 100%;
+  width: 0;
+  background-color: lightblue;
+  overflow-x: hidden;
+  transition: 0.3s;
+}
+
+#closeMsg, #closeGroup{
+	display: block;
+  transform: rotate(0deg);
+  width: 30px;
+  font-size: 30px;
+  position: absolute;
+	top: 5px;
+	left: 20px;
+  cursor: default;
+  transition: 0.3s;
+}
+
+#closeMsg:hover, #closeGroup:hover {
+  transform: rotate(-6deg) scale(.99, .99);
+  transition: 0.3s;
+}
+
+#groupTitle {
+	font-size: 25px;
+	text-align: center;
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+}
+
+.draggable {
+	background-color: red;
+	height: 50px;
+}
+
+
+
+

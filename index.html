@@ -2,70 +2,55 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
-	 <link rel="stylesheet" type="text/css" href="./client/styles.css">
-	 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-	 <link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
+	<title>Subscribers</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" type="text/css" href="./client/styles.css">
+ <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
 </head>
 <body>
+
 	<div id="container">
-		<div id="topBar">
-			<!-- admin profile thing-->
-		</div>
-		<div id="wrapper">
-			<div id="leftPanel" class="cell">
-				<div id="createMsg">
-					<h2>Create Message</h2>
-					<div class="tab">
-					  <button class="tablinks" onclick="openTab(event, 'General')">General</button>
-					  <button class="tablinks active" onclick="openTab(event, 'Urgent')">Urgent</button>
-					</div>
-					<div id="Urgent" class="tabcontent">
-					  <h4>Message type:</h4>
-					  <div class="quickMsgBox" onclick="openMsgBox(event, 'storm')">
-					  	<h2>Storm</h2>
-					  	<textarea name="Text1" cols="10" rows="5" class="MsgTextbox" id="storm"></textarea>
-					  </div>
-					  <div class="quickMsgBox" onclick="openMsgBox(event, 'traffic')">
-					  	<h2>Traffic</h2>
-					  	<textarea name="Text1" cols="10" rows="5" class="MsgTextbox" id="traffic"></textarea>
-					  </div>
-					  <div class="quickMsgBox" onclick="openMsgBox(event, 'hurricane')">
-					  	<h2>Hurricane</h2>
-					  	<textarea name="Text1" cols="10" rows="5" class="MsgTextbox" id="hurricane"></textarea>
-					  </div>
-					  <div class="quickMsgBox" onclick="openMsgBox(event, 'tsunami')">
-					  	<h2>Tsunami</h2>
-					  	<textarea name="Text1" cols="10" rows="5" class="MsgTextbox" id="tsunami"></textarea>
-					  </div>
-					  <div class="quickMsgBox" onclick="openMsgBox(event, 'earthquake')">
-					  	<h2>Earthquake</h2>
-					  	<textarea name="Text1" cols="10" rows="5" class="MsgTextbox" id="earthquake"></textarea>
-					  </div>
-					</div>
-					<div id="General" class="tabcontent">
-					  <h4>Message:</h4>
-					  <textarea name="generalText" rows="15" id="general"></textarea>
-					</div>
-					<!-- storm traffic hurricane tsunami earthquake -->
-					<!-- <div class="tabContent" id="storm">
-						<p>Prewritten message for storms</p>
-					</div>
-					<div class="tabContent" id="traffic">
-						<p>Prewritten message for traffic</p>
-					</div>
-					<div class="tabContent" id="hurricane">
-						<p>Prewritten message for hurricane</p>
-					</div>
-					<div class="tabContent" id="tsunami">
-						<p>Prewritten message for tsunami</p>
-					</div>
-					<div class="tabContent" id="earthquake">
-						<p>Prewritten message for earthquake</p>
-					</div> -->
-				</div>
+		<div id="sideBar">
+			<div id="login">
+				<img id="logo" src="./images/lanakilaLogo.png">
+				<div id="username">Lanakila</div>
 			</div>
-			<div id="rightPanel" class="cell">
+
+			<div id="optionsGroup">
+				<div onclick="switchWorkspace(this);" class="option broadcast">BROADCAST</div>
+				<div onclick="switchWorkspace(this);" class="option groups">GROUPS</div>
+				<div onclick="switchWorkspace(this);" class="option subscribers">SUBSCRIBERS</div>
+				<div onclick="switchWorkspace(this);" class="option messages">MESSAGES</div>
+				<div onclick="switchWorkspace(this);" class="option quickSend">QUICK SEND</div>
+			</div>
+			
+		</div>
+
+		<div id="workspace">
+			<div class="" id="broadcast"><!--default screen on load-->
+				<div id="msgMakerSpace">
+					<div id="msgMaker">
+						<div id="msgSpace">
+							<span>Message:</span>
+							<div id="msgInput">
+								
+							</div>
+						</div>
+
+						<div id="groupSpace">
+							<span>Group:</span>
+							<div id="groupInput">
+								
+							</div>
+						</div>
+
+						<div id="sendButton">
+							Send
+						</div>
+					</div>
+				</div>
+
 				<div id="recentMsgs">
 					<h3>Recent Messages</h3>
 					<div class="scrolls">
@@ -77,10 +62,51 @@
 						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 					</div>
 				</div>
+
+				<div id="msgOverlay" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+					<div id="closeMsg">&times;</div>
+
+					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget2">Drag ME!</div><!--id's must be different-->
+					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget2">Drag ME!</div>
+					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget2">Drag ME!</div>
+				</div>
+
+				<div id="groupOverlay" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+					<div id="closeGroup">&times;</div>
+					<div id="groupTitle">Groups List</div>
+
+					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag ME!</div><!--use message id-->
+					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag ME!</div>
+					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag ME!</div>
+					
+				</div>
 			</div>
-		</div>
+
+			<div class="hidden" id="groups">
+				
+
+			</div>
+
+			<div class="hidden" id="subscribers">
+				
+
+			</div>
+
+			<div class="hidden" id="messages">
+				
+
+			</div>
+
+			<div class="hidden" id="quickSend"><!--broadcasts preset messages to everyone-->
+				
+
+			</div>
+
+		</div>		
 	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script src="./client/app.js"></script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- <script src="./client/app.js"></script>
 </html>
