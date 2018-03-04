@@ -16,7 +16,7 @@ module.exports.hello = (event, context, callback) => {
 	  Item: {
 	  	'id' : msgID,
 	    'msg_date' : '5',
-	    'msg_text' : 'converted me!',
+	    'msg_text' : 'I am text converted by Polly!',
 	    'msg_link' : 'Processing'
 	  }
 	};

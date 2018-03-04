@@ -18,65 +18,66 @@ module.exports.triggered = (event, context, callback) => {
 	    console.log("Error", err);
 	  } else {
 	    console.log("Success", data.Item);
+	    console.log("Text to be converted: ", data.Item.msg_text);
+
+    	let pollyparams = {
+		    Text: data.Item.msg_text,
+		    OutputFormat: 'mp3',
+		    VoiceId: 'Kimberly'
+			};
+
+			polly.synthesizeSpeech(pollyparams, (err, data) => { // Convert Text
+		    if (err) {
+		      console.log(err.code)
+		    } else if (data) {
+		    	let s3params = {
+		        Bucket: 'audiofileslanakila', 
+		        Body: data.AudioStream, 
+		        Key: msgID + ".mp3",
+		        ACL: "public-read"
+		      };
+
+		      s3.upload(s3params, function(err, data) { // Upload to S3 Bucket
+		        if (err) {
+		          console.log("Error", err.message);
+		        } else {    
+		          console.log("Upload Success", data.Location);
+		          // Update DynamoDB with new link from s3
+							let dynamoDBparams = {
+							  TableName: 'lanakilaPosts',
+							  Key: { 'id' : msgID },
+							  UpdateExpression: 'SET msg_link = :s',
+							  ExpressionAttributeValues: { // prevents SQL injection
+							    ':s' : data.Location
+							  }
+							};
+
+							dynamoDB.update(dynamoDBparams, function(err, data) {
+							  if (err) {
+							    console.log("Error", err);
+							  } else {
+							    console.log("Successfully updated DB", data);
+							  }
+							});
+
+							// Send Notification out with SNS
+							let snsparams = {
+							  Message: "Here is a link to an audio file " + data.Location,
+							  MessageStructure: 'string',
+							  TopicArn: 'insert ARN here'
+							};
+
+							sns.publish(snsparams, function(err, data) {
+							  if (err) {
+							  	console.log("Error", err.stack); 
+							  } else {
+							  	console.log("Success", data);
+							  } 
+							});
+		        }
+		      });
+		    }
+			})    
 	  }
 	});
-
-	let pollyparams = {
-    Text: 'I am text converted by Polly',
-    OutputFormat: 'mp3',
-    VoiceId: 'Kimberly'
-	};
-
-	polly.synthesizeSpeech(pollyparams, (err, data) => { // Convert Text
-    if (err) {
-      console.log(err.code)
-    } else if (data) {
-    	let s3params = {
-        Bucket: 'audiofileslanakila', 
-        Body: data.AudioStream, 
-        Key: msgID + ".mp3",
-        ACL: "public-read"
-      };
-
-      s3.upload(s3params, function(err, data) { // Upload to S3 Bucket
-        if (err) {
-          console.log("Error", err.message);
-        } else {    
-          console.log("Upload Success", data.Location);
-          // Update DynamoDB with new link from s3
-					let dynamoDBparams = {
-					  TableName: 'lanakilaPosts',
-					  Key: { 'id' : msgID },
-					  UpdateExpression: 'SET msg_link = :s',
-					  ExpressionAttributeValues: { // prevents SQL injection
-					    ':s' : data.Location
-					  }
-					};
-
-					dynamoDB.update(dynamoDBparams, function(err, data) {
-					  if (err) {
-					    console.log("Error", err);
-					  } else {
-					    console.log("Successfully updated DB", data);
-					  }
-					});
-
-					// Send Notification out with SNS
-					let snsparams = {
-					  Message: "Here is a link to an audio file" + data.Location,
-					  MessageStructure: 'string',
-					  TopicArn: 'insert ARN here'
-					};
-
-					sns.publish(snsparams, function(err, data) {
-					  if (err) {
-					  	console.log("Error", err.stack); 
-					  } else {
-					  	console.log("Success", data);
-					  } 
-					});
-        }
-      });
-    }
-	})
 }
