@@ -115,6 +115,7 @@ body, html {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
+	position: relative;
 }
 
 #groupSpace {
@@ -136,6 +137,7 @@ body, html {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
+	position: relative;
 }
 
 #sendButton {
@@ -250,6 +252,15 @@ body, html {
 	line-height: 70px;
 }
 
+#msgWarning, #grpWarning {
+	color: red;
+	width: 100%;
+	text-align: center;
+	display: block;
+	position: absolute;
+	top: 45%;
+}
+
 .draggable {
 	background-color: lightgray;
 	width: 90%;
@@ -263,6 +274,11 @@ body, html {
 	box-sizing: border-box;
 }
 
+.expand {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
 
 
 

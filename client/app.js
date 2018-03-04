@@ -21,12 +21,14 @@ $("#optionsGroup").on('click','.option', function(){ //keeps sidebar items white
   $(this).siblings().removeClass('active');
 })
 
+var openOverlay;
 $('#msgInput').on('click', function(){
 	$('#groupInput').removeAttr('ondrop ondragover');
 	$('#msgInput').attr({ondrop:'drop(event, this)', ondragover:'allowDrop(event)'});
 
 	$('#groupOverlay')[0].style.width = "0";
 	$('#msgOverlay')[0].style.width = "400px";
+	openOverlay = 'msg';
 })
 
 $('#groupInput').on('click', function(){
@@ -35,6 +37,7 @@ $('#groupInput').on('click', function(){
 
 	$('#msgOverlay')[0].style.width = "0";
 	$('#groupOverlay')[0].style.width = "400px";
+	openOverlay = 'group';
 })
 
 $('#closeMsg').on('click', function(){
@@ -57,6 +60,29 @@ function drop(event, element) {
 	//element.parentElement.id
   event.preventDefault();
   var data = event.dataTransfer.getData("Text");
+  
+  if(element.id === 'msgInput' || element.id === 'groupInput'){ //expands message on drop
+  	document.getElementById(data).classList.add('expand');
+  }else if(element.id === 'msgOverlay' || element.id === 'groupOverlay'){
+  	document.getElementById(data).classList.remove('expand');
+  }
+  
+  //conditional must go before appending
   element.appendChild(document.getElementById(data));
 }
 
+$('.draggable').mousedown(function(){
+	if(openOverlay === 'msg'){
+	  $('#msgWarning').text("Drop Your Message Here");	
+	}else if(openOverlay == 'group'){
+		$('#grpWarning').text("Drop Your Group Here");
+	}
+})
+
+$('.draggable').mouseup(function(){
+	if(openOverlay === 'msg'){
+	  $('#msgWarning').text("");	
+	}else if(openOverlay == 'group'){
+		$('#grpWarning').text("");
+	}
+})
