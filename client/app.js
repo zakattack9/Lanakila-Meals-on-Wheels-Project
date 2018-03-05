@@ -135,35 +135,61 @@ $('#reloadGrp').click(function(){ //runs refresh button animation
 	}
 })
 
+function addHighlight(currCheck, row) {
+	$(currCheck).addClass('isChecked');
+	row.style.backgroundColor = "#fcd8b6";
+
+	let img = $('<img/>').attr({class:'editBtn', src:'./images/edit.png'});
+	row.getElementsByTagName('td')[1].append(img[0]);
+}
+
+function removeHighlight(currCheck, row) {
+	$(currCheck).removeClass('isChecked');
+  row.style.backgroundColor = "white";
+
+  //console.log(row.getElementsByTagName('td')[1].lastChild);
+  row.getElementsByTagName('td')[1].lastElementChild.remove(); //removes edit button
+}
+
+var editingGrp = false;
 $('#grpTable tr td').click(function(){ //highlights whole row
 	let row = this.parentElement;
 	let currCheck = this.parentElement.firstElementChild.firstElementChild.lastElementChild;
-	var editingGrp = false;
-	if($(currCheck).hasClass('isChecked')){
-		if(event.target.className === 'editBtn'){ //checks if clicking on edit button
+
+	let iterate = 0;
+	if(event.target.tagName === 'SPAN' || event.target.tagName === 'INPUT'){
+		iterate++;
+		$(currCheck).hasClass('isChecked') === false && iterate === 1 ? removeHighlight(currCheck, row) : addHighlight(currCheck, row);
+	}else if($(currCheck).hasClass('isChecked')){
+		console.log('real first')
+		if(event.target.className === 'editBtn' || event.target.className === 'tempInp' || event.target.className === 'saveBtn'){ //checks if clicking on edit button
+			editingGrp = true;
 			let ogGrpName = event.target.parentElement.firstChild.nodeValue;
 
-			editingGrp = true;
-			if(editingGrp){
+			if(event.target.className === 'editBtn'){ //removes current group name and replaces it with input field
 				event.target.parentElement.firstChild.remove();
-				let input = $('<input>').attr({type:'text', value: ogGrpName, class:'tempInp'})
-				event.target.parentElement.prepend(input[0])
-				
+				let input = $('<input>').attr({type:'text', value: ogGrpName, class:'tempInp'});
+				event.target.parentElement.prepend(input[0]);
+
+				let toSave = row.getElementsByTagName('td')[1].lastElementChild;
+				$(toSave).attr({class:'saveBtn', src:'./images/save.png'}); //show save button
+			}else if(event.target.className === 'saveBtn'){
+				let newGrpName = event.target.parentElement.firstChild.value
+				event.target.parentElement.firstChild.remove();
+				event.target.parentElement.prepend(newGrpName);
+				row.getElementsByTagName('td')[1].lastElementChild.remove(); //remove save button
+
+				editingGrp = false;
+				removeHighlight(currCheck, row);
 			}
-
-			console.log(event.target.parentElement.firstChild.el)
-		}else if(editingGrp === false){
-  		$(currCheck).removeClass('isChecked');
-  		row.style.backgroundColor = "white";
-
-	  	row.getElementsByTagName('td')[1].lastElementChild.remove();
+		}else if(editingGrp === false){ //if not editing, remove edit button and unhighlight
+			removeHighlight(currCheck, row);
 		}
+  }else if(editingGrp === false){ //adds edit button and highlights
+  	console.log('first')
+  	addHighlight(currCheck, row);
   }else{
-  	$(currCheck).addClass('isChecked');
-		row.style.backgroundColor = "#fcd8b6";
-
-  	let img = $('<img/>').attr({class:'editBtn', src:'./images/edit.png'}) //create edit images
-  	row.getElementsByTagName('td')[1].append(img[0])
+  	alert("Save Group Name First");
   }
 })
 

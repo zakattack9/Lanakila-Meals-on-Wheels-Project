@@ -449,7 +449,7 @@ body, html {
 	position: relative;
 }
 
-.editBtn {
+.editBtn, .saveBtn {
 	height: 25px;
 	position: absolute;
 	right: 6px;
@@ -462,6 +462,7 @@ body, html {
 	position: absolute;
 	left: 12px;
 	bottom: 10px;
+	outline: none;
 }
 
 
