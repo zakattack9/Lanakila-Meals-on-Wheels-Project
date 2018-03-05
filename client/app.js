@@ -113,14 +113,59 @@ $('.customBox span').click(function(){ //checks off boxes
 $('#checkAll span').click(function(){ //checks all boxes on/off
 	if($(this).hasClass('isChecked')){
 		$(this).removeClass('isChecked');
-		$('.customBox span').map((currVal, index) => {$(index).removeClass('isChecked')});
+		$('.customBox span').map((currVal, index) => {
+			$(index).removeClass('isChecked');
+			index.parentElement.parentElement.parentElement.style.backgroundColor = "white";
+		});
 	}else{
 		$(this).addClass('isChecked');
-		$('.customBox span').map((currVal, index) => {$(index).addClass('isChecked')});
+		$('.customBox span').map((currVal, index) => {
+			$(index).addClass('isChecked');
+			index.parentElement.parentElement.parentElement.style.backgroundColor = "#fcd8b6";
+		});
 	}
 })
 
+$('#reloadGrp').click(function(){ //runs refresh button animation
+	if($('#reloadGrp img')[0].style.animationName == "reload"){
+		$('#reloadGrp img')[0].style.animationName = "resetReload";
+	}else{
+		$('#reloadGrp img')[0].style.animationName = "reload"
+		$('#reloadGrp img')[0].style.animationPlayState = "running";
+	}
+})
 
+$('#grpTable tr td').click(function(){ //highlights whole row
+	let row = this.parentElement;
+	let currCheck = this.parentElement.firstElementChild.firstElementChild.lastElementChild;
+	var editingGrp = false;
+	if($(currCheck).hasClass('isChecked')){
+		if(event.target.className === 'editBtn'){ //checks if clicking on edit button
+			let ogGrpName = event.target.parentElement.firstChild.nodeValue;
+
+			editingGrp = true;
+			if(editingGrp){
+				event.target.parentElement.firstChild.remove();
+				let input = $('<input>').attr({type:'text', value: ogGrpName, class:'tempInp'})
+				event.target.parentElement.prepend(input[0])
+				
+			}
+
+			console.log(event.target.parentElement.firstChild.el)
+		}else if(editingGrp === false){
+  		$(currCheck).removeClass('isChecked');
+  		row.style.backgroundColor = "white";
+
+	  	row.getElementsByTagName('td')[1].lastElementChild.remove();
+		}
+  }else{
+  	$(currCheck).addClass('isChecked');
+		row.style.backgroundColor = "#fcd8b6";
+
+  	let img = $('<img/>').attr({class:'editBtn', src:'./images/edit.png'}) //create edit images
+  	row.getElementsByTagName('td')[1].append(img[0])
+  }
+})
 
 
 

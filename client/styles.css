@@ -306,6 +306,52 @@ body, html {
 	line-height: 60px;
 }
 
+#trashGrp {
+	position: absolute;
+	top: 15px;
+	margin-left: 15px;
+}
+
+#trashGrp img{
+	width: 30px;
+	border-radius: 50%;
+}
+
+#addGrp {
+	position: absolute;
+	top: 15px;
+	right: 0;
+	margin-right: 15px;
+}
+
+#addGrp img{
+	width: 30px;
+	border-radius: 50%;
+}
+
+#reloadGrp {
+	position: absolute;
+	top: 14px;
+	margin-left: 50px;
+}
+
+#reloadGrp img{
+	width: 32px;
+	border-radius: 50%;
+	animation: reload 0.3s ease-in-out forwards paused;
+}
+
+#searchGrp {
+	position: absolute;
+	top: 14px;
+	margin-left: 85px;
+}
+
+#searchGrp img{
+	width: 32px;
+	animation: reload 0.3s ease-in-out forwards paused;
+}
+
 #grpTable {
 	width: 100%;
 	border-collapse: collapse;
@@ -399,6 +445,24 @@ body, html {
 	padding-left: 1em;
 }
 
+#grpTable tr td {
+	position: relative;
+}
+
+.editBtn {
+	height: 25px;
+	position: absolute;
+	right: 6px;
+	bottom: 12px;
+}
+
+.tempInp {
+	height: 25px;
+	font-size: 15px;
+	position: absolute;
+	left: 12px;
+	bottom: 10px;
+}
 
 
 
