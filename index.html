@@ -7,6 +7,7 @@
  <link rel="stylesheet" type="text/css" href="./client/styles.css">
  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
  <link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 </head>
 <body>
 
@@ -28,6 +29,8 @@
 		</div>
 
 		<div id="workspace">
+
+			<!--BROADCAST-->
 			<div class="" id="broadcast"><!--default screen on load-->
 				<div id="msgMakerSpace">
 					<div id="msgMaker">
@@ -81,26 +84,117 @@
 					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag ME!</div><!--use message id-->
 					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag ME!</div>
 					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag ME!</div>
-					
 				</div>
+
 			</div>
 
+
+			<!--GROUPS-->
 			<div class="hidden" id="groups">
-				
+				<div id="grpTopBar">
+					<div id="topTitle">Manage Groups</div>
+
+				</div>
+
+				<table id="grpTable">
+				  <tr>
+				  	<th>
+				  		<label id="checkAll">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</th>
+				    <th>Group Name</th>
+				    <th>Number of Members</th>
+				    <th>Date Created</th>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Everyone</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Elderlies</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Deliverers</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Officers</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Text Capable</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Email Capable</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				</table>
 
 			</div>
 
+
+			<!--SUBSCRIBERS-->
 			<div class="hidden" id="subscribers">
 				
 
 			</div>
 
+
+			<!--MESSAGES-->
 			<div class="hidden" id="messages">
 				
 
 			</div>
 
-			<div class="hidden" id="quickSend"><!--broadcasts preset messages to everyone-->
+
+			<!--QUICK SEND-->
+			<div class="hidden" id="quickSend"><!--broadcasts preset messages to EVERYONE-->
 				
 
 			</div>

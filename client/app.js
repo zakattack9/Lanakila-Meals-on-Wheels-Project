@@ -1,5 +1,3 @@
-//const dragula = require('dragula');
-
 $(document).ready(function() {
 	document.getElementById('broadcast').classList.add("visisble"); //if not in .ready, you will not be able to rmeove the class "visible" from this element
 	$('.broadcast').addClass('active');
@@ -21,8 +19,9 @@ $("#optionsGroup").on('click','.option', function(){ //keeps sidebar items white
   $(this).siblings().removeClass('active');
 })
 
+//BROADCAST JS START
 var openOverlay;
-$('#msgInput').on('click', function(){
+$('#msgInput').on('click', function(){ //opens overlay for messages
 	$('#groupInput').removeAttr('ondrop ondragover');
 	$('#msgInput').attr({ondrop:'drop(event, this)', ondragover:'allowDrop(event)'});
 
@@ -31,7 +30,7 @@ $('#msgInput').on('click', function(){
 	openOverlay = 'msg';
 })
 
-$('#groupInput').on('click', function(){
+$('#groupInput').on('click', function(){ //opens overlay for groups
 	$('#msgInput').removeAttr('ondrop ondragover');
 	$('#groupInput').attr({ondrop:'drop(event, this)', ondragover:'allowDrop(event)'});
 
@@ -40,11 +39,16 @@ $('#groupInput').on('click', function(){
 	openOverlay = 'group';
 })
 
-$('#closeMsg').on('click', function(){
+$('#closeMsg').on('click', function(){ //closes message overlay
 	$('#msgOverlay')[0].style.width = "0";
 })
 
-$('#closeGroup').on('click', function(){
+$('#closeGroup').on('click', function(){ //closes group overlay
+	$('#groupOverlay')[0].style.width = "0";
+})
+
+$('.option').on('click', function(){ //closes open overlay when switching workspace
+	$('#msgOverlay')[0].style.width = "0";
 	$('#groupOverlay')[0].style.width = "0";
 })
 
@@ -71,7 +75,7 @@ function drop(event, element) {
   element.appendChild(document.getElementById(data));
 }
 
-$('.draggable').mousedown(function(){
+$('.draggable').mousedown(function(){ //shows message in message input on hold
 	if(openOverlay === 'msg'){
 	  $('#msgWarning').text("Drop Your Message Here");	
 	}else if(openOverlay == 'group'){
@@ -79,10 +83,48 @@ $('.draggable').mousedown(function(){
 	}
 })
 
-$('.draggable').mouseup(function(){
+$('.draggable').mouseup(function(){ //shows message in group input on hold
 	if(openOverlay === 'msg'){
 	  $('#msgWarning').text("");	
 	}else if(openOverlay == 'group'){
 		$('#grpWarning').text("");
 	}
 })
+
+$('.draggable').mouseover(function(){ //shows message in group input on hold
+	if(openOverlay === 'msg'){
+	  $('#msgWarning').text("");	
+	}else if(openOverlay == 'group'){
+		$('#grpWarning').text("");
+	}
+})
+//BROADCAST JS END
+
+
+//GROUPS JS START
+$('.customBox span').click(function(){ //checks off boxes
+  if($(this).hasClass('isChecked')){
+  	$(this).removeClass('isChecked');
+  }else{
+  	$(this).addClass('isChecked');
+  }
+});
+
+$('#checkAll span').click(function(){ //checks all boxes on/off
+	if($(this).hasClass('isChecked')){
+		$(this).removeClass('isChecked');
+		$('.customBox span').map((currVal, index) => {$(index).removeClass('isChecked')});
+	}else{
+		$(this).addClass('isChecked');
+		$('.customBox span').map((currVal, index) => {$(index).addClass('isChecked')});
+	}
+})
+
+
+
+
+
+
+
+
+//GROUPS JS END
