@@ -1,0 +1,685 @@
+/* 
+COLORS:
+GREEN — #13896D
+ORANGE — #F58F31
+
+FONTS: (Narrow Down Later)
+font-family: 'Lato', sans-serif;
+font-family: 'Noto Sans', sans-serif;
+font-family: 'Roboto Slab', serif;
+*/
+
+html, body {
+  height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	font-family: 'Lato', sans-serif;
+	overflow: hidden;
+}
+
+
+#container {
+	height: 100%;
+}
+
+#sideBar {
+	font-family: 'Roboto Slab', serif;
+	height: 100%;
+	width: 220px;
+	background-color: #13896D;
+	float: left;
+}
+
+#workspace {
+	height: 100%;
+	overflow: auto;
+	background-color: white;
+	overflow-y: hidden;
+}
+
+#login {
+	height: 100px;
+}
+
+#logo {
+	width: 50px;
+	float: left;
+	margin: 7px;
+}
+
+#username {
+	font-size: 35px;
+	overflow: auto;
+	line-height: 65px;
+}
+
+#optionsGroup {
+	width: 100%;
+	display: block;
+}
+
+.option {
+	height: 50px;
+	line-height: 50px;
+	padding-left: 30px;
+}
+
+.option:hover {
+	background-color: white;
+	transition: 0.2s;
+}
+
+.option:focus {
+	background-color: white;
+}
+
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
+}
+
+.active { /*keeps menu options active*/
+	background-color: white;
+}
+
+/* Styles for broadcast workspace */
+#broadcast {
+	height: 100%;
+	width: 100%;
+}
+
+#msgMakerSpace {
+	height: 100%;
+	width: 650px;
+	float: left;
+}
+
+#msgMaker {
+	height: 90%;
+	width: 550px;
+	border-radius: 4%;
+	background-color: #F58F31;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5vh;
+}
+
+#msgSpace {
+	height: 45vh;
+	padding-top: 20px;
+}
+
+#msgSpace span {
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 30px;
+}
+
+#msgInput {
+	width: 90%;
+	height: 85%;
+	background-color: white;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	position: relative;
+}
+
+#groupSpace {
+	height: 33vh;
+	padding-top: 10px;
+}
+
+#groupSpace span {
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 30px;
+}
+
+#groupInput {
+	width: 90%;
+	height: 70%;
+	background-color: white;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	position: relative;
+}
+
+#sendButton {
+	background-color: #13896D;
+	height: 30px;
+	width: 70px;
+	text-align: center;
+	line-height: 30px;
+	float: right;
+	border-radius: 10px;
+	margin-right: 30px;
+}
+
+#recentMsgs {
+	height: 100%;
+	overflow-y: scroll;
+	overflow: auto;
+	border-left: 3px darkgray solid;
+}
+
+#recentTitle {
+	font-size: 25px;
+	text-align: center;
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+}
+
+.scrolls {
+	height: 100%;
+}
+
+.recentText {
+	background-color: lightgray;
+	width: 90%;
+	border-radius: 10px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+#msgOverlay {
+	z-index: 1;
+  position: fixed;
+  top: 0;
+	right: 0;
+  height: 100%;
+  width: 0;
+  background-color: lightyellow;
+  overflow-x: hidden;
+  transition: 0.3s;
+}
+
+#msgOverlayWrap {
+	height: 100%;
+}
+
+#newMsg {
+	display: block;
+  width: 30px;
+  font-size: 30px;
+  position: absolute;
+	top: 5px;
+	right: 20px;
+  cursor: default;
+}
+
+#newMsg:hover {
+	transform: scale(1.1, 1.1);
+	transition: 0.3s;
+}
+
+#groupOverlay {
+	z-index: 1;
+  position: fixed;
+  top: 0;
+	right: 0;
+  height: 100%;
+  width: 0;
+  background-color: lightblue;
+  overflow-x: hidden;
+  transition: 0.3s;
+}
+
+#groupOverlayWrap {
+	height: 100%;
+}
+
+#closeMsg, #closeGroup{
+	display: block;
+  transform: rotate(0deg);
+  width: 30px;
+  font-size: 30px;
+  position: absolute;
+	top: 5px;
+	left: 20px;
+  cursor: default;
+  transition: 0.3s;
+}
+
+#closeMsg:hover, #closeGroup:hover {
+  transform: rotate(-8deg) scale(.99, .99);
+  transition: 0.3s;
+}
+
+#groupTitle, #msgTitle {
+	font-size: 25px;
+	text-align: center;
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+}
+
+#msgWarning, #grpWarning {
+	color: red;
+	width: 100%;
+	text-align: center;
+	display: block;
+	position: absolute;
+	top: 45%;
+	z-index: 0;
+}
+
+.draggable {
+	background-color: lightgray;
+	width: 90%;
+	height: 100px;
+	border-radius: 10px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	padding: 20px;
+	box-sizing: border-box;
+	transition: 0.1s;
+}
+
+.draggable:hover {
+	transform: scale(1.02, 1.02);
+	transition: 0.2s;
+}
+
+.expand {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	z-index: 1;
+}
+
+
+/* Styles for groups workspace */
+#grpTopBar {
+	height: 65px;
+	background-color: #F58F31;
+}
+
+#topTitle {
+	font-family: 'Roboto Slab', serif;
+	font-size: 25px;
+	text-align: center;
+	line-height: 65px;
+}
+
+#trashGrp {
+	position: absolute;
+	top: 15px;
+	margin-left: 15px;
+}
+
+#trashGrp img{
+	width: 30px;
+	border-radius: 50%;
+}
+
+#addGrp {
+	position: absolute;
+	top: 15px;
+	right: 0;
+	margin-right: 15px;
+}
+
+#addGrp img{
+	width: 30px;
+	border-radius: 50%;
+}
+
+#reloadGrp {
+	position: absolute;
+	top: 14px;
+	margin-left: 50px;
+}
+
+#reloadGrp img{
+	width: 32px;
+	border-radius: 50%;
+	animation: reload 0.3s ease-in-out forwards paused;
+}
+
+#searchGrp {
+	position: absolute;
+	top: 14px;
+	margin-left: 85px;
+}
+
+#searchGrp img{
+	width: 32px;
+	animation: reload 0.3s ease-in-out forwards paused;
+}
+
+#grpTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#grpTable tr th {
+	background-color: #EAEAEA;
+	height: 55px;
+}
+
+#grpTable tr {
+	text-align: left;
+	height: 50px;
+}
+
+#grpTable th {
+  border-left: darkgray 2px solid;
+  border-right: darkgray 2px solid;
+  border-bottom: darkgray 2px solid;
+}
+
+#grpTable td {
+	border-left: none;
+	border-right: none;
+	border-bottom: darkgray 2px solid;
+}
+
+#checkAll {
+  position: relative;
+  top: 19px;
+  left: 17px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.customBox {
+  position: relative;
+  top: 15px;
+  left: 17px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.customBox input, #checkAll input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: inset 0 0 3px darkgray;
+}
+
+/* .customBox input:checked ~ .checkmark, #checkAll input:checked ~ .checkmark  {
+  background-color: #F58F31;
+  box-shadow: none;
+} */
+.isChecked {
+	background-color: #F58F31;
+}
+
+#grpTable td:first-child, #grpTable th:first-child {
+  border-left: none;
+  text-align: center;
+  box-sizing: border-box;
+  width: 55px;
+}
+
+#grpTable td:last-child. #grpTable th:last-child {
+  border-right: none;
+}
+
+#grpTable tr th:not(:first-child) {
+	padding-left: 1em;
+}
+
+#grpTable tr td:not(:first-child) {
+	padding-left: 1em;
+}
+
+#grpTable tr td {
+	position: relative;
+}
+
+.editBtn, .saveBtn {
+	height: 25px;
+	position: absolute;
+	right: 6px;
+	bottom: 12px;
+}
+
+.tempInp {
+	height: 25px;
+	font-size: 15px;
+	position: absolute;
+	left: 12px;
+	bottom: 10px;
+	outline: none;
+}
+
+
+/* Styles for subscription workspace */
+#subscribers {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+#subsTopBar {
+	width: 100%;
+	height: 65px;
+	background-color: #F58F31;
+}
+
+#subsTitle {
+	font-family: 'Roboto Slab', serif;
+	font-size: 25px;
+	text-align: center;
+	line-height: 65px;
+	position: absolute;
+	margin-left: 40px;
+}
+
+#subsTab, #grpTab {
+	z-index: 0;
+	width: 200px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	background-color: #fcd8b6;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	display: inline-block;
+	float: right;
+	margin-top: 25px;
+	margin-right: -10px;
+}
+
+#grpTab {
+	margin-right: 10px;
+}
+
+/* Subscriptions Table */
+#subsTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#subsTable tr th {
+	background-color: #EAEAEA;
+	height: 55px;
+}
+
+#subsTable tr {
+	text-align: left;
+	height: 50px;
+}
+
+#subsTable th {
+  border-left: darkgray 2px solid;
+  border-right: darkgray 2px solid;
+  border-bottom: darkgray 2px solid;
+}
+
+#subsTable td {
+	border-left: none;
+	border-right: none;
+	border-bottom: darkgray 2px solid;
+}
+
+#subsTable td:first-child, #subsTable th:first-child {
+  border-left: none;
+  text-align: center;
+  box-sizing: border-box;
+  width: 55px;
+}
+
+#subsTable td:last-child. #subsTable th:last-child {
+  border-right: none;
+}
+
+#subsTable tr th:not(:first-child) {
+	padding-left: 1em;
+}
+
+#subsTable tr td:not(:first-child) {
+	padding-left: 1em;
+}
+
+#subsTable tr td {
+	position: relative;
+}
+
+::-webkit-scrollbar { /*scroll bar styling */
+	height: 80px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #bfbfbf;
+	-webkit-box-shadow: inset 0 0 3px  #a6a6a6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #88CCF1; 
+}
+
+#openGrp {
+	height: 100%;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap; /*needs this to scroll horizontally*/
+	box-sizing: border-box;
+	padding-bottom: 8%;
+}
+
+.colGroup {
+	min-height: 100px;
+	height: 108%;
+	width: 300px;
+	display: inline-block;
+	vertical-align: top; /*needs this property so child elements stay aligned to top */
+	white-space: normal;
+	background-color: lightgray;
+	margin-right: 20px;
+	margin-top: 20px;
+	border-radius: 15px;
+	border-top-left-radius: 0;
+	border-bottom-right-radius: 0;
+	overflow-y: hidden;
+}
+
+.colGroup:first-child {
+	margin-left: 20px;
+}
+
+.colTitle {
+	line-height: 40px;
+	padding-left: 25px
+}
+
+.subWrap {
+	overflow-y: scroll;
+	height: 108%;
+	box-sizing: border-box;
+	padding-bottom: 30%;
+}
+
+.singleSub {
+	background-color: lightyellow;
+	box-shadow: 0px 5px 20px darkgray;
+	width: 255px;
+	height: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 15px;
+	border-radius: 5px;
+}
+
+#tempSide {
+	width: 0px;
+	height: 100px;
+	background-color: #F58F31;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	transition: 0.4s;
+	z-index: 1;
+}
+
+#tempTitle {
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	overflow: hidden;
+}
+
+#tempInp {
+	width: 86%;
+	height: 60px;
+	background-color: white;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#cloneBtn {
+	width: 0;
+	height: 25px;
+	background-color: white;
+	position: fixed;
+	bottom: 75px;
+	left: 20px;
+	text-align: center;
+	overflow: hidden;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	z-index: 0;
+	transition: 0.5s;
+}
+
+
+
+
+
+
+
+

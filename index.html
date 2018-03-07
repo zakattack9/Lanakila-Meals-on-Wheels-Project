@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Subscribers</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="./images/lanakilaLogo.png"> <!-- For tab icon -->
+	<link rel="stylesheet" type="text/css" href="./client/animations.css">
+	<link rel="stylesheet" type="text/css" href="./client/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+</head>
+<body>
+
+	<div id="container">
+		<div id="sideBar">
+			<div id="login">
+				<img id="logo" src="./images/lanakilaLogo.png">
+				<div id="username">Lanakila</div>
+			</div>
+
+			<div id="optionsGroup">
+				<div onclick="switchWorkspace(this);" class="option broadcast">BROADCAST</div>
+				<div onclick="switchWorkspace(this);" class="option groups">GROUPS</div>
+				<div onclick="switchWorkspace(this);" class="option subscribers">SUBSCRIBERS</div>
+				<div onclick="switchWorkspace(this);" class="option messages">MESSAGES</div>
+				<div onclick="switchWorkspace(this);" class="option quickSend">QUICK SEND</div>
+			</div>
+			
+		</div>
+
+		<div id="workspace">
+
+			<!--BROADCAST-->
+			<div class="" id="broadcast"><!--default screen on load-->
+				<div id="msgMakerSpace">
+					<div id="msgMaker">
+						
+						<div id="msgSpace">
+							<span>Message:</span>
+							<div id="msgInput">
+								<div id="msgWarning"></div>
+							</div>
+						</div>
+
+						<div id="groupSpace">
+							<span>Group:</span>
+							<div id="groupInput">
+								<div id="grpWarning"></div>
+							</div>
+						</div>
+
+						<div id="sendButton">
+							Send
+						</div>
+					</div>
+				</div>
+
+				<div id="recentMsgs">
+					<div id="recentTitle">Recent Messages</div>
+					<div class="scrolls">
+						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+						<div class="recentText">niam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+					</div>
+				</div>
+
+				<div id="msgOverlay">
+					<div id="closeMsg">&times;</div>
+					<div id="newMsg">+</div>
+					<div id="msgTitle">Message List</div>
+
+					<div id="msgOverlayWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme1">Drag ME1!</div><!--set id's to DB id created with lambda-->
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme2">Drag ME2!</div>
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme3">Drag ME3!</div>
+					</div>
+				</div>
+
+				<div id="groupOverlay">
+					<div id="closeGroup">&times;</div>
+					<div id="groupTitle">Groups List</div>
+
+					<div id="groupOverlayWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragem4">Drag ME4!</div><!--use message id-->
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme5">Drag ME5!</div>
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme6">Drag ME6!</div>
+					</div>
+				</div>
+
+			</div>
+
+
+			<!--GROUPS-->
+			<div class="hidden" id="groups">
+				<div id="grpTopBar">
+					<div id="topTitle">Manage Groups</div>
+
+					<div id="trashGrp">
+						<img src="./images/trashBin.png">
+					</div>
+
+					<div id="addGrp">
+						<img src="./images/addBtn.png">
+					</div>
+
+					<div id="reloadGrp">
+						<img src="./images/reload.png">
+					</div>
+
+					<div id="searchGrp">
+						<img src="./images/search.png">
+					</div>
+				</div>
+
+				<table id="grpTable">
+				  <tr>
+				  	<th>
+				  		<label id="checkAll">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</th>
+				    <th>Group Name</th>
+				    <th>Number of Members</th>
+				    <th>Date Created</th>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Everyone</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Elderlies</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Deliverers</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Officers</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Text Capable</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				  <tr>
+				  	<td>
+				  		<label class="customBox">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+				  	</td>
+				    <td>Email Capable</td>
+				    <td>1000</td>
+				    <td>March 4, 2018</td>
+				  </tr>
+				</table>
+
+			</div>
+
+
+			<!--SUBSCRIBERS-->
+			<div class="hidden" id="subscribers">
+				<div id="subsTopBar">
+					<div id="subsTitle">Manage Subscriptions</div>
+
+					<div id="grpTab">
+						Groups
+					</div>
+
+					<div id="subsTab">
+						All Subscriptions
+					</div>
+				</div>
+
+				<div id="openSub">
+					<table id="subsTable">
+					  <tr>
+					  	<th>
+					  		<label id="checkAll">
+								  <input type="checkbox">
+								  <span class="checkmark"></span>
+								</label>
+					  	</th>
+					    <th>Name</th>
+					    <th>Medium</th>
+					    <th>Contact</th>
+					  </tr>
+					  <tr>
+					  	<td>
+					  		<label class="customBox">
+								  <input type="checkbox">
+								  <span class="checkmark"></span>
+								</label>
+					  	</td>
+					    <td>Zak S</td>
+					    <td>Email</td>
+					    <td>zak@gmail.com</td>
+					  </tr>
+					  <tr>
+					  	<td>
+					  		<label class="customBox">
+								  <input type="checkbox">
+								  <span class="checkmark"></span>
+								</label>
+					  	</td>
+					    <td>Ian A</td>
+					    <td>SMS</td>
+					    <td>1808422222</td>
+					  </tr>
+					  <tr>
+					  	<td>
+					  		<label class="customBox">
+								  <input type="checkbox">
+								  <span class="checkmark"></span>
+								</label>
+					  	</td>
+					    <td>Angela G</td>
+					    <td>SMS</td>
+					    <td>18081234567</td>
+					  </tr>
+					  <tr>
+					  	<td>
+					  		<label class="customBox">
+								  <input type="checkbox">
+								  <span class="checkmark"></span>
+								</label>
+					  	</td>
+					    <td>Dr. Dre</td>
+					    <td>SMS</td>
+					    <td>11111111111</td>
+					  </tr>
+					  <tr>
+					  	<td>
+					  		<label class="customBox">
+								  <input type="checkbox">
+								  <span class="checkmark"></span>
+								</label>
+					  	</td>
+					    <td>Tyler N.</td>
+					    <td>SMS</td>
+					    <td>14309780986</td>
+					  </tr>
+					  <tr>
+					  	<td>
+					  		<label class="customBox">
+								  <input type="checkbox">
+								  <span class="checkmark"></span>
+								</label>
+					  	</td>
+					    <td>Jay H.</td>
+					    <td>Email</td>
+					    <td>15679042345</td>
+					  </tr>
+					</table>
+				</div>
+
+				<div id="tempSide"> <!--side div that pops out to temp store card-->
+					<div id="tempTitle">Temporary Holder</div>
+					<div id="tempInp" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+						
+					</div>
+				</div>
+
+				<div id="cloneBtn">
+					Clone
+				</div>
+
+				<div id="openGrp">
+					<div class="colGroup">
+						<div class="colTitle">
+							Unsorted Subscribers (Newly Added)
+						</div>
+
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget22">
+								I'm New	
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget23">
+								Just Added
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget24">
+								Sort Me
+							</div>
+						</div>
+
+					</div>
+
+					<div class="colGroup">
+						<div class="colTitle">
+							Everyone
+						</div>
+
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget3">
+								Zak Sakata	
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget4">
+								Angela Geronimo
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget5">
+								Ian Acosta
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget6">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget7">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget8">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget9">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget10">
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="colGroup">
+						<div class="colTitle">
+							Elderlies
+						</div>
+
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget11">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget12">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget13">
+								
+							</div>
+
+						</div>
+					</div>
+
+					<div class="colGroup">
+						<div class="colTitle">
+							Deliverers
+						</div>
+
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget14">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget15">
+								
+							</div>
+
+						</div>
+					</div>
+
+					<div class="colGroup">
+						<div class="colTitle">
+							Officers
+						</div>
+
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget16">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget17">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget18">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget19">
+								
+							</div>
+
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget20">
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="colGroup">
+						<div class="colTitle">
+							Text Capable
+						</div>
+						
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget21">
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="colGroup">
+						<div class="colTitle">
+							
+						</div>
+						
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+							
+						</div>
+					</div>
+					
+				</div>
+
+
+			</div>
+
+
+			<!--MESSAGES-->
+			<div class="hidden" id="messages">
+				
+
+			</div>
+
+
+			<!--QUICK SEND-->
+			<div class="hidden" id="quickSend"><!--broadcasts preset messages to EVERYONE-->
+				
+
+			</div>
+
+		</div>		
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script src="./node_modules/dragscroll/dragscroll.js"></script>
+	<script src="./client/app.js"></script>
+</body>
+</html>
