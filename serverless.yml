@@ -23,7 +23,7 @@ provider:
 
 # you can overwrite defaults here
 #  stage: dev
-#  region: us-east-1
+  region: us-west-2
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -63,19 +63,38 @@ functions:
     handler: lambdas/listTopics.listTopics
     events:
       - http:
+          path: listTopics
           method: get
-          path: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
   createTopic:
     handler: lambdas/createTopic.createTopic
     events:
       - http:
+          path: createTopic
           method: post
-          path: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
     request:
-        passThrough: WHEN_NO_TEMPLATES
-        template:
-          application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
+      passThrough: WHEN_NO_TEMPLATES
+      template:
+        application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

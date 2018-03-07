@@ -10,6 +10,10 @@ module.exports.listTopics = (event, context, callback) => {
 		if (err){ 
 			const response = {
 				statusCode: 200,
+				headers: {
+			      "Access-Control-Allow-Origin":  "*",
+			      "Access-Control-Allow-Credentials": true
+			    },
 				body: {
 					message: (err, err.stack),
 					input: event,
@@ -20,6 +24,10 @@ module.exports.listTopics = (event, context, callback) => {
 		else{
 			const response = {
 				statusCode: 200,
+				headers: {
+			      "Access-Control-Allow-Origin":  "*",
+			      "Access-Control-Allow-Credentials": true
+			    },
 				body: {
 					message: data.Topics,
 					input: event,
