@@ -77,15 +77,33 @@ function drop(event, element) {
 	  }
 	}else if($('.subscribers')[0].classList[2] === 'active'){
 		if(element.id === 'tempInp'){ //expands message on drop
-	  	document.getElementById(data).style.width = "190px";
+	  	document.getElementById(data).style.width = "190px"; //sets card to width of temp input
 	  	document.getElementById(data).style.height = "60px";
+
+	  	$('#cloneBtn')[0].style.width = "180px";
+	  	setTimeout(function(){
+				$('#cloneBtn')[0].style.bottom = "100px";
+	  	}, 400);
 	  }else{
-	  	document.getElementById(data).style.width = "255px";
+	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
 	  	document.getElementById(data).style.height = "100px";
 
-	  	setTimeout(function(){
-	  		$('#tempSide')[0].style.width = "0px";
-	  	}, 2500)
+	  	setTimeout(function(){ //withdraws temp input
+	  		if($('#tempInp').children().length > 0){ //checks if somethings is still in temp input
+	  			$('#tempSide')[0].style.width = "220px";
+	  		}else{
+					$('#cloneBtn')[0].style.bottom = "75px";
+	  			$('#tempSide').delay(5000).queue(function (next) { 
+	    			$(this).css('width', '0'); 
+	    			next(); 
+	  			});
+
+	  			$('#cloneBtn').delay(4000).queue(function (next) { 
+	    			$(this).css('width', '0'); 
+	    			next(); 
+	  			});
+	  		}	
+	  	}, 400);
 	  }
 	}
 
@@ -95,9 +113,9 @@ function drop(event, element) {
 
 $('.draggable').mousedown(function(){ //shows message in message input on hold
 	if(openOverlay === 'msg'){
-	  $('#msgWarning').text("Drop Your Message Here");	
+	  $('#msgWarning').text("Drag Your Message Here");	
 	}else if(openOverlay == 'group'){
-		$('#grpWarning').text("Drop Your Group Here");
+		$('#grpWarning').text("Drag Your Group Here");
 	}
 })
 

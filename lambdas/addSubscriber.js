@@ -4,7 +4,7 @@ var sns = new AWS.SNS();
 
 var params = {
   Protocol: 'sms',
-  TopicArn: 'arn:aws:sns:us-west-2:116598778905:phone_numbers', 
+  TopicArn: 'Topic Arn goes here', 
   Endpoint: '+18085417092'
 };
 sns.subscribe(params, function(err, data) {
