@@ -69,14 +69,28 @@ function drop(event, element) {
   event.preventDefault();
   var data = event.dataTransfer.getData("Text");
   
-  if(element.id === 'msgInput' || element.id === 'groupInput'){ //expands message on drop
-  	document.getElementById(data).classList.add('expand');
-  }else if(element.id === 'msgOverlay' || element.id === 'groupOverlay'){
-  	document.getElementById(data).classList.remove('expand');
-  }
-  
+  if($('.broadcast')[0].classList[2] === 'active'){ //only expands message if the broadcast tab is open
+	  if(element.id === 'msgInput' || element.id === 'groupInput'){ //expands message on drop
+	  	document.getElementById(data).classList.add('expand');
+	  }else if(element.id === 'msgOverlayWrap' || element.id === 'groupOverlayWrap'){
+	  	document.getElementById(data).classList.remove('expand');
+	  }
+	}else if($('.subscribers')[0].classList[2] === 'active'){
+		if(element.id === 'tempInp'){ //expands message on drop
+	  	document.getElementById(data).style.width = "190px";
+	  	document.getElementById(data).style.height = "60px";
+	  }else{
+	  	document.getElementById(data).style.width = "255px";
+	  	document.getElementById(data).style.height = "100px";
+
+	  	setTimeout(function(){
+	  		$('#tempSide')[0].style.width = "0px";
+	  	}, 2500)
+	  }
+	}
+
   //conditional must go before appending
-  element.appendChild(document.getElementById(data));
+  element.prepend(document.getElementById(data)); //adds to top of div
 }
 
 $('.draggable').mousedown(function(){ //shows message in message input on hold
@@ -224,7 +238,9 @@ $('#grpTab').click(function(){
 	$('#openGrp')[0].style.display = 'block';
 })
 
-
+$('.singleSub').on('mousedown', function(event){
+	$('#tempSide')[0].style.width = "220px";
+})
 
 
 //SUBSCRIBERS JS END

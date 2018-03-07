@@ -69,23 +69,27 @@
 					</div>
 				</div>
 
-				<div id="msgOverlay" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+				<div id="msgOverlay">
 					<div id="closeMsg">&times;</div>
 					<div id="newMsg">+</div>
 					<div id="msgTitle">Message List</div>
 
-					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget2">Drag ME1!</div><!--id's must be different-->
-					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget2">Drag ME2!</div>
-					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget2">Drag ME3!</div>
+					<div id="msgOverlayWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme1">Drag ME1!</div><!--set id's to DB id created with lambda-->
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme2">Drag ME2!</div>
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme3">Drag ME3!</div>
+					</div>
 				</div>
 
-				<div id="groupOverlay" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+				<div id="groupOverlay">
 					<div id="closeGroup">&times;</div>
 					<div id="groupTitle">Groups List</div>
 
-					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag ME!</div><!--use message id-->
-					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag ME!</div>
-					<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag ME!</div>
+					<div id="groupOverlayWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragem4">Drag ME4!</div><!--use message id-->
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme5">Drag ME5!</div>
+						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme6">Drag ME6!</div>
+					</div>
 				</div>
 
 			</div>
@@ -292,14 +296,20 @@
 					</table>
 				</div>
 
+				<div id="tempSide"> <!--side div that pops out to temp store card-->
+					<div id="tempInp" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+						
+					</div>
+				</div>
+
 				<div id="openGrp">
 					<div class="colGroup">
 						<div class="colTitle">
 							Everyone
 						</div>
 
-						<div class="subWrap">
-							<div class="singleSub">
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget3">
 								Zak Sakata	
 							</div>
 
@@ -338,7 +348,7 @@
 							Elderlies
 						</div>
 
-						<div class="subWrap">
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
 							<div class="singleSub">
 								
 							</div>
@@ -359,7 +369,7 @@
 							Deliverers
 						</div>
 
-						<div class="subWrap">
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
 							<div class="singleSub">
 								
 							</div>
@@ -376,7 +386,7 @@
 							Officers
 						</div>
 
-						<div class="subWrap">
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
 							<div class="singleSub">
 								
 							</div>
@@ -404,13 +414,23 @@
 							Text Capable
 						</div>
 						
-						<div class="subWrap">
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
 							<div class="singleSub">
 								
 							</div>
 						</div>
 					</div>
 
+					<div class="colGroup">
+						<div class="colTitle">
+							
+						</div>
+						
+						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+							
+						</div>
+					</div>
+					
 				</div>
 
 
@@ -435,6 +455,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script src="./node_modules/dragscroll/dragscroll.js"></script>
 	<script src="./client/app.js"></script>
 </body>
 </html>
