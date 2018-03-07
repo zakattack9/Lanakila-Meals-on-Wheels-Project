@@ -64,6 +64,7 @@ function allowDrop(event) {
   event.preventDefault();
 }
 
+var timer;
 function drop(event, element) {
 	//element.parentElement.id
   event.preventDefault();
@@ -75,10 +76,11 @@ function drop(event, element) {
 	  }else if(element.id === 'msgOverlayWrap' || element.id === 'groupOverlayWrap'){
 	  	document.getElementById(data).classList.remove('expand');
 	  }
-	}else if($('.subscribers')[0].classList[2] === 'active'){
+	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open
 		if(element.id === 'tempInp'){ //expands message on drop
 	  	document.getElementById(data).style.width = "190px"; //sets card to width of temp input
 	  	document.getElementById(data).style.height = "60px";
+
 
 	  	$('#cloneBtn')[0].style.width = "180px";
 	  	setTimeout(function(){
@@ -88,24 +90,29 @@ function drop(event, element) {
 	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
 	  	document.getElementById(data).style.height = "100px";
 
-	  	setTimeout(function(){ //withdraws temp input
-	  		if($('#tempInp').children().length > 0){ //checks if somethings is still in temp input
-	  			$('#tempSide')[0].style.width = "220px";
-	  		}else{
-					$('#cloneBtn')[0].style.bottom = "75px";
-	  			$('#tempSide').delay(5000).queue(function (next) { 
-	    			$(this).css('width', '0'); 
-	    			next(); 
-	  			});
-
-	  			$('#cloneBtn').delay(4000).queue(function (next) { 
-	    			$(this).css('width', '0'); 
-	    			next(); 
-	  			});
-	  		}	
-	  	}, 400);
+	  	clearTimeout(timer);
+			$('#cloneBtn')[0].style.bottom = "75px";
+			timer = setTimeout(function () {
+        $('#cloneBtn')[0].style.width = '0'; 
+  			setTimeout(function(){
+					$('#tempSide')[0].style.width = "0";
+		  	}, 200);
+      }, 5000);
 	  }
 	}
+
+	   //  $(".messageInTab").click(function () {
+    //     $(this).hide(500);
+    //     clearTimeout(timer)
+    // });
+
+    // var timer;
+    // $("button").click(function (e) {
+    //     $('#msg').show(500);
+    //     timer = setTimeout(function () {
+    //         $('#msg').hide(500);
+    //     }, 3000);
+    // });
 
   //conditional must go before appending
   element.prepend(document.getElementById(data)); //adds to top of div
