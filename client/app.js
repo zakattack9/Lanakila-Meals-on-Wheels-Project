@@ -1,6 +1,9 @@
 $(document).ready(function() {
 	document.getElementById('broadcast').classList.add("visisble"); //if not in .ready, you will not be able to rmeove the class "visible" from this element
 	$('.broadcast').addClass('active');
+
+	$('#subsTab')[0].style.backgroundColor = '#EAEAEA'; //for subscriptions tab
+	$('#openGrp')[0].style.display = 'none';
 })
 
 function switchWorkspace(el) {
@@ -52,6 +55,7 @@ $('.option').on('click', function(){ //closes open overlay when switching worksp
 	$('#groupOverlay')[0].style.width = "0";
 })
 
+//functions for drag and drop items
 function dragStart(event) {
   event.dataTransfer.setData("Text", event.target.id);
 }
@@ -99,6 +103,7 @@ $('.draggable').mouseover(function(){ //shows message in group input on hold
 	}
 })
 //BROADCAST JS END
+
 
 
 //GROUPS JS START
@@ -194,8 +199,32 @@ $('#grpTable tr td').click(function(){ //highlights whole row
 })
 
 
-
-
-
-
 //GROUPS JS END
+
+
+
+//SUBSCRIBERS JS START
+$('#subsTab').click(function(){
+	$('#subsTab')[0].style.backgroundColor = '#EAEAEA';
+	$('#grpTab')[0].style.backgroundColor = '#fcd8b6';
+	$('#subsTab')[0].style.position = 'relative';
+	$('#grpTab')[0].style.position = '';
+
+	$('#openSub')[0].style.display = 'block';
+	$('#openGrp')[0].style.display = 'none';
+})
+
+$('#grpTab').click(function(){
+	$('#subsTab')[0].style.backgroundColor = '#fcd8b6';
+	$('#grpTab')[0].style.backgroundColor = 'white';
+	$('#grpTab')[0].style.position = 'relative';
+	$('#subsTab')[0].style.position = '';
+
+	$('#openSub')[0].style.display = 'none';
+	$('#openGrp')[0].style.display = 'block';
+})
+
+
+
+
+//SUBSCRIBERS JS END
