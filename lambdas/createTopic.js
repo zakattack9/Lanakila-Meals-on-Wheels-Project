@@ -4,31 +4,39 @@ var AWS = require('aws-sdk');
 AWS.config.region = 'us-west-2';
 var sns = new AWS.SNS();
 
-module.exports.listTopics = (event, context, callback) => {
+module.exports.createTopic = (event, context, callback) => {
 	const htmlParams = JSON.parse(event.body);
 	var params = {
-		Name: htmlParams.topicName
+		Name: htmlParams.name
 	};
-	const response = {};
 	sns.createTopic(params, function(err, data) {
 		if (err){ 
-			response = {
-				statusCode: 200,
+			const response = {
+				statusCode: 100,
+			    headers: {
+			      "Access-Control-Allow-Origin":  "*",
+			      "Access-Control-Allow-Credentials": true
+			    },
 				body: JSON.stringify({
 					message: (err, err.stack),
 					input: event,
 				}),
 			};
+			callback(null, response);
 		}
 		else{
-			response = {
+			const response = {
 				statusCode: 200,
+				headers: {
+			      "Access-Control-Allow-Origin":  "*",
+			      "Access-Control-Allow-Credentials": true
+			    },
 				body: JSON.stringify({
 					message: data,
 					input: event,
 				}),
 			};
+			callback(null, response);
 	    }
 	})
-  callback(null, response);
 };

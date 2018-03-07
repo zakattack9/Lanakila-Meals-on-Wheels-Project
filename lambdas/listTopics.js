@@ -6,26 +6,27 @@ var sns = new AWS.SNS();
 
 module.exports.listTopics = (event, context, callback) => {
 	var params = {};
-	const response = {};
 	sns.listTopics(params, function(err, data) {
 		if (err){ 
-			response = {
+			const response = {
 				statusCode: 200,
-				body: JSON.stringify({
+				body: {
 					message: (err, err.stack),
 					input: event,
-				}),
+				},
 			};
+			callback(null, response);
 		}
 		else{
-			response = {
+			const response = {
 				statusCode: 200,
-				body: JSON.stringify({
-					message: data,
+				body: {
+					message: data.Topics,
 					input: event,
-				}),
+				},
 			};
+			callback(null, response);
 	    }
 	})
-  callback(null, response);
+ 
 };
