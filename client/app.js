@@ -101,18 +101,17 @@ function drop(event, element) {
 	  }
 	}
 
-	   //  $(".messageInTab").click(function () {
-    //     $(this).hide(500);
-    //     clearTimeout(timer)
-    // });
-
-    // var timer;
-    // $("button").click(function (e) {
-    //     $('#msg').show(500);
-    //     timer = setTimeout(function () {
-    //         $('#msg').hide(500);
-    //     }, 3000);
-    // });
+	if(element.id === 'msgInput'){
+		if(element.children.length > 1){
+			element.children[0].classList.remove('expand');
+			$('#msgOverlayWrap').prepend(element.children[0]);
+		}
+	}else if(element.id === 'groupInput'){
+		if(element.children.length > 1){
+			element.children[0].classList.remove('expand');
+			$('#groupOverlayWrap').prepend(element.children[0]);
+		}
+	}
 
   //conditional must go before appending
   element.prepend(document.getElementById(data)); //adds to top of div
