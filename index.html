@@ -465,10 +465,37 @@
 
 			<!--MESSAGES-->
 			<div class="hidden" id="messages">
-				
+				<div id="msgsTopBar">
+					<div id="msgsTitle">Manage Messages</div>
+					
+					<div id="newMsgTab">
+						Create
+					</div>
+					
+					<div id="oldMsgTab">
+						Messages
+					</div>
+
+				</div>
 
 			</div>
 
+			<div id="openOldMsg">
+				<table id="msgsTable">
+					<tr>
+					  	<th>
+					  		<label id="checkAll2">
+							  <input type="checkbox">
+							  <span class="checkmark"></span>
+							</label>
+					  	</th>
+					    <th>Message</th>
+					    <th>Date Created</th>
+					  </tr>
+				</table>
+			</div>
+
+			<div id="openNewMsg"></div>
 
 			<!--QUICK SEND-->
 			<div class="hidden" id="quickSend"><!--broadcasts preset messages to EVERYONE-->

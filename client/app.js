@@ -268,3 +268,29 @@ $('.singleSub').on('mousedown', function(event){
 
 
 //SUBSCRIBERS JS END
+
+
+
+//MESSAGES JS START
+$('#oldMsgTab').click(function(){
+	$('#oldMsgTab')[0].style.backgroundColor = '#EAEAEA';
+	$('#newMsgTab')[0].style.backgroundColor = '#fcd8b6';
+	$('#oldMsgTab')[0].style.position = 'relative';
+	$('#newMsgTab')[0].style.position = '';
+
+	$('#openOldMsg')[0].style.display = 'block';
+	$('#openNewMsg')[0].style.display = 'none';
+})
+
+$('#newMsgTab').click(function(){
+	$('#oldMsgTab')[0].style.backgroundColor = '#fcd8b6';
+	$('#newMsgTab')[0].style.backgroundColor = 'white';
+	$('#newMsgTab')[0].style.position = 'relative';
+	$('#oldMsgTab')[0].style.position = '';
+
+	$('#openOldMsg')[0].style.display = 'none';
+	$('#openNewMsg')[0].style.display = 'block';
+})
+
+
+//MESSAGES JS END
