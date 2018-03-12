@@ -708,6 +708,10 @@ html, body {
 	margin-right: -10px;
 }
 
+#oldMsgTab {
+	background-color: #EAEAEA;
+}
+
 #newMsgTab {
 	margin-right: 10px;
 }
