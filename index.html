@@ -468,6 +468,16 @@
 				<div id="msgsTopBar">
 					<div id="msgsTitle">Manage Messages</div>
 					
+					<div id="trashMsg">
+						<img src="./images/trashBin.png">
+					</div>
+					<div id="reloadMsg">
+						<img src="./images/reload.png">
+					</div>
+					<div id="searchMsg">
+						<img src="./images/search.png">
+					</div>
+					
 					<div id="newMsgTab">
 						Create
 					</div>
@@ -489,11 +499,47 @@
 						  	</th>
 						    <th>Message</th>
 						    <th>Date Created</th>
-						  </tr>
+						</tr>
+						<tr>
+							<td>
+								<label class="customBox">
+									<input type="checkbox">
+									<span class="checkmark"></span>
+								</label>
+							</td>
+							<td>This is an important message</td>
+							<td>March 14, 2018</td>
+						</tr>
+						<tr>
+							<td>
+								<label class="customBox">
+									<input type="checkbox">
+									<span class="checkmark"></span>
+								</label>
+							</td>
+							<td>This is also an important message</td>
+							<td>March 13, 2018</td>
+						</tr>
+						<tr>
+							<td>
+								<label class="customBox">
+									<input type="checkbox">
+									<span class="checkmark"></span>
+								</label>
+							</td>
+							<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+							<td>March 13, 2017</td>
+						</tr>
 					</table>
 				</div>
 
-				<div id="openNewMsg"></div>
+				<div id="openNewMsg">
+					<div class="newMsgContainer">
+						<h4>Message:</h4>
+			 			<textarea name="generalText" rows="15" id="general" placeholder="Type message here"></textarea>
+			 			<div id="submitMsg">Submit</div>
+					</div>
+				</div>
 			</div>
 
 

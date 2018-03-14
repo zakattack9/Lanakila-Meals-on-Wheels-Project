@@ -687,10 +687,42 @@ html, body {
 #msgsTitle {
 	font-family: 'Roboto Slab', serif;
 	font-size: 25px;
-	text-align: left;
+	text-align: center;
 	line-height: 65px;
 	position: absolute;
-	margin-left: 40px;
+	margin-left: 150px;
+}
+
+#trashMsg {
+	position: absolute;
+	top: 14px;
+	margin-left: 15px;
+}
+
+#trashMsg img {
+	width: 30px;
+	border-radius: 50%;
+}
+
+#reloadMsg {
+	position: absolute;
+	top: 14px;
+	margin-left: 50px;
+}
+
+#reloadMsg img{
+	width: 32px;
+	border-radius: 50%;
+}
+
+#searchMsg {
+	position: absolute;
+	top: 14px;
+	margin-left: 85px;
+}
+
+#searchMsg img{
+	width: 32px;
 }
 
 #oldMsgTab, #newMsgTab {
@@ -733,6 +765,37 @@ html, body {
   cursor: pointer;
 }
 
+#openOldMsg {
+	display: block;
+}
+
+#openNewMsg {
+	display: none;
+	text-align: center;
+}
+
+textarea {
+	resize: none;
+}
+
+#general {
+	width: 80%;
+	display: inline-block;
+}
+
+#submitMsg {
+	background-color: #138960;
+	height: 30px;
+	width: 70px;
+	text-align: center;
+	line-height: 30px;
+	border-radius: 10px;
+	float: right;
+	margin-right: 10%;
+	margin-left: 30%;
+	margin-top: 5%;
+}
+
 /*     Message Table     */
 #msgsTable {
 	width: 100%;
@@ -768,6 +831,7 @@ html, body {
   width: 55px;
 }
 
+
 #msgsTable td:last-child. #msgsTable th:last-child {
   border-right: none;
 }
@@ -776,7 +840,14 @@ html, body {
 	padding-left: 1em;
 }
 
-#msgsTable tr td:not(:first-child) {
+#msgsTable tr td:nth-child(2) {
+	text-overflow: ellipsis;
+	width: 70%;
+	padding-right: 50px;
+}
+
+#
+msgsTable tr td:not(:first-child) {
 	padding-left: 1em;
 }
 
