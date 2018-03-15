@@ -812,6 +812,10 @@ textarea {
 	height: 50px;
 }
 
+#msgTable tr td input{
+	width: 70%;
+}
+
 #msgsTable th {
   border-left: darkgray 2px solid;
   border-right: darkgray 2px solid;
