@@ -678,6 +678,11 @@ html, body {
 
 
 /* Styles for messages workspace */
+#messages {
+	height: 100%;
+}
+
+/*styles for messages sub-tab*/
 #msgsTopBar {
 	width: 100%;
 	height: 65px;
@@ -767,34 +772,19 @@ html, body {
 
 #openOldMsg {
 	display: block;
+	height: 100%;
 }
 
 #openNewMsg {
 	display: none;
 	text-align: center;
+	height: 100%;
 }
 
 textarea {
 	resize: none;
 }
 
-#general {
-	width: 80%;
-	display: inline-block;
-}
-
-#submitMsg {
-	background-color: #138960;
-	height: 30px;
-	width: 70px;
-	text-align: center;
-	line-height: 30px;
-	border-radius: 10px;
-	float: right;
-	margin-right: 10%;
-	margin-left: 30%;
-	margin-top: 5%;
-}
 
 /*     Message Table     */
 #msgsTable {
@@ -850,8 +840,7 @@ textarea {
 	padding-right: 50px;
 }
 
-#
-msgsTable tr td:not(:first-child) {
+#msgsTable tr td:not(:first-child) {
 	padding-left: 1em;
 }
 
@@ -860,3 +849,97 @@ msgsTable tr td:not(:first-child) {
 }
 
 /*     END Message Table     */
+
+
+/*styles for messages sub-tab*/
+
+	/*write custom message*/
+#newMsgContainer {
+	height: 30%;
+}
+
+#typeMsg {
+	width: 80%;
+	display: inline-block;
+}
+
+#submitMsg { /*btn - submit type msg */
+	background-color: #138960;
+	height: 30px;
+	width: 70px;
+	text-align: center;
+	line-height: 30px;
+	border-radius: 10px;
+	float: right;
+	margin-right: 10%;
+	margin-left: 30%;
+	margin-top: 3%;
+}
+
+#openNewMsg hr {
+	width: 90%;
+	margin: 20px auto;
+	margin-top: 9%;
+}
+
+	/*urgent msg styles*/
+#urgentMsgContainer {
+	width: 100%;
+	height: 42%;
+	margin-top: 3%;
+	background-color: lightgray;
+}
+		/*slides styles*/
+.msgSlides {
+	width: 85%;
+	height: 100%;
+	display: none;
+}
+
+.pageControl { /*flex container where navigation is in a row*/
+	display: flex;
+	width: 100%;
+	height: 10%;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.leftArrow, .rightArrow {
+	width: 5%;
+	color: lightgray;
+	font-size: 30px;
+}
+
+.leftArrow:hover, .rightArrow:hover {
+	color: orange;
+	background-color: lightgray;
+}
+
+.dotContainer {
+	width: 15%;
+	height: 100%;
+	margin-top: 5px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+}
+
+.dot { /*dot styles (size/shape/starting color)*/
+	display: block;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	cursor: pointer;
+	border: 1px solid #F58F31;
+	border-radius: 10px;
+}
+
+.dot:hover { /*turns dot orange when hovered over*/
+	background-color: #F58F31;
+}
+
+.orange-dot { /*turns dot orange when it is selected*/
+	background-color: #F58F31;
+}

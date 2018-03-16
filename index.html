@@ -534,10 +534,27 @@
 				</div>
 
 				<div id="openNewMsg">
-					<div class="newMsgContainer">
-						<h4>Message:</h4>
-			 			<textarea name="generalText" rows="15" id="general" placeholder="Type message here"></textarea>
-			 			<div id="submitMsg">Submit</div>
+					<div id="newMsgContainer">
+						<h4>Write Custom Message:</h4>
+			 			<textarea name="generalText" rows="15" id="typeMsg" placeholder="Type message here"></textarea>
+			 			<div id="submitMsg">Create</div>
+					</div>
+					<hr>
+					<div id="urgentMsgContainer">
+						<div class="msgSlides"></div>
+						<div class="msgSlides"></div>
+						<div class="msgSlides"></div>
+						<div class="msgSlides"></div>
+						<div class="pageControl">
+							<div class="leftArrow" onclick="plusDivs(-1)"><</div>
+							<div class="dotContainer">
+								<span class="dot orange-dot" onclick="currentDiv(1)"></span>
+								<span class="dot orange-dot" onclick="currentDiv(2)"></span>
+								<span class="dot orange-dot" onclick="currentDiv(3)"></span>
+								<span class="dot orange-dot" onclick="currentDiv(4)"></span>
+							</div>
+							<div class="rightArrow" onclick="plusDivs(1)">></div>
+						</div>
 					</div>
 				</div>
 			</div>
