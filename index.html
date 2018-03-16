@@ -541,10 +541,27 @@
 					</div>
 					<hr>
 					<div id="urgentMsgContainer">
-						<div class="msgSlides"></div>
-						<div class="msgSlides"></div>
-						<div class="msgSlides"></div>
-						<div class="msgSlides"></div>
+						<h4>Generate Preset Message:</h4>
+						<div class="msgSlides" id="selectEvent">
+							<p>Please answer the following questions.</p>
+							<p>Pick an Event:</p>
+							<div id="eventContainer">
+								<h2 class="event" id="storm">Storm</h2>
+								<h2 class="event" id="traffic">Traffic</h2>
+								<h2 class="event" id="hurricane">Hurricane</h2>
+								<h2 class="event" id="tsunami">Tsunami</h2>
+								<h2 class="event" id="earthquake">Earthquake</h2>
+							</div>
+						</div>
+						<div class="msgSlides" id="whenEvent"></div>
+						<div class="msgSlides" id="specifyWhenEvent">
+							<h3>Input Date(s)</h3>
+						</div>
+						<div class="msgSlides" id="previewEvent">
+							<h3>Here is a preview of your message:</h3>
+							<div id="msgPreview">MESSAGE</div>
+							<button id="createUrgent">Create</button>
+						</div>
 						<div class="pageControl">
 							<div class="leftArrow" onclick="plusDivs(-1)"><</div>
 							<div class="dotContainer">

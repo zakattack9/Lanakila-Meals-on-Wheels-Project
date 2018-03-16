@@ -266,8 +266,10 @@ $('.singleSub').on('mousedown', function(event){
 	$('#tempSide')[0].style.width = "220px";
 })
 
-
 //SUBSCRIBERS JS END
+
+
+
 
 
 
@@ -383,4 +385,20 @@ function showDivs(n) {
   x[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " orange-dot";
 }
+
+//event selection
+var previous = [];
+$('.event').click(function() {
+	var getLast = previous.pop(); //gets value of previous 
+	console.log("here's the last thing that was clicked: " + getLast);
+	
+	$('#' + getLast).removeClass('selectedEvent'); //removes class from previous
+	
+	previous.push(this.id); //adds selected event to previous clicks
+	console.log(previous);
+	
+	$(`#${this.id}`).addClass('selectedEvent'); //adds 'selected' class
+	console.log('an event has been selected: ' + this.id);
+});
+
 //MESSAGES JS END
