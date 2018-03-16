@@ -1,4 +1,4 @@
-$(document).ready(function() {
+ $(document).ready(function() {
 	document.getElementById('broadcast').classList.add("visisble"); //if not in .ready, you will not be able to rmeove the class "visible" from this element
 	$('.broadcast').addClass('active');
 
@@ -266,8 +266,10 @@ $('.singleSub').on('mousedown', function(event){
 	$('#tempSide')[0].style.width = "220px";
 })
 
-
 //SUBSCRIBERS JS END
+
+
+
 
 
 
@@ -292,5 +294,111 @@ $('#newMsgTab').click(function(){
 	$('#openNewMsg')[0].style.display = 'block';
 })
 
+//if messages div has class 'hidden', hide table (oldMsdTab)
+if ($('#messages')[0].style.display === 'none') {
+	console.log('hiding messages table')
+	$('#openOldMsg')[0].style.display = 'none';
+}
+
+$('#checkAll2 span').click(function(){ //checks all boxes on/off
+	if($(this).hasClass('isChecked')){
+		$(this).removeClass('isChecked');
+		$('.customBox span').map((currVal, index) => {
+			$(index).removeClass('isChecked');
+			index.parentElement.parentElement.parentElement.style.backgroundColor = "white";
+		});
+	}else{
+		$(this).addClass('isChecked');
+		$('.customBox span').map((currVal, index) => {
+			$(index).addClass('isChecked');
+			index.parentElement.parentElement.parentElement.style.backgroundColor = "#fcd8b6";
+		});
+	}
+})
+
+var editingMsg = false; //allows message editing
+$('#msgsTable tr td').click(function(){ //highlights whole row
+	let row = this.parentElement;
+	let currCheck = this.parentElement.firstElementChild.firstElementChild.lastElementChild;
+
+	let iterate = 0;
+	if(event.target.tagName === 'SPAN' || event.target.tagName === 'INPUT'){
+		iterate++;
+		$(currCheck).hasClass('isChecked') === false && iterate === 1 ? removeHighlight(currCheck, row) : addHighlight(currCheck, row);
+	}else if($(currCheck).hasClass('isChecked')){
+		console.log('real first')
+		if(event.target.className === 'editBtn' || event.target.className === 'tempInp' || event.target.className === 'saveBtn'){ //checks if clicking on edit button
+			editingMsg = true;
+			let ogMsgName = event.target.parentElement.firstChild.nodeValue;
+
+			if(event.target.className === 'editBtn'){ //removes current group name and replaces it with input field
+				event.target.parentElement.firstChild.remove();
+				let input = $('<input>').attr({type:'text', value: ogMsgName, class:'tempInp'});
+				event.target.parentElement.prepend(input[0]);
+
+				let toSave = row.getElementsByTagName('td')[1].lastElementChild;
+				$(toSave).attr({class:'saveBtn', src:'./images/save.png'}); //show save button
+			}else if(event.target.className === 'saveBtn'){
+				let newMsgName = event.target.parentElement.firstChild.value
+				event.target.parentElement.firstChild.remove();
+				event.target.parentElement.prepend(newMsgName);
+				row.getElementsByTagName('td')[1].lastElementChild.remove(); //remove save button
+
+				editingMsg = false;
+				removeHighlight(currCheck, row);
+			}
+		}else if(editingMsg === false){ //if not editing, remove edit button and unhighlight
+			removeHighlight(currCheck, row);
+		}
+  }else if(editingMsg === false){ //adds edit button and highlights
+  	console.log('first')
+  	addHighlight(currCheck, row);
+  }else{
+  	alert("Save Message First");
+  }
+})
+
+//Urgent Message Slides
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("msgSlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" orange-dot", "");
+  }
+  x[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " orange-dot";
+}
+
+//event selection
+var previous = [];
+$('.event').click(function() {
+	var getLast = previous.pop(); //gets value of previous 
+	console.log("here's the last thing that was clicked: " + getLast);
+	
+	$('#' + getLast).removeClass('selectedEvent'); //removes class from previous
+	
+	previous.push(this.id); //adds selected event to previous clicks
+	console.log(previous);
+	
+	$(`#${this.id}`).addClass('selectedEvent'); //adds 'selected' class
+	console.log('an event has been selected: ' + this.id);
+});
 
 //MESSAGES JS END
