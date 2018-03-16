@@ -292,11 +292,5 @@ $('#newMsgTab').click(function(){
 	$('#openNewMsg')[0].style.display = 'block';
 })
 
-//if messages div has class 'hidden', hide table (oldMsdTab)
-if ($('#messages')[0].style.display === 'none') {
-	console.log('hiding messages table')
-	$('#openOldMsg')[0].style.display = 'none';
-}
-
 
 //MESSAGES JS END
