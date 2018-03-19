@@ -4,7 +4,7 @@
 
 // Gets all topics from DB
 function loadGroups(){
-  $('#grpTable tbody tr').not('tr:first').remove(); //removes currently displayed topics
+  $('#grpTable tbody tr').remove(); //removes currently displayed topics
   $.ajax({
     url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/get",
     method: 'GET',
@@ -27,9 +27,6 @@ function loadGroups(){
   		  </tr>
     	`)
     })
-
-    console.log($('#grpTable tbody').height());
-    $('#grpTable tbody').css('max-height',  $('#grpTable tbody').height() + "px");
   })
   .fail((err) => {
     console.log('error', err);
