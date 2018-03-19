@@ -489,10 +489,21 @@ html, body {
 	height: 30px;
 }
 
-
 #grpTable {
+	height: 100%;
 	width: 100%;
 	border-collapse: collapse;
+}
+
+#grpTable tbody {
+	display: block;
+	max-height: 550px;
+	overflow-y: auto;
+}
+#grpTable thead, tbody tr {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
 }
 
 #grpTable tr th {
@@ -601,7 +612,7 @@ html, body {
   width: 55px;
 }
 
-#grpTable td:last-child. #grpTable th:last-child {
+#grpTable td:last-child, #grpTable th:last-child {
   border-right: none;
 }
 

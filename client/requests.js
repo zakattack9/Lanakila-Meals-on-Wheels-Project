@@ -27,6 +27,9 @@ function loadGroups(){
   		  </tr>
     	`)
     })
+
+    console.log($('#grpTable tbody').height());
+    $('#grpTable tbody').css('max-height',  $('#grpTable tbody').height() + "px");
   })
   .fail((err) => {
     console.log('error', err);
