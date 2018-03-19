@@ -258,7 +258,7 @@ $('#closePopup').click(function(){
 var groupIDs = [];
 $('#trashGrp').click(function(){
   $('#selectedGroups').empty(); //empties out previously selected groups
-  groupIDs = [];
+  groupIDs = []; //resets groups to delete queue
 
   let checkedElements = $('#grpTable tbody tr').filter('.isCheckedBackground');
   checkedElements.map((currVal, index) => {
@@ -276,7 +276,7 @@ $('#trashGrp').click(function(){
   })
 
   $('#deletePopup')[0].style.display = "block";
-  $('#addPopup')[0].style.display = "none"; //closes add popup if open
+  $('#addPopup')[0].style.display = "none"; //closes "add group" popup if open
 })
 
 $('#closeDelPopup').click(function(){
