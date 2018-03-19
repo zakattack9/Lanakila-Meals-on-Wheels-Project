@@ -145,26 +145,34 @@ $('.draggable').mouseover(function(){ //shows message in group input on hold
 
 
 //GROUPS JS START
-$('.customBox span').click(function(){ //checks off boxes
+/*$('.customBox span').click(function(){ //checks off boxes
   if($(this).hasClass('isChecked')){
   	$(this).removeClass('isChecked');
   }else{
   	$(this).addClass('isChecked');
   }
-});
+});*/
 
-$('#checkAll span').click(function(){ //checks all boxes on/off
+function highlightTopic(selected) {
+	let checkBox = selected.firstElementChild.firstElementChild;
+	$(checkBox).toggleClass('isChecked');
+	$(selected).toggleClass('isCheckedBackground');
+}
+
+$('#checkAll').click(function(){ //checks all boxes on/off
 	if($(this).hasClass('isChecked')){
 		$(this).removeClass('isChecked');
-		$('.customBox span').map((currVal, index) => {
+		$('.customCheck').map((currVal, index) => {
+			let selectedRow = index.parentElement.parentElement;
 			$(index).removeClass('isChecked');
-			index.parentElement.parentElement.parentElement.style.backgroundColor = "white";
+			$(selectedRow).removeClass('isCheckedBackground');
 		});
 	}else{
 		$(this).addClass('isChecked');
-		$('.customBox span').map((currVal, index) => {
+		$('.customCheck').map((currVal, index) => {
+			let selectedRow = index.parentElement.parentElement;
 			$(index).addClass('isChecked');
-			index.parentElement.parentElement.parentElement.style.backgroundColor = "#fcd8b6";
+			$(selectedRow).addClass('isCheckedBackground');
 		});
 	}
 })
@@ -178,6 +186,7 @@ $('#reloadGrp').click(function(){ //runs refresh button animation
 	}
 })
 
+/*
 function addHighlight(currCheck, row) {
 	$(currCheck).addClass('isChecked');
 	row.style.backgroundColor = "#fcd8b6";
@@ -195,7 +204,7 @@ function removeHighlight(currCheck, row) {
 }
 
 var editingGrp = false;
-$('#grpTable tr td').click(function(){ //highlights whole row
+$('#grpTable tbody tr td').click(function(){ //highlights whole row
 	let row = this.parentElement;
 	let currCheck = this.parentElement.firstElementChild.firstElementChild.lastElementChild;
 
@@ -235,8 +244,49 @@ $('#grpTable tr td').click(function(){ //highlights whole row
   	alert("Save Group Name First");
   }
 })
+*/
 
+$('#addGrp').click(function(){
+	$('#addPopup')[0].style.display = "block";
+	$('#deletePopup')[0].style.display = "none"; //closes delete popup if open
+})
 
+$('#closePopup').click(function(){
+	$('#addPopup')[0].style.display = "none";
+})
+
+var groupIDs = [];
+$('#trashGrp').click(function(){
+  $('#selectedGroups').empty(); //empties out previously selected groups
+  groupIDs = [];
+
+  let checkedElements = $('#grpTable tbody tr').filter('.isCheckedBackground');
+  checkedElements.map((currVal, index) => {
+  	let insertGrpName = $(index).find('.groupName')[0].innerText;
+  	let insertGrpDate = $(index).find('.groupDate')[0].innerText;
+
+  	groupIDs.push(+$(index).attr('id')); //needs to be converted to number (unary operator)
+
+  	$('#selectedGroups').append(`
+			<tr id="selectedGroupText">
+				<td>${insertGrpName}</td>
+				<td><span style="font-weight: bold"> Created On:</span>&nbsp; ${insertGrpDate}</td>
+			</tr>
+  	`)
+  })
+
+  $('#deletePopup')[0].style.display = "block";
+  $('#addPopup')[0].style.display = "none"; //closes add popup if open
+})
+
+$('#closeDelPopup').click(function(){
+	$('#deletePopup')[0].style.display = "none";
+})
+
+$('#deleteGroup').click(function(){
+	$('#deletePopup')[0].style.display = "none";
+  deleteTopics(groupIDs);
+})
 //GROUPS JS END
 
 

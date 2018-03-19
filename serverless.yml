@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: aws-nodejs-lanakila # NOTE: update this with your service name
+service: lanakilaGroups # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -22,7 +22,7 @@ provider:
   runtime: nodejs6.10
 
 # you can overwrite defaults here
-#  stage: dev
+  stage: dev
   region: us-west-2
 
 # you can add statements to the Lambda function's IAM Role here
@@ -55,46 +55,33 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
-  send:
-    handler: sns.send
+  # send:
+  #   handler: sns.send
   listTopics:
-    handler: lambdas/listTopics.listTopics
+    handler: lambdas/topicLambdas/listTopics.listTopics
     events:
       - http:
-          path: listTopics
+          path: get
           method: get
-          cors:
-            origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-            allowCredentials: false
+          cors: true
   createTopic:
-    handler: lambdas/createTopic.createTopic
+    handler: lambdas/topicLambdas/createTopic.createTopic
     events:
       - http:
-          path: createTopic
+          path: post
           method: post
-          cors:
-            origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-            allowCredentials: false
+          cors: true
     request:
       passThrough: WHEN_NO_TEMPLATES
       template:
         application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
+  deleteTopic:
+    handler: lambdas/topicLambdas/deleteTopic.deleteTopic
+    events:
+      - http:
+          path: delete
+          method: delete
+          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

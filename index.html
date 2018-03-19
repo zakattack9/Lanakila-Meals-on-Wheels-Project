@@ -117,83 +117,55 @@
 					</div>
 				</div>
 
+				<div id="addPopup">
+					<div id="popupBox">
+						<div id="closePopup">&times;</div>
+						<div id="popupTitle">Group Name:</div>
+						<input id="groupText" type="text">
+
+						<div id="createGrp"><!-- Send off ajax request to post new SNS topic -->
+							Create Group
+						</div>
+					</div>
+				</div>
+
+				<div id="deletePopup">
+					<div id="deleteBox">
+						<div id="closeDelPopup">&times;</div>
+						<div id="popupDelTitle">
+							Are you sure you want to delete:
+							<br>
+							<span id="warningMsg">Deleting a group will also delete its subscribers</span> 
+						</div>
+						
+						<div id="tableWrap">
+							<table id="selectedGroups">
+								
+							</table>
+						</div>
+
+						<div id="deleteGroup"><!-- Send off ajax request to post new SNS topic -->
+							Delete Group(s)
+						</div>
+					</div>
+				</div>
+
 				<table id="grpTable">
 				  <tr>
 				  	<th>
+				  		<!-- OLD CUSTOM CHECKBOX
 				  		<label id="checkAll">
 							  <input type="checkbox">
 							  <span class="checkmark"></span>
-							</label>
+							</label> 
+							-->
+				  		<div id="checkAll">
+                
+            	</div>
 				  	</th>
 				    <th>Group Name</th>
 				    <th>Number of Members</th>
 				    <th>Date Created</th>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Everyone</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Elderlies</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Deliverers</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Officers</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Text Capable</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Email Capable</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
 				  </tr>
 				</table>
 

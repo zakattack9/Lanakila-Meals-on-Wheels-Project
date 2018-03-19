@@ -320,6 +320,7 @@ html, body {
 	position: absolute;
 	top: 15px;
 	margin-left: 15px;
+	transition: 0.1s;
 }
 
 #trashGrp img{
@@ -332,6 +333,7 @@ html, body {
 	top: 15px;
 	right: 0;
 	margin-right: 15px;
+	transition: 0.2s;
 }
 
 #addGrp img{
@@ -362,6 +364,132 @@ html, body {
 	animation: reload 0.3s ease-in-out forwards paused;
 }
 
+#addGrp:hover, #trashGrp:hover, #reloadGrp:hover, #searchGrp:hover {
+	transform: scale(1.03);
+	transition: 0.2s;
+}
+
+#addPopup, #deletePopup {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+  z-index: 1;
+}
+
+#addPopup:after, #deletePopup:after {
+	content: '';
+	position: absolute;
+	background-color: lightgray;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	opacity: 0.7;
+  filter: blur(1px);
+}
+
+#popupBox{
+	width: 50%;
+	height: 20%;
+	background-color: white;
+	border-radius: 15px;
+	opacity: 1;
+	position: relative;
+	top: 30%;
+	left: 15%;
+	z-index: 2;
+}
+
+#deleteBox {
+	width: 50%;
+	padding-bottom: 55px;
+	background-color: white;
+	border-radius: 15px;
+	opacity: 1;
+	position: relative;
+	top: 20%;
+	left: 15%;
+	z-index: 2;
+}
+
+#closePopup, #closeDelPopup {
+	transform: scale(1.7);
+	position: absolute;
+	right: 20px;
+	top: 10px;
+	transition: 0.1s;
+}
+
+#closePopup:hover, #closeDelPopup:hover {
+	transform: scale(1.55);
+	transition: 0.2s;
+}
+
+#popupTitle, #popupDelTitle {
+	font-size: 16px;
+	height: 30px;
+	padding-top: 2.5%;
+	margin-left: 4%;
+	font-weight: bold;
+}
+
+#groupText {
+	font-size: 14px;
+	outline: none;
+	margin-left: 4%;
+	width: 90%;
+	height: 25px;
+}
+
+#createGrp, #deleteGroup {
+	font-size: 14px;
+	width: 110px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	background-color: #13896D;
+	border-radius: 20px;
+	transition: 0.1s;
+}
+
+#deleteGroup {
+	background-color: #ff4d4d;
+	width: 120px;
+}
+
+#createGrp:hover, #deleteGroup:hover {
+	transform: scale(1.03);
+	transition: 0.2s;
+}
+
+#warningMsg {
+	font-size: 14px;
+	font-weight: normal;
+	font-style: italic;
+	color: red;
+}
+
+#tableWrap {
+	margin-top: 20px;
+	width: 97%;
+	max-height: 180px;
+	overflow-y: auto;
+}
+
+#selectedGroups {
+	width: 80%;
+	position: relative;
+	left: 50px;
+}
+
+#selectedGroupText {
+	height: 30px;
+}
+
+
 #grpTable {
 	width: 100%;
 	border-collapse: collapse;
@@ -389,7 +517,7 @@ html, body {
 	border-bottom: darkgray 2px solid;
 }
 
-#checkAll {
+/*#checkAll {
   position: relative;
   top: 19px;
   left: 17px;
@@ -426,14 +554,44 @@ html, body {
   background-color: white;
   border-radius: 5px;
   box-shadow: inset 0 0 3px darkgray;
+}*/
+
+#checkAll {
+	position: relative;
+  top: 2px;
+  left: 17px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 21px;
+  width: 21px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 3px darkgray;
+}
+
+.customCheck {
+	position: relative;
+  left: 17px;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: inset 0 0 3px darkgray;
 }
 
 /* .customBox input:checked ~ .checkmark, #checkAll input:checked ~ .checkmark  {
   background-color: #F58F31;
   box-shadow: none;
 } */
+
 .isChecked {
 	background-color: #F58F31;
+}
+
+.isCheckedBackground {
+	background-color: #fcd8b6;
 }
 
 #grpTable td:first-child, #grpTable th:first-child {
