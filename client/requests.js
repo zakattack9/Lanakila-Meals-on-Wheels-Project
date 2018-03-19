@@ -5,12 +5,15 @@
 // Gets all topics from DB
 function loadGroups(){
   $('#grpTable tbody tr').remove(); //removes currently displayed topics
+  $('#spinnerWrap')[0].style.display = "block";
+
   $.ajax({
     url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/get",
     method: 'GET',
     "Content-Type": "application/json",
   })
   .done((response) => {
+    $('#spinnerWrap')[0].style.display = "none";
   	//console.log(response)
     response.map(currVal => {
     	//console.log(currVal)

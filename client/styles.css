@@ -364,6 +364,22 @@ html, body {
 	animation: reload 0.3s ease-in-out forwards paused;
 }
 
+#searchBox {
+	width: 0;
+	position: absolute;
+	top: 17px;
+	margin-left: 120px;
+	overflow: hidden;
+	transition: 0.2s;
+}
+
+#searchBox input {
+	height: 23px;
+	border: none;
+	outline: none;
+	font-size: 14px;
+}
+
 #addGrp:hover, #trashGrp:hover, #reloadGrp:hover, #searchGrp:hover {
 	transform: scale(1.03);
 	transition: 0.2s;

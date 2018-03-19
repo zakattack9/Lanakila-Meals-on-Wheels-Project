@@ -287,6 +287,33 @@ $('#deleteGroup').click(function(){
 	$('#deletePopup')[0].style.display = "none";
   deleteTopics(groupIDs);
 })
+
+$('#searchGrp').click(function(){
+	if($('#searchBox')[0].style.width === "150px"){
+		$('#searchInput').val('');
+		grpSearch(); //needs to run grpSearch() again to reset values
+		$('#searchBox')[0].style.width = "0px";
+	}else {
+		$('#searchBox')[0].style.width = "150px";
+	}
+})
+
+//adapted from: https://www.w3schools.com/howto/howto_js_filter_lists.asp
+function grpSearch() { //filters group on search
+  var input, filter, tbody, trow, searchName;
+  input = $("#searchInput");
+  filter = input.val().toUpperCase();
+  tbody = $("#grpTable tbody");
+  trow = $("#grpTable tbody tr");
+  for (var i = 0; i < trow.length; i++) {
+    searchName = trow[i].getElementsByClassName("groupName")[0];
+    if (searchName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      trow[i].style.display = "";
+    } else {
+      trow[i].style.display = "none";
+    }
+  }
+}
 //GROUPS JS END
 
 
