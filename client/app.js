@@ -358,47 +358,4 @@ $('#msgsTable tr td').click(function(){ //highlights whole row
   }
 })
 
-//Urgent Message Slides
-var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function currentDiv(n) {
-  showDivs(slideIndex = n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("msgSlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-     dots[i].className = dots[i].className.replace(" orange-dot", "");
-  }
-  x[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " orange-dot";
-}
-
-//event selection
-var previous = [];
-$('.event').click(function() {
-	var getLast = previous.pop(); //gets value of previous 
-	console.log("here's the last thing that was clicked: " + getLast);
-	
-	$('#' + getLast).removeClass('selectedEvent'); //removes class from previous
-	
-	previous.push(this.id); //adds selected event to previous clicks
-	console.log(previous);
-	
-	$(`#${this.id}`).addClass('selectedEvent'); //adds 'selected' class
-	console.log('an event has been selected: ' + this.id);
-});
-
 //MESSAGES JS END

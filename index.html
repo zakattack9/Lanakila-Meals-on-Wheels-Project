@@ -10,6 +10,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="./multiple.css">
 </head>
 <body>
 
@@ -535,51 +536,11 @@
 
 				<div id="openNewMsg">
 					<div id="newMsgContainer">
-						<h4>Write Custom Message:</h4>
+						<h2>Write Custom Message:</h2>
 			 			<textarea name="generalText" rows="15" id="typeMsg" placeholder="Type message here"></textarea>
 			 			<div id="submitMsg">Create</div>
 					</div>
-					<hr>
-					<div id="urgentMsgContainer">
-						<h4>Generate Preset Message:</h4>
-						<div class="msgSlides" id="selectEvent">
-							<p>Please answer the following questions.</p>
-							<p>Pick an Event:</p>
-							<div id="eventContainer">
-								<h2 class="event" id="storm">Storm</h2>
-								<h2 class="event" id="traffic">Traffic</h2>
-								<h2 class="event" id="hurricane">Hurricane</h2>
-								<h2 class="event" id="tsunami">Tsunami</h2>
-								<h2 class="event" id="earthquake">Earthquake</h2>
-							</div>
-						</div>
-						<div class="msgSlides" id="whenEvent">
-							<p>When will the event occur?</p>
-							<ul>
-								<li>Today</li>
-								<li>Today +</li>
-								<li>Other</li>
-							</ul>
-						</div>
-						<div class="msgSlides" id="specifyWhenEvent">
-							<h3>Input Date(s)</h3>
-						</div>
-						<div class="msgSlides" id="previewEvent">
-							<h3>Here is a preview of your message:</h3>
-							<div id="msgPreview">MESSAGE</div>
-							<button id="createUrgent">Create</button>
-						</div>
-						<div class="pageControl">
-							<div class="leftArrow" onclick="plusDivs(-1)"><</div>
-							<div class="dotContainer">
-								<span class="dot orange-dot" onclick="currentDiv(1)"></span>
-								<span class="dot orange-dot" onclick="currentDiv(2)"></span>
-								<span class="dot orange-dot" onclick="currentDiv(3)"></span>
-								<span class="dot orange-dot" onclick="currentDiv(4)"></span>
-							</div>
-							<div class="rightArrow" onclick="plusDivs(1)">></div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 
@@ -597,5 +558,6 @@
 	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script src="./client/app.js"></script>
 	<script src="./client/requests.js"></script>
+	<script src="./multiple.min.js"></script>
 </body>
 </html>
