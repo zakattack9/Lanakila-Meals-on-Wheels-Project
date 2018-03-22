@@ -300,6 +300,8 @@ if ($('#messages')[0].style.display === 'none') {
 	$('#openOldMsg')[0].style.display = 'none';
 }
 
+
+// CHANGE CLASS NAMES
 $('#checkAll2 span').click(function(){ //checks all boxes on/off
 	if($(this).hasClass('isChecked')){
 		$(this).removeClass('isChecked');
@@ -316,6 +318,8 @@ $('#checkAll2 span').click(function(){ //checks all boxes on/off
 	}
 })
 
+
+// CHANGE PARAMETERS
 var editingMsg = false; //allows message editing
 $('#msgsTable tr td').click(function(){ //highlights whole row
 	let row = this.parentElement;
@@ -357,5 +361,7 @@ $('#msgsTable tr td').click(function(){ //highlights whole row
   	alert("Save Message First");
   }
 })
+
+
 
 //MESSAGES JS END
