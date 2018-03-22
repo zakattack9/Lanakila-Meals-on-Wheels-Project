@@ -362,7 +362,20 @@ $('#msgsTable tr td').click(function(){ //highlights whole row
   }
 })
 
+// Message Deletion
+// $('.msgDelete').click( function () {
+// 	$(this).closest('.msg').remove();
+// 	console.log('removing message!');
+// });
 
+function removeMsg(param) {
+	console.log(param);
+	$(param).closest('.msg').remove();
+	console.log('removing message!');
+}
+
+
+// Message Submission
 $('#submitMsg').click( function () {
 	let written = $('#typeMsg').val();
 	console.log(written);
@@ -388,7 +401,7 @@ $('#submitMsg').click( function () {
 				<span class="date">${date}</span>
 			</div>
 			<div class="modeContainer">
-				<button class="msgDelete">x</button>
+				<button class="msgDelete" onclick="removeMsg(this)">x</button>
 				<button class="msgEdit"><img src="./images/edit.png"></button>
 			</div>
 		</div>
