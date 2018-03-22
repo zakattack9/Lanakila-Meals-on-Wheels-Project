@@ -363,5 +363,46 @@ $('#msgsTable tr td').click(function(){ //highlights whole row
 })
 
 
+$('#submitMsg').click( function () {
+	let written = $('#typeMsg').val();
+	console.log(written);
 
+	//get today's date
+	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	let today = new Date();
+	let dd = today.getDate();
+	let mm = today.getMonth();
+	let yyyy = today.getFullYear();
+
+	if(dd<10) { //adds 0 to single digit dates
+		dd = '0' + dd;
+	}
+
+	let date = monthNames[mm] + ' ' + dd + ', ' + yyyy;
+	
+	//prepending to oldMsg
+	$('#oldMsgContainer').prepend(`
+		<div class="msg editOff">
+			<div class="msgAndDate">
+				<p class="message">${written}</p>
+				<span class="date">${date}</span>
+			</div>
+			<div class="modeContainer">
+				<button class="msgDelete">x</button>
+				<button class="msgEdit"><img src="./images/edit.png"></button>
+			</div>
+		</div>
+	`)
+
+	//prepending to overlay (msg list)
+	$('#msgOverlayWrap').prepend(`
+		<div class='draggable' ondragstart='dragStart(event)' draggable='true'>${written}</div>
+	`);
+
+	//clears textarea
+	$('#typeMsg').val(''); 
+	
+	//alert user
+	alert('Message created!');
+})
 //MESSAGES JS END
