@@ -1,4 +1,4 @@
- $(document).ready(function() {
+$(document).ready(function() {
 	document.getElementById('broadcast').classList.add("visisble"); //if not in .ready, you will not be able to rmeove the class "visible" from this element
 	$('.broadcast').addClass('active');
 
