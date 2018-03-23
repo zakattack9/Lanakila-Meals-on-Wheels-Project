@@ -1158,3 +1158,131 @@ html, body {
 	margin: 2% auto;
 	/*margin: 3% 10% 2% 30%;*/
 }
+
+
+/* Styles for quick send workspace */
+#quickSend {
+	height: 100vh;
+}
+
+.msgType {
+	margin: 20px;
+	padding: 10px;	
+	background-color: #F58F31;
+	color: white;
+	border-radius: 20px;
+	border-width: 5px;
+	border-style: solid; 
+	border-color: #F58F31;	
+	text-align: center;
+	transition: all 0.2s;
+	transition-timing-function: ease;
+}
+
+.msgType:hover { 
+	margin-left: 10px;
+	margin-right: 10px;
+    transition: all 0.2s;
+    transition-timing-function: ease-in;
+}
+
+#msgPanel {
+	height: 90vh;
+	width: 65%;
+	float: left;
+}
+
+#msgTypePanel {
+	float: left	;
+	width: 35%;
+	height: 90vh;
+}
+
+.tab {
+	background-color: #F58F31;
+	text-align: center;
+	color: white;
+	padding: 5px;
+	height: 10vh; 
+}
+
+.scroll {
+	overflow-y: scroll;
+	height: 90vh;
+}
+
+#qsContainer {
+	width: 70%;
+	height: 85%;
+	margin: auto;
+	margin-top: 40px;
+	background-color: #F58F31;
+	border-radius: 40px;
+}
+
+#qsType {
+	padding: 2px;
+}
+
+#typeHeader {
+	color: white;
+	text-align: center;
+}
+
+#msgContainer {
+	margin: auto;
+	background-color: white;
+	width: 85%;
+	height: 65%;
+	border-radius: 20px;
+	padding: 10px;
+	position: relative;
+}
+
+#qsSend {
+	background-color: #13896D;
+	height: 60px;
+	width: 200px;
+	margin: auto;
+	margin-top:15px;
+	text-align: center;
+	padding: 5px;
+	border-radius: 10px;
+}
+
+.msgPre {
+	overflow-y: scroll;
+	height: 100%;
+	display: none;
+}
+
+#editButton {
+	background: lightgrey;
+	position: absolute;
+	padding: 5px 10px;   
+	bottom: 10px;
+  right: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.15s;
+  transition-timing-function: ease-out;
+}
+
+#editButton img {
+	width:32px;
+	height: 32px;
+	display: inline-block;
+}
+
+#editButton:hover {
+	padding-left:20px;   
+    transition: all 0.15s;
+    transition-timing-function: ease-in;
+}
+
+#editBox {
+	width: 100%;
+}

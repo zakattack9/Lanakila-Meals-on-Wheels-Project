@@ -575,7 +575,48 @@
 
 			<!--QUICK SEND-->
 			<div class="hidden" id="quickSend"><!--broadcasts preset messages to EVERYONE-->
-				
+				<div id="msgTypePanel">
+					<div class="tab"><h3>Type</h3></div>
+					<div class="scroll">
+						<div class="msgType" id="traffic" onclick="switchType(this.id)"><h3>Traffic</h3></div>
+						<div class="msgType" id="storm" onclick="switchType(this.id)"><h3>Storm</h3></div>
+						<div class="msgType" id="tsunami" onclick="switchType(this.id)"><h3>Tsunami</h3></div>
+						<div class="msgType" id="earthquake" onclick="switchType(this.id)"><h3>Earthquake</h3></div>
+						<div class="msgType" id="other1"onclick="switchType(this.id)"><h3>Other1</h3></div>
+						<div class="msgType" id="other2"onclick="switchType(this.id)"><h3>Other2</h3></div>
+						<div class="msgType" id="other3"onclick="switchType(this.id)"><h3>Other3</h3></div>
+						<div class="msgType" id="other4"onclick="switchType(this.id)"><h3>Other4</h3></div>
+						<div class="msgType" id="other5"onclick="switchType(this.id)"><h3>Other5</h3></div>
+						<div class="msgType" id="other6"onclick="switchType(this.id)"><h3>Other6</h3></div>
+					</div>
+				</div>
+				<div id="msgPanel">
+					<div class="tab"><h3>Message</h3></div>
+					<div id="qsContainer">
+						<div id= "qsType">
+							<h3 id="typeHeader">Preview</h3>
+						</div>
+						<div id = "msgContainer">
+							<div id="traffic-msg" class="msgPre">
+								<p>trafficasfdsfsa adipiscing elit, sed do <input type="textbox" placeholder="dfdsfe"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dfdsf"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="fdasfde"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="hgfd"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							</div>
+							<div id="storm-msg" class="msgPre">
+								<p>storms fsadfsdaf sadfsad fsa fsad <input type="textbox" placeholder="hgfdgh"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dgfsde"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="date"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="gfsdge"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							</div>
+							<div id="tsunami-msg" class="msgPre">
+								<p>fasfd asfs TSUNAMI TSUNAMI FSAFSADo <input type="textbox" placeholder="gfsdge"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dgfsdgs"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="gfdsg"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="trwete"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							</div>
+							<div id="earthquake-msg" class="msgPre">
+								<p>Lorem ipsum EARTHQUAKEFSDAFDSFS, sed do <input type="textbox" placeholder="fgd"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="k"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="or"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="df"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. fdsa fdsa fsa fdsa fs fsd fs fds fds fsd fds.</p>
+							</div>
+							<textarea id="editBox" class="msgPre"></textarea>
+							<div id="editButton" onclick="editMsg()">
+								<img id ="edit/save" src="./images/edit.png">
+							</div>
+						</div>
+						<div id = "qsSend">Send!</div>
+					</div>
+				</div>
 
 			</div>
 
