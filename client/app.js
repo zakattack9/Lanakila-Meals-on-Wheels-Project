@@ -343,5 +343,156 @@ $('.singleSub').on('mousedown', function(event){
 	$('#tempSide')[0].style.width = "220px";
 })
 
-
 //SUBSCRIBERS JS END
+
+
+
+
+
+
+//MESSAGES JS START
+$('#oldMsgTab').click(function(){
+	$('#oldMsgTab')[0].style.backgroundColor = '#EAEAEA';
+	$('#newMsgTab')[0].style.backgroundColor = '#fcd8b6';
+	$('#oldMsgTab')[0].style.position = 'relative';
+	$('#newMsgTab')[0].style.position = '';
+
+	$('#openOldMsg')[0].style.display = 'block';
+	$('#openNewMsg')[0].style.display = 'none';
+})
+
+$('#newMsgTab').click(function(){
+	$('#oldMsgTab')[0].style.backgroundColor = '#fcd8b6';
+	$('#newMsgTab')[0].style.backgroundColor = 'white';
+	$('#newMsgTab')[0].style.position = 'relative';
+	$('#oldMsgTab')[0].style.position = '';
+
+	$('#openOldMsg')[0].style.display = 'none';
+	$('#openNewMsg')[0].style.display = 'block';
+})
+
+//if messages div has class 'hidden', hide table (oldMsdTab)
+if ($('#messages')[0].style.display === 'none') {
+	console.log('hiding messages table')
+	$('#openOldMsg')[0].style.display = 'none';
+}
+
+
+// CHANGE CLASS NAMES
+$('#checkAll2 span').click(function(){ //checks all boxes on/off
+	if($(this).hasClass('isChecked')){
+		$(this).removeClass('isChecked');
+		$('.customBox span').map((currVal, index) => {
+			$(index).removeClass('isChecked');
+			index.parentElement.parentElement.parentElement.style.backgroundColor = "white";
+		});
+	}else{
+		$(this).addClass('isChecked');
+		$('.customBox span').map((currVal, index) => {
+			$(index).addClass('isChecked');
+			index.parentElement.parentElement.parentElement.style.backgroundColor = "#fcd8b6";
+		});
+	}
+})
+
+
+// CHANGE PARAMETERS
+var editingMsg = false; //allows message editing
+$('#msgsTable tr td').click(function(){ //highlights whole row
+	let row = this.parentElement;
+	let currCheck = this.parentElement.firstElementChild.firstElementChild.lastElementChild;
+
+	let iterate = 0;
+	if(event.target.tagName === 'SPAN' || event.target.tagName === 'INPUT'){
+		iterate++;
+		$(currCheck).hasClass('isChecked') === false && iterate === 1 ? removeHighlight(currCheck, row) : addHighlight(currCheck, row);
+	}else if($(currCheck).hasClass('isChecked')){
+		console.log('real first')
+		if(event.target.className === 'editBtn' || event.target.className === 'tempInp' || event.target.className === 'saveBtn'){ //checks if clicking on edit button
+			editingMsg = true;
+			let ogMsgName = event.target.parentElement.firstChild.nodeValue;
+
+			if(event.target.className === 'editBtn'){ //removes current group name and replaces it with input field
+				event.target.parentElement.firstChild.remove();
+				let input = $('<input>').attr({type:'text', value: ogMsgName, class:'tempInp'});
+				event.target.parentElement.prepend(input[0]);
+
+				let toSave = row.getElementsByTagName('td')[1].lastElementChild;
+				$(toSave).attr({class:'saveBtn', src:'./images/save.png'}); //show save button
+			}else if(event.target.className === 'saveBtn'){
+				let newMsgName = event.target.parentElement.firstChild.value
+				event.target.parentElement.firstChild.remove();
+				event.target.parentElement.prepend(newMsgName);
+				row.getElementsByTagName('td')[1].lastElementChild.remove(); //remove save button
+
+				editingMsg = false;
+				removeHighlight(currCheck, row);
+			}
+		}else if(editingMsg === false){ //if not editing, remove edit button and unhighlight
+			removeHighlight(currCheck, row);
+		}
+  }else if(editingMsg === false){ //adds edit button and highlights
+  	console.log('first')
+  	addHighlight(currCheck, row);
+  }else{
+  	alert("Save Message First");
+  }
+})
+
+// Message Deletion
+// $('.msgDelete').click( function () {
+// 	$(this).closest('.msg').remove();
+// 	console.log('removing message!');
+// });
+
+function removeMsg(param) {
+	console.log(param);
+	$(param).closest('.msg').remove();
+	console.log('removing message!');
+}
+
+
+// Message Submission
+$('#submitMsg').click( function () {
+	let written = $('#typeMsg').val();
+	console.log(written);
+
+	//get today's date
+	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	let today = new Date();
+	let dd = today.getDate();
+	let mm = today.getMonth();
+	let yyyy = today.getFullYear();
+
+	if(dd<10) { //adds 0 to single digit dates
+		dd = '0' + dd;
+	}
+
+	let date = monthNames[mm] + ' ' + dd + ', ' + yyyy;
+	
+	//prepending to oldMsg
+	$('#oldMsgContainer').prepend(`
+		<div class="msg editOff">
+			<div class="msgAndDate">
+				<p class="message">${written}</p>
+				<span class="date">${date}</span>
+			</div>
+			<div class="modeContainer">
+				<button class="msgDelete" onclick="removeMsg(this)">x</button>
+				<button class="msgEdit"><img src="./images/edit.png"></button>
+			</div>
+		</div>
+	`)
+
+	//prepending to overlay (msg list)
+	$('#msgOverlayWrap').prepend(`
+		<div class='draggable' ondragstart='dragStart(event)' draggable='true'>${written}</div>
+	`);
+
+	//clears textarea
+	$('#typeMsg').val(''); 
+	
+	//alert user
+	alert('Message created!');
+})
+//MESSAGES JS END
