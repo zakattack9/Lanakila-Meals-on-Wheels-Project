@@ -14,7 +14,7 @@ module.exports.listSubs = (event, context, callback) => {
 			      "Access-Control-Allow-Origin":  "*",
 			      "Access-Control-Allow-Credentials": true
 			    },
-				body: err, err.stack
+				body: err
 			};
 			callback(null, response);
 		}
@@ -33,3 +33,14 @@ module.exports.listSubs = (event, context, callback) => {
 	})
  
 };
+
+var params = {
+  TopicArn: 'arn:aws:sns:us-west-2:116598778905:Elderlies'
+};
+sns.listSubscriptionsByTopic(params, function(err, data) {
+  if(err){
+  	console.log('err')
+  }else{
+  	console.log(data)
+  }
+});

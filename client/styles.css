@@ -318,7 +318,7 @@ html, body {
 
 #trashGrp {
 	position: absolute;
-	top: 15px;
+	top: 17px;
 	margin-left: 15px;
 	transition: 0.1s;
 }
@@ -330,7 +330,7 @@ html, body {
 
 #addGrp {
 	position: absolute;
-	top: 15px;
+	top: 17px;
 	right: 0;
 	margin-right: 15px;
 	transition: 0.2s;
@@ -343,7 +343,7 @@ html, body {
 
 #reloadGrp {
 	position: absolute;
-	top: 14px;
+	top: 16px;
 	margin-left: 50px;
 }
 
@@ -355,19 +355,18 @@ html, body {
 
 #searchGrp {
 	position: absolute;
-	top: 14px;
+	top: 16px;
 	margin-left: 85px;
 }
 
 #searchGrp img{
 	width: 32px;
-	animation: reload 0.3s ease-in-out forwards paused;
 }
 
 #searchBox {
 	width: 0;
 	position: absolute;
-	top: 17px;
+	top: 16px;
 	margin-left: 120px;
 	overflow: hidden;
 	transition: 0.2s;
@@ -685,7 +684,7 @@ html, body {
 }
 
 #subsTab, #grpTab {
-	z-index: 0;
+	z-index: 2;
 	width: 200px;
 	height: 40px;
 	text-align: center;
@@ -699,8 +698,73 @@ html, body {
 	margin-right: -10px;
 }
 
+#subsTab {
+	position: relative;
+}
+
 #grpTab {
 	margin-right: 10px;
+}
+
+#subsIconRow {
+	z-index: 0;
+	position: relative;
+	right: 0;
+	bottom: 0;
+	width: 140px;
+	height: 35px;
+	margin-top: 30px; 
+	display: inline-block;
+	float: right;
+	overflow: hidden;
+	opacity: 1;
+	transition: 0.3s;
+}
+	
+/*sub icons*/
+#trashSub {
+	display: inline-block;
+	transition: 0.2s;
+}
+
+#trashSub img{
+	width: 30px;
+	border-radius: 50%;
+}
+
+#addSub {
+	display: inline-block;
+	transition: 0.2s;
+}
+
+#addSub img{
+	width: 31px;
+	border-radius: 50%;
+}
+
+#reloadSub {
+	display: inline-block;
+	transition: 0.2s;
+}
+
+#reloadSub img{
+	width: 32px;
+	border-radius: 50%;
+	animation: reload 0.3s ease-in-out forwards paused;
+}
+
+#searchSub {
+	display: inline-block;
+	transition: 0.2s;
+}
+
+#searchSub img{
+	width: 32px;
+}
+
+#addSub:hover, #trashSub:hover, #reloadSub:hover, #searchSub:hover {
+	transform: scale(1.03);
+	transition: 0.2s;
 }
 
 /* Subscriptions Table */
@@ -863,6 +927,239 @@ html, body {
 }
 
 
+
+/* Styles for messages workspace */
+#messages {
+	height: 100%;
+}
+
+/*styles for messages sub-tab*/
+#msgsTopBar {
+	width: 100%;
+	height: 65px;
+	background-color: #F58F31;
+}
+
+#msgsTitle {
+	font-family: 'Roboto Slab', serif;
+	font-size: 25px;
+	text-align: center;
+	line-height: 65px;
+	position: absolute;
+	margin-left: 150px;
+}
+
+#trashMsg {
+	position: absolute;
+	top: 14px;
+	margin-left: 15px;
+}
+
+#trashMsg img {
+	width: 30px;
+	border-radius: 50%;
+}
+
+#reloadMsg {
+	position: absolute;
+	top: 14px;
+	margin-left: 50px;
+}
+
+#reloadMsg img{
+	width: 32px;
+	border-radius: 50%;
+}
+
+#searchMsg {
+	position: absolute;
+	top: 14px;
+	margin-left: 85px;
+}
+
+#searchMsg img{
+	width: 32px;
+}
+
+#oldMsgTab, #newMsgTab {
+	z-index: 0;
+	width: 200px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	background-color: #fcd8b6;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	display: inline-block;
+	float: right;
+	margin-top: 25px;
+	margin-right: -10px;
+}
+
+#oldMsgTab {
+	background-color: #EAEAEA;
+}
+
+#newMsgTab {
+	margin-right: 10px;
+}
+
+#checkAll2 {
+  position: relative;
+  top: 19px;
+  left: 17px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#checkAll2 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#openOldMsg {
+	display: block;
+	height: 100%;
+}
+
+#openNewMsg {
+	display: none;
+	text-align: center;
+	height: 100%;
+}
+
+#messages textarea {
+	resize: none;
+	font-family: 'Lato', sans-serif;
+}
+
+/*styles for messages sub-tab*/
+#openOldMsg {
+	overflow: scroll;
+}
+
+.msg { /*controls size, positioning (itself/flex), and color*/
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 80%;
+	padding-left: 20px;
+	background-color: #13896D;
+	margin: 10px auto;
+
+	/*background gradient*/
+	background-image: linear-gradient(#5DFDCB, #2BAD8F);
+	background-attachment: fixed;
+}
+
+.modeContainer {
+	width: 41px;
+}
+
+.editOff {/*rounded edges, shadow on hover*/
+	border-radius: 10px;
+}
+
+#editOn {/*angular edges*/
+
+}
+
+/*.msgCheck {
+	position: relative;
+	top: 15px;
+	left: 15px;
+	cursor: pointer;
+}
+
+.msgCheck input {
+	position: absolute;
+	opacity: 0;
+	cursor:pointer;
+}
+
+.msgCheckmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 20px;
+	width: 20px;
+	background-color: white;
+	border-radius: 5px;
+}*/
+/*.checkMsg {
+	width: 30px;
+	height: 30px;
+	border: 1px solid black;
+	background-color: white;
+}*/
+
+.msgAndDate {
+	padding: 15px;
+}
+
+.message {
+	margin-top: 0;
+}
+
+.msgDelete, .msgEdit {
+	height: 50%;
+	width: 41px;
+	background-color: #D3F9CA;
+	/*border-color: transparent;*/
+	/*border-color: #A3FFAA;*/
+	border: 1px solid #2BAD8F;
+	cursor: pointer;
+}
+
+.msgDelete {
+	border-top-right-radius: 10px;
+	border-bottom-width: 0;
+}
+
+.msgEdit{
+	border-bottom-right-radius: 10px;
+}
+
+.msgEdit img {
+	width: 30px;
+	width: 25px;
+	height: 25px;
+}
+
+/*styles for custom message sub-tab*/
+#openNewMsg {
+}
+
+#newMsgContainer {
+	margin-top: 10%;
+	height: 50%;
+}
+
+#newMsgContainer textarea{
+	font-size: 20px;
+}
+
+#typeMsg {
+	width: 80%;
+	height: 80%;
+	display: inline-block;
+}
+
+#submitMsg { /*btn - submit type msg */
+	background-color: #138960;
+	cursor: pointer;
+	width: 80px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-radius: 10px;
+	margin: 2% auto;
+	/*margin: 3% 10% 2% 30%;*/
+}
 
 
 
