@@ -347,7 +347,6 @@ $('.singleSub').on('mousedown', function(event){
 	$('#tempSide')[0].style.width = "220px";
 })
 
-
 //SUBSCRIBERS JS END
 
 
@@ -498,5 +497,8 @@ $('#submitMsg').click( function () {
 	alert('Message created!');
 })
 //MESSAGES JS END
+
+
+
 
 
