@@ -366,7 +366,7 @@ html, body {
 #searchBox {
 	width: 0;
 	position: absolute;
-	top: 16px;
+	top: 19px;
 	margin-left: 120px;
 	overflow: hidden;
 	transition: 0.2s;
