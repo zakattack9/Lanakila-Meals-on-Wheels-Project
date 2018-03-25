@@ -5,7 +5,7 @@
 // Gets all topics from DB
 function loadGroups(){
   $('#grpTable tbody tr').remove(); //removes currently displayed topics
-  $('#spinnerWrap')[0].style.display = "block";
+  $('.spinnerWrap')[0].style.display = "block";
 
   $.ajax({
     url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -13,7 +13,7 @@ function loadGroups(){
     "Content-Type": "application/json",
   })
   .done((response) => {
-    $('#spinnerWrap')[0].style.display = "none";
+    $('.spinnerWrap')[0].style.display = "none";
   	//console.log(response)
     response.map(currVal => {
     	//console.log(currVal)
@@ -29,6 +29,12 @@ function loadGroups(){
   		    <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
   		  </tr>
     	`)
+
+      if(currVal.group_name === "Everyone"){
+        return "Skipping this selection" //prevents this option from being added to dropdown
+      }else{
+        $('#groupSelect').append(`<option value="${currVal.id}">${currVal.group_name}</option>`) //adds items to select menu in subs tab
+      }
     })
   })
   .fail((err) => {
@@ -61,7 +67,11 @@ $('#createGrp').click(function(){
     console.log(err.responseText);
   }) 
 
-  $('#groupText').val(''); //resets inputboc
+  $('#groupText').val(''); //resets input for group name
+})
+
+$('#closePopup').click(function(){
+  $('#groupText').val('');
 })
 
 // Deletes groups from DB and SNS
@@ -98,3 +108,106 @@ function deleteTopics(id) {
 // .fail((err) => {
 //   console.log('error', err);
 // })
+
+function loadSubscribers() {
+  $('#subsTable tbody tr').remove(); //removes currently displayed topics
+  $('.spinnerWrap')[1].style.display = "block";
+
+  $.ajax({
+    url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/get",
+    method: 'GET',
+    "Content-Type": "application/json",
+  })
+  .done((response) => {
+    $('.spinnerWrap')[1].style.display = "none";
+
+    response.map(currVal => {
+      //console.log(currVal)
+      $('#subsTable tbody').append(`
+        <tr id="${currVal.id}" onclick="highlightSub(this);">
+          <td>
+            <div class="customCheckSub">
+                
+            </div>
+          </td>
+          <td class="subName">${currVal.subscription_name}</td>
+          <td>${currVal.subscription_endpoint.toUpperCase()}</td>
+          <td>${currVal.subscription_contact}</td>
+        </tr>
+      `)
+    })
+  })
+  .fail((err) => {
+    console.log('error', err);
+  })
+}
+loadSubscribers();
+
+// Reloads groups when clicking refresh button
+$('#reloadSub').click(function(){
+  loadSubscribers();
+})
+
+function resetAddSubPop(){
+  $('#subText').val('');
+  $('#contactInfo').val('');
+  //resets circle option back to "text"
+  $('#emailCircle')[0].style.backgroundColor = "#fcd8b6";
+  $('#emailCircle').empty();
+  $('#emailCircle').removeClass('isChecked');
+  $('#emailProtText')[0].style.color = "gray";
+
+  $('#textCircle').addClass('isChecked');
+  $('#textCircle').empty();
+  $('#textCircle').append(`<div class="innerCircle"></div>`);
+  $('#textProtText')[0].style.color = "black";
+  $('#contactTitle')[0].innerText = "Phone Number (With International Call Prefix):";
+  $('#contactInfo').attr("placeholder", "Ex. 18081234567");
+}
+
+$('#createSub').click(function(){
+  $('#addSubPop')[0].style.display = "none";
+
+  let subName, subProtocol, subContact, groupID;
+  subName = $('#subText').val();
+  subProtocol;
+  subContact = $('#contactInfo').val();
+  groupID = $('#groupSelect').val();
+
+  if($('#textCircle').hasClass('isChecked')){
+    subProtocol = 'sms';
+  }else {
+    subProtocol = 'email';
+  }
+
+  $.ajax({
+    url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/post",
+    method: 'POST',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify({
+      "subName" : subName,
+      "subProtocol" : subProtocol,
+      "subContact" : subContact,
+      "groupID" : groupID
+    })
+  })
+  .done((response) => {
+    //console.log(response)
+    loadSubscribers();
+  })
+  .fail((err) => {
+    console.log(err);
+  }) 
+  resetAddSubPop();
+
+})
+
+$('#closeAddSub').click(function(){
+  resetAddSubPop();
+})
+
+
+
+
+

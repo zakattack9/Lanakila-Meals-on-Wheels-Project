@@ -19,7 +19,7 @@
 }
 
 /* loading animation from: http://tobiasahlin.com/spinkit/*/
-#spinnerWrap {
+.spinnerWrap {
   position: relative;
   top: 50px;
   margin: 0 auto;

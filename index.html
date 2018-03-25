@@ -178,7 +178,7 @@
 					</tbody>
 				</table>
 
-				<div id="spinnerWrap">
+				<div class="spinnerWrap">
 					<div class="spinner">
 					  <div class="rect1"></div>
 					  <div class="rect2"></div>
@@ -219,90 +219,84 @@
 						<div id="searchSub">
 							<img src="./images/search.png">
 						</div>
-					</div>
 
+						<div id="searchBoxSub">
+							<input type="text" id="searchInputSub" onkeyup="subSearch();" placeholder=" Search for subs..">
+						</div>
+
+					</div>
+				</div>
+
+				<div id="addSubPop">
+					<div id="addSubBox">
+						<div id="closeAddSub">&times;</div>
+						<div id="popSubTitle">Subscriber Information:</div>
+
+						<div id="subName">Full Name</div>
+						<input id="subText" type="text">
+
+						<br><br>
+						<div id="protocolTitle">Endpoint/Protocol:</div>
+						<div id="subProtocol">
+							<div id="textProt">
+								<div id="textCircle"></div>
+								<div id="textProtText">Text</div>
+							</div>
+
+							<div id="emailProt">
+								<div id="emailCircle"></div>
+								<div id="emailProtText">Email</div>
+							</div>
+						</div>
+
+						<br>
+						<div id="contactTitle">Phone Number (With International Call Prefix):</div>
+						<input id="contactInfo" type="text" placeholder="Ex. 18081234567">
+
+						<br><br>
+						<div id="groupOptTitle">Select a Group:</div>
+						<select id="groupSelect">
+						</select>
+
+						<div id="createSub">Create Subscriber</div>
+					</div>
+				</div>
+
+				<div id="delSubPop">
+					<div id="delSubBox">
+						<div id="closeDelSub">&times;</div>
+
+					</div>
 				</div>
 
 				<div id="openSub">
 					<table id="subsTable">
-					  <tr>
-					  	<th>
-					  		<label id="checkAll">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</th>
-					    <th>Name</th>
-					    <th>Medium</th>
-					    <th>Contact</th>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Zak S</td>
-					    <td>Email</td>
-					    <td>zak@gmail.com</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Ian A</td>
-					    <td>SMS</td>
-					    <td>1808422222</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Angela G</td>
-					    <td>SMS</td>
-					    <td>18081234567</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Dr. Dre</td>
-					    <td>SMS</td>
-					    <td>11111111111</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Tyler N.</td>
-					    <td>SMS</td>
-					    <td>14309780986</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Jay H.</td>
-					    <td>Email</td>
-					    <td>15679042345</td>
-					  </tr>
+						<thead>
+						  <tr>
+						  	<th>
+						  		<div id="checkAllSubs">
+			                
+			            </div>
+						  	</th>
+						    <th>Name</th>
+						    <th>Medium</th>
+						    <th>Contact</th>
+						  </tr>
+						</thead>
+						<tbody>
+
+						</tbody>
 					</table>
+
+					<div class="spinnerWrap">
+						<div class="spinner">
+						  <div class="rect1"></div>
+						  <div class="rect2"></div>
+						  <div class="rect3"></div>
+						  <div class="rect4"></div>
+						  <div class="rect5"></div>
+						</div>
+					</div>
 				</div>
 
 				<div id="tempSide"> <!--side div that pops out to temp store card-->

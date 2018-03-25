@@ -4,6 +4,13 @@ $(document).ready(function() {
 
 	$('#subsTab')[0].style.backgroundColor = '#EAEAEA'; //for subscriptions tab
 	$('#openGrp')[0].style.display = 'none';
+	$('#textCircle, #emailCircle').css('background-color', '#fcd8b6');
+	
+	//sets circle option in add subscriber option to automatically checked off
+	$('#textCircle').addClass('isChecked');
+	$('#textCircle').empty();
+	$('#textCircle').append(`<div class="innerCircle"></div>`);
+	$('#emailProtText')[0].style.color = "gray";
 })
 
 function switchWorkspace(el) {
@@ -256,7 +263,7 @@ $('#closePopup').click(function(){
 })
 
 var groupIDs = [];
-$('#trashGrp').click(function(){
+$('#trashGrp').click(function(){ //for trash popup
   $('#selectedGroups').empty(); //empties out previously selected groups
   groupIDs = []; //resets groups to delete queue
 
@@ -319,8 +326,8 @@ function grpSearch() { //filters group on search
 
 
 //SUBSCRIBERS JS START
-$('#subsTab').click(function(){
-	$('#subsTab')[0].style.backgroundColor = '#EAEAEA';
+$('#subsTab').click(function() {
+	$('#subsTab')[0].style.backgroundColor = '#EAEAEA'; //could condense using css jquery property
 	$('#grpTab')[0].style.backgroundColor = '#fcd8b6';
 	$('#subsTab')[0].style.position = 'relative';
 	$('#grpTab')[0].style.position = '';
@@ -328,10 +335,10 @@ $('#subsTab').click(function(){
 	$('#openSub')[0].style.display = 'block';
 	$('#openGrp')[0].style.display = 'none';
 
-	$('#subsIconRow')[0].style.right = '0';
+	$('#subsIconRow')[0].style.left = '317px';
 })
 
-$('#grpTab').click(function(){
+$('#grpTab').click(function() {
 	$('#subsTab')[0].style.backgroundColor = '#fcd8b6';
 	$('#grpTab')[0].style.backgroundColor = 'white';
 	$('#grpTab')[0].style.position = 'relative';
@@ -340,13 +347,121 @@ $('#grpTab').click(function(){
 	$('#openSub')[0].style.display = 'none';
 	$('#openGrp')[0].style.display = 'block';
 
-	$('#subsIconRow')[0].style.right = '-140px';
+	$('#subsIconRow')[0].style.left = '167px';
+
+	$('#addSubPop')[0].style.display = "none";
+	$('#delSubPop')[0].style.display = "none";
 })
 
 $('.singleSub').on('mousedown', function(event){
-	$('#tempSide')[0].style.width = "220px";
+	$('#tempSide')[0].style.width = "-150px";
 })
 
+$('#reloadSub').click(function(){ //runs refresh button animation for subs tab
+	if($('#reloadSub img')[0].style.animationName == "reload"){
+		$('#reloadSub img')[0].style.animationName = "resetReload";
+	}else{
+		$('#reloadSub img')[0].style.animationName = "reload"
+		$('#reloadSub img')[0].style.animationPlayState = "running";
+	}
+})
+
+$('#addSub').click(function() {
+	$('#addSubPop')[0].style.display = "block";
+	$('#delSubPop')[0].style.display = "none";
+})
+
+$('#trashSub').click(function() {
+	$('#delSubPop')[0].style.display = "block";
+	$('#addSubPop')[0].style.display = "none";
+})
+
+$('#closeAddSub').click(function() {
+	$('#addSubPop')[0].style.display = "none";
+})
+
+$('#closeDelSub').click(function() {
+	$('#delSubPop')[0].style.display = "none";
+})
+
+function highlightSub(selected) {
+	let checkBox = selected.firstElementChild.firstElementChild;
+	$(checkBox).toggleClass('isChecked');
+	$(selected).toggleClass('isCheckedBackground');
+}
+
+$('#checkAllSubs').click(function(){ //checks all boxes on/off
+	if($(this).hasClass('isChecked')){
+		$(this).removeClass('isChecked');
+		$('.customCheckSub').map((currVal, index) => {
+			let selectedRow = index.parentElement.parentElement;
+			$(index).removeClass('isChecked');
+			$(selectedRow).removeClass('isCheckedBackground');
+		});
+	}else{
+		$(this).addClass('isChecked');
+		$('.customCheckSub').map((currVal, index) => {
+			let selectedRow = index.parentElement.parentElement;
+			$(index).addClass('isChecked');
+			$(selectedRow).addClass('isCheckedBackground');
+		});
+	}
+})
+
+$('#textCircle').click(function() {
+	$('#emailCircle')[0].style.backgroundColor = "#fcd8b6";
+	$('#emailCircle').empty();
+	$('#emailCircle').removeClass('isChecked');
+	$('#emailProtText')[0].style.color = "gray";
+
+	$(this).addClass('isChecked');
+	$('#textCircle').empty();
+	$('#textCircle').append(`<div class="innerCircle"></div>`);
+	$('#textProtText')[0].style.color = "black";
+	$('#contactTitle')[0].innerText = "Phone Number (With International Call Prefix):";
+	$('#contactInfo').attr("placeholder", "Ex. 18081234567");
+})
+
+$('#emailCircle').click(function() {
+	$('#textCircle')[0].style.backgroundColor = "#fcd8b6";
+	$('#textCircle').empty();
+	$('#textCircle').removeClass('isChecked');
+	$('#textProtText')[0].style.color = "gray";
+
+	$(this).addClass('isChecked');
+	$('#emailCircle').empty();
+	$('#emailCircle').append(`<div class="innerCircle"></div>`);
+	$('#emailProtText')[0].style.color = "black";
+	$('#contactTitle')[0].innerText = "Email Address:";
+	$('#contactInfo').attr("placeholder", "Ex. lanakila@gmail.com");
+})
+
+$('#searchSub').click(function(){
+	if($('#searchBoxSub')[0].style.width === "130px"){
+		$('#searchInputSub').val('');
+		subSearch(); //needs to run grpSearch() again to reset values
+		$('#searchBoxSub')[0].style.width = "0px";
+	}else {
+		$('#searchBoxSub')[0].style.width = "130px";
+	}
+})
+
+//adapted from: https://www.w3schools.com/howto/howto_js_filter_lists.asp
+function subSearch() { //filters group on search
+  var input, filter, tbody, trow, searchName;
+  input = $("#searchInputSub");
+  filter = input.val().toUpperCase();
+  tbody = $("#subsTable tbody");
+  trow = $("#subsTable tbody tr");
+  for (var i = 0; i < trow.length; i++) {
+    searchName = trow[i].getElementsByClassName("subName")[0];
+    if (searchName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      trow[i].style.display = "";
+    } else {
+      trow[i].style.display = "none";
+    }
+  }
+}
 //SUBSCRIBERS JS END
 
 
