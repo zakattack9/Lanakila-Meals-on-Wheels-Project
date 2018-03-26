@@ -132,7 +132,7 @@ function loadSubscribers() {
           </td>
           <td class="subName">${currVal.subscription_name}</td>
           <td>${currVal.subscription_endpoint.toUpperCase()}</td>
-          <td>${currVal.subscription_contact}</td>
+          <td class="subContact">${currVal.subscription_contact}</td>
         </tr>
       `)
     })
@@ -207,7 +207,23 @@ $('#closeAddSub').click(function(){
   resetAddSubPop();
 })
 
-
+function deleteSubs(id) {
+  //console.log(id);
+  $.ajax({
+    url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/delete",
+    method: 'DELETE',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify(id)
+  })
+  .done((response) => {
+    console.log(response)
+    loadSubscribers(); //reload groups
+  })
+  .fail((err) => {
+    console.log(err);
+  }) 
+}
 
 
 

@@ -13,8 +13,8 @@ const Client = new Pool ({ //creating template
 });
 
 module.exports.listSubs = (event, context, callback) => {
-	// sorting by descending id numbers will result in recently added subscribers at the top of the list
-	let listSubscribers = "SELECT id, subscription_name, subscription_endpoint, subscription_contact FROM " + table[1] + " ORDER BY id DESC;";
+  // sorting by descending id numbers will result in recently added subscribers at the top of the list
+  let listSubscribers = "SELECT id, subscription_name, subscription_endpoint, subscription_contact FROM " + table[1] + " ORDER BY id DESC;";
 
   Client.connect() //connect to database
     .then(client => {
@@ -23,7 +23,7 @@ module.exports.listSubs = (event, context, callback) => {
       return client.query(listSubscribers);
     })
     .then(res => {
-    	console.log(res)
+      console.log(res)
       const response = {
         statusCode: 200,
         headers: {

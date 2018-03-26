@@ -371,7 +371,27 @@ $('#addSub').click(function() {
 	$('#delSubPop')[0].style.display = "none";
 })
 
+let subIDs = [];
 $('#trashSub').click(function() {
+  let checkedElements = $('#subsTable tbody tr').filter('.isCheckedBackground'); //filter grabs elements only with that class
+  $('#selectedSubs').empty();
+  subIDs = [];
+
+
+  checkedElements.map((currVal, index) => {
+  	let insertSubName = $(index).find('.subName')[0].innerText;
+  	let insertSubContact = $(index).find('.subContact')[0].innerText;
+
+  	subIDs.push(+$(index).attr('id'));
+
+  	$('#selectedSubs').append(`
+			<tr id="selectedSubText">
+				<td>${insertSubName}</td>
+				<td><span style="font-weight: bold"> Contact:</span>&nbsp; ${insertSubContact}</td>
+			</tr>
+  	`)
+  })
+
 	$('#delSubPop')[0].style.display = "block";
 	$('#addSubPop')[0].style.display = "none";
 })
@@ -382,6 +402,11 @@ $('#closeAddSub').click(function() {
 
 $('#closeDelSub').click(function() {
 	$('#delSubPop')[0].style.display = "none";
+})
+
+$('#deleteSub').click(function(){
+	$('#delSubPop')[0].style.display = "none";
+  deleteSubs(subIDs);
 })
 
 function highlightSub(selected) {
@@ -642,7 +667,7 @@ function editMsg(){
 		editing = true;
 		document.getElementById(currentType + "-msg").style.display = "none";
 		document.getElementById('editBox').style.display = "block";
-	    var htmlText = document.getElementById(currentType + "-msg").innerHTML;
+	  var htmlText = document.getElementById(currentType + "-msg").innerHTML;
 		var regex = /placeholder="\s*(.*?)\s*">/g;
 		htmlText = htmlText.replace("<p>","");
 		htmlText = htmlText.replace("</p>","");
