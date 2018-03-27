@@ -23,7 +23,7 @@ module.exports.addSub = (event, context, callback) => {
 	let subID;
 
 	// adds subscriber into subscribers table
-	let createSub = "INSERT INTO " + table[1] + " VALUES(default, $1, $2, $3) RETURNING id;"; // returns id of newly inserted row
+	let createSub = "INSERT INTO " + table[1] + " VALUES(default, $1, $2, $3) RETURNING sub_id;"; // returns id of newly inserted row
   Client.connect() 
     .then(client => {
       console.log('connected to DB ' + Client.options.database + ' ready to POST')
@@ -31,7 +31,7 @@ module.exports.addSub = (event, context, callback) => {
       return client.query(createSub, [subName, subProtocol, subContact]);
     })
     .then(res => {
-    	subID = res.rows[0].id; //sets subsID to id of newly created subscriber in table
+    	subID = res.rows[0].sub_id; //sets subsID to id of newly created subscriber in table
 
     	const response = { // updates client
         statusCode: 200,

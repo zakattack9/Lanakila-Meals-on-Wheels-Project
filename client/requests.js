@@ -15,7 +15,7 @@ function loadGroups(){
   .done((response) => {
     $('.spinnerWrap')[0].style.display = "none";
   	//console.log(response)
-    response.map(currVal => {
+    response.map(currVal => { //adds groups to groups table
     	//console.log(currVal)
     	$('#grpTable tbody').append(`
   			<tr id="${currVal.id}" onclick="highlightTopic(this);">
@@ -35,6 +35,25 @@ function loadGroups(){
       }else{
         $('#groupSelect').append(`<option value="${currVal.id}">${currVal.group_name}</option>`) //adds items to select menu in subs tab
       }
+    })
+
+
+
+    response.map(currVal => { //adds group columns in subscribers tab
+      $('#openGrp').append(`
+        <div class="colGroup">
+          <div class="colTitle">
+            ${currVal.group_name}
+          </div>
+
+          <div id="grp_${currVal.id}" class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+
+          </div>
+
+        </div>
+
+      `)
+
     })
   })
   .fail((err) => {
@@ -124,7 +143,7 @@ function loadSubscribers() {
     response.map(currVal => {
       //console.log(currVal)
       $('#subsTable tbody').append(`
-        <tr id="${currVal.id}" onclick="highlightSub(this);">
+        <tr id="${currVal.sub_id}" onclick="highlightSub(this);">
           <td>
             <div class="customCheckSub">
                 
@@ -224,6 +243,7 @@ function deleteSubs(id) {
     console.log(err);
   }) 
 }
+
 
 
 

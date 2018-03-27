@@ -12,18 +12,17 @@ const Client = new Pool ({ //creating template
   idleTimeoutMillis : 1000
 });
 
-module.exports.listSubs = (event, context, callback) => {
-  // sorting by descending id numbers will result in recently added subscribers at the top of the list
-  let listSubscribers = "SELECT sub_id, subscription_name, subscription_endpoint, subscription_contact FROM " + table[1] + " ORDER BY sub_id DESC;";
+module.exports.listTopics = (event, context, callback) => {
+	let listGroups = "SELECT groups.*, subscribers.* FROM groups INNER JOIN groups_subscribers ON groups_subscribers.group_id = groups.id INNER JOIN subscribers ON groups_subscribers.subscriber_id = subscribers.id;";
 
   Client.connect() //connect to database
     .then(client => {
       console.log('connected to DB ' + Client.options.database + ' ready to GET')
       client.release();
-      return client.query(listSubscribers);
+      return client.query(listGroups);
     })
     .then(res => {
-      console.log(res)
+    	console.log(res)
       const response = {
         statusCode: 200,
         headers: {

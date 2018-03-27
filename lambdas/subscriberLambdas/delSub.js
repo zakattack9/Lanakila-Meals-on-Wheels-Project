@@ -23,7 +23,7 @@ module.exports.deleteSub = (event, context, callback) => {
 
   let getSubArns = "SELECT subscription_arn FROM " + table[2] + " WHERE subscriber_id IN " + convertedArray + ";";
   let deleteSubsGrps = "DELETE FROM " + table[2] + " WHERE subscriber_id IN " + convertedArray + ";"; //deletes from subs and groups table
-  let deleteSubs = "DELETE FROM " + table[1] + " WHERE id IN " + convertedArray + ";"; //deletes sub from subs table
+  let deleteSubs = "DELETE FROM " + table[1] + " WHERE sub_id IN " + convertedArray + ";"; //deletes sub from subs table
   
   Client.connect() //connect to database
     .then(client => {
@@ -121,6 +121,7 @@ module.exports.deleteSub = (event, context, callback) => {
       callback(null, response);
     })
 };
+
 
 
 
