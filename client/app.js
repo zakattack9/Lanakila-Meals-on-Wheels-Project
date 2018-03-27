@@ -95,7 +95,7 @@ function drop(event, element) {
 	  	}, 400);
 	  }else{
 	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
-	  	document.getElementById(data).style.height = "100px";
+	  	document.getElementById(data).style.height = "80px";
 
 	  	clearTimeout(timer);
 			$('#cloneBtn')[0].style.bottom = "75px";

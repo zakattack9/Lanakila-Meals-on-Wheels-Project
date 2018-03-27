@@ -38,12 +38,12 @@ function loadGroups(){
     })
 
 
-
+    $('#openGrp').empty();
     response.map(currVal => { //adds group columns in subscribers tab
       $('#openGrp').append(`
         <div class="colGroup">
           <div class="colTitle">
-            ${currVal.group_name}
+            <span style="font-weight:bold">${currVal.group_name}</span>
           </div>
 
           <div id="grp_${currVal.id}" class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
@@ -55,6 +55,9 @@ function loadGroups(){
       `)
 
     })
+
+    loadGrpSubs();
+
   })
   .fail((err) => {
     console.log('error', err);
@@ -128,6 +131,37 @@ function deleteTopics(id) {
 //   console.log('error', err);
 // })
 
+function loadGrpSubs() {
+  $.ajax({
+    url: "https://nsyvxbfzm5.execute-api.us-west-2.amazonaws.com/dev/get",
+    method: 'GET',
+    "Content-Type": "application/json",
+  })
+  .done((response) => {
+    //console.log(response)
+    console.log($('.subWrap'));
+    $('.subWrap').map((currVal, index) => { //empties out columns
+      $(index).empty();
+    })
+
+    response.map(currVal => {
+      let grpColumn = '#grp_' + currVal.id;
+      //console.log(appendTo)
+      $(grpColumn).append(`
+        <div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget${currVal.id}${currVal.sub_id}">
+          ${currVal.subscription_name}
+          <br>
+          <span class="subEndpoint">${currVal.subscription_endpoint.toUpperCase()}</span>
+        </div>
+      `)
+
+    })
+  })
+  .fail((err) => {
+    console.log('error', err);
+  })
+}
+
 function loadSubscribers() {
   $('#subsTable tbody tr').remove(); //removes currently displayed topics
   $('.spinnerWrap')[1].style.display = "block";
@@ -167,7 +201,7 @@ $('#reloadSub').click(function(){
   loadSubscribers();
 })
 
-function resetAddSubPop(){
+function resetAddSubPop(){ //removes all unsubmited data from form
   $('#subText').val('');
   $('#contactInfo').val('');
   //resets circle option back to "text"
@@ -214,12 +248,12 @@ $('#createSub').click(function(){
   .done((response) => {
     //console.log(response)
     loadSubscribers();
+    loadGrpSubs();
   })
   .fail((err) => {
     console.log(err);
   }) 
   resetAddSubPop();
-
 })
 
 $('#closeAddSub').click(function(){
@@ -238,12 +272,9 @@ function deleteSubs(id) {
   .done((response) => {
     console.log(response)
     loadSubscribers(); //reload groups
+    loadGrpSubs();
   })
   .fail((err) => {
     console.log(err);
   }) 
 }
-
-
-
-
