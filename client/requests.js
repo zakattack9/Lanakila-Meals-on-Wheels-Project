@@ -1,11 +1,14 @@
 // ENDPOINT FOR TOPIC LAMBDAS:
-// https://97vxcrgnxh.execute-api.us-west-2.amazonaws.com/beta
+// https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/
 
+function startGrpLoadAnimation() { //runs loading animation for displaying groups
+  $('#grpTable tbody tr').remove(); //removes currently displayed topics
+  $('.spinnerWrap')[0].style.display = "block";
+}
 
 // Gets all topics from DB
 function loadGroups(){
-  $('#grpTable tbody tr').remove(); //removes currently displayed topics
-  $('.spinnerWrap')[0].style.display = "block";
+  startGrpLoadAnimation();
 
   $.ajax({
     url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -53,10 +56,21 @@ function loadGroups(){
         </div>
 
       `)
-
     })
 
     loadGrpSubs();
+
+    $('#groupOverlayWrap').empty();
+    response.map(currVal => { //adds group columns in subscribers tab
+      $('#groupOverlayWrap').append(`
+        <div class="draggableGrp" ondragstart="dragStart(event)" draggable="true" id="dragGroup${currVal.id}">
+          ${currVal.group_name}
+          <br>
+          <br>
+          Members: <span class="dragGrpCount">Loading...</span>
+        </div>
+      `)
+    })
 
   })
   .fail((err) => {
@@ -72,7 +86,8 @@ $('#reloadGrp').click(function(){
 
 // Creates and adds new topic to DB
 $('#createGrp').click(function(){
-  $('#addPopup')[0].style.display = "none";
+  $('#addPopup')[0].style.display = "none"; //auto closes the create group popup
+  startGrpLoadAnimation();
 
   $.ajax({
     url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/post",
@@ -98,6 +113,7 @@ $('#closePopup').click(function(){
 
 // Deletes groups from DB and SNS
 function deleteTopics(id) {
+  startGrpLoadAnimation();
   //console.log(id);
   $.ajax({
     url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/delete",
@@ -115,6 +131,11 @@ function deleteTopics(id) {
   }) 
 }
 
+
+// ENDPOINT FOR MANAGING SUBSCRIBER'S GROUPS:
+// https://nsyvxbfzm5.execute-api.us-west-2.amazonaws.com/dev/
+
+//Loads columns with all the subs in their respective groups
 function loadGrpSubs() {
   $.ajax({
     url: "https://nsyvxbfzm5.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -132,7 +153,7 @@ function loadGrpSubs() {
       let grpColumn = '#grp_' + currVal.id;
       //console.log(appendTo)
       $(grpColumn).append(`
-        <div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="${currVal.id}${currVal.sub_id}">
+        <div class="singleSub draggableSub" ondragstart="dragStart(event)" draggable="true" id="${currVal.id}${currVal.sub_id}">
           <span class="targetSubName">${currVal.subscription_name}</span>
           <br>
           <span class="subEndpoint">${currVal.subscription_endpoint.toUpperCase()}</span>
@@ -145,11 +166,15 @@ function loadGrpSubs() {
       $('#tempSide')[0].style.width = "220px";
     })
 
-    $('.subWrap').map((currVal, index) => { //number of members to group table
+    $('.subWrap').map((currVal, index) => { //adds number of members to group table
+      console.log(index)
       let grpCountID = "#" + index.id.slice(-2);
       let grpAmt = $(index).children().length;
       //console.log(grpAmt)
       $(grpCountID).find('.memberCount')[0].innerText = grpAmt
+
+      let dragGrp = "#dragGroup" + index.id.slice(-2);
+      $(dragGrp).find('.dragGrpCount')[0].innerText = grpAmt
     })
   })
   .fail((err) => {
@@ -174,9 +199,19 @@ function changeGrpSubs(subQueue) {
   }) 
 }
 
-function loadSubscribers() {
-  $('#subsTable tbody tr').remove(); //removes currently displayed topics
+
+
+// ENDPOINT FOR SUBSCRIBER LAMBDAS
+// https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/
+
+//Start load animation for subscriber's table
+function startSubLoadAnimation() {
+  $('#subsTable tbody tr').remove(); //removes currently displayed subs
   $('.spinnerWrap')[1].style.display = "block";
+}
+//Managing subscriber requests
+function loadSubscribers() {
+  startSubLoadAnimation();
 
   $.ajax({
     url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -232,6 +267,7 @@ function resetAddSubPop(){ //removes all unsubmited data from form
 
 $('#createSub').click(function(){
   $('#addSubPop')[0].style.display = "none";
+  startSubLoadAnimation();
 
   let subName, subProtocol, subContact, groupID;
   subName = $('#subText').val();
@@ -268,11 +304,12 @@ $('#createSub').click(function(){
   resetAddSubPop();
 })
 
-$('#closeAddSub').click(function(){
+$('#closeAddSub').click(function(){ //closes "add subscriber" popup when pressing the X
   resetAddSubPop();
 })
 
 function deleteSubs(id) {
+  startSubLoadAnimation();
   //console.log(id);
   $.ajax({
     url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/delete",
