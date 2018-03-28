@@ -517,12 +517,6 @@ function changeSubGroup(id) {
 	newObj.subInfo.push($(jQueryID).find('.targetSubContact')[0].innerText);
 	newObj.subInfo.push($(jQueryID).find('.subEndpoint')[0].innerText);
 	//console.log(newObj)
-
-	// changedSubs.map(currVal => {
-	// 	if(currVal.oldGroup_id ===){
-
-	// 	}
-	// })
 	
 	if(ogGrpID === newGrpID) { //removes data from queue
 		for(var i = 0; i < changedSubs.length; i++){

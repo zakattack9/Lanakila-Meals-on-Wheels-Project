@@ -25,7 +25,7 @@ function loadGroups(){
             </div>
   		  	</td>
   		    <td class="groupName">${currVal.group_name}</td>
-  		    <td>1000</td>
+  		    <td class="memberCount">Loading...</td>
   		    <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
   		  </tr>
     	`)
@@ -143,6 +143,13 @@ function loadGrpSubs() {
 
     $('.singleSub').on('mousedown', function(event){ //adds event handler to open clone feature
       $('#tempSide')[0].style.width = "220px";
+    })
+
+    $('.subWrap').map((currVal, index) => { //number of members to group table
+      let grpCountID = "#" + index.id.slice(-2);
+      let grpAmt = $(index).children().length;
+      //console.log(grpAmt)
+      $(grpCountID).find('.memberCount')[0].innerText = grpAmt
     })
   })
   .fail((err) => {
