@@ -46,7 +46,7 @@ function loadGroups(){
       $('#openGrp').append(`
         <div class="colGroup">
           <div class="colTitle">
-            <span style="font-weight:bold">${currVal.group_name}</span>
+            <span style="font-weight:bold" class="colTitleSpan">${currVal.group_name}</span>
           </div>
 
           <div id="grp_${currVal.id}" class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
@@ -167,7 +167,7 @@ function loadGrpSubs() {
     })
 
     $('.subWrap').map((currVal, index) => { //adds number of members to group table
-      console.log(index)
+      //console.log(index)
       let grpCountID = "#" + index.id.slice(-2);
       let grpAmt = $(index).children().length;
       //console.log(grpAmt)

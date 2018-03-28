@@ -339,8 +339,14 @@ $('#subsTab').click(function() {
 
 	$('#subsIconRow')[0].style.left = '317px';
 
+	$('#searchBoxSub')[0].style.width = "0px"; //closes search field if open
+	$('#searchInputSub').val(''); //empties values of search field
+	subSearch();
+
 	$('#saveSub')[0].style.left = "-40px";
 	$('#saveSub')[0].style.top = "0px";
+
+	$('#grpTab').removeClass('groupTabOpen');
 })
 
 let showSave = false;
@@ -353,15 +359,21 @@ $('#grpTab').click(function() {
 	$('#openSub')[0].style.display = 'none';
 	$('#openGrp')[0].style.display = 'block';
 
-	$('#subsIconRow')[0].style.left = '167px';
+	$('#subsIconRow')[0].style.left = '204px';
 
 	$('#addSubPop')[0].style.display = "none";
 	$('#delSubPop')[0].style.display = "none";
+
+	$('#searchBoxSub')[0].style.width = "0px"; //closes search field if open
+	$('#searchInputSub').val(''); //empties values of search field
+	subGrpSearch();
 
 	if(showSave){ //shows save icon AFTER moving a user
 		$('#saveSub')[0].style.left = "0px";
 		$('#saveSub')[0].style.top = "65px";
 	}
+
+	$('#grpTab').addClass('groupTabOpen');
 })
 
 $('#reloadSub').click(function(){ //runs refresh button animation for subs tab
@@ -469,7 +481,16 @@ $('#emailCircle').click(function() {
 })
 
 $('#searchSub').click(function(){
-	if($('#searchBoxSub')[0].style.width === "130px"){
+	if($('#grpTab').hasClass('groupTabOpen')) {
+		$('#searchInputSub').attr({
+		  onkeyup: "subGrpSearch();",
+		  placeholder: " Filter groups..."
+		})
+	}else {
+		console.log('nope')
+	}
+
+	if($('#searchBoxSub')[0].style.width === "130px") {
 		$('#searchInputSub').val('');
 		subSearch(); //needs to run grpSearch() again to reset values
 		$('#searchBoxSub')[0].style.width = "0px";
@@ -491,6 +512,22 @@ function subSearch() { //filters group on search
       trow[i].style.display = "";
     } else {
       trow[i].style.display = "none";
+    }
+  }
+}
+
+function subGrpSearch() { //filters group on search
+  var input, filter, container, column, searchGrpName;
+  input = $("#searchInputSub");
+  filter = input.val().toUpperCase();
+  container = $("#openGrp");
+  column = $(".colGroup");
+  for (var i = 0; i < column.length; i++) {
+    searchGrpName = column[i].getElementsByClassName("colTitleSpan")[0];
+    if (searchGrpName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      column[i].style.display = "";
+    } else {
+      column[i].style.display = "none";
     }
   }
 }

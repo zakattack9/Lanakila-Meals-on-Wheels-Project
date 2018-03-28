@@ -1155,7 +1155,7 @@ html, body {
 	vertical-align: top; /*needs this property so child elements stay aligned to top */
 	white-space: normal;
 	background-color: lightgray;
-	margin-right: 20px;
+	margin-left: 20px;
 	margin-top: 20px;
 	border-radius: 15px;
 	border-top-left-radius: 0;
@@ -1163,8 +1163,8 @@ html, body {
 	overflow-y: hidden;
 }
 
-.colGroup:first-child {
-	margin-left: 20px;
+.colGroup:last-child {
+	margin-right: 20px;
 }
 
 .colTitle {
