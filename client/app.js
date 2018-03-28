@@ -418,4 +418,11 @@ $('#submitMsg').click( function () {
 	//alert user
 	alert('Message created!');
 })
+
+function editMsg(param) { //changes message div to textarea
+	console.log(param);
+	let msg = $(param).parent().parent().find('msgAndDate').find('p.message');
+	console.log(msg);
+}
+
 //MESSAGES JS END
