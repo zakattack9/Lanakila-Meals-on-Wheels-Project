@@ -1,12 +1,12 @@
 const AWS = require('aws-sdk');
 //npm install uuid
-const uuid = require('uuid'); //used for unique user ID (replace current ID generator with this)
+const short = require('short-uuid'); //used for unique user ID
+var translator = short();
+
 AWS.config.update({region: 'us-west-2'});
 
-module.exports.hello = (event, context, callback) => {
-	let msgID; //generated ID
-	( function () { msgID = Math.random().toString(36).substr(2, 5) }() ); //self-invoking function generates ID
-	console.log(msgID);
+module.exports.createMessage = (event, context, callback) => {
+	let msgID = translator.new(); // Generate a shortened v4 UUID
 
 	// Create the DynamoDB item
 	const dynamoDB = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-10-08'});

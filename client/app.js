@@ -4,6 +4,13 @@ $(document).ready(function() {
 
 	$('#subsTab')[0].style.backgroundColor = '#EAEAEA'; //for subscriptions tab
 	$('#openGrp')[0].style.display = 'none';
+	$('#textCircle, #emailCircle').css('background-color', '#fcd8b6');
+	
+	//sets circle option in add subscriber option to automatically checked off
+	$('#textCircle').addClass('isChecked');
+	$('#textCircle').empty();
+	$('#textCircle').append(`<div class="innerCircle"></div>`);
+	$('#emailProtText')[0].style.color = "gray";
 })
 
 function switchWorkspace(el) {
@@ -88,7 +95,7 @@ function drop(event, element) {
 	  	}, 400);
 	  }else{
 	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
-	  	document.getElementById(data).style.height = "100px";
+	  	document.getElementById(data).style.height = "80px";
 
 	  	clearTimeout(timer);
 			$('#cloneBtn')[0].style.bottom = "75px";
@@ -115,6 +122,8 @@ function drop(event, element) {
 
   //conditional must go before appending
   element.prepend(document.getElementById(data)); //adds to top of div
+	
+	changeSubGroup(data); //must go after the prepend
 }
 
 $('.draggable').mousedown(function(){ //shows message in message input on hold
@@ -145,26 +154,34 @@ $('.draggable').mouseover(function(){ //shows message in group input on hold
 
 
 //GROUPS JS START
-$('.customBox span').click(function(){ //checks off boxes
+/*$('.customBox span').click(function(){ //checks off boxes
   if($(this).hasClass('isChecked')){
   	$(this).removeClass('isChecked');
   }else{
   	$(this).addClass('isChecked');
   }
-});
+});*/
 
-$('#checkAll span').click(function(){ //checks all boxes on/off
+function highlightTopic(selected) {
+	let checkBox = selected.firstElementChild.firstElementChild;
+	$(checkBox).toggleClass('isChecked');
+	$(selected).toggleClass('isCheckedBackground');
+}
+
+$('#checkAll').click(function(){ //checks all boxes on/off
 	if($(this).hasClass('isChecked')){
 		$(this).removeClass('isChecked');
-		$('.customBox span').map((currVal, index) => {
+		$('.customCheck').map((currVal, index) => {
+			let selectedRow = index.parentElement.parentElement;
 			$(index).removeClass('isChecked');
-			index.parentElement.parentElement.parentElement.style.backgroundColor = "white";
+			$(selectedRow).removeClass('isCheckedBackground');
 		});
 	}else{
 		$(this).addClass('isChecked');
-		$('.customBox span').map((currVal, index) => {
+		$('.customCheck').map((currVal, index) => {
+			let selectedRow = index.parentElement.parentElement;
 			$(index).addClass('isChecked');
-			index.parentElement.parentElement.parentElement.style.backgroundColor = "#fcd8b6";
+			$(selectedRow).addClass('isCheckedBackground');
 		});
 	}
 })
@@ -178,6 +195,7 @@ $('#reloadGrp').click(function(){ //runs refresh button animation
 	}
 })
 
+/*
 function addHighlight(currCheck, row) {
 	$(currCheck).addClass('isChecked');
 	row.style.backgroundColor = "#fcd8b6";
@@ -195,7 +213,7 @@ function removeHighlight(currCheck, row) {
 }
 
 var editingGrp = false;
-$('#grpTable tr td').click(function(){ //highlights whole row
+$('#grpTable tbody tr td').click(function(){ //highlights whole row
 	let row = this.parentElement;
 	let currCheck = this.parentElement.firstElementChild.firstElementChild.lastElementChild;
 
@@ -235,41 +253,348 @@ $('#grpTable tr td').click(function(){ //highlights whole row
   	alert("Save Group Name First");
   }
 })
+*/
 
+$('#addGrp').click(function(){
+	$('#addPopup')[0].style.display = "block";
+	$('#deletePopup')[0].style.display = "none"; //closes delete popup if open
+})
 
+$('#closePopup').click(function(){
+	$('#addPopup')[0].style.display = "none";
+})
+
+var groupIDs = [];
+$('#trashGrp').click(function(){ //for trash popup
+  $('#selectedGroups').empty(); //empties out previously selected groups
+  groupIDs = []; //resets groups to delete queue
+
+  let checkedElements = $('#grpTable tbody tr').filter('.isCheckedBackground');
+  checkedElements.map((currVal, index) => {
+  	let insertGrpName = $(index).find('.groupName')[0].innerText;
+  	let insertGrpDate = $(index).find('.groupDate')[0].innerText;
+
+  	groupIDs.push(+$(index).attr('id')); //needs to be converted to number (unary operator)
+
+  	$('#selectedGroups').append(`
+			<tr id="selectedGroupText">
+				<td>${insertGrpName}</td>
+				<td><span style="font-weight: bold"> Created On:</span>&nbsp; ${insertGrpDate}</td>
+			</tr>
+  	`)
+  })
+
+  $('#deletePopup')[0].style.display = "block";
+  $('#addPopup')[0].style.display = "none"; //closes "add group" popup if open
+})
+
+$('#closeDelPopup').click(function(){
+	$('#deletePopup')[0].style.display = "none";
+})
+
+$('#deleteGroup').click(function(){
+	$('#deletePopup')[0].style.display = "none";
+  deleteTopics(groupIDs);
+})
+
+$('#searchGrp').click(function(){
+	if($('#searchBox')[0].style.width === "150px"){
+		$('#searchInput').val('');
+		grpSearch(); //needs to run grpSearch() again to reset values
+		$('#searchBox')[0].style.width = "0px";
+	}else {
+		$('#searchBox')[0].style.width = "150px";
+	}
+})
+
+//adapted from: https://www.w3schools.com/howto/howto_js_filter_lists.asp
+function grpSearch() { //filters group on search
+  var input, filter, tbody, trow, searchName;
+  input = $("#searchInput");
+  filter = input.val().toUpperCase();
+  tbody = $("#grpTable tbody");
+  trow = $("#grpTable tbody tr");
+  for (var i = 0; i < trow.length; i++) {
+    searchName = trow[i].getElementsByClassName("groupName")[0];
+    if (searchName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      trow[i].style.display = "";
+    } else {
+      trow[i].style.display = "none";
+    }
+  }
+}
 //GROUPS JS END
 
 
 
 //SUBSCRIBERS JS START
-$('#subsTab').click(function(){
-	$('#subsTab')[0].style.backgroundColor = '#EAEAEA';
+$('#subsTab').click(function() {
+	$('#subsTab')[0].style.backgroundColor = '#EAEAEA'; //could condense using css jquery property
 	$('#grpTab')[0].style.backgroundColor = '#fcd8b6';
 	$('#subsTab')[0].style.position = 'relative';
 	$('#grpTab')[0].style.position = '';
 
 	$('#openSub')[0].style.display = 'block';
 	$('#openGrp')[0].style.display = 'none';
+
+	$('#subsIconRow')[0].style.left = '317px';
+
+	$('#searchBoxSub')[0].style.width = "0px"; //closes search field if open
+	$('#searchInputSub').val(''); //empties values of search field
+	subSearch();
+
+	$('#saveSub')[0].style.left = "-40px";
+	$('#saveSub')[0].style.top = "0px";
+
+	$('#grpTab').removeClass('groupTabOpen');
 })
 
-$('#grpTab').click(function(){
+let showSave = false;
+$('#grpTab').click(function() {
 	$('#subsTab')[0].style.backgroundColor = '#fcd8b6';
 	$('#grpTab')[0].style.backgroundColor = 'white';
 	$('#grpTab')[0].style.position = 'relative';
-	$('#subsTab')[0].style.position = '';
+	$('#subsTab')[0].style.zIndex = '1';
 
 	$('#openSub')[0].style.display = 'none';
 	$('#openGrp')[0].style.display = 'block';
+
+	$('#subsIconRow')[0].style.left = '204px';
+
+	$('#addSubPop')[0].style.display = "none";
+	$('#delSubPop')[0].style.display = "none";
+
+	$('#searchBoxSub')[0].style.width = "0px"; //closes search field if open
+	$('#searchInputSub').val(''); //empties values of search field
+	subGrpSearch();
+
+	if(showSave){ //shows save icon AFTER moving a user
+		$('#saveSub')[0].style.left = "0px";
+		$('#saveSub')[0].style.top = "65px";
+	}
+
+	$('#grpTab').addClass('groupTabOpen');
 })
 
-$('.singleSub').on('mousedown', function(event){
-	$('#tempSide')[0].style.width = "220px";
+$('#reloadSub').click(function(){ //runs refresh button animation for subs tab
+	if($('#reloadSub img')[0].style.animationName == "reload"){
+		$('#reloadSub img')[0].style.animationName = "resetReload";
+	}else{
+		$('#reloadSub img')[0].style.animationName = "reload"
+		$('#reloadSub img')[0].style.animationPlayState = "running";
+	}
 })
 
+$('#addSub').click(function() {
+	$('#addSubPop')[0].style.display = "block";
+	$('#delSubPop')[0].style.display = "none";
+})
+
+let subIDs = [];
+$('#trashSub').click(function() {
+  let checkedElements = $('#subsTable tbody tr').filter('.isCheckedBackground'); //filter grabs elements only with that class
+  $('#selectedSubs').empty();
+  subIDs = [];
+
+
+  checkedElements.map((currVal, index) => {
+  	let insertSubName = $(index).find('.subName')[0].innerText;
+  	let insertSubContact = $(index).find('.subContact')[0].innerText;
+
+  	subIDs.push(+$(index).attr('id'));
+
+  	$('#selectedSubs').append(`
+			<tr id="selectedSubText">
+				<td>${insertSubName}</td>
+				<td><span style="font-weight: bold"> Contact:</span>&nbsp; ${insertSubContact}</td>
+			</tr>
+  	`)
+  })
+
+	$('#delSubPop')[0].style.display = "block";
+	$('#addSubPop')[0].style.display = "none";
+})
+
+$('#closeAddSub').click(function() {
+	$('#addSubPop')[0].style.display = "none";
+})
+
+$('#closeDelSub').click(function() {
+	$('#delSubPop')[0].style.display = "none";
+})
+
+$('#deleteSub').click(function(){
+	$('#delSubPop')[0].style.display = "none";
+  deleteSubs(subIDs);
+})
+
+function highlightSub(selected) {
+	let checkBox = selected.firstElementChild.firstElementChild;
+	$(checkBox).toggleClass('isChecked');
+	$(selected).toggleClass('isCheckedBackground');
+}
+
+$('#checkAllSubs').click(function(){ //checks all boxes on/off
+	if($(this).hasClass('isChecked')){
+		$(this).removeClass('isChecked');
+		$('.customCheckSub').map((currVal, index) => {
+			let selectedRow = index.parentElement.parentElement;
+			$(index).removeClass('isChecked');
+			$(selectedRow).removeClass('isCheckedBackground');
+		});
+	}else{
+		$(this).addClass('isChecked');
+		$('.customCheckSub').map((currVal, index) => {
+			let selectedRow = index.parentElement.parentElement;
+			$(index).addClass('isChecked');
+			$(selectedRow).addClass('isCheckedBackground');
+		});
+	}
+})
+
+$('#textCircle').click(function() {
+	$('#emailCircle')[0].style.backgroundColor = "#fcd8b6";
+	$('#emailCircle').empty();
+	$('#emailCircle').removeClass('isChecked');
+	$('#emailProtText')[0].style.color = "gray";
+
+	$(this).addClass('isChecked');
+	$('#textCircle').empty();
+	$('#textCircle').append(`<div class="innerCircle"></div>`);
+	$('#textProtText')[0].style.color = "black";
+	$('#contactTitle')[0].innerText = "Phone Number (With International Call Prefix):";
+	$('#contactInfo').attr("placeholder", "Ex. 18081234567");
+})
+
+$('#emailCircle').click(function() {
+	$('#textCircle')[0].style.backgroundColor = "#fcd8b6";
+	$('#textCircle').empty();
+	$('#textCircle').removeClass('isChecked');
+	$('#textProtText')[0].style.color = "gray";
+
+	$(this).addClass('isChecked');
+	$('#emailCircle').empty();
+	$('#emailCircle').append(`<div class="innerCircle"></div>`);
+	$('#emailProtText')[0].style.color = "black";
+	$('#contactTitle')[0].innerText = "Email Address:";
+	$('#contactInfo').attr("placeholder", "Ex. lanakila@gmail.com");
+})
+
+$('#searchSub').click(function(){
+	if($('#grpTab').hasClass('groupTabOpen')) {
+		$('#searchInputSub').attr({
+		  onkeyup: "subGrpSearch();",
+		  placeholder: " Filter groups..."
+		})
+	}else {
+		$('#searchInputSub').attr({
+		  onkeyup: "subSearch();",
+		  placeholder: " Search for subs..."
+		})
+	}
+
+	if($('#searchBoxSub')[0].style.width === "130px") {
+		$('#searchInputSub').val('');
+		subSearch(); //needs to run grpSearch() again to reset values
+		$('#searchBoxSub')[0].style.width = "0px";
+	}else {
+		$('#searchBoxSub')[0].style.width = "130px";
+	}
+})
+
+//adapted from: https://www.w3schools.com/howto/howto_js_filter_lists.asp
+function subSearch() { //filters group on search
+  var input, filter, tbody, trow, searchName;
+  input = $("#searchInputSub");
+  filter = input.val().toUpperCase();
+  tbody = $("#subsTable tbody");
+  trow = $("#subsTable tbody tr");
+  for (var i = 0; i < trow.length; i++) {
+    searchName = trow[i].getElementsByClassName("subName")[0];
+    if (searchName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      trow[i].style.display = "";
+    } else {
+      trow[i].style.display = "none";
+    }
+  }
+}
+
+function subGrpSearch() { //filters group on search
+  var input, filter, container, column, searchGrpName;
+  input = $("#searchInputSub");
+  filter = input.val().toUpperCase();
+  container = $("#openGrp");
+  column = $(".colGroup");
+  for (var i = 0; i < column.length; i++) {
+    searchGrpName = column[i].getElementsByClassName("colTitleSpan")[0];
+    if (searchGrpName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      column[i].style.display = "";
+    } else {
+      column[i].style.display = "none";
+    }
+  }
+}
+
+var changedSubs = []
+function changeSubGroup(id) {
+	//first two digits of a sub's id is their original group id
+	//the last two digits is their sub id
+	let element = document.getElementById(id);
+	
+	let personID = element.id.slice(-2); //grabs last two digits of id
+	let ogGrpID = element.id.substring(0, 2); //grabs first two digits of id
+	let newGrpID = element.parentElement.id.slice(-2); //grabs new group's id
+	//console.log(personID, ogGrpID, newGrpID);
+
+	let newObj = {};
+	newObj.oldGroup_id = ogGrpID;
+	newObj.sub_id = personID;
+	newObj.newGroup_id = newGrpID;
+	newObj.subInfo = [];
+
+	let jQueryID = "#" + id;
+	newObj.subInfo.push($(jQueryID).find('.targetSubName')[0].innerText);
+	newObj.subInfo.push($(jQueryID).find('.targetSubContact')[0].innerText);
+	newObj.subInfo.push($(jQueryID).find('.subEndpoint')[0].innerText);
+	//console.log(newObj)
+	
+	if(ogGrpID === newGrpID) { //removes data from queue
+		for(var i = 0; i < changedSubs.length; i++){
+			if(changedSubs[i].oldGroup_id === ogGrpID && changedSubs[i].sub_id === personID){
+				changedSubs.splice(i, 1);
+			}
+		}
+	}else { //adds user to subscribe queue
+		for(var i = 0; i < changedSubs.length; i++){ //removes other of the same iems from the queue
+			if(changedSubs[i].oldGroup_id === ogGrpID && changedSubs[i].sub_id === personID){
+				changedSubs.splice(i, 1);
+			}
+		}
+
+		changedSubs.push(newObj);
+	}
+	console.log(changedSubs);
+
+
+	if(changedSubs.length > 0){
+		showSave = true; //show saves indicates whether to show save icon when switching from "Groups" to "All Subscribers" tab
+		$('#saveSub')[0].style.left = "0px";
+		$('#saveSub')[0].style.top = "65px";	
+	}else {
+		showSave = false;
+		$('#saveSub')[0].style.left = "-40px";
+		$('#saveSub')[0].style.top = "0px";
+	}
+}
+
+$('#saveSub').click(function(){
+	changeGrpSubs(changedSubs);
+	changedSubs = []; //resets sub queue
+	showSave = false; //hides save icon
+	$('#saveSub')[0].style.left = "-40px";
+	$('#saveSub')[0].style.top = "0px";
+})
 //SUBSCRIBERS JS END
-
-
-
 
 
 
@@ -318,9 +643,7 @@ $('#checkAll2 span').click(function(){ //checks all boxes on/off
 	}
 })
 
-
-// CHANGE PARAMETERS
-var editingMsg = false; //allows message editing
+/*var editingMsg = false; //allows message editing
 $('#msgsTable tr td').click(function(){ //highlights whole row
 	let row = this.parentElement;
 	let currCheck = this.parentElement.firstElementChild.firstElementChild.lastElementChild;
@@ -360,13 +683,7 @@ $('#msgsTable tr td').click(function(){ //highlights whole row
   }else{
   	alert("Save Message First");
   }
-})
-
-// Message Deletion
-// $('.msgDelete').click( function () {
-// 	$(this).closest('.msg').remove();
-// 	console.log('removing message!');
-// });
+})*/
 
 function removeMsg(param) {
 	console.log(param);
@@ -426,3 +743,107 @@ function editMsg(param) { //changes message div to textarea
 }
 
 //MESSAGES JS END
+
+
+
+
+
+//QUICK SEND JS START
+var currentType;
+function switchType(el){
+	currentType=el;
+	console.log(currentType)
+	for (var i = 0; i < document.getElementsByClassName('msgType').length; i++) {
+		document.getElementsByClassName('msgType')[i].style.backgroundColor="#F58F31";
+		document.getElementsByClassName('msgType')[i].style.color="white";
+		document.getElementsByClassName('msgType')[i].style="border-color: #F58F31;";
+	}
+	document.getElementById(el).style.backgroundColor="white";
+	document.getElementById(el).style.color="#F58F31";
+	document.getElementById(el).style.borderColor= "#F58F31";
+	document.getElementById('typeHeader').innerHTML=el;
+	for (var i = 0; i < document.getElementsByClassName('msgPre').length; i++) {
+		document.getElementsByClassName('msgPre')[i].style.display="none";
+	}
+	document.getElementById(currentType+"-msg").style.display="block";
+	document.getElementById('editBox').style.display="none";
+	document.getElementById('edit-saveMsg').src='./images/edit.png';
+	document.getElementById('editButton').style.display="flex";
+
+	document.getElementById('editBox').style.display="none";
+	document.getElementById('edit-saveMsg').src='./images/edit.png';
+	document.getElementById('editButton').style.display="flex";
+
+	document.getElementById("typeHeader").style.display="inline-block";
+	document.getElementById('edit-saveType').src='./images/edit.png'
+	document.getElementById('edit-saveType').style.display="inline-block"
+	if (tempId!==null) {
+		document.getElementById('editBox').value = tempId;
+	}
+}
+
+var editing = false;
+function editMsg(){
+	if (editing == false){
+		editing=true;
+		console.log(currentType+"-msg")
+		document.getElementById(currentType+"-msg").style.display="none";
+		document.getElementById('editBox').style.display="block";
+	    var htmlText = document.getElementById(currentType+"-msg").innerHTML;
+		var regex = /placeholder="\s*(.*?)\s*">/g;
+		htmlText = htmlText.replace("<p>","");
+		htmlText = htmlText.replace("</p>","");
+		while (m = regex.exec(htmlText)) {
+			htmlText = htmlText.replace('<input type="textbox" placeholder="'+m[1]+'">',"{"+m[1]+"}");
+		}
+		document.getElementById("editBox").value = htmlText;
+		document.getElementById('edit-saveMsg').src='./images/save.png'
+		document.getElementById('edit-saveType').style.display="none";
+		document.getElementById('note').style.display="block";
+	}
+	else{
+		editing=false;
+		document.getElementById(currentType+"-msg").style.display="block";
+		document.getElementById('editBox').style.display="none";
+	    var htmlText = document.getElementById("editBox").value;
+		var regex = /{\s*(.*?)\s*}/g;
+		while (m = regex.exec(htmlText)) {
+			console.log(m[1])
+			htmlText = htmlText.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
+		}
+		document.getElementById(currentType+"-msg").innerHTML = "<p>"+htmlText+"</p>";
+		document.getElementById('edit-saveMsg').src='./images/edit.png';
+		document.getElementById('edit-saveType').style.display="inline-block";
+		document.getElementById('note').style.display="none";
+	}
+}
+var typeEditing =false;
+var tempId=null;
+function editType(){
+	if(typeEditing==false){
+		typeEditing=true;
+		document.getElementById("typeHeader").style.display="none";
+		document.getElementById('editTypeBox').value = currentType;
+		tempId=currentType;
+		document.getElementById('editTypeBox').style.display="inline-block";
+		document.getElementById('edit-saveType').src='./images/save.png'
+		document.getElementById('editButton').style.display="none";
+	}
+	else{
+		typeEditing=false;
+		console.log(document.getElementById('editTypeBox').value)
+		document.getElementById(currentType).innerHTML = "<h3>"+document.getElementById('editTypeBox').value+"</h3>"
+		document.getElementById(currentType).style.display="block";
+		document.getElementById("typeHeader").innerHTML = document.getElementById('editTypeBox').value
+		document.getElementById("typeHeader").style.display="inline-block";
+		
+		document.getElementById(currentType).setAttribute("id", document.getElementById('editTypeBox').value);
+		document.getElementById(currentType+"-msg").setAttribute("id", document.getElementById('editTypeBox').value+"-msg");
+		currentType = document.getElementById('editTypeBox').value;
+		document.getElementById('editTypeBox').style.display="none";
+		document.getElementById('edit-saveType').src='./images/edit.png'
+		document.getElementById('editButton').style.display="inline-block";
+	}
+}
+//QUICK SEND JS END
+

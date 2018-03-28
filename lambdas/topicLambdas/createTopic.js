@@ -1,82 +1,76 @@
 'use strict';
 
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 AWS.config.region = 'us-west-2';
-var sns = new AWS.SNS();
+const Pool = require('pg-pool'); //require in pg-pool packages
+const config = require('../config.json');
+const {host, database, table, user, password, port, idleTimeoutMillis} = config; //object destructuring
+const Client = new Pool ({ //creating template
+  host,
+  database,
+  user,
+  password,
+  port,
+  idleTimeoutMillis : 1000
+});
 
 module.exports.createTopic = (event, context, callback) => {
-	let msgID; //generated ID
-	( function () { msgID = Math.random().toString(36).substr(2, 5) }() ); //self-invoking function generates ID
-	console.log(msgID);
+  console.log("event", event.body);
+  let groupName = JSON.parse(event.body);
+  console.log("group name:", groupName);
 
-	// Create the DynamoDB item
-	const dynamoDB = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-10-08'});
-
-
-	const htmlParams = JSON.parse(event.body);
+	var sns = new AWS.SNS({apiVersion: '2010-03-31'});
 	var params = {
-		Name: htmlParams.name
+  	Name: groupName.replace(/ /g, '_') //removes space from topic name and replaces them with underscores so SNS does not run into errors, however it is stored in the database with spaces
 	};
+
 	sns.createTopic(params, function(err, data) {
 		if (err){ 
+			console.log(err);
 			const response = {
 				statusCode: 100,
-			    headers: {
-			      "Access-Control-Allow-Origin":  "*",
-			      "Access-Control-Allow-Credentials": true
-			    },
-				body: JSON.stringify({
-					message: (err, err.stack),
-					input: event,
-				}),
+		    headers: {
+		      "Access-Control-Allow-Origin":  "*",
+		      "Access-Control-Allow-Credentials": true
+		    },
+				body: JSON.stringify(err),
 			};
 			callback(null, response);
-		}
-		else{
-			let params = {
-				  TableName: 'TopicList',
-				  Item: {
-				  	'id' : msgID,
-				    'arn' : data.TopicArn,
-				    'name' : htmlParams.name
-				  }
-				};
+		}else{
+			console.log(data.TopicArn);
 
-				// Call DynamoDB to add the item to the table
-				dynamoDB.put(params, function(dberr, dbdata) {
-				  if (err) {
-				    console.log("Error", dberr);
-				  } else {
-				    console.log("Success", dbdata);
-				  }
-				});
-			const response = {
-				statusCode: 200,
-				headers: {
-			      "Access-Control-Allow-Origin":  "*",
-			      "Access-Control-Allow-Credentials": true
-			    },
-				body: JSON.stringify({
-					message: data,
-					input: event,
-				}),
-			};
-			callback(null, response);
-	    }
-	})
+		  let createGroup = "INSERT INTO " + table[0] + " VALUES(default, $1, $2, current_timestamp);";
+
+		  Client.connect() //connect to database
+		    .then(client => {
+		      console.log('connected to DB ' + Client.options.database + ' ready to POST')
+		      client.release();
+		      return client.query(createGroup, [data.TopicArn, groupName]);
+		    })
+		    .then(res => {
+		      const response = {
+		        statusCode: 200,
+		        headers: {
+		          "Access-Control-Allow-Origin": "*",
+		          "Access-Control-Allow-Credentials": true,
+		        },
+		        body: JSON.stringify(res)
+		      }
+		      callback(null, response);
+		    })
+		    .catch(err => {
+		      console.log(err.stack);
+		      const response = {
+		        statusCode: 500,
+		        headers: {
+		          "Access-Control-Allow-Origin": "*",
+		          "Access-Control-Allow-Credentials": true,
+		        },
+		        body: JSON.stringify(err.stack)
+		      }
+		      callback(null, response);
+		    })
+
+		}
+	});
 };
-/*
-var AWS = require('aws-sdk');
-AWS.config.region = 'us-west-2';
-var sns = new AWS.SNS();
-var params = {
-		Name: "testingf"
-	};
-sns.createTopic(params, function(err, data) {
-		if (err){ 
-			console.log(err)
-		}
-		else{
-			console.log(data.TopicArn)
-		}
-	});*/

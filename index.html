@@ -10,7 +10,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="./multiple.css">
 </head>
 <body>
 
@@ -76,9 +75,9 @@
 					<div id="msgTitle">Message List</div>
 
 					<div id="msgOverlayWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme1">Drag ME1!</div><!--set id's to DB id created with lambda-->
-						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme2">Drag ME2!</div>
-						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme3">Drag ME3!</div>
+						<div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="dragme1">Drag ME1!</div><!--set id's to DB id created with lambda-->
+						<div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="dragme2">Drag ME2!</div>
+						<div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="dragme3">Drag ME3!</div>
 					</div>
 				</div>
 
@@ -87,9 +86,7 @@
 					<div id="groupTitle">Groups List</div>
 
 					<div id="groupOverlayWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragem4">Drag ME4!</div><!--use message id-->
-						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme5">Drag ME5!</div>
-						<div class="draggable" ondragstart="dragStart(event)" draggable="true" id="dragme6">Drag ME6!</div>
+
 					</div>
 				</div>
 
@@ -116,88 +113,78 @@
 					<div id="searchGrp">
 						<img src="./images/search.png">
 					</div>
+
+					<div id="searchBox">
+						<input type="text" id="searchInput" onkeyup="grpSearch();" placeholder=" Search for groups..">
+					</div>
+				</div>
+
+				<div id="addPopup">
+					<div id="popupBox">
+						<div id="closePopup">&times;</div>
+						<div id="popupTitle">Group Name:</div>
+						<input id="groupText" type="text">
+
+						<div id="createGrp"><!-- Send off ajax request to post new SNS topic -->
+							Create Group
+						</div>
+					</div>
+				</div>
+
+				<div id="deletePopup">
+					<div id="deleteBox">
+						<div id="closeDelPopup">&times;</div>
+						<div id="popupDelTitle">
+							Are you sure you want to delete:
+							<br>
+							<span id="warningMsg">Deleting a group will also delete its subscribers</span> 
+						</div>
+						
+						<div id="tableWrap">
+							<table id="selectedGroups">
+								
+							</table>
+						</div>
+
+						<div id="deleteGroup"><!-- Send off ajax request to post new SNS topic -->
+							Delete Group(s)
+						</div>
+					</div>
 				</div>
 
 				<table id="grpTable">
-				  <tr>
-				  	<th>
-				  		<label id="checkAll">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</th>
-				    <th>Group Name</th>
-				    <th>Number of Members</th>
-				    <th>Date Created</th>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Everyone</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Elderlies</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Deliverers</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Officers</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Text Capable</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
-				  <tr>
-				  	<td>
-				  		<label class="customBox">
-							  <input type="checkbox">
-							  <span class="checkmark"></span>
-							</label>
-				  	</td>
-				    <td>Email Capable</td>
-				    <td>1000</td>
-				    <td>March 4, 2018</td>
-				  </tr>
+					<thead>
+					  <tr>
+					  	<th>
+					  		<!-- OLD CUSTOM CHECKBOX
+					  		<label id="checkAll">
+								  <input type="checkbox">
+								  <span class="checkmark"></span>
+								</label> 
+								-->
+					  		<div id="checkAll">
+	                
+	            	</div>
+					  	</th>
+					    <th>Group Name</th>
+					    <th>Number of Members</th>
+					    <th>Date Created</th>
+					  </tr>
+					</thead>
+					<tbody>
+
+					</tbody>
 				</table>
 
+				<div class="spinnerWrap">
+					<div class="spinner">
+					  <div class="rect1"></div>
+					  <div class="rect2"></div>
+					  <div class="rect3"></div>
+					  <div class="rect4"></div>
+					  <div class="rect5"></div>
+					</div>
+				</div>
 			</div>
 
 
@@ -213,88 +200,115 @@
 					<div id="subsTab">
 						All Subscriptions
 					</div>
+
+					<div id="subsIconRow">
+						<div id="addSub">
+							<img src="./images/addBtn.png">
+						</div>
+
+						<div id="trashSub">
+							<img src="./images/trashBin.png">
+						</div>
+
+						<div id="reloadSub">
+							<img src="./images/reload.png">
+						</div>
+
+						<div id="searchSub">
+							<img src="./images/search.png">
+						</div>
+
+						<div id="searchBoxSub">
+							<input type="text" id="searchInputSub" onkeyup="subSearch();" placeholder=" Search for subs...">
+						</div>
+
+					</div>
+
+				</div>
+
+				<div id="addSubPop">
+					<div id="addSubBox">
+						<div id="closeAddSub">&times;</div>
+						<div id="popSubTitle">Subscriber Information:</div>
+
+						<div id="subName">Full Name</div>
+						<input id="subText" type="text">
+
+						<br><br>
+						<div id="protocolTitle">Endpoint/Protocol:</div>
+						<div id="subProtocol">
+							<div id="textProt">
+								<div id="textCircle"></div>
+								<div id="textProtText">Text</div>
+							</div>
+
+							<div id="emailProt">
+								<div id="emailCircle"></div>
+								<div id="emailProtText">Email</div>
+							</div>
+						</div>
+
+						<br>
+						<div id="contactTitle">Phone Number (With International Call Prefix):</div>
+						<input id="contactInfo" type="text" placeholder="Ex. 18081234567">
+
+						<br><br>
+						<div id="groupOptTitle">Select a Group:</div>
+						<select id="groupSelect">
+						</select>
+
+						<div id="createSub">Create Subscriber</div>
+					</div>
+				</div>
+
+				<div id="delSubPop">
+					<div id="delSubBox">
+						<div id="closeDelSub">&times;</div>
+						<div id="delSubTitle">
+							Are you sure you want to remove:
+							<br>
+							<span id="subWarningMsg">Deleting a subscriber will remove them from all groups</span>
+						</div>
+
+						<div id="selectedSubsWrap">
+							<table id="selectedSubs">
+								
+							</table>
+						</div>
+
+						<div id="deleteSub">Delete Subscriber(s)</div>
+					</div>
 				</div>
 
 				<div id="openSub">
 					<table id="subsTable">
-					  <tr>
-					  	<th>
-					  		<label id="checkAll">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</th>
-					    <th>Name</th>
-					    <th>Medium</th>
-					    <th>Contact</th>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Zak S</td>
-					    <td>Email</td>
-					    <td>zak@gmail.com</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Ian A</td>
-					    <td>SMS</td>
-					    <td>1808422222</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Angela G</td>
-					    <td>SMS</td>
-					    <td>18081234567</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Dr. Dre</td>
-					    <td>SMS</td>
-					    <td>11111111111</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Tyler N.</td>
-					    <td>SMS</td>
-					    <td>14309780986</td>
-					  </tr>
-					  <tr>
-					  	<td>
-					  		<label class="customBox">
-								  <input type="checkbox">
-								  <span class="checkmark"></span>
-								</label>
-					  	</td>
-					    <td>Jay H.</td>
-					    <td>Email</td>
-					    <td>15679042345</td>
-					  </tr>
+						<thead>
+						  <tr>
+						  	<th>
+						  		<div id="checkAllSubs">
+			                
+			            </div>
+						  	</th>
+						    <th>Name</th>
+						    <th>Medium</th>
+						    <th>Contact</th>
+						  </tr>
+						</thead>
+						<tbody>
+
+						</tbody>
 					</table>
+
+					<div class="spinnerWrap">
+						<div class="spinner">
+						  <div class="rect1"></div>
+						  <div class="rect2"></div>
+						  <div class="rect3"></div>
+						  <div class="rect4"></div>
+						  <div class="rect5"></div>
+						</div>
+					</div>
+
 				</div>
 
 				<div id="tempSide"> <!--side div that pops out to temp store card-->
@@ -308,155 +322,11 @@
 					Clone
 				</div>
 
-				<div id="openGrp">
-					<div class="colGroup">
-						<div class="colTitle">
-							Unsorted Subscribers (Newly Added)
-						</div>
+				<div id="saveSub">
+					<img src="./images/save.png">
+				</div>
 
-						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget22">
-								I'm New	
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget23">
-								Just Added
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget24">
-								Sort Me
-							</div>
-						</div>
-
-					</div>
-
-					<div class="colGroup">
-						<div class="colTitle">
-							Everyone
-						</div>
-
-						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget3">
-								Zak Sakata	
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget4">
-								Angela Geronimo
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget5">
-								Ian Acosta
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget6">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget7">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget8">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget9">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget10">
-								
-							</div>
-						</div>
-					</div>
-
-					<div class="colGroup">
-						<div class="colTitle">
-							Elderlies
-						</div>
-
-						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget11">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget12">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget13">
-								
-							</div>
-
-						</div>
-					</div>
-
-					<div class="colGroup">
-						<div class="colTitle">
-							Deliverers
-						</div>
-
-						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget14">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget15">
-								
-							</div>
-
-						</div>
-					</div>
-
-					<div class="colGroup">
-						<div class="colTitle">
-							Officers
-						</div>
-
-						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget16">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget17">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget18">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget19">
-								
-							</div>
-
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget20">
-								
-							</div>
-						</div>
-					</div>
-
-					<div class="colGroup">
-						<div class="colTitle">
-							Text Capable
-						</div>
-						
-						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-							<div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget21">
-								
-							</div>
-						</div>
-					</div>
-
-					<div class="colGroup">
-						<div class="colTitle">
-							
-						</div>
-						
-						<div class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-							
-						</div>
-					</div>
+				<div id="openGrp"> <!--groups and subscribers generated in this div (columns)-->
 					
 				</div>
 
@@ -505,7 +375,7 @@
 
 				<div id="openOldMsg">
 					<div id="oldMsgContainer">
-						<div class="msg editOff">
+						<div class="msgGradient editOff">
 							
 							<div class="msgAndDate">
 								
@@ -517,7 +387,7 @@
 								<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
 							</div>
 						</div>
-						<div class="msg editOff">
+						<div class="msgGradient editOff">
 							
 							<div class="msgAndDate">
 								
@@ -529,7 +399,7 @@
 								<button class="msgEdit"><img src="./images/edit.png"></button>
 							</div>
 						</div>
-						<div class="msg editOff">
+						<div class="msgGradient editOff">
 							
 							<div class="msgAndDate">
 								
@@ -541,7 +411,7 @@
 								<button class="msgEdit"><img src="./images/edit.png"></button>
 							</div>
 						</div>
-						<div class="msg editOff">
+						<div class="msgGradient editOff">
 							
 							<div class="msgAndDate">
 								
@@ -553,7 +423,7 @@
 								<button class="msgEdit"><img src="./images/edit.png"></button>
 							</div>
 						</div>
-						<div class="msg editOff">
+						<div class="msgGradient editOff">
 							
 							<div class="msgAndDate">
 								
@@ -581,7 +451,47 @@
 
 			<!--QUICK SEND-->
 			<div class="hidden" id="quickSend"><!--broadcasts preset messages to EVERYONE-->
-				
+				<div id="msgTypePanel">
+					<div class="tab"><h3>Type</h3></div>
+					<div class="scroll">
+						<div class="msgType" id="Traffic" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Traffic</h3></div>
+						<div class="msgType" id="Storm" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Storm</h3></div>
+						<div class="msgType" id="Tsunami" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Tsunami</h3></div>
+						<div class="msgType" id="Earthquake" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Earthquake</h3></div>
+						<div class="msgType" id="Other1" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other1</h3></div>
+						<div class="msgType" id="Other2" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other2</h3></div>
+						<div class="msgType" id="Other3" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other3</h3></div>
+						<div class="msgType" id="Other4" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other4</h3></div>
+						<div class="msgType" id="Other5" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other5</h3></div>
+					</div>
+				</div>
+				<div id="msgPanel">
+					<div class="tab"><h3>Message</h3></div>
+					<div id="qsContainer">
+						<div id= "qsType">
+							<input type="text" size="25" id="editTypeBox">
+							<h3 id="typeHeader">Preview</h3>	
+							<img id ="edit-saveType" src="./images/edit.png" onclick="editType()">
+						</div>
+						<div id = "msgContainer">
+							<div id="Traffic-msg" class="msgPre"><p>trafficasfdsfsa adipiscing elit, sed do <input type="textbox" placeholder="dfdsfe"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dfdsf"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="fdasfde"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="hgfd"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+							<div id="Storm-msg" class="msgPre"><p>storms fsadfsdaf sadfsad fsa fsad <input type="textbox" placeholder="hgfdgh"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dgfsde"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="date"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="gfsdge"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+							<div id="Tsunami-msg" class="msgPre"><p>fasfd asfs TSUNAMI TSUNAMI FSAFSADo <input type="textbox" placeholder="gfsdge"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dgfsdgs"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="gfdsg"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="trwete"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+							<div id="Earthquake-msg" class="msgPre"><p>Lorem ipsum EARTHQUAKEFSDAFDSFS, sed do <input type="textbox" placeholder="fgd"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="k"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="or"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="df"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. fdsa fdsa fsa fdsa fs fsd fs fds fds fsd fds.</p></div>
+							<div id="Other1-msg" class="msgPre"><p>Lorem ipsum other1, sed do <input type="textbox" placeholder="fgd"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="k"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="or"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="df"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+							<div id="Other2-msg" class="msgPre"><p>Lorem ipsum other2, sed do <input type="textbox" placeholder="fgd"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="k"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="or"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="df"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+							<div id="Other3-msg" class="msgPre"><p>Lorem ipsum other3, sed do <input type="textbox" placeholder="fgd"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="k"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="or"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="df"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+							<div id="Other4-msg" class="msgPre"><p>Lorem ipsum other4, sed do <input type="textbox" placeholder="fgd"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="k"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="or"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="df"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+							<div id="Other5-msg" class="msgPre"><p>Lorem ipsum other5, sed do <input type="textbox" placeholder="fgd"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="k"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="or"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="df"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+							<textarea id="editBox" class="msgBox"></textarea>
+							<p id="note">Note: Use { } to create a textbox</p>
+							<div id="editButton" onclick="editMsg()">
+								<img id ="edit-saveMsg" src="./images/edit.png">
+							</div>
+						</div>
+						<div id = "qsSend"><h3>Send!</h3></div>
+					</div>
+				</div>
 
 			</div>
 
@@ -589,9 +499,8 @@
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script src="./client/app.js"></script>
 	<script src="./client/requests.js"></script>
-	<script src="./multiple.min.js"></script>
 </body>
 </html>

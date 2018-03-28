@@ -12,8 +12,8 @@ const Client = new Pool ({ //creating template
   idleTimeoutMillis : 1000
 });
 
-module.exports.listTopics = (event, context, callback) => {
-	let listGroups = "SELECT id, group_name, date_created FROM " + table[0] + " ORDER BY id ASC;";
+module.exports.getGroupSubs = (event, context, callback) => {
+  let listGroups = "SELECT groups.id, groups.group_name, subscribers.* FROM groups INNER JOIN groups_subscribers ON groups_subscribers.group_id = groups.id INNER JOIN subscribers ON groups_subscribers.subscriber_id = subscribers.sub_id;";
 
   Client.connect() //connect to database
     .then(client => {
@@ -22,7 +22,7 @@ module.exports.listTopics = (event, context, callback) => {
       return client.query(listGroups);
     })
     .then(res => {
-    	console.log(res)
+      console.log(res)
       const response = {
         statusCode: 200,
         headers: {
@@ -47,36 +47,3 @@ module.exports.listTopics = (event, context, callback) => {
       callback(null, response);
     })
 };
-
-	// var params = {};
-	// sns.listTopics(params, function(err, data) {
-	// 	if (err){ 
-	// 		const response = {
-	// 			statusCode: 500,
-	// 			headers: {
-	// 		      "Access-Control-Allow-Origin":  "*",
-	// 		      "Access-Control-Allow-Credentials": true
-	// 		    },
-	// 			body: {
-	// 				message: (err, err.stack),
-	// 				input: event,
-	// 			},
-	// 		};
-	// 		callback(null, response);
-	// 	}
-	// 	else{
-	// 		const response = {
-	// 			statusCode: 200,
-	// 			headers: {
- //          "Access-Control-Allow-Origin": "*",
- //          "Access-Control-Allow-Credentials": true,
- //          "Access-Control-Allow-Methods" : "*"
- //        },
-	// 			body: {
-	// 				message: data.Topics,
-	// 				input: event,
-	// 			},
-	// 		};
-	// 		callback(null, response);
-	//     }
-	// })
