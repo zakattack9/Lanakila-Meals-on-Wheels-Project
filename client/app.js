@@ -761,8 +761,8 @@ function switchType(el){
 	document.getElementById(el).style.color="#F58F31";
 	document.getElementById(el).style.borderColor= "#F58F31";
 	document.getElementById('typeHeader').innerHTML=el;
-	for (var i = 0; i < document.getElementsByClassName('msg').length; i++) {
-		document.getElementsByClassName('msg')[i].style.display="none";
+	for (var i = 0; i < document.getElementsByClassName('msgPre').length; i++) {
+		document.getElementsByClassName('msgPre')[i].style.display="none";
 	}
 	document.getElementById(currentType+"-msg").style.display="block";
 	document.getElementById('editBox').style.display="none";
