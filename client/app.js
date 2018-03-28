@@ -487,7 +487,10 @@ $('#searchSub').click(function(){
 		  placeholder: " Filter groups..."
 		})
 	}else {
-		console.log('nope')
+		$('#searchInputSub').attr({
+		  onkeyup: "subSearch();",
+		  placeholder: " Search for subs..."
+		})
 	}
 
 	if($('#searchBoxSub')[0].style.width === "130px") {
