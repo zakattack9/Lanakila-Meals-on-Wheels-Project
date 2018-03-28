@@ -122,6 +122,8 @@ function drop(event, element) {
 
   //conditional must go before appending
   element.prepend(document.getElementById(data)); //adds to top of div
+	
+	changeSubGroup(data); //must go after the prepend
 }
 
 $('.draggable').mousedown(function(){ //shows message in message input on hold
@@ -336,8 +338,12 @@ $('#subsTab').click(function() {
 	$('#openGrp')[0].style.display = 'none';
 
 	$('#subsIconRow')[0].style.left = '317px';
+
+	$('#saveSub')[0].style.left = "-40px";
+	$('#saveSub')[0].style.top = "0px";
 })
 
+let showSave = false;
 $('#grpTab').click(function() {
 	$('#subsTab')[0].style.backgroundColor = '#fcd8b6';
 	$('#grpTab')[0].style.backgroundColor = 'white';
@@ -351,10 +357,11 @@ $('#grpTab').click(function() {
 
 	$('#addSubPop')[0].style.display = "none";
 	$('#delSubPop')[0].style.display = "none";
-})
 
-$('.singleSub').on('mousedown', function(event){
-	$('#tempSide')[0].style.width = "-150px";
+	if(showSave){ //shows save icon AFTER moving a user
+		$('#saveSub')[0].style.left = "0px";
+		$('#saveSub')[0].style.top = "65px";
+	}
 })
 
 $('#reloadSub').click(function(){ //runs refresh button animation for subs tab
@@ -487,6 +494,72 @@ function subSearch() { //filters group on search
     }
   }
 }
+
+var changedSubs = []
+function changeSubGroup(id) {
+	//first two digits of a sub's id is their original group id
+	//the last two digits is their sub id
+	let element = document.getElementById(id);
+	
+	let personID = element.id.slice(-2); //grabs last two digits of id
+	let ogGrpID = element.id.substring(0, 2); //grabs first two digits of id
+	let newGrpID = element.parentElement.id.slice(-2); //grabs new group's id
+	//console.log(personID, ogGrpID, newGrpID);
+
+	let newObj = {};
+	newObj.oldGroup_id = ogGrpID;
+	newObj.sub_id = personID;
+	newObj.newGroup_id = newGrpID;
+	newObj.subInfo = [];
+
+	let jQueryID = "#" + id;
+	newObj.subInfo.push($(jQueryID).find('.targetSubName')[0].innerText);
+	newObj.subInfo.push($(jQueryID).find('.targetSubContact')[0].innerText);
+	newObj.subInfo.push($(jQueryID).find('.subEndpoint')[0].innerText);
+	//console.log(newObj)
+
+	// changedSubs.map(currVal => {
+	// 	if(currVal.oldGroup_id ===){
+
+	// 	}
+	// })
+	
+	if(ogGrpID === newGrpID) { //removes data from queue
+		for(var i = 0; i < changedSubs.length; i++){
+			if(changedSubs[i].oldGroup_id === ogGrpID && changedSubs[i].sub_id === personID){
+				changedSubs.splice(i, 1);
+			}
+		}
+	}else { //adds user to subscribe queue
+		for(var i = 0; i < changedSubs.length; i++){ //removes other of the same iems from the queue
+			if(changedSubs[i].oldGroup_id === ogGrpID && changedSubs[i].sub_id === personID){
+				changedSubs.splice(i, 1);
+			}
+		}
+
+		changedSubs.push(newObj);
+	}
+	console.log(changedSubs);
+
+
+	if(changedSubs.length > 0){
+		showSave = true; //show saves indicates whether to show save icon when switching from "Groups" to "All Subscribers" tab
+		$('#saveSub')[0].style.left = "0px";
+		$('#saveSub')[0].style.top = "65px";	
+	}else {
+		showSave = false;
+		$('#saveSub')[0].style.left = "-40px";
+		$('#saveSub')[0].style.top = "0px";
+	}
+}
+
+$('#saveSub').click(function(){
+	changeGrpSubs(changedSubs);
+	changedSubs = []; //resets sub queue
+	showSave = false; //hides save icon
+	$('#saveSub')[0].style.left = "-40px";
+	$('#saveSub')[0].style.top = "0px";
+})
 //SUBSCRIBERS JS END
 
 

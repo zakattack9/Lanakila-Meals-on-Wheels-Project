@@ -115,22 +115,6 @@ function deleteTopics(id) {
   }) 
 }
 
-
-// ENDPOINT FOR SUBSCRIBER LAMBDAS:
-// https://rdv9z24zqe.execute-api.us-west-2.amazonaws.com/beta
-
-// $.ajax({
-//   url: "https://rdv9z24zqe.execute-api.us-west-2.amazonaws.com/beta/get",
-//   method: 'GET',
-//   "Content-Type": "application/json",
-// })
-// .done((response) => {
-//   console.log(response.body)
-// })
-// .fail((err) => {
-//   console.log('error', err);
-// })
-
 function loadGrpSubs() {
   $.ajax({
     url: "https://nsyvxbfzm5.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -139,7 +123,7 @@ function loadGrpSubs() {
   })
   .done((response) => {
     //console.log(response)
-    console.log($('.subWrap'));
+    //console.log($('.subWrap'));
     $('.subWrap').map((currVal, index) => { //empties out columns
       $(index).empty();
     })
@@ -148,18 +132,39 @@ function loadGrpSubs() {
       let grpColumn = '#grp_' + currVal.id;
       //console.log(appendTo)
       $(grpColumn).append(`
-        <div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="dragtarget${currVal.id}${currVal.sub_id}">
-          ${currVal.subscription_name}
+        <div class="singleSub draggable" ondragstart="dragStart(event)" draggable="true" id="${currVal.id}${currVal.sub_id}">
+          <span class="targetSubName">${currVal.subscription_name}</span>
           <br>
           <span class="subEndpoint">${currVal.subscription_endpoint.toUpperCase()}</span>
+          <span class="targetSubContact" style="display:none">${currVal.subscription_contact}</span>
         </div>
       `)
+    })
 
+    $('.singleSub').on('mousedown', function(event){ //adds event handler to open clone feature
+      $('#tempSide')[0].style.width = "220px";
     })
   })
   .fail((err) => {
     console.log('error', err);
   })
+}
+
+function changeGrpSubs(subQueue) {
+  $.ajax({
+    url: "https://nsyvxbfzm5.execute-api.us-west-2.amazonaws.com/dev/post",
+    method: 'POST',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify(subQueue)
+  })
+  .done((response) => {
+    console.log(response)
+    loadGrpSubs();
+  })
+  .fail((err) => {
+    console.log(err);
+  }) 
 }
 
 function loadSubscribers() {
@@ -278,3 +283,5 @@ function deleteSubs(id) {
     console.log(err);
   }) 
 }
+
+
