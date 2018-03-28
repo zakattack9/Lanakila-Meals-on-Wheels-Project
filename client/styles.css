@@ -781,86 +781,120 @@ html, body {
 	height: 100%;
 }
 
-textarea {
+#messages textarea {
 	resize: none;
 	font-family: 'Lato', sans-serif;
 }
 
-
-/*     Message Table     */
-#msgsTable {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-#msgsTable tr th {
-	background-color: #EAEAEA;
-	height: 55px;
-}
-
-#msgsTable tr {
-	text-align: left;
-	height: 50px;
-}
-
-#msgTable tr td input{
-	width: 70%;
-}
-
-#msgsTable th {
-  border-left: darkgray 2px solid;
-  border-right: darkgray 2px solid;
-  border-bottom: darkgray 2px solid;
-}
-
-#msgsTable td {
-	border-left: none;
-	border-right: none;
-	border-bottom: darkgray 2px solid;
-}
-
-#msgsTable td:first-child, #msgsTable th:first-child {
-  border-left: none;
-  text-align: center;
-  box-sizing: border-box;
-  width: 55px;
-}
-
-
-#msgsTable td:last-child. #msgsTable th:last-child {
-  border-right: none;
-}
-
-#msgsTable tr th:not(:first-child) {
-	padding-left: 1em;
-}
-
-#msgsTable tr td:nth-child(2) {
-	text-overflow: ellipsis;
-	width: 70%;
-	padding-right: 50px;
-}
-
-#msgsTable tr td:not(:first-child) {
-	padding-left: 1em;
-}
-
-#msgsTable tr td {
-	position: relative;
-}
-
-/*     END Message Table     */
-
-
 /*styles for messages sub-tab*/
+#openOldMsg {
+	overflow: scroll;
+}
 
-	/*write custom message*/
+.msg { /*controls size, positioning (itself/flex), and color*/
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 80%;
+	padding-left: 20px;
+	background-color: #13896D;
+	margin: 10px auto;
+
+	/*background gradient*/
+	background-image: linear-gradient(#5DFDCB, #2BAD8F);
+	background-attachment: fixed;
+}
+
+.modeContainer {
+	width: 41px;
+}
+
+.editOff {/*rounded edges, shadow on hover*/
+	border-radius: 10px;
+}
+
+#editOn {/*angular edges*/
+
+}
+
+/*.msgCheck {
+	position: relative;
+	top: 15px;
+	left: 15px;
+	cursor: pointer;
+}
+
+.msgCheck input {
+	position: absolute;
+	opacity: 0;
+	cursor:pointer;
+}
+
+.msgCheckmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 20px;
+	width: 20px;
+	background-color: white;
+	border-radius: 5px;
+}*/
+/*.checkMsg {
+	width: 30px;
+	height: 30px;
+	border: 1px solid black;
+	background-color: white;
+}*/
+
+.msgAndDate {
+	padding: 15px;
+}
+
+.message {
+	margin-top: 0;
+}
+
+.msgDelete, .msgEdit {
+	height: 50%;
+	width: 41px;
+	background-color: #D3F9CA;
+	/*border-color: transparent;*/
+	/*border-color: #A3FFAA;*/
+	border: 1px solid #2BAD8F;
+	cursor: pointer;
+}
+
+.msgDelete {
+	border-top-right-radius: 10px;
+	border-bottom-width: 0;
+}
+
+.msgEdit{
+	border-bottom-right-radius: 10px;
+}
+
+.msgEdit img {
+	width: 30px;
+	width: 25px;
+	height: 25px;
+}
+
+/*styles for custom message sub-tab*/
+#openNewMsg {
+}
+
 #newMsgContainer {
-	height: 30%;
+	margin-top: 10%;
+	height: 50%;
+}
+
+#newMsgContainer textarea{
+	font-size: 20px;
 }
 
 #typeMsg {
 	width: 80%;
+	height: 80%;
 	display: inline-block;
 }
 
@@ -874,121 +908,4 @@ textarea {
 	border-radius: 10px;
 	margin: 2% auto;
 	/*margin: 3% 10% 2% 30%;*/
-}
-
-#openNewMsg hr {
-	width: 90%;
-	margin: 20px auto;
-	margin-top: 9%;
-}
-
-	/*urgent msg styles*/
-#urgentMsgContainer {
-	width: 100%;
-	height: 42%;
-	margin-top: 3%;
-/*	background-color: lightgray;*/
-}
-		/*general slides styles*/
-.msgSlides {
-	width: 100%;
-	height: 87%;
-	display: none;
-}
-
-.msgSlides p {
-	font-size: 1.2em;
-}
-
-.pageControl { /*flex container where navigation is in a row*/
-	display: flex;
-	width: 100%;
-	height: 10%;
-	flex-wrap: nowrap;
-	flex-direction: row;
-	justify-content: space-between;
-}
-
-.leftArrow, .rightArrow {
-	width: 5%;
-	color: black;
-	font-size: 30px;
-	cursor: pointer;
-	user-select: none;
-}
-
-.leftArrow:hover, .rightArrow:hover {
-	color: orange;
-	background-color: #eeeeee;
-}
-
-.dotContainer {
-	width: 15%;
-	height: 100%;
-	margin-top: 5px;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-}
-
-.dot { /*dot styles (size/shape/starting color)*/
-	display: block;
-	width: 20px;
-	height: 20px;
-	padding: 0;
-	cursor: pointer;
-	border: 1px solid #F58F31;
-	border-radius: 10px;
-}
-
-.dot:hover { /*turns dot orange when hovered over*/
-	background-color: #F58F31;
-}
-
-.orange-dot { /*turns dot orange when it is selected*/
-	background-color: #F58F31;
-}
-
-	/*slide 1*/
-
-#selectEvent p {
-	text-align: center;
-	margin-top: 2%;
-	margin-left: 2%;
-}
-
-#selectEvent p:nth-child(2) {
-	text-align: left;
-	margin-top: 3%;
-	margin-left: 5%;
-}
-
-#eventContainer {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-}
-
-.event {
-	width: 30%;
-	height: 50px;
-	line-height: 50px;
-	color: #F58F31;
-	border: 1px solid #F58F31;
-	text-align: center;
-	margin-left: 1%;
-	margin-right: 1%;
-}
-
-.event:hover {
-	color: white;
-	background-color: #F58F31;
-	cursor: pointer;
-}
-
-.selectedEvent {
-	color: white;
-	background-color: #F58F31;
 }

@@ -1,4 +1,4 @@
- $(document).ready(function() {
+$(document).ready(function() {
 	document.getElementById('broadcast').classList.add("visisble"); //if not in .ready, you will not be able to rmeove the class "visible" from this element
 	$('.broadcast').addClass('active');
 
@@ -300,6 +300,8 @@ if ($('#messages')[0].style.display === 'none') {
 	$('#openOldMsg')[0].style.display = 'none';
 }
 
+
+// CHANGE CLASS NAMES
 $('#checkAll2 span').click(function(){ //checks all boxes on/off
 	if($(this).hasClass('isChecked')){
 		$(this).removeClass('isChecked');
@@ -316,6 +318,8 @@ $('#checkAll2 span').click(function(){ //checks all boxes on/off
 	}
 })
 
+
+// CHANGE PARAMETERS
 var editingMsg = false; //allows message editing
 $('#msgsTable tr td').click(function(){ //highlights whole row
 	let row = this.parentElement;
@@ -358,47 +362,60 @@ $('#msgsTable tr td').click(function(){ //highlights whole row
   }
 })
 
-//Urgent Message Slides
-var slideIndex = 1;
-showDivs(slideIndex);
+// Message Deletion
+// $('.msgDelete').click( function () {
+// 	$(this).closest('.msg').remove();
+// 	console.log('removing message!');
+// });
 
-function plusDivs(n) {
-  showDivs(slideIndex += n);
+function removeMsg(param) {
+	console.log(param);
+	$(param).closest('.msg').remove();
+	console.log('removing message!');
 }
 
-function currentDiv(n) {
-  showDivs(slideIndex = n);
-}
 
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("msgSlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-     dots[i].className = dots[i].className.replace(" orange-dot", "");
-  }
-  x[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " orange-dot";
-}
+// Message Submission
+$('#submitMsg').click( function () {
+	let written = $('#typeMsg').val();
+	console.log(written);
 
-//event selection
-var previous = [];
-$('.event').click(function() {
-	var getLast = previous.pop(); //gets value of previous 
-	console.log("here's the last thing that was clicked: " + getLast);
-	
-	$('#' + getLast).removeClass('selectedEvent'); //removes class from previous
-	
-	previous.push(this.id); //adds selected event to previous clicks
-	console.log(previous);
-	
-	$(`#${this.id}`).addClass('selectedEvent'); //adds 'selected' class
-	console.log('an event has been selected: ' + this.id);
-});
+	//get today's date
+	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	let today = new Date();
+	let dd = today.getDate();
+	let mm = today.getMonth();
+	let yyyy = today.getFullYear();
 
+	if(dd<10) { //adds 0 to single digit dates
+		dd = '0' + dd;
+	}
+
+	let date = monthNames[mm] + ' ' + dd + ', ' + yyyy;
+	
+	//prepending to oldMsg
+	$('#oldMsgContainer').prepend(`
+		<div class="msg editOff">
+			<div class="msgAndDate">
+				<p class="message">${written}</p>
+				<span class="date">${date}</span>
+			</div>
+			<div class="modeContainer">
+				<button class="msgDelete" onclick="removeMsg(this)">x</button>
+				<button class="msgEdit"><img src="./images/edit.png"></button>
+			</div>
+		</div>
+	`)
+
+	//prepending to overlay (msg list)
+	$('#msgOverlayWrap').prepend(`
+		<div class='draggable' ondragstart='dragStart(event)' draggable='true'>${written}</div>
+	`);
+
+	//clears textarea
+	$('#typeMsg').val(''); 
+	
+	//alert user
+	alert('Message created!');
+})
 //MESSAGES JS END
