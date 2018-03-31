@@ -20,8 +20,12 @@ module.exports.editQuickSend = (event, context, callback) => {
 
   Client.connect() //connect to database
     .then(client => {
-      console.log('connected to DB ' + Client.options.database + ' ready to UPDATE')
       client.release();
-      return client.query(updateMovies, [title, year, genre, id]);
+      return client.query(updateText);
+    })
+  Client.connect() //connect to database
+    .then(client => {
+      client.release();
+      return client.query(updateType);
     })
 };
