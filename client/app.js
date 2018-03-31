@@ -685,12 +685,30 @@ $('#msgsTable tr td').click(function(){ //highlights whole row
   }
 })*/
 
-function removeMsg(param) {
-	console.log(param);
-	$(param).closest('.msg').remove();
-	console.log('removing message!');
-}
+// function removeMsg(param) {
+// 	console.log(param);
+// 	$(param).closest('.msg').remove();
+// 	console.log('removing message!');
+// }
 
+$('#addMsg').click(function(){
+	$('#addMsgPopup')[0].style.display = "block";
+	$('#deleteMsgPopup')[0].style.display = "none"; //closes delete popup if open
+})
+
+$('#closeMsgPopup').click(function(){
+	$('#addMsgPopup')[0].style.display = "none";
+})
+
+$('#trashMsg').click(function(){
+	console.log('open delete');
+	$('#addMsgPopup')[0].style.display = "none";
+	$('#deleteMsgPopup')[0].style.display = "block";
+})
+
+$('#closeMsgDelPopup').click(function(){
+	$('#deleteMsgPopup')[0].style.display = "none";
+})
 
 // Message Submission
 $('#submitMsg').click( function () {
