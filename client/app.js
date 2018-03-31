@@ -782,30 +782,42 @@ function switchType(el){
 }
 
 var editing = false;
+var oldContent = {};
+var newContent = {};
+var textFirst = true;
+var typeFirst = true;
+function convertText(){
+	var htmlText = document.getElementById(currentType+"-msg").innerHTML;
+	var regex = /placeholder="\s*(.*?)\s*">/g;
+	htmlText = htmlText.replace("<p>","");
+	htmlText = htmlText.replace("</p>","");
+	while (m = regex.exec(htmlText)) {
+		htmlText = htmlText.replace('<input type="textbox" placeholder="'+m[1]+'">',"{"+m[1]+"}");
+	}
+	temp=htmlText
+	return htmlText;
+}
 function editMsg(){
 	if (editing == false){
 		editing=true;
 		console.log(currentType+"-msg")
 		document.getElementById(currentType+"-msg").style.display="none";
 		document.getElementById('editBox').style.display="block";
-	    var htmlText = document.getElementById(currentType+"-msg").innerHTML;
-		var regex = /placeholder="\s*(.*?)\s*">/g;
-		htmlText = htmlText.replace("<p>","");
-		htmlText = htmlText.replace("</p>","");
-		while (m = regex.exec(htmlText)) {
-			htmlText = htmlText.replace('<input type="textbox" placeholder="'+m[1]+'">',"{"+m[1]+"}");
-		}
-		document.getElementById("editBox").value = htmlText;
+		document.getElementById("editBox").value = convertText();
 		document.getElementById('edit-saveMsg').src='./images/save.png'
 		document.getElementById('edit-saveType').style.display="none";
 		document.getElementById('note').style.display="block";
+		oldContent.type = currentType;
+		oldContent.text = convertText();
+		newContent.type = currentType;
+		newContent.text = convertText();
 	}
 	else{
 		editing=false;
 		document.getElementById(currentType+"-msg").style.display="block";
 		document.getElementById('editBox').style.display="none";
 	    var htmlText = document.getElementById("editBox").value;
-		var regex = /{\s*(.*?)\s*}/g;
+	    var regex = /{\s*(.*?)\s*}/g;
 		while (m = regex.exec(htmlText)) {
 			console.log(m[1])
 			htmlText = htmlText.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
@@ -814,6 +826,8 @@ function editMsg(){
 		document.getElementById('edit-saveMsg').src='./images/edit.png';
 		document.getElementById('edit-saveType').style.display="inline-block";
 		document.getElementById('note').style.display="none";
+		textFirst=false;
+		editQS();
 	}
 }
 var typeEditing =false;
@@ -827,6 +841,10 @@ function editType(){
 		document.getElementById('editTypeBox').style.display="inline-block";
 		document.getElementById('edit-saveType').src='./images/save.png'
 		document.getElementById('editButton').style.display="none";
+		oldContent.type = currentType;
+		oldContent.text = convertText();
+		newContent.type = currentType;
+		newContent.text = convertText();
 	}
 	else{
 		typeEditing=false;
@@ -842,6 +860,8 @@ function editType(){
 		document.getElementById('editTypeBox').style.display="none";
 		document.getElementById('edit-saveType').src='./images/edit.png'
 		document.getElementById('editButton').style.display="inline-block";
+		typeFirst=false;
+		editQS();
 	}
 }
 //QUICK SEND JS END
