@@ -1562,15 +1562,37 @@ html, body {
 	border-radius: 10px;
 }
 .msgPre{
+	font-size: 15px;
 	overflow-y: auto;
 	height: 100%;
 	display: none;
+	line-height: 25px;
 }
+
+.msgPre p {
+	margin-top: 0;
+}
+
 .msgBox{
+	font-size: 15px;
+	position: relative;
+	right: 5px;
+	top: -5px;
 	overflow-y: auto;
 	height: 90%;
 	display: none;
+	outline: none;
+  border: darkgray solid 2px;
+  border-radius: 20px;
+	resize: none;
+	line-height: 20px;
 }
+
+input {
+	font-size: 15px;
+	outline: none;
+}
+
 #editButton{
 	background: lightgrey;
 	position: absolute;
@@ -1583,6 +1605,7 @@ html, body {
   align-items: center;
   transition: all 0.15s;
   transition-timing-function: ease-out;
+  border-radius: 20px;
 }
 #editButton img{
 	width:32px;
@@ -1608,4 +1631,8 @@ html, body {
 }
 #note{
 	display: none;
+	color: red;
+	margin-top: 5px;
+	margin-left: 5px;
 }
+
