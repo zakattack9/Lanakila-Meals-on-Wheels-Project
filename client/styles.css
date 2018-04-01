@@ -1561,7 +1561,7 @@ html, body {
 	line-height: 50px;  
 	border-radius: 10px;
 }
-.msg{
+.msgPre{
 	overflow-y: auto;
 	height: 100%;
 	display: none;
