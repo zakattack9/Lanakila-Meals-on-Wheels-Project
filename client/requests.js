@@ -328,4 +328,52 @@ function deleteSubs(id) {
   }) 
 }
 
+///quickSend
+var concatedMessage ="";
+function sendToAll(){
+  var arr = document.getElementById(currentType+"-msg").querySelectorAll("input");
+  concatedMessage = document.getElementById(currentType+"-msg").innerHTML;
+    var regex = /placeholder="\s*(.*?)\s*">/g;
+    concatedMessage = concatedMessage.replace("<p>","");
+    concatedMessage = concatedMessage.replace("</p>","");
+    var counter = 0;
+    while (m = regex.exec(concatedMessage)) {
+      if (arr[counter].value!=="" ){
+        concatedMessage = concatedMessage.replace('<input type="textbox" placeholder="'+m[1]+'">',arr[counter].value);
+      console.log(arr[counter].value)
+      counter +=1;
+      }
+      else{
+        alert("please fill in all fields");
+        break;
+      }
+    }
+  var textMessage = `[${currentType}] ${concatedMessage}`;
 
+  $.ajax({
+   url: 'api_url',
+    method: 'POST',
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    data: textMessage
+  });
+}
+
+function editQS(){
+  if (typeFirst == false){
+    newContent.type = document.getElementById('editTypeBox').value
+  }
+  if( textFirst == false){
+     newContent.text = document.getElementById("editBox").value
+  }
+  $.ajax({
+    url: "update_url",
+    method: 'PUT',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify({
+      "oldContent" : oldContent,
+      "newContent" : newContent
+    })
+  })
+}
