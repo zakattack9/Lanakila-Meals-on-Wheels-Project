@@ -779,6 +779,10 @@ function switchType(el){
 	if (tempId!==null) {
 		document.getElementById('editBox').value = tempId;
 	}
+	document.getElementById('editTypeBox').style.display="none";
+	document.getElementById('note').style.display="none"
+	typeEditing=false;
+	editing=false;
 }
 
 var editing = false;
