@@ -1392,7 +1392,9 @@ html, body {
 	width: 100%;
 	column-count: 3;
 	column-gap: 0px;
+	padding-bottom: 65px;
 	margin: 0 auto;
+
 }
 
 
