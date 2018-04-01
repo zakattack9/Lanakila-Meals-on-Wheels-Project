@@ -270,6 +270,7 @@ $('#trashGrp').click(function(){ //for trash popup
   groupIDs = []; //resets groups to delete queue
 
   let checkedElements = $('#grpTable tbody tr').filter('.isCheckedBackground');
+  console.log(checkedElements);
   checkedElements.map((currVal, index) => {
   	let insertGrpName = $(index).find('.groupName')[0].innerText;
   	let insertGrpDate = $(index).find('.groupDate')[0].innerText;
@@ -599,119 +600,128 @@ $('#saveSub').click(function(){
 
 
 //MESSAGES JS START
-$('#oldMsgTab').click(function(){
-	$('#oldMsgTab')[0].style.backgroundColor = '#EAEAEA';
-	$('#newMsgTab')[0].style.backgroundColor = '#fcd8b6';
-	$('#oldMsgTab')[0].style.position = 'relative';
-	$('#newMsgTab')[0].style.position = '';
 
-	$('#openOldMsg')[0].style.display = 'block';
-	$('#openNewMsg')[0].style.display = 'none';
+
+$('.msgCheck').on('click',function(){ //checks boxes on/off
+	$(this).toggleClass('checked');
+	$(this).parent().parent().toggleClass('msgReady');
+	console.log('checkkkk');
 })
 
-$('#newMsgTab').click(function(){
-	$('#oldMsgTab')[0].style.backgroundColor = '#fcd8b6';
-	$('#newMsgTab')[0].style.backgroundColor = 'white';
-	$('#newMsgTab')[0].style.position = 'relative';
-	$('#oldMsgTab')[0].style.position = '';
-
-	$('#openOldMsg')[0].style.display = 'none';
-	$('#openNewMsg')[0].style.display = 'block';
-})
-
-//if messages div has class 'hidden', hide table (oldMsdTab)
-if ($('#messages')[0].style.display === 'none') {
-	console.log('hiding messages table')
-	$('#openOldMsg')[0].style.display = 'none';
-}
-
-
-// CHANGE CLASS NAMES
-$('#checkAll2 span').click(function(){ //checks all boxes on/off
-	if($(this).hasClass('isChecked')){
-		$(this).removeClass('isChecked');
-		$('.customBox span').map((currVal, index) => {
-			$(index).removeClass('isChecked');
-			index.parentElement.parentElement.parentElement.style.backgroundColor = "white";
-		});
-	}else{
-		$(this).addClass('isChecked');
-		$('.customBox span').map((currVal, index) => {
-			$(index).addClass('isChecked');
-			index.parentElement.parentElement.parentElement.style.backgroundColor = "#fcd8b6";
-		});
-	}
-})
-
-/*var editingMsg = false; //allows message editing
-$('#msgsTable tr td').click(function(){ //highlights whole row
-	let row = this.parentElement;
-	let currCheck = this.parentElement.firstElementChild.firstElementChild.lastElementChild;
-
-	let iterate = 0;
-	if(event.target.tagName === 'SPAN' || event.target.tagName === 'INPUT'){
-		iterate++;
-		$(currCheck).hasClass('isChecked') === false && iterate === 1 ? removeHighlight(currCheck, row) : addHighlight(currCheck, row);
-	}else if($(currCheck).hasClass('isChecked')){
-		console.log('real first')
-		if(event.target.className === 'editBtn' || event.target.className === 'tempInp' || event.target.className === 'saveBtn'){ //checks if clicking on edit button
-			editingMsg = true;
-			let ogMsgName = event.target.parentElement.firstChild.nodeValue;
-
-			if(event.target.className === 'editBtn'){ //removes current group name and replaces it with input field
-				event.target.parentElement.firstChild.remove();
-				let input = $('<input>').attr({type:'text', value: ogMsgName, class:'tempInp'});
-				event.target.parentElement.prepend(input[0]);
-
-				let toSave = row.getElementsByTagName('td')[1].lastElementChild;
-				$(toSave).attr({class:'saveBtn', src:'./images/save.png'}); //show save button
-			}else if(event.target.className === 'saveBtn'){
-				let newMsgName = event.target.parentElement.firstChild.value
-				event.target.parentElement.firstChild.remove();
-				event.target.parentElement.prepend(newMsgName);
-				row.getElementsByTagName('td')[1].lastElementChild.remove(); //remove save button
-
-				editingMsg = false;
-				removeHighlight(currCheck, row);
-			}
-		}else if(editingMsg === false){ //if not editing, remove edit button and unhighlight
-			removeHighlight(currCheck, row);
-		}
-  }else if(editingMsg === false){ //adds edit button and highlights
-  	console.log('first')
-  	addHighlight(currCheck, row);
-  }else{
-  	alert("Save Message First");
-  }
-})*/
-
-// function removeMsg(param) {
-// 	console.log(param);
-// 	$(param).closest('.msg').remove();
-// 	console.log('removing message!');
-// }
 
 $('#addMsg').click(function(){
 	$('#addMsgPopup')[0].style.display = "block";
 	$('#deleteMsgPopup')[0].style.display = "none"; //closes delete popup if open
 })
 
+$('#createMsg').click(function(){
+	let insertText = $('#typeMsg').val()
+	
+	//get today's date
+	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	let today = new Date();
+	let dd = today.getDate();
+	let mm = today.getMonth();
+	let yyyy = today.getFullYear();
+
+	if(dd<10) { //adds 0 to single digit dates
+		dd = '0' + dd;
+	}
+
+	let date = monthNames[mm] + ' ' + dd + ', ' + yyyy;
+
+	//add message to left column
+	$('#msgCol').prepend(`
+		<div class="msgGradient">
+			<div class="msgAndDate">
+				<p class="message">${insertText}</p>
+				<span class="date">${date}</span>
+			</div>
+			<div class="modeContainer">
+				<div class="msgCheck"></div>
+				<button class="msgEdit"><img src="./images/edit.png"></button>
+			</div>
+		</div>
+	`);
+	$('#addMsgPopup')[0].style.display = "none";
+	$('#typeMsg').val('');
+});
+
 $('#closeMsgPopup').click(function(){
 	$('#addMsgPopup')[0].style.display = "none";
 })
 
+var msgIDs = [];
 $('#trashMsg').click(function(){
-	console.log('open delete');
+	$('#selectedMessages').empty(); //empties out previously selected groups
+	msgIDs = []; //resets groups to delete queue
+
+	let checkedElements = $('#oldMsgContainer #msgCol .msgGradient').filter('.msgReady');
+	console.log(checkedElements);
+	checkedElements.map((currVal, index) => {
+		let insertMsg = $(index).find('.message')[0].innerText;
+		let insertMsgDate = $(index).find('.date')[0].innerText;
+
+		msgIDs.push(+$(index).attr('id')); //needs to be converted to number (unary operator)
+
+	  	$('#selectedMessages').append(`
+			<tr id="selectedMsgText">
+				<td>${insertMsg}</td>
+				<td><span style="font-weight: bold"> Created On:</span>&nbsp; ${insertMsgDate}</td>
+			</tr>
+	  	`)
+	}); //end of checkedElements.map
+
+	//displays popup
 	$('#addMsgPopup')[0].style.display = "none";
 	$('#deleteMsgPopup')[0].style.display = "block";
+	$('#editMsgPopup')[0].style.display = "none";
+})
+
+$('#deleteMessage').click(function(){
+	$('.msgReady').replaceWith('');
+
+	$('#deleteMsgPopup')[0].style.display = "none";
 })
 
 $('#closeMsgDelPopup').click(function(){
 	$('#deleteMsgPopup')[0].style.display = "none";
 })
 
+var currentEdit;
+$('.msgEdit').click(function(){
+
+	currentEdit = $(this).parent().parent();
+	console.log(currentEdit);
+	let insertText = currentEdit.find('.msgAndDate').find('.message').text();
+	console.log(insertText);
+	$('#editMsgHere').replaceWith(`
+		<textarea rows="10" id="editMsgHere" placeholder="Your original message has been deleted. If unintentional, exit now.">${insertText}</textarea>
+	`);
+
+	//adds id to message being edited so it can be accessed later
+	currentEdit.find('.msgAndDate').find('.message').attr('id', 'editingOn'); //when edit is saved, text of id is changed, id is removed
+
+	$('#editMsgPopup')[0].style.display = "block";
+	$('#addMsgPopup')[0].style.display = "none";
+	$('#deleteMsgPopup')[0].style.display = "none"; 
+})
+
+$('#saveMessage').click(function(){
+	let insertText = $('#editMsgHere').val();
+	$('#editingOn').replaceWith(`
+		<p class="message">${insertText}</p>
+	`);
+		$('#editMsgPopup')[0].style.display = "none";
+})
+
+$('#closeMsgEditPopup').click(function(){
+	$('#editMsgPopup')[0].style.display = "none";
+})
+
+
 // Message Submission
-$('#submitMsg').click( function () {
+$('#submitMsg').click( function () {//change from old to new button
 	let written = $('#typeMsg').val();
 	console.log(written);
 
@@ -730,7 +740,7 @@ $('#submitMsg').click( function () {
 	
 	//prepending to oldMsg
 	$('#oldMsgContainer').prepend(`
-		<div class="msg editOff">
+		<div class="msg">
 			<div class="msgAndDate">
 				<p class="message">${written}</p>
 				<span class="date">${date}</span>
@@ -753,12 +763,6 @@ $('#submitMsg').click( function () {
 	//alert user
 	alert('Message created!');
 })
-
-function editMsg(param) { //changes message div to textarea
-	console.log(param);
-	let msg = $(param).parent().parent().find('msgAndDate').find('p.message');
-	console.log(msg);
-}
 
 //MESSAGES JS END
 

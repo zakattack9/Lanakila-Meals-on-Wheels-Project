@@ -1363,7 +1363,7 @@ html, body {
 	height: 100%;
 }
 
-#messages textarea {
+#messages textarea, #editMsgBox textarea {
 	resize: none;
 	font-family: 'Lato', sans-serif;
 }
@@ -1373,23 +1373,46 @@ html, body {
 	overflow-y: scroll;
 }
 
-#oldMsgContainer {
+/*#oldMsgContainer {
 	display: flex;
 	flex-direction: row;
 }
 
 .msgColumn {
-/*	width: 30%;*/
+	width: 34%;
+}*/
+
+#oldMsgContainer {
+	width: 100%;
+/*	height: 95%;*/
 }
 
-.msgGradient { /*controls size, positioning (itself/flex), and color*/
+
+#msgCol {
+	width: 100%;
+	column-count: 3;
+	column-gap: 0px;
+	margin: 0 auto;
+}
+
+
+
+/*#msgCol { 
 	display: flex;
+	flex-flow: column wrap;
+ 	width:100%;
+}*/
+
+.msgGradient { /*controls size, positioning (itself/flex), and color*/
+	width: 95%;
+	/*display: flex;
 	flex-direction: row;
-	justify-content: space-between;
-	width: 94%;
+	justify-content: space-between;*/
+	display: inline-block;
+
 	padding-left: 10px;
 	background-color: #13896D;
-	margin: 10px auto;
+	margin: 5px 5px;
 	border-radius: 10px;
 
 	/*background gradient*/
@@ -1399,47 +1422,25 @@ html, body {
 
 .modeContainer {
 	width: 41px;
+	bottom: 10px;
+	right: 4px;
 }
 
 .msgCheck {
 	width: 22px;
 	height: 22px;
 	position: relative;
-	top: 15px;
-	left: -7px;
+	top: 18px;
+	left: 4px;
 	background-color: white;
 	border-radius: 5px;
 	box-shadow: inset 0 0 3px darkgray;
 }
 
-/*.msgCheck {
-	position: relative;
-	top: 15px;
-	left: 15px;
-	cursor: pointer;
+.checked {
+	background-color: #F58F31;
 }
 
-.msgCheck input {
-	position: absolute;
-	opacity: 0;
-	cursor:pointer;
-}
-
-.msgCheckmark {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 20px;
-	width: 20px;
-	background-color: white;
-	border-radius: 5px;
-}*/
-/*.checkMsg {
-	width: 30px;
-	height: 30px;
-	border: 1px solid black;
-	background-color: white;
-}*/
 
 
 
@@ -1447,7 +1448,7 @@ html, body {
 
 
 /*popup styles*/
-#addMsgPopup, #deleteMsgPopup {
+#addMsgPopup, #deleteMsgPopup, #editMsgPopup {
 	display: none;
 	position: absolute;
 	width: 100%;
@@ -1455,7 +1456,7 @@ html, body {
  	z-index: 1;
 }
 
-#addMsgPopup:after, #deleteMsgPopup:after {
+#addMsgPopup:after, #deleteMsgPopup:after, #editMsgPopup:after {
 	content: '';
 	position: absolute;
 	background-color: lightgray;
@@ -1466,7 +1467,7 @@ html, body {
  	filter: blur(1px);
 }
 
-#msgPopupBox, #deleteMsgBox {
+#msgPopupBox, #deleteMsgBox, #editMsgBox {
 	width: 50%;
 	background-color: white;
 	border-radius: 15px;
@@ -1481,7 +1482,7 @@ html, body {
 	height: 40%;
 }
 
-#msgPopupTitle, #popupMsgDelTitle {
+#msgPopupTitle, #popupMsgDelTitle, #popupMsgEditTitle {
 	font-size: 17px;
 	height: 30px;
 	padding-top: 2.5%;
@@ -1489,7 +1490,7 @@ html, body {
 	font-weight: bold;
 }
 
-#closeMsgPopup, #closeMsgDelPopup {
+#closeMsgPopup, #closeMsgDelPopup, #closeMsgEditPopup {
 	transform: scale(1.7);
 	transition: 0.1s;
 	cursor: pointer;
@@ -1508,20 +1509,37 @@ html, body {
 #msgTableWrap {
 	margin-top: 20px;
 	width: 97%;
-	max-height: 180px;
+	max-height: 64%;
 	overflow-y: auto;
 }
 
+#selectedMessages {
+	width: 95%;
+	position: relative;
+	left: 22px;
+}
 
+#selectedMessages tr td:first-child {
+	border-bottom: 1px solid darkgray;
+}
 
-#typeMsg {
+#selectedMessages tr:last-child td:first-child {
+	border-bottom: none;
+}
+
+#selectedMessages tr td {
+	padding-bottom: 12px;
+	padding-top: 8px;
+}
+
+#typeMsg, #editMsgHere {
 	width: 90%;
 	height: 80%;
 	margin-bottom: 58px;
 	margin-left: 4%;
 }
 
-#createMsg, #deleteMessage { 
+#createMsg, #deleteMessage, #saveMessage { 
 	font-size: 14px;
 	background-color: #138960;
 	cursor: pointer;
@@ -1535,6 +1553,11 @@ html, body {
 	right:15px;
 }
 
+#createMsg:hover, #deleteMessage:hover {
+	transform: scale(1.03);
+	transition: 0.2s;
+}
+
 .msgEdit {
 	height: 30px;
 	width: 30px;
@@ -1543,8 +1566,8 @@ html, body {
 	border-radius: 50%;
 	cursor: pointer;
 	position: relative;
-	top: 24px;
-	right: 11px;
+	top: -7px;
+	right: -36px;
 }
 
 .msgEdit img {
@@ -1552,21 +1575,21 @@ html, body {
 	height: 18px;
 }
 
-#createMsg:hover, #deleteMessage:hover {
-	transform: scale(1.03);
-	transition: 0.2s;
-}
-
-
-
-
 .msgAndDate {
+	width: 95%;
 	padding: 15px;
+	padding-bottom: 0;
 	cursor: default;
 }
 
 .message {
 	margin-top: 0;
+	width: 98%;
+	overflow-x: auto;
+}
+
+.message::-webkit-scrollbar {
+	height: 8px;
 }
 
 .date {

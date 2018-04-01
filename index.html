@@ -358,7 +358,7 @@
 						<div id="msgPopupBox">
 							<div id="closeMsgPopup">&times;</div>
 							<div id="msgPopupTitle">Message:</div>
-							<textarea name="generalText" rows="10" id="typeMsg" placeholder="Type message here"></textarea>
+							<textarea rows="10" id="typeMsg" placeholder="Type message here"></textarea>
 							<div id="createMsg">
 								Create Message
 							</div>
@@ -386,21 +386,29 @@
 						</div>
 					</div>
 
+					<div id="editMsgPopup">
+						<div id="editMsgBox">
+							<div id="closeMsgEditPopup">&times;</div>
+							<div id="popupMsgEditTitle">You are now editing:</div>
+							<textarea rows="10" id="editMsgHere" placeholder="Your original message has been deleted. If unintentional, exit now."></textarea>
+							<div id="saveMessage">Save Message</div>
+						</div>
+					</div>
+
 					<div id="oldMsgContainer">
-						
-						<div id="msgColLeft" class="msgColumn">
-							<div class="msgGradient editOff">
-								<div class="msgAndDate">
-									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-									<span class="date">March 14, 2018</span>
-								</div>
-								<div class="modeContainer">
-									<div class="msgCheck"></div>
-									<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
-								</div>
-							</div>
 							
-							<div class="msgGradient editOff">
+						<div id="msgCol">
+							<div class="msgGradient">
+								<div class="msgAndDate">
+									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+									<span class="date">March 14, 2018</span>
+								</div>
+								<div class="modeContainer">
+									<div class="msgCheck" onclick="checkMsg(this)"></div>
+									<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
+								</div>
+							</div>
+							<div class="msgGradient">
 								<div class="msgAndDate">
 									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 									<span class="date">March 14, 2018</span>
@@ -410,12 +418,7 @@
 									<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
 								</div>
 							</div>
-
-						</div>
-						
-						<div id="msgColMid" class="msgColumn">
-							
-							<div class="msgGradient editOff">
+							<div class="msgGradient">
 								<div class="msgAndDate">
 									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 									<span class="date">March 14, 2018</span>
@@ -425,8 +428,7 @@
 									<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
 								</div>
 							</div>
-							
-							<div class="msgGradient editOff">
+							<div class="msgGradient">
 								<div class="msgAndDate">
 									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 									<span class="date">March 14, 2018</span>
@@ -436,10 +438,7 @@
 									<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
 								</div>
 							</div>
-
-						</div>
-						<div id="msgColRight" class="msgColumn">
-							<div class="msgGradient editOff">
+							<div class="msgGradient">
 								<div class="msgAndDate">
 									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 									<span class="date">March 14, 2018</span>
@@ -449,7 +448,37 @@
 									<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
 								</div>
 							</div>
-							<div class="msgGradient editOff">
+							<div class="msgGradient">
+								<div class="msgAndDate">
+									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+									<span class="date">March 14, 2018</span>
+								</div>
+								<div class="modeContainer">
+									<div class="msgCheck"></div>
+									<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
+								</div>
+							</div>
+							<div class="msgGradient">
+								<div class="msgAndDate">
+									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+									<span class="date">March 14, 2018</span>
+								</div>
+								<div class="modeContainer">
+									<div class="msgCheck"></div>
+									<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
+								</div>
+							</div>
+							<div class="msgGradient">
+								<div class="msgAndDate">
+									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+									<span class="date">March 14, 2018</span>
+								</div>
+								<div class="modeContainer">
+									<div class="msgCheck"></div>
+									<button class="msgEdit" onclick="editMsg(this)"><img src="./images/edit.png"></button>
+								</div>
+							</div>
+							<div class="msgGradient">
 								<div class="msgAndDate">
 									<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 									<span class="date">March 14, 2018</span>
