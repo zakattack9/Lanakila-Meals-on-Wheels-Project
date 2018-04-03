@@ -380,7 +380,7 @@ function getMessages() {
     let reversedMsgs = response.slice(0).reverse();
     $('.scrolls').empty();
     for(let i = 0; i < 5; i++){ //change second statement to determine how many messages show up in recent messages
-      console.log(reversedMsgs[i]);
+      //console.log(reversedMsgs[i]);
       $('.scrolls').append(`
         <div class="recentText">
           ${reversedMsgs[i].message_text}

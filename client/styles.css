@@ -1384,7 +1384,7 @@ html, body {
 #openOldMsg {
 	display: block;
 	height: 100%;
-	overflow-y: auto;
+
 }
 
 #openNewMsg {
@@ -1411,12 +1411,14 @@ html, body {
 
 #oldMsgContainer {
 	width: 100%;
+	height: 100%;
 /*	height: 95%;*/
+	overflow-y: auto;
 }
 
 
 #msgCol {
-	width: 100%;
+	width: 99%;
 	column-count: 3;
 	column-gap: 0px;
 	padding-bottom: 65px;
@@ -1439,13 +1441,15 @@ html, body {
 	display: inline-block;
 
 	padding-left: 10px;
-	background-color: #13896D;
+	background-color: lightgray;
 	margin: 5px 5px;
 	border-radius: 10px;
 
 	/*background gradient*/
-	background-image: linear-gradient(to bottom right, #5DFDCB, #77CFFF);
+	/*background-image: linear-gradient(to bottom right, #5DFDCB, #77CFFF);
+  background-size: cover;
 	background-attachment: fixed;
+  background-position: center;*/
 }
 
 .modeContainer {
@@ -1586,7 +1590,7 @@ html, body {
 .msgEdit {
 	height: 30px;
 	width: 30px;
-	background-color: #D3F9F6;
+	background-color: white;
 	/*border: 1px solid #2BAD8F;*/
 	border-radius: 50%;
 	cursor: pointer;
