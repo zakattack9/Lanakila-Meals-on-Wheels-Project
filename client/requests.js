@@ -18,6 +18,7 @@ function loadGroups(){
   .done((response) => {
     $('.spinnerWrap')[0].style.display = "none";
   	//console.log(response)
+    $('#groupSelect').empty(); //clears options from dropdown in "add subscriber"
     response.map(currVal => { //adds groups to groups table
     	//console.log(currVal)
     	$('#grpTable tbody').append(`
@@ -87,7 +88,7 @@ $('#reloadGrp').click(function(){
 // Creates and adds new topic to DB
 $('#createGrp').click(function(){
   if($('#groupText').val().search(/^[a-zA-Z0-9-_ ]+$/) == -1) { //checks whether input has valid values
-    $('#validNameWarning')[0].innerText = "Must contain only alphanumeric characters, hyphens (-), or underscores (_)";
+    $('#validNameWarning')[0].innerText = "Must contain only alphanumeric characters, hyphens (-), or underscores ( _ )";
   }else {
     $('#addPopup')[0].style.display = "none"; //auto closes the create group popup
     startGrpLoadAnimation();
@@ -161,6 +162,7 @@ function loadGrpSubs() {
           <span class="targetSubContact" style="display:none">${currVal.subscription_contact}</span>
         </div>
       `)
+
     })
 
     $('.singleSub').on('mousedown', function(event){ //adds event handler to open clone feature
@@ -210,9 +212,12 @@ function startSubLoadAnimation() {
   $('#subsTable tbody tr').remove(); //removes currently displayed subs
   $('.spinnerWrap')[1].style.display = "block";
 }
+
 //Managing subscriber requests
+let allSubContacts = [];
 function loadSubscribers() {
   startSubLoadAnimation();
+  allSubContacts = [];
 
   $.ajax({
     url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -236,7 +241,11 @@ function loadSubscribers() {
           <td class="subContact">${currVal.subscription_contact}</td>
         </tr>
       `)
+
+      allSubContacts.push(currVal.subscription_contact);
     })
+    //console.log(allSubContacts);
+
   })
   .fail((err) => {
     console.log('error', err);
@@ -264,12 +273,12 @@ function resetAddSubPop() { //removes all unsubmited data from form in subs tab
   $('#textProtText')[0].style.color = "black";
   $('#contactTitle')[0].innerText = "Phone Number (With International Call Prefix):";
   $('#contactInfo').attr("placeholder", "Ex. 18081234567");
+
+  $('#addSubWarning')[0].innerText = ""; //removes warning message
+  $('#addSubNameWarning')[0].innerText = "";
 }
 
 $('#createSub').click(function(){
-  $('#addSubPop')[0].style.display = "none";
-  startSubLoadAnimation();
-
   let subName, subProtocol, subContact, groupID;
   subName = $('#subText').val();
   subProtocol;
@@ -282,27 +291,40 @@ $('#createSub').click(function(){
     subProtocol = 'email';
   }
 
-  $.ajax({
-    url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/post",
-    method: 'POST',
-    contentType: "application/json; charset=utf-8",
-    dataType: 'JSON',
-    data: JSON.stringify({
-      "subName" : subName,
-      "subProtocol" : subProtocol,
-      "subContact" : subContact,
-      "groupID" : groupID
+  if(allSubContacts.includes(subContact)) { //adds warning if number already exists
+    $('#addSubWarning')[0].innerText = "The phone number or email inputted already exists in the system";
+
+  }if($(subText).val().length === 0) { //adds warning if no name is typed in
+    $('#addSubNameWarning')[0].innerText = "Field is empty, please type in a name";
+
+  }else {
+    console.log("sent")
+    $('#addSubPop')[0].style.display = "none";
+    startSubLoadAnimation();
+
+    $.ajax({
+      url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/post",
+      method: 'POST',
+      contentType: "application/json; charset=utf-8",
+      dataType: 'JSON',
+      data: JSON.stringify({
+        "subName" : subName,
+        "subProtocol" : subProtocol,
+        "subContact" : subContact,
+        "groupID" : groupID
+      })
     })
-  })
-  .done((response) => {
-    //console.log(response)
-    loadSubscribers();
-    loadGrpSubs();
-  })
-  .fail((err) => {
-    console.log(err);
-  }) 
-  resetAddSubPop();
+    .done((response) => {
+      //console.log(response)
+      loadSubscribers();
+      loadGrpSubs();
+    })
+    .fail((err) => {
+      console.log(err);
+    }) 
+
+    resetAddSubPop(); //resets values in "add subscriber" popup
+  }
 })
 
 $('#closeAddSub').click(function(){ //closes "add subscriber" popup when pressing the X

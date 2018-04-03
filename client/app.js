@@ -162,10 +162,23 @@ $('.draggable').mouseover(function(){ //shows message in group input on hold
   }
 });*/
 
+function enableDelete() {
+	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
+	if($('#grpTable tbody').find('.isCheckedBackground').length !== 0) {
+		$('#trashGrp').attr("onclick", "deleteSelectedGroups();");
+		$('#trashGrp')[0].style.opacity = "1";
+	}else {
+		$('#trashGrp').removeAttr("onclick");
+		$('#trashGrp')[0].style.opacity = "0.85";
+	}
+}
+
 function highlightTopic(selected) {
 	let checkBox = selected.firstElementChild.firstElementChild;
 	$(checkBox).toggleClass('isChecked');
 	$(selected).toggleClass('isCheckedBackground');
+
+	enableDelete();
 }
 
 $('#checkAll').click(function(){ //checks all boxes on/off
@@ -184,6 +197,9 @@ $('#checkAll').click(function(){ //checks all boxes on/off
 			$(selectedRow).addClass('isCheckedBackground');
 		});
 	}
+
+  enableDelete();
+
 })
 
 $('#reloadGrp').click(function(){ //runs refresh button animation
@@ -267,7 +283,7 @@ $('#closePopup').click(function(){ //closes "create group" popup
 })
 
 var groupIDs = [];
-$('#trashGrp').click(function(){ //for trash popup
+function deleteSelectedGroups(){ //for trash popup
   $('#selectedGroups').empty(); //empties out previously selected groups
   groupIDs = []; //resets groups to delete queue
 
@@ -289,7 +305,7 @@ $('#trashGrp').click(function(){ //for trash popup
 
   $('#deletePopup')[0].style.display = "block";
   $('#addPopup')[0].style.display = "none"; //closes "add group" popup if open
-})
+}
 
 $('#closeDelPopup').click(function(){
 	$('#deletePopup')[0].style.display = "none";
@@ -393,8 +409,19 @@ $('#addSub').click(function() {
 	$('#delSubPop')[0].style.display = "none";
 })
 
+function enableDeleteSubs() {
+	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
+	if($('#subsTable tbody').find('.isCheckedBackground').length !== 0) {
+		$('#trashSub').attr("onclick", "deleteSelectedSubs();");
+		$('#trashSub')[0].style.opacity = "1";
+	}else {
+		$('#trashSub').removeAttr("onclick");
+		$('#trashSub')[0].style.opacity = "0.85";
+	}
+}
+
 let subIDs = [];
-$('#trashSub').click(function() {
+function deleteSelectedSubs() {
   let checkedElements = $('#subsTable tbody tr').filter('.isCheckedBackground'); //filter grabs elements only with that class
   $('#selectedSubs').empty();
   subIDs = [];
@@ -416,7 +443,7 @@ $('#trashSub').click(function() {
 
 	$('#delSubPop')[0].style.display = "block";
 	$('#addSubPop')[0].style.display = "none";
-})
+}
 
 $('#closeAddSub').click(function() {
 	$('#addSubPop')[0].style.display = "none";
@@ -435,6 +462,8 @@ function highlightSub(selected) {
 	let checkBox = selected.firstElementChild.firstElementChild;
 	$(checkBox).toggleClass('isChecked');
 	$(selected).toggleClass('isCheckedBackground');
+
+	enableDeleteSubs();
 }
 
 $('#checkAllSubs').click(function(){ //checks all boxes on/off
@@ -453,6 +482,8 @@ $('#checkAllSubs').click(function(){ //checks all boxes on/off
 			$(selectedRow).addClass('isCheckedBackground');
 		});
 	}
+
+	enableDeleteSubs();
 })
 
 $('#textCircle').click(function() {
