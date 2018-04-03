@@ -49,7 +49,7 @@ module.exports.broadcast = (event, context, callback) => {
 
 		    	// Send Notification out with SNS
 					let snsparams = {
-					  Message: msgText + "\n" + "Here is a link to an audio version of this message: " + audioFileLink,
+					  Message: msgText + "\n" + "\n" + "Here is a link to an audio version of this message: " + audioFileLink,
 					  MessageStructure: 'string',
 					  TopicArn: topicARN
 					};

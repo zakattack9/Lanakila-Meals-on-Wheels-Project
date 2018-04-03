@@ -354,7 +354,7 @@ function getMessages() {
 
     //console.log(response);
     response.map(currVal => {
-      $('#msgCol').append(`
+      $('#msgCol').prepend(`
         <div class="msgGradient" id="msg${currVal.id}">
           <div class="msgAndDate">
             <p class="message">${currVal.message_text}</p>
@@ -368,7 +368,7 @@ function getMessages() {
         </div>
       `);
 
-      $('#msgOverlayWrap').append(`
+      $('#msgOverlayWrap').prepend(`
         <div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="msgDrag0${currVal.id}">${currVal.message_text}</div>
 
       `)
