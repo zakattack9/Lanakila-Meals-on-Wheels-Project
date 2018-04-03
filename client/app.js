@@ -260,8 +260,10 @@ $('#addGrp').click(function(){
 	$('#deletePopup')[0].style.display = "none"; //closes delete popup if open
 })
 
-$('#closePopup').click(function(){
+$('#closePopup').click(function(){ //closes "create group" popup
 	$('#addPopup')[0].style.display = "none";
+  $('#groupText').val('');
+  $('#validNameWarning')[0].innerText = '';
 })
 
 var groupIDs = [];

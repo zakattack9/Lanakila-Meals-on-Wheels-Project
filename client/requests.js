@@ -86,29 +86,29 @@ $('#reloadGrp').click(function(){
 
 // Creates and adds new topic to DB
 $('#createGrp').click(function(){
-  $('#addPopup')[0].style.display = "none"; //auto closes the create group popup
-  startGrpLoadAnimation();
+  if($('#groupText').val().search(/^[a-zA-Z0-9-_ ]+$/) == -1) { //checks whether input has valid values
+    $('#validNameWarning')[0].innerText = "Must contain only alphanumeric characters, hyphens (-), or underscores (_)";
+  }else {
+    $('#addPopup')[0].style.display = "none"; //auto closes the create group popup
+    startGrpLoadAnimation();
 
-  $.ajax({
-    url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/post",
-    method: 'POST',
-    contentType: "application/json; charset=utf-8",
-    dataType: 'JSON',
-    data: JSON.stringify($('#groupText').val())
-  })
-  .done((response) => {
-    //console.log(response)
-    loadGroups(); //reload groups
-  })
-  .fail((err) => {
-    console.log(err.responseText);
-  }) 
+    $.ajax({
+      url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/post",
+      method: 'POST',
+      contentType: "application/json; charset=utf-8",
+      dataType: 'JSON',
+      data: JSON.stringify($('#groupText').val())
+    })
+    .done((response) => {
+      //console.log(response)
+      loadGroups(); //reload groups
+    })
+    .fail((err) => {
+      console.log(err.responseText);
+    }) 
 
-  $('#groupText').val(''); //resets input for group name
-})
-
-$('#closePopup').click(function(){
-  $('#groupText').val('');
+    $('#groupText').val(''); //resets input for group name
+  }  
 })
 
 // Deletes groups from DB and SNS

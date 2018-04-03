@@ -445,6 +445,7 @@ html, body {
 	top: 30%;
 	left: 15%;
 	z-index: 2;
+	padding-bottom: 5px;
 }
 
 #deleteBox {
@@ -486,6 +487,13 @@ html, body {
 	margin-left: 4%;
 	width: 90%;
 	height: 25px;
+}
+
+#validNameWarning {
+	font-size: 13px;
+	margin-left: 4%;
+	color: red;
+	font-style: italic;
 }
 
 #createGrp, #deleteGroup {
