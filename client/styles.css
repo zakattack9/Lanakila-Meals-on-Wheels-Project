@@ -353,7 +353,7 @@ html, body {
 	top: 17px;
 	margin-left: 15px;
 	transition: 0.1s;
-	opacity: 0.85;
+	opacity: 0.7;
 }
 
 #trashGrp img{
@@ -764,7 +764,7 @@ html, body {
 	display: inline-block;
 	margin-right: 2px;
 	transition: 0.2s;
-	opacity: 0.85;
+	opacity: 0.7;
 }
 
 #trashSub img{

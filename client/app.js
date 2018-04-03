@@ -169,7 +169,7 @@ function enableDelete() {
 		$('#trashGrp')[0].style.opacity = "1";
 	}else {
 		$('#trashGrp').removeAttr("onclick");
-		$('#trashGrp')[0].style.opacity = "0.85";
+		$('#trashGrp')[0].style.opacity = "0.7";
 	}
 }
 
@@ -416,7 +416,7 @@ function enableDeleteSubs() {
 		$('#trashSub')[0].style.opacity = "1";
 	}else {
 		$('#trashSub').removeAttr("onclick");
-		$('#trashSub')[0].style.opacity = "0.85";
+		$('#trashSub')[0].style.opacity = "0.7";
 	}
 }
 

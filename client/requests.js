@@ -9,6 +9,7 @@ function startGrpLoadAnimation() { //runs loading animation for displaying group
 // Gets all topics from DB
 function loadGroups(){
   startGrpLoadAnimation();
+   enableDelete(); //removes highlight for trash
 
   $.ajax({
     url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -218,6 +219,7 @@ let allSubContacts = [];
 function loadSubscribers() {
   startSubLoadAnimation();
   allSubContacts = [];
+  enableDeleteSubs(); //removes highlight for trash
 
   $.ajax({
     url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -291,14 +293,26 @@ $('#createSub').click(function(){
     subProtocol = 'email';
   }
 
-  if(allSubContacts.includes(subContact)) { //adds warning if number already exists
-    $('#addSubWarning')[0].innerText = "The phone number or email inputted already exists in the system";
+  if($('#subText').val().length === 0 || allSubContacts.includes(subContact) || $('#contactInfo').val().length === 0) { //adds warning if any fields are left blank or the contact typed in already exists in the DB
 
-  }if($(subText).val().length === 0) { //adds warning if no name is typed in
-    $('#addSubNameWarning')[0].innerText = "Field is empty, please type in a name";
+    if($('#subText').val().length === 0) { //adds warning if no name is typed in
+      $('#addSubNameWarning')[0].innerText = "Field is empty, please type in a name"; 
+    }else {
+      $('#addSubNameWarning')[0].innerText = "";
+    }
 
+    if($('#contactInfo').val().length === 0) {
+      $('#addSubWarning')[0].innerText = "Field is empty, please type in a phone number or email contact";
+    }else {
+      if(allSubContacts.includes(subContact)) {
+        $('#addSubWarning')[0].innerText = "The phone number or email inputted already exists in the system";
+      }else {
+        $('#addSubWarning')[0].innerText = "";
+      }
+    }
+    
   }else {
-    console.log("sent")
+
     $('#addSubPop')[0].style.display = "none";
     startSubLoadAnimation();
 
@@ -324,6 +338,7 @@ $('#createSub').click(function(){
     }) 
 
     resetAddSubPop(); //resets values in "add subscriber" popup
+    
   }
 })
 
