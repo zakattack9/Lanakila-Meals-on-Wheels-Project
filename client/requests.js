@@ -353,6 +353,7 @@ function getMessages() {
     $('#msgOverlayWrap').empty();
 
     //console.log(response);
+
     response.map(currVal => {
       $('#msgCol').prepend(`
         <div class="msgGradient" id="msg${currVal.id}">
@@ -375,6 +376,20 @@ function getMessages() {
     
     })
 
+    //for recent messages
+    let reversedMsgs = response.slice(0).reverse();
+    $('.scrolls').empty();
+    for(let i = 0; i < 5; i++){ //change second statement to determine how many messages show up in recent messages
+      console.log(reversedMsgs[i]);
+      $('.scrolls').append(`
+        <div class="recentText">
+          ${reversedMsgs[i].message_text}
+          <br>
+          <br>
+          <span>Created On: ${reversedMsgs[i].last_edited.substring(0, 10)} at ${reversedMsgs[i].last_edited.substring(10, 16)}</span>
+        </div>
+      `)
+    }
 
   })
   .fail((err) => {
