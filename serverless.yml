@@ -82,52 +82,21 @@ functions:
           path: delete
           method: delete
           cors: true
-  createMessage:
-    handler: lambdas/messageLambdas/createMessage.createMessage
-    events:
-      - http:
-          path: post
-          method: post
-          cors: true
-    request:
-      passThrough: WHEN_NO_TEMPLATES
-      template:
-        application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
-  deleteMessage:
-    handler: lambdas/messageLambdas/deleteMessage.deleteMessage
-    events:
-      - http:
-          path: delete
-          method: delete
-          cors: true
-  getMessages:
-    handler: lambdas/messageLambdas/getMessages.getMessages
-    events:
-      - http:
-          path: get
-          method: get
-          cors: true
-  editMessage:
-    handler: lambdas/messageLambdas/editMessage.editMessage
-    events:
-      - http:
-          path: put
-          method: put
-          cors: true
-  editQuickSend:
-    handler: lambdas/messageLambdas/editQuickSend.editQuickSend
-    events:
-      - http:
-          path: put
-          method: put
-          cors: true
-  sendToAll:
-    handler: lambdas/messageLambdas/sendToAll.sendToAll
-    events:
-      - http:
-          path: get
-          method: get
-          cors: true
+  
+  # editQuickSend:
+  #   handler: lambdas/quickSendLambdas/editQuickSend.editQuickSend
+  #   events:
+  #     - http:
+  #         path: put
+  #         method: put
+  #         cors: true
+  # sendToAll:
+  #   handler: lambdas/quickSendLambdas/sendToAll.sendToAll
+  #   events:
+  #     - http:
+  #         path: get
+  #         method: get
+  #         cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

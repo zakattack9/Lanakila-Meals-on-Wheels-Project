@@ -542,6 +542,8 @@ function changeSubGroup(id) {
 	//the last two digits is their sub id
 	let element = document.getElementById(id);
 	
+	// NEED TO FIX SLICE, IF ID IS ONLY ONE DIGIT IT WILL BE GRABBING A NUMBER AND LETTER
+	// to fix issue above, you can add a zero in front of the id number when appending (requests.js), this will ensure it will always grab either 01 or 11
 	let personID = element.id.slice(-2); //grabs last two digits of id
 	let ogGrpID = element.id.substring(0, 2); //grabs first two digits of id
 	let newGrpID = element.parentElement.id.slice(-2); //grabs new group's id
@@ -600,55 +602,53 @@ $('#saveSub').click(function(){
 
 
 //MESSAGES JS START
-
-
-$('.msgCheck').on('click', function(){ //checks boxes on/off
-	$(this).toggleClass('checked');
-	$(this).parent().parent().toggleClass('msgReady');
+function checkMsg(msgCheck) {
+	$(msgCheck).toggleClass('checked');
+	$(msgCheck).parent().parent().toggleClass('msgReady');
 	console.log('checkkkk');
-})
-
+}
 
 $('#addMsg').click(function(){
 	$('#addMsgPopup')[0].style.display = "block";
 	$('#deleteMsgPopup')[0].style.display = "none"; //closes delete popup if open
 })
 
-$('#createMsg').click(function(){
-	let insertText = $('#typeMsg').val()
+// $('#createMsg').click(function(){
+// 	let insertText = $('#typeMsg').val()
 	
-	//get today's date
-	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-	let today = new Date();
-	let dd = today.getDate();
-	let mm = today.getMonth();
-	let yyyy = today.getFullYear();
+// 	//get today's date
+// 	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+// 	let today = new Date();
+// 	let dd = today.getDate();
+// 	let mm = today.getMonth();
+// 	let yyyy = today.getFullYear();
 
-	if(dd<10) { //adds 0 to single digit dates
-		dd = '0' + dd;
-	}
+// 	if(dd<10) { //adds 0 to single digit dates
+// 		dd = '0' + dd;
+// 	}
 
-	let date = monthNames[mm] + ' ' + dd + ', ' + yyyy;
+// 	let date = monthNames[mm] + ' ' + dd + ', ' + yyyy;
 
-	//add message to left column
-	$('#msgCol').prepend(`
-		<div class="msgGradient">
-			<div class="msgAndDate">
-				<p class="message">${insertText}</p>
-				<span class="date">${date}</span>
-			</div>
-			<div class="modeContainer">
-				<div class="msgCheck"></div>
-				<button class="msgEdit"><img src="./images/edit.png"></button>
-			</div>
-		</div>
-	`);
-	$('#addMsgPopup')[0].style.display = "none";
-	$('#typeMsg').val('');
-});
+// 	//add message to left column
+// 	$('#msgCol').prepend(`
+// 		<div class="msgGradient">
+// 			<div class="msgAndDate">
+// 				<p class="message">${insertText}</p>
+// 				<span class="date">${date}</span>
+// 			</div>
+// 			<div class="modeContainer">
+// 				<div class="msgCheck"></div>
+// 				<button class="msgEdit"><img src="./images/edit.png"></button>
+// 			</div>
+// 		</div>
+// 	`);
+// 	$('#addMsgPopup')[0].style.display = "none";
+// 	$('#typeMsg').val('');
+// });
 
 $('#closeMsgPopup').click(function(){
 	$('#addMsgPopup')[0].style.display = "none";
+	$('#typeMsg').val('');
 })
 
 var msgIDs = [];
@@ -689,9 +689,8 @@ $('#closeMsgDelPopup').click(function(){
 })
 
 var currentEdit;
-$('.msgEdit').on('click', function(){
-
-	currentEdit = $(this).parent().parent();
+function editMsgText(currMsgEdit){
+	currentEdit = $(currMsgEdit).parent().parent();
 	console.log(currentEdit);
 	let insertText = currentEdit.find('.msgAndDate').find('.message').text();
 	console.log(insertText);
@@ -705,7 +704,7 @@ $('.msgEdit').on('click', function(){
 	$('#editMsgPopup')[0].style.display = "block";
 	$('#addMsgPopup')[0].style.display = "none";
 	$('#deleteMsgPopup')[0].style.display = "none"; 
-})
+}
 
 $('#saveMessage').click(function(){
 	let insertText = $('#editMsgHere').val();
@@ -719,7 +718,14 @@ $('#closeMsgEditPopup').click(function(){
 	$('#editMsgPopup')[0].style.display = "none";
 })
 
-
+$('#reloadMsg').click(function(){ //runs refresh button animation for subs tab
+	if($('#reloadMsg img')[0].style.animationName == "reload"){
+		$('#reloadMsg img')[0].style.animationName = "resetReload";
+	}else{
+		$('#reloadMsg img')[0].style.animationName = "reload"
+		$('#reloadMsg img')[0].style.animationPlayState = "running";
+	}
+})
 //MESSAGES JS END
 
 
@@ -782,7 +788,7 @@ function convertText(){
 function editMsg(){
 	if (editing == false){
 		editing=true;
-		console.log(currentType+"-msg")
+		//console.log(currentType+"-msg")
 		document.getElementById(currentType+"-msg").style.display="none";
 		document.getElementById('editBox').style.display="block";
 		document.getElementById("editBox").value = convertText();

@@ -33,7 +33,7 @@ module.exports.createMessage = (event, context, callback) => {
 	const sns = new AWS.SNS({apiVersion: '2010-03-31'});
 
 	sns.publish({ // send notification to sns
-    TopicArn: 'put topic arn that trigers to conversion lambda',
+    TopicArn: '',
     Message: msgID,
   }, function(err, data) {
     if (err) {

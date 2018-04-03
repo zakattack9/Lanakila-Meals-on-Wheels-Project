@@ -132,6 +132,7 @@ function deleteTopics(id) {
 }
 
 
+
 // ENDPOINT FOR MANAGING SUBSCRIBER'S GROUPS:
 // https://nsyvxbfzm5.execute-api.us-west-2.amazonaws.com/dev/
 
@@ -248,7 +249,7 @@ $('#reloadSub').click(function(){
   loadSubscribers();
 })
 
-function resetAddSubPop(){ //removes all unsubmited data from form
+function resetAddSubPop() { //removes all unsubmited data from form in subs tab
   $('#subText').val('');
   $('#contactInfo').val('');
   //resets circle option back to "text"
@@ -328,7 +329,128 @@ function deleteSubs(id) {
   }) 
 }
 
-///quickSend
+
+
+// ENDPOINT FOR MESSAGE LAMBDAS:
+// https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/
+
+//Start load animation for messages workspace
+function startMsgLoadAnimation() {
+  $('#msgCol').empty(); //removes currently displayed subs
+  $('.spinnerWrap')[2].style.display = "block";
+}
+
+function getMessages() {
+  startMsgLoadAnimation();
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/get",
+    method: 'GET',
+    "Content-Type": "application/json",
+  })
+  .done((response) => {
+    $('.spinnerWrap')[2].style.display = "none";
+    $('#msgOverlayWrap').empty();
+
+    //console.log(response);
+    response.map(currVal => {
+      $('#msgCol').append(`
+        <div class="msgGradient" id="msg${currVal.id}">
+          <div class="msgAndDate">
+            <p class="message">${currVal.message_text}</p>
+            <span class="date">${currVal.last_edited.substring(0, 10)}</span>
+          </div>
+
+          <div class="modeContainer">
+            <div class="msgCheck" onclick="checkMsg(this)"></div>
+            <button class="msgEdit" onclick="editMsgText(this)"><img src="./images/edit.png"></button>
+          </div>
+        </div>
+      `);
+
+      $('#msgOverlayWrap').append(`
+        <div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="msgDrag0${currVal.id}">${currVal.message_text}</div>
+
+      `)
+    
+    })
+
+
+  })
+  .fail((err) => {
+    console.log('error', err);
+  })
+}
+getMessages();
+
+$('#reloadMsg').click(function(){
+  getMessages();
+})
+
+$('#createMsg').click(function(){
+  $('#addMsgPopup')[0].style.display = "none";
+  startMsgLoadAnimation();
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/post",
+    method: 'POST',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify($('#typeMsg').val())
+  })
+  .done((response) => {
+    //console.log(response)
+    getMessages();
+  })
+  .fail((err) => {
+    console.log(err);
+  })
+});
+
+function deleteMessage(id) {
+  console.log(id);
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/delete",
+    method: 'DELETE',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify(id)
+  })
+  .done((response) => {
+    console.log(response)
+
+  })
+  .fail((err) => {
+    console.log(err);
+  }) 
+  
+}
+
+$('#sendButton').click(function(){
+  let msgData = $('#msgInput').find('.draggableMsg')[0].innerText;
+  let grpID = $('#groupInput').find('.draggableGrp')[0].id.slice(-2);
+  let msgID = $('#msgInput').find('.draggableMsg')[0].id.slice(-2);
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/broadcast",
+    method: 'POST',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify([grpID, msgData, msgID])
+  })
+  .done((response) => {
+    console.log(response)
+
+  })
+  .fail((err) => {
+    console.log(err);
+  }) 
+})
+
+
+
+//quickSend
 var concatedMessage ="";
 function sendToAll(){
   var arr = document.getElementById(currentType+"-msg").querySelectorAll("input");

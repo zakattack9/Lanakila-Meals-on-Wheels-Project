@@ -1,6 +1,6 @@
 'use strict';
 const Pool = require('pg-pool');
-const config = require('./config.json');
+const config = require('../config.json');
 const {host, database, table, user, password, port, idleTimeoutMillis} = config
 const Client = new Pool ({
   host,
@@ -11,7 +11,7 @@ const Client = new Pool ({
   idleTimeoutMillis : 1000
 });
 module.exports.deleteMessage = (event, context, callback) => {
-  let deleteMsg = "DELETE FROM " + table + " WHERE message_text = "+event";";
+  let deleteMsg = "DELETE FROM " + table[3] + " WHERE message_text = "+event";";
   
   Client.connect() 
     .then(client => {

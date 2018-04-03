@@ -153,14 +153,22 @@ html, body {
 }
 
 #sendButton {
+	font-size: 17px;
 	background-color: #13896D;
-	height: 30px;
-	width: 70px;
+	height: 35px;
+	width: 80px;
 	text-align: center;
-	line-height: 30px;
+	line-height: 35px;
 	float: right;
 	border-radius: 10px;
 	margin-right: 30px;
+	transition: 0.1s;
+}
+
+#sendButton:hover {
+	transform: scale(1.05);
+	transition: 0.4s;
+	color: white;
 }
 
 #recentMsgs {
@@ -279,7 +287,6 @@ html, body {
 .draggableGrp, .draggableMsg, .draggableSub {
 	background-color: lightgray;
 	width: 90%;
-	height: 100px;
 	border-radius: 10px;
 	display: block;
 	margin-left: auto;
@@ -288,6 +295,10 @@ html, body {
 	padding: 20px;
 	box-sizing: border-box;
 	transition: 0.1s;
+}
+
+.draggableGrp {
+	height: 100px;
 }
 
 .draggableGrp {
@@ -1285,6 +1296,7 @@ html, body {
 #reloadMsg img{
 	width: 32px;
 	border-radius: 50%;
+	animation: reload 0.3s ease-in-out forwards paused;
 }
 
 #searchMsg {
@@ -1355,6 +1367,7 @@ html, body {
 #openOldMsg {
 	display: block;
 	height: 100%;
+	overflow-y: auto;
 }
 
 #openNewMsg {
@@ -1369,9 +1382,6 @@ html, body {
 }
 
 /*styles for messages sub-tab*/
-#openOldMsg {
-	overflow-y: scroll;
-}
 
 /*#oldMsgContainer {
 	display: flex;
@@ -1394,7 +1404,6 @@ html, body {
 	column-gap: 0px;
 	padding-bottom: 65px;
 	margin: 0 auto;
-
 }
 
 
@@ -1442,11 +1451,6 @@ html, body {
 .checked {
 	background-color: #F58F31;
 }
-
-
-
-
-
 
 
 /*popup styles*/
@@ -1535,10 +1539,12 @@ html, body {
 }
 
 #typeMsg, #editMsgHere {
+	font-size: 14px;
 	width: 90%;
 	height: 80%;
 	margin-bottom: 58px;
 	margin-left: 4%;
+	outline: none;
 }
 
 #createMsg, #deleteMessage, #saveMessage { 
@@ -1564,17 +1570,26 @@ html, body {
 	height: 30px;
 	width: 30px;
 	background-color: #D3F9F6;
-	border: 1px solid #2BAD8F;
+	/*border: 1px solid #2BAD8F;*/
 	border-radius: 50%;
 	cursor: pointer;
 	position: relative;
 	top: -7px;
 	right: -36px;
+	outline: none;
+}
+
+.msgEdit:hover > img {
+	transform: scale(0.93);
+	transition: 0.3s;
 }
 
 .msgEdit img {
 	width: 18px;
 	height: 18px;
+	position: relative;
+	left: -1px;
+	bottom: -1px;
 }
 
 .msgAndDate {
