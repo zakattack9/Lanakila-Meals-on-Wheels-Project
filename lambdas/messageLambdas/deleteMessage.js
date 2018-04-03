@@ -11,7 +11,11 @@ const Client = new Pool ({
   idleTimeoutMillis : 1000
 });
 module.exports.deleteMessage = (event, context, callback) => {
-  let deleteMsg = "DELETE FROM " + table[3] + " WHERE message_text = "+event";";
+  let messageIDs = JSON.parse(event.body);
+  let convertedArray = "(" + JSON.stringify(messageIDs).slice(1, -1) + ")";
+  console.log(convertedArray);
+
+  let deleteMsg = "DELETE FROM " + table[3] + " WHERE id IN " + convertedArray + ";"
   
   Client.connect() 
     .then(client => {

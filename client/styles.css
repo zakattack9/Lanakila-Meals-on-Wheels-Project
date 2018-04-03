@@ -1421,8 +1421,9 @@ html, body {
 	width: 99%;
 	column-count: 3;
 	column-gap: 0px;
-	padding-bottom: 65px;
+	padding-bottom: 66px;
 	margin: 0 auto;
+	padding-top: 1px;
 }
 
 
@@ -1440,8 +1441,8 @@ html, body {
 	justify-content: space-between;*/
 	display: inline-block;
 
-	padding-left: 10px;
-	background-color: lightgray;
+	padding-left: 5px;
+	padding-right: 5px;
 	margin: 5px 5px;
 	border-radius: 10px;
 
@@ -1451,6 +1452,19 @@ html, body {
 	background-attachment: fixed;
   background-position: center;*/
 }
+
+.msgGradient:nth-child(n) {
+	background-color: #a7daf1;
+}
+
+.msgGradient:nth-child(2n) {
+	background-color: #1ccaa1;
+}
+
+.msgGradient:nth-child(3n) {
+	background-color: #e6e6e6;
+}
+
 
 .modeContainer {
 	width: 41px;
@@ -1506,7 +1520,8 @@ html, body {
 }
 
 #deleteMsgBox {
-	height: 40%;
+	top: 20%;
+	padding-bottom: 55px;
 }
 
 #msgPopupTitle, #popupMsgDelTitle, #popupMsgEditTitle {
@@ -1536,14 +1551,14 @@ html, body {
 #msgTableWrap {
 	margin-top: 20px;
 	width: 97%;
-	max-height: 64%;
 	overflow-y: auto;
+	max-height: 220px;
 }
 
 #selectedMessages {
-	width: 95%;
+	width: 85%;
 	position: relative;
-	left: 22px;
+	left: 45px;
 }
 
 #selectedMessages tr td:first-child {
@@ -1552,6 +1567,10 @@ html, body {
 
 #selectedMessages tr:last-child td:first-child {
 	border-bottom: none;
+}
+
+#selectedMessages tr td:last-child{
+	width: 100px;
 }
 
 #selectedMessages tr td {
@@ -1582,7 +1601,7 @@ html, body {
 	right:15px;
 }
 
-#createMsg:hover, #deleteMessage:hover {
+#createMsg:hover, #deleteMessage:hover, #saveMessage:hover {
 	transform: scale(1.03);
 	transition: 0.2s;
 }

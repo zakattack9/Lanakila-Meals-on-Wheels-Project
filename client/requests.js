@@ -356,14 +356,14 @@ function getMessages() {
 
     response.map(currVal => {
       $('#msgCol').prepend(`
-        <div class="msgGradient" id="msg${currVal.id}">
+        <div class="msgGradient" id="msg000${currVal.id}" onclick="checkMsg(this)">
           <div class="msgAndDate">
             <p class="message">${currVal.message_text}</p>
             <span class="date">${currVal.last_edited.substring(0, 10)}</span>
           </div>
 
           <div class="modeContainer">
-            <div class="msgCheck" onclick="checkMsg(this)"></div>
+            <div class="msgCheck"></div>
             <button class="msgEdit" onclick="editMsgText(this)"><img src="./images/edit.png"></button>
           </div>
         </div>
@@ -420,10 +420,12 @@ $('#createMsg').click(function(){
   .fail((err) => {
     console.log(err);
   })
+
+  $('#typeMsg').val('');
 });
 
 function deleteMessage(id) {
-  console.log(id);
+  startMsgLoadAnimation();
 
   $.ajax({
     url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/delete",
@@ -434,7 +436,7 @@ function deleteMessage(id) {
   })
   .done((response) => {
     console.log(response)
-
+    getMessages();
   })
   .fail((err) => {
     console.log(err);
@@ -442,7 +444,28 @@ function deleteMessage(id) {
   
 }
 
-$('#sendButton').click(function(){
+$('#saveMessage').click(function(){
+  let newMsgText = $('#editMsgHere').val();
+  startMsgLoadAnimation();
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/put",
+    method: 'PUT',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify([newMsgText, oldMsgText])
+  })
+  .done((response) => {
+    console.log(response)
+    getMessages();
+  })
+  .fail((err) => {
+    console.log(err);
+  }) 
+})
+
+//BROADCAST
+$('#sendButton').click(function(){ //broadcasts message to groups
   let msgData = $('#msgInput').find('.draggableMsg')[0].innerText;
   let grpID = $('#groupInput').find('.draggableGrp')[0].id.slice(-2);
   let msgID = $('#msgInput').find('.draggableMsg')[0].id.slice(-2);

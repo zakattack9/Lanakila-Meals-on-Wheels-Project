@@ -603,9 +603,10 @@ $('#saveSub').click(function(){
 
 //MESSAGES JS START
 function checkMsg(msgCheck) {
-	$(msgCheck).toggleClass('checked');
-	$(msgCheck).parent().parent().toggleClass('msgReady');
-	console.log('checkkkk');
+	$(msgCheck).find('.msgCheck').toggleClass('checked');
+	//$(msgCheck).toggleClass('checked');
+	$(msgCheck).toggleClass('msgReady');
+	//console.log('checkkkk');
 }
 
 $('#addMsg').click(function(){
@@ -657,21 +658,20 @@ $('#trashMsg').click(function(){
 	msgIDs = []; //resets groups to delete queue
 
 	let checkedElements = $('#oldMsgContainer #msgCol .msgGradient').filter('.msgReady');
-	console.log(checkedElements);
+	//console.log(checkedElements);
 	checkedElements.map((currVal, index) => {
 		let insertMsg = $(index).find('.message')[0].innerText;
 		let insertMsgDate = $(index).find('.date')[0].innerText;
 
-		msgIDs.push(+$(index).attr('id')); //needs to be converted to number (unary operator)
+		msgIDs.push(+$(index).attr('id').slice(-4)); //needs to be converted to number (unary operator)
 
-	  	$('#selectedMessages').append(`
+  	$('#selectedMessages').append(`
 			<tr id="selectedMsgText">
 				<td>${insertMsg}</td>
 				<td><span style="font-weight: bold"> Created On:</span>&nbsp; ${insertMsgDate}</td>
 			</tr>
-	  	`)
+  	`)
 	}); //end of checkedElements.map
-
 	//displays popup
 	$('#addMsgPopup')[0].style.display = "none";
 	$('#deleteMsgPopup')[0].style.display = "block";
@@ -680,6 +680,7 @@ $('#trashMsg').click(function(){
 
 $('#deleteMessage').click(function(){
 	$('.msgReady').replaceWith('');
+	deleteMessage(msgIDs);
 
 	$('#deleteMsgPopup')[0].style.display = "none";
 })
@@ -689,10 +690,12 @@ $('#closeMsgDelPopup').click(function(){
 })
 
 var currentEdit;
+var oldMsgText; //passed in to update lambda
 function editMsgText(currMsgEdit){
 	currentEdit = $(currMsgEdit).parent().parent();
 	console.log(currentEdit);
 	let insertText = currentEdit.find('.msgAndDate').find('.message').text();
+	oldMsgText = insertText;
 	console.log(insertText);
 	$('#editMsgHere').replaceWith(`
 		<textarea rows="10" id="editMsgHere" placeholder="Your original message has been deleted. If unintentional, exit now.">${insertText}</textarea>
@@ -727,7 +730,6 @@ $('#reloadMsg').click(function(){ //runs refresh button animation for subs tab
 	}
 })
 //MESSAGES JS END
-
 
 
 
