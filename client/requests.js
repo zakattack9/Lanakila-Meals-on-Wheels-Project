@@ -3,7 +3,7 @@
 
 function startGrpLoadAnimation() { //runs loading animation for displaying groups
   $('#grpTable tbody tr').remove(); //removes currently displayed topics
-  $('.spinnerWrap')[0].style.display = "block";
+  $('.spinnerWrap')[1].style.display = "block";
 }
 
 // Gets all topics from DB
@@ -17,23 +17,23 @@ function loadGroups(){
     "Content-Type": "application/json",
   })
   .done((response) => {
-    $('.spinnerWrap')[0].style.display = "none";
-  	//console.log(response)
+    $('.spinnerWrap')[1].style.display = "none";
+    //console.log(response)
     $('#groupSelect').empty(); //clears options from dropdown in "add subscriber"
     response.map(currVal => { //adds groups to groups table
-    	//console.log(currVal)
-    	$('#grpTable tbody').append(`
-  			<tr id="${currVal.id}" onclick="highlightTopic(this);">
-  		  	<td>
-  		  		<div class="customCheck">
+      //console.log(currVal)
+      $('#grpTable tbody').append(`
+        <tr id="${currVal.id}" onclick="highlightTopic(this);">
+          <td>
+            <div class="customCheck">
                 
             </div>
-  		  	</td>
-  		    <td class="groupName">${currVal.group_name}</td>
-  		    <td class="memberCount">Loading...</td>
-  		    <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
-  		  </tr>
-    	`)
+          </td>
+          <td class="groupName">${currVal.group_name}</td>
+          <td class="memberCount">Loading...</td>
+          <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
+        </tr>
+      `)
 
       if(currVal.group_name === "Everyone"){
         return "Skipping this selection" //prevents this option from being added to dropdown
@@ -50,13 +50,9 @@ function loadGroups(){
           <div class="colTitle">
             <span style="font-weight:bold" class="colTitleSpan">${currVal.group_name}</span>
           </div>
-
           <div id="grp_${currVal.id}" class="subWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-
           </div>
-
         </div>
-
       `)
     })
 
@@ -211,7 +207,7 @@ function changeGrpSubs(subQueue) {
 //Start load animation for subscriber's table
 function startSubLoadAnimation() {
   $('#subsTable tbody tr').remove(); //removes currently displayed subs
-  $('.spinnerWrap')[1].style.display = "block";
+  $('.spinnerWrap')[2].style.display = "block";
 }
 
 //Managing subscriber requests
@@ -227,7 +223,7 @@ function loadSubscribers() {
     "Content-Type": "application/json",
   })
   .done((response) => {
-    $('.spinnerWrap')[1].style.display = "none";
+    $('.spinnerWrap')[2].style.display = "none";
 
     response.map(currVal => {
       //console.log(currVal)
@@ -374,7 +370,10 @@ function deleteSubs(id) {
 //Start load animation for messages workspace
 function startMsgLoadAnimation() {
   $('#msgCol').empty(); //removes currently displayed subs
-  $('.spinnerWrap')[2].style.display = "block";
+  $('.scrolls').empty(); //removes currently displayed sub
+  $('.scrolls')[0].style.display = "none"
+  $('.spinnerWrap')[3].style.display = "block";
+  $('.spinnerWrap')[0].style.display = "block";
 }
 
 function getMessages() {
@@ -386,9 +385,10 @@ function getMessages() {
     "Content-Type": "application/json",
   })
   .done((response) => {
-    $('.spinnerWrap')[2].style.display = "none";
+    $('.spinnerWrap')[3].style.display = "none";
+    $('.spinnerWrap')[0].style.display = "none";
+    $('.scrolls')[0].style.display = "block"
     $('#msgOverlayWrap').empty();
-
     //console.log(response);
 
     response.map(currVal => {
@@ -398,7 +398,6 @@ function getMessages() {
             <p class="message">${currVal.message_text}</p>
             <span class="date">${currVal.last_edited.substring(0, 10)}</span>
           </div>
-
           <div class="modeContainer">
             <div class="msgCheck"></div>
             <button class="msgEdit" onclick="editMsgText(this)"><img src="./images/edit.png"></button>
@@ -408,14 +407,12 @@ function getMessages() {
 
       $('#msgOverlayWrap').prepend(`
         <div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="msgDrag0${currVal.id}">${currVal.message_text}</div>
-
       `)
     
     })
 
     //for recent messages
     let reversedMsgs = response.slice(0).reverse();
-    $('.scrolls').empty();
     for(let i = 0; i < 5; i++){ //change second statement to determine how many messages show up in recent messages
       //console.log(reversedMsgs[i]);
       $('.scrolls').append(`
