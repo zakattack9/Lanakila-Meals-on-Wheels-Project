@@ -123,7 +123,7 @@ function drop(event, element) {
   //conditional must go before appending
   element.prepend(document.getElementById(data)); //adds to top of div
 	
-	changeSubGroup(data); //must go after the prepend
+	changeSubGroup(data); //must go after the prepend (for switching subscribers)
 }
 
 $('.draggable').mousedown(function(){ //shows message in message input on hold
