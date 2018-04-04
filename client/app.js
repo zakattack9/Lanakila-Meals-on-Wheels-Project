@@ -646,7 +646,10 @@ $('#addMsg').click(function(){
 	$('#addMsgPopup')[0].style.display = "block";
 	$('#deleteMsgPopup')[0].style.display = "none"; //closes delete popup if open
 })
-
+$('#newMsg').click(function(){
+	$('#addMsgPopup')[0].style.display = "block";
+	$('#msgOverlay')[0].style.width = "0px";
+})
 // $('#createMsg').click(function(){
 // 	let insertText = $('#typeMsg').val()
 	
@@ -800,10 +803,7 @@ function switchType(el){
 		document.getElementById('editBox').value = tempId;
 	}
 	document.getElementById('editTypeBox').style.display="none";
-<<<<<<< HEAD
 	document.getElementById('note').style.display="none"
-=======
->>>>>>> 75e6b8471daf87ca3386d7afb24ce6bd49d0de68
 	typeEditing=false;
 	editing=false;
 }
@@ -892,4 +892,3 @@ function editType(){
 	}
 }
 //QUICK SEND JS END
-

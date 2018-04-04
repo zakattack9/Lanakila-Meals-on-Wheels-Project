@@ -31,7 +31,16 @@
 		</div>
 
 		<div id="workspace">
-
+			<div id="addMsgPopup">
+						<div id="msgPopupBox">
+							<div id="closeMsgPopup">&times;</div>
+							<div id="msgPopupTitle">Message:</div>
+							<textarea rows="10" id="typeMsg" placeholder="Type message here"></textarea>
+							<div id="createMsg">
+								Create Message
+							</div>
+						</div>
+					</div>
 			<!--BROADCAST-->
 			<div class="" id="broadcast"><!--default screen on load-->
 				<div id="msgMakerSpace">
@@ -59,9 +68,18 @@
 
 				<div id="recentMsgs">
 					<div id="recentTitle">Recent Messages</div>
-					<div class="scrolls">
-						<div id="loadingRecents">Loading...</div>
+					<div class="scrolls" >
+					
 					</div>
+					<div class="spinnerWrap">
+							<div class="spinner">
+								<div class="rect1"></div>
+								<div class="rect2"></div>
+								<div class="rect3"></div>
+								<div class="rect4"></div>
+								<div class="rect5"></div>
+							</div>
+						</div>
 				</div>
 
 				<div id="msgOverlay">
