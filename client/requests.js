@@ -487,7 +487,7 @@ $('#saveMessage').click(function(){
     method: 'PUT',
     contentType: "application/json; charset=utf-8",
     dataType: 'JSON',
-    data: JSON.stringify([newMsgText, oldMsgText])
+    data: JSON.stringify([newMsgText, oldMsgText, +editedMsgID])
   })
   .done((response) => {
     console.log(response)

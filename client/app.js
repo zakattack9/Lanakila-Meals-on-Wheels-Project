@@ -727,9 +727,10 @@ $('#closeMsgDelPopup').click(function(){
 
 var currentEdit;
 var oldMsgText; //passed in to update lambda
+var editedMsgID;
 function editMsgText(currMsgEdit){
 	currentEdit = $(currMsgEdit).parent().parent();
-	console.log(currentEdit);
+	editedMsgID = currentEdit[0].id.slice(-5);
 	let insertText = currentEdit.find('.msgAndDate').find('.message').text();
 	oldMsgText = insertText;
 	console.log(insertText);
