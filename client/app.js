@@ -646,7 +646,10 @@ $('#addMsg').click(function(){
 	$('#addMsgPopup')[0].style.display = "block";
 	$('#deleteMsgPopup')[0].style.display = "none"; //closes delete popup if open
 })
-
+$('#newMsg').click(function(){
+	$('#addMsgPopup')[0].style.display = "block";
+	$('#msgOverlay')[0].style.width = "0px";
+})
 // $('#createMsg').click(function(){
 // 	let insertText = $('#typeMsg').val()
 	
@@ -800,6 +803,7 @@ function switchType(el){
 		document.getElementById('editBox').value = tempId;
 	}
 	document.getElementById('editTypeBox').style.display="none";
+	document.getElementById('note').style.display="none"
 	typeEditing=false;
 	editing=false;
 }
@@ -888,4 +892,3 @@ function editType(){
 	}
 }
 //QUICK SEND JS END
-

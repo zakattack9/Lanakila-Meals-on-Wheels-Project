@@ -1510,7 +1510,7 @@ html, body {
 
 
 /*popup styles*/
-#addMsgPopup, #deleteMsgPopup, #editMsgPopup {
+#addMsgPopup, #deleteMsgPopup, #editMsgPopup, #addMsgPopupBC{
 	display: none;
 	position: absolute;
 	width: 100%;
@@ -1518,7 +1518,7 @@ html, body {
  	z-index: 1;
 }
 
-#addMsgPopup:after, #deleteMsgPopup:after, #editMsgPopup:after {
+#addMsgPopup:after, #deleteMsgPopup:after, #editMsgPopup:after, #addMsgPopupBC:after {
 	content: '';
 	position: absolute;
 	background-color: lightgray;
