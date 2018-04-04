@@ -1,6 +1,6 @@
 'use strict';
 const Pool = require('pg-pool');
-const config = require('./config.json');
+const config = require('../config.json');
 const {host, database, table, user, password, port, idleTimeoutMillis} = config;
 const Client = new Pool ({
   host,
@@ -11,12 +11,19 @@ const Client = new Pool ({
   idleTimeoutMillis : 1000
 });
 module.exports.editMessage = (event, context, callback) => {
-  let editMsg = `UPDATE ${table} SET message_text = '${newText}' WHERE message_text = '${oldTtext}';`//angela needs to pass in the old message and new message text through 'event'
+  console.log("event", event.body);
+  let messageText = JSON.parse(event.body);
+  let newMsgText = messageText[0];
+  let oldMsgText = messageText[1];
+  console.log("messageText:", messageText);
+  console.log(newMsgText, oldMsgText)
+
+  let editMsg = "UPDATE " + table[3] + " SET message_text = $1 WHERE message_text = $2;"; //replace old message with new message
 
   Client.connect() //connect to database
     .then(client => {
       client.release();
-      return client.query(editMsg);
+      return client.query(editMsg, [newMsgText, oldMsgText]);
     })
     .then(res => {
       const response = {

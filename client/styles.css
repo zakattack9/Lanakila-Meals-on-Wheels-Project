@@ -52,6 +52,7 @@ html, body {
 	font-size: 35px;
 	overflow: auto;
 	line-height: 65px;
+	color: #F58F31;
 }
 
 #optionsGroup {
@@ -153,14 +154,22 @@ html, body {
 }
 
 #sendButton {
+	font-size: 17px;
 	background-color: #13896D;
-	height: 30px;
-	width: 70px;
+	height: 35px;
+	width: 80px;
 	text-align: center;
-	line-height: 30px;
+	line-height: 35px;
 	float: right;
 	border-radius: 10px;
 	margin-right: 30px;
+	transition: 0.1s;
+}
+
+#sendButton:hover {
+	transform: scale(1.05);
+	transition: 0.4s;
+	color: white;
 }
 
 #recentMsgs {
@@ -193,6 +202,23 @@ html, body {
 	padding: 20px;
 	box-sizing: border-box;
 }
+
+#loadingRecents {
+	width: 100%;
+	font-size: 16px;
+	font-weight: bold;
+	font-style: italic;
+	color: darkgray;
+	text-align: center;
+	margin-top: 50%;
+}
+
+.recentText span {
+	font-size: 14.5px;
+	font-style: italic;
+	color: #13896D;
+}
+
 
 #msgOverlay {
 	z-index: 1;
@@ -279,7 +305,6 @@ html, body {
 .draggableGrp, .draggableMsg, .draggableSub {
 	background-color: lightgray;
 	width: 90%;
-	height: 100px;
 	border-radius: 10px;
 	display: block;
 	margin-left: auto;
@@ -288,6 +313,10 @@ html, body {
 	padding: 20px;
 	box-sizing: border-box;
 	transition: 0.1s;
+}
+
+.draggableGrp {
+	height: 100px;
 }
 
 .draggableGrp {
@@ -325,6 +354,7 @@ html, body {
 	top: 17px;
 	margin-left: 15px;
 	transition: 0.1s;
+	opacity: 0.7;
 }
 
 #trashGrp img{
@@ -417,6 +447,7 @@ html, body {
 	top: 30%;
 	left: 15%;
 	z-index: 2;
+	padding-bottom: 5px;
 }
 
 #deleteBox {
@@ -458,6 +489,13 @@ html, body {
 	margin-left: 4%;
 	width: 90%;
 	height: 25px;
+}
+
+#validNameWarning {
+	font-size: 13px;
+	margin-left: 4%;
+	color: red;
+	font-style: italic;
 }
 
 #createGrp, #deleteGroup {
@@ -727,6 +765,7 @@ html, body {
 	display: inline-block;
 	margin-right: 2px;
 	transition: 0.2s;
+	opacity: 0.7;
 }
 
 #trashSub img{
@@ -837,6 +876,7 @@ html, body {
 	top: 15%;
 	left: 26%;
 	z-index: 2;
+	padding-bottom: 10px;
 }
 
 #closeAddSub, #closeDelSub {
@@ -930,6 +970,15 @@ html, body {
 	border: #A6A6A6 solid 1px;
 	border-radius: 5px;
 	margin-top: 5px;
+}
+
+#addSubNameWarning, #addSubWarning {
+	display: block;
+	height: 25px;
+	font-size: 13px;
+	font-style: italic;
+	color: red;
+	margin-left: 5%;
 }
 
 #groupOptTitle {
@@ -1244,7 +1293,9 @@ html, body {
 #messages {
 	height: 100%;
 }
-/*styles for messages sub-tab*/
+
+/*	MESSAGE TOP BAR	START 	*/
+
 #msgsTopBar {
 	width: 100%;
 	height: 65px;
@@ -1256,8 +1307,11 @@ html, body {
 	font-size: 25px;
 	text-align: center;
 	line-height: 65px;
-	position: absolute;
-	margin-left: 150px;
+}
+
+#trashMsg:hover, #reloadMsg:hover, #searchMsg:hover, #addMsg:hover {
+	transform: scale(1.03);
+	transition: 0.2s;
 }
 
 #trashMsg {
@@ -1280,6 +1334,7 @@ html, body {
 #reloadMsg img{
 	width: 32px;
 	border-radius: 50%;
+	animation: reload 0.3s ease-in-out forwards paused;
 }
 
 #searchMsg {
@@ -1291,6 +1346,21 @@ html, body {
 #searchMsg img{
 	width: 32px;
 }
+
+#addMsg {
+	position: absolute;
+	top: 15px;
+	right: 0;
+	margin-right: 15px;
+}
+
+#addMsg img {
+	width: 30px;
+	border-radius: 50%;
+}
+
+
+/*	MESSAGE TOP BAR	END    */
 
 #oldMsgTab, #newMsgTab {
 	z-index: 0;
@@ -1335,6 +1405,7 @@ html, body {
 #openOldMsg {
 	display: block;
 	height: 100%;
+
 }
 
 #openNewMsg {
@@ -1343,134 +1414,270 @@ html, body {
 	height: 100%;
 }
 
-#messages textarea {
+#messages textarea, #editMsgBox textarea {
 	resize: none;
 	font-family: 'Lato', sans-serif;
 }
 
 /*styles for messages sub-tab*/
-#openOldMsg {
-	overflow: scroll;
-}
 
-.msgGradient { /*controls size, positioning (itself/flex), and color*/
+/*#oldMsgContainer {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
-	width: 80%;
-	padding-left: 20px;
-	background-color: #13896D;
-	margin: 10px auto;
+}
+
+.msgColumn {
+	width: 34%;
+}*/
+
+#oldMsgContainer {
+	width: 100%;
+	height: 100%;
+/*	height: 95%;*/
+	overflow-y: auto;
+}
+
+
+#msgCol {
+	width: 99%;
+	column-count: 3;
+	column-gap: 0px;
+	padding-bottom: 66px;
+	margin: 0 auto;
+	padding-top: 1px;
+}
+
+
+
+/*#msgCol { 
+	display: flex;
+	flex-flow: column wrap;
+ 	width:100%;
+}*/
+
+.msgGradient { /*controls size, positioning (itself/flex), and color*/
+	width: 95%;
+	/*display: flex;
+	flex-direction: row;
+	justify-content: space-between;*/
+	display: inline-block;
+
+	padding-left: 5px;
+	padding-right: 5px;
+	margin: 5px 5px;
+	border-radius: 10px;
 
 	/*background gradient*/
-	background-image: linear-gradient(#5DFDCB, #2BAD8F);
+	/*background-image: linear-gradient(to bottom right, #5DFDCB, #77CFFF);
+  background-size: cover;
 	background-attachment: fixed;
+  background-position: center;*/
 }
+
+.msgGradient:nth-child(n) {
+	background-color: #a7daf1;
+}
+
+.msgGradient:nth-child(2n) {
+	background-color: #1ccaa1;
+}
+
+.msgGradient:nth-child(3n) {
+	background-color: #e6e6e6;
+}
+
 
 .modeContainer {
 	width: 41px;
+	bottom: 10px;
+	right: 4px;
 }
 
-.editOff {/*rounded edges, shadow on hover*/
-	border-radius: 10px;
-}
-
-#editOn {/*angular edges*/
-
-}
-
-/*.msgCheck {
+.msgCheck {
+	width: 22px;
+	height: 22px;
 	position: relative;
-	top: 15px;
-	left: 15px;
-	cursor: pointer;
-}
-
-.msgCheck input {
-	position: absolute;
-	opacity: 0;
-	cursor:pointer;
-}
-
-.msgCheckmark {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 20px;
-	width: 20px;
+	top: 18px;
+	left: 4px;
 	background-color: white;
 	border-radius: 5px;
-}*/
-/*.checkMsg {
-	width: 30px;
-	height: 30px;
-	border: 1px solid black;
+	box-shadow: inset 0 0 3px darkgray;
+}
+
+.checked {
+	background-color: #F58F31;
+}
+
+
+/*popup styles*/
+#addMsgPopup, #deleteMsgPopup, #editMsgPopup {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+ 	z-index: 1;
+}
+
+#addMsgPopup:after, #deleteMsgPopup:after, #editMsgPopup:after {
+	content: '';
+	position: absolute;
+	background-color: lightgray;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	opacity: 0.7;
+ 	filter: blur(1px);
+}
+
+#msgPopupBox, #deleteMsgBox, #editMsgBox {
+	width: 50%;
 	background-color: white;
-}*/
+	border-radius: 15px;
+	opacity: 1;
+	position: relative;
+	top: 25%;
+	left: 17%;
+	z-index: 2;
+}
+
+#deleteMsgBox {
+	top: 20%;
+	padding-bottom: 55px;
+}
+
+#msgPopupTitle, #popupMsgDelTitle, #popupMsgEditTitle {
+	font-size: 17px;
+	height: 30px;
+	padding-top: 2.5%;
+	margin-left: 4%;
+	font-weight: bold;
+}
+
+#closeMsgPopup, #closeMsgDelPopup, #closeMsgEditPopup {
+	transform: scale(1.7);
+	transition: 0.1s;
+	cursor: pointer;
+	position: absolute;
+	right: 20px;
+	top: 10px;
+}
+
+#delMsgWarning {
+	font-size: 14px;
+	font-weight: normal;
+	font-style: italic;
+	color: red;
+}
+
+#msgTableWrap {
+	margin-top: 20px;
+	width: 97%;
+	overflow-y: auto;
+	max-height: 220px;
+}
+
+#selectedMessages {
+	width: 85%;
+	position: relative;
+	left: 45px;
+}
+
+#selectedMessages tr td:first-child {
+	border-bottom: 1px solid darkgray;
+}
+
+#selectedMessages tr:last-child td:first-child {
+	border-bottom: none;
+}
+
+#selectedMessages tr td:last-child{
+	width: 100px;
+}
+
+#selectedMessages tr td {
+	padding-bottom: 12px;
+	padding-top: 8px;
+}
+
+#typeMsg, #editMsgHere {
+	font-size: 14px;
+	width: 90%;
+	height: 80%;
+	margin-bottom: 58px;
+	margin-left: 4%;
+	outline: none;
+}
+
+#createMsg, #deleteMessage, #saveMessage { 
+	font-size: 14px;
+	background-color: #138960;
+	cursor: pointer;
+	width: 145px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 20px;
+	position: absolute;
+	bottom: 15px;
+	right:15px;
+}
+
+#createMsg:hover, #deleteMessage:hover, #saveMessage:hover {
+	transform: scale(1.03);
+	transition: 0.2s;
+}
+
+.msgEdit {
+	height: 30px;
+	width: 30px;
+	background-color: white;
+	/*border: 1px solid #2BAD8F;*/
+	border-radius: 50%;
+	cursor: pointer;
+	position: relative;
+	top: -7px;
+	right: -36px;
+	outline: none;
+}
+
+.msgEdit:hover > img {
+	transform: scale(0.93);
+	transition: 0.3s;
+}
+
+.msgEdit img {
+	width: 18px;
+	height: 18px;
+	position: relative;
+	left: -1px;
+	bottom: -1px;
+}
 
 .msgAndDate {
+	width: 95%;
 	padding: 15px;
+	padding-bottom: 0;
+	cursor: default;
 }
 
 .message {
 	margin-top: 0;
+	width: 98%;
+	overflow-x: auto;
 }
 
-.msgDelete, .msgEdit {
-	height: 50%;
-	width: 41px;
-	background-color: #D3F9CA;
-	/*border-color: transparent;*/
-	/*border-color: #A3FFAA;*/
-	border: 1px solid #2BAD8F;
-	cursor: pointer;
+.message::-webkit-scrollbar {
+	height: 8px;
 }
 
-.msgDelete {
-	border-top-right-radius: 10px;
-	border-bottom-width: 0;
+.date {
+	font-size: 14px;
+	font-style: italic; 
 }
 
-.msgEdit{
-	border-bottom-right-radius: 10px;
-}
 
-.msgEdit img {
-	width: 30px;
-	width: 25px;
-	height: 25px;
-}
 
-/*styles for custom message sub-tab*/
-#openNewMsg {
-}
 
-#newMsgContainer {
-	margin-top: 10%;
-	height: 50%;
-}
-
-#newMsgContainer textarea{
-	font-size: 20px;
-}
-
-#typeMsg {
-	width: 80%;
-	height: 80%;
-	display: inline-block;
-}
-
-#submitMsg { /*btn - submit type msg */
-	background-color: #138960;
-	cursor: pointer;
-	width: 80px;
-	height: 40px;
-	line-height: 40px;
-	text-align: center;
-	border-radius: 10px;
-	margin: 2% auto;
-	/*margin: 3% 10% 2% 30%;*/
-}
 
 
 /* Styles for quick send workspace */

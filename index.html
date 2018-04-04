@@ -60,12 +60,7 @@
 				<div id="recentMsgs">
 					<div id="recentTitle">Recent Messages</div>
 					<div class="scrolls">
-						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-						<div class="recentText">niam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-						<div class="recentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+						<div id="loadingRecents">Loading...</div>
 					</div>
 				</div>
 
@@ -75,9 +70,7 @@
 					<div id="msgTitle">Message List</div>
 
 					<div id="msgOverlayWrap" ondrop="drop(event, this)" ondragover="allowDrop(event)">
-						<div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="dragme1">Drag ME1!</div><!--set id's to DB id created with lambda-->
-						<div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="dragme2">Drag ME2!</div>
-						<div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="dragme3">Drag ME3!</div>
+
 					</div>
 				</div>
 
@@ -124,6 +117,7 @@
 						<div id="closePopup">&times;</div>
 						<div id="popupTitle">Group Name:</div>
 						<input id="groupText" type="text">
+						<span id="validNameWarning"></span>
 
 						<div id="createGrp"><!-- Send off ajax request to post new SNS topic -->
 							Create Group
@@ -233,8 +227,8 @@
 
 						<div id="subName">Full Name</div>
 						<input id="subText" type="text">
+						<span id="addSubNameWarning"></span>
 
-						<br><br>
 						<div id="protocolTitle">Endpoint/Protocol:</div>
 						<div id="subProtocol">
 							<div id="textProt">
@@ -251,8 +245,8 @@
 						<br>
 						<div id="contactTitle">Phone Number (With International Call Prefix):</div>
 						<input id="contactInfo" type="text" placeholder="Ex. 18081234567">
+						<span id="addSubWarning"></span>
 
-						<br><br>
 						<div id="groupOptTitle">Select a Group:</div>
 						<select id="groupSelect">
 						</select>
@@ -349,80 +343,71 @@
 					<div id="searchMsg">
 						<img src="./images/search.png">
 					</div>
-					
-					<div id="newMsgTab">
-						Create
+					<div id="addMsg">
+						<img src="./images/addBtn.png">
 					</div>
-					
-					<div id="oldMsgTab">
-						Messages
-					</div>
-
 				</div>
 
 				<div id="openOldMsg">
-					<div id="oldMsgContainer">
-						<div class="msgGradient editOff">
-							
-							<div class="msgAndDate">
-								
-								<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-								<span class="date">March 14, 2018</span>
-							</div>
-							<div class="modeContainer">
-								<button class="msgDelete" onclick="removeMsg(this)">x</button>
-								<button class="msgEdit"><img src="./images/edit.png"></button>
-							</div>
-						</div>
-						<div class="msgGradient editOff">
-							
-							<div class="msgAndDate">
-								
-								<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-								<span class="date">March 14, 2018</span>
-							</div>
-							<div class="modeContainer">
-								<button class="msgDelete" onclick="removeMsg(this)">x</button>
-								<button class="msgEdit"><img src="./images/edit.png"></button>
-							</div>
-						</div>
-						<div class="msgGradient editOff">
-							
-							<div class="msgAndDate">
-								
-								<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-								<span class="date">March 14, 2018</span>
-							</div>
-							<div class="modeContainer">
-								<button class="msgDelete" onclick="removeMsg(this)">x</button>
-								<button class="msgEdit"><img src="./images/edit.png"></button>
-							</div>
-						</div>
-						<div class="msgGradient editOff">
-							
-							<div class="msgAndDate">
-								
-								<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-								<span class="date">March 14, 2018</span>
-							</div>
-							<div class="modeContainer">
-								<button class="msgDelete" onclick="removeMsg(this)">x</button>
-								<button class="msgEdit"><img src="./images/edit.png"></button>
-							</div>
-						</div>
-						<div class="msgGradient editOff">
-							
-							<div class="msgAndDate">
-								
-								<p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-								<span class="date">March 14, 2018</span>
-							</div>
-							<div class="modeContainer">
-								<button class="msgDelete" onclick="removeMsg(this)">x</button>
-								<button class="msgEdit"><img src="./images/edit.png"></button>
+					<div id="addMsgPopup">
+						<div id="msgPopupBox">
+							<div id="closeMsgPopup">&times;</div>
+							<div id="msgPopupTitle">Message:</div>
+							<textarea rows="10" id="typeMsg" placeholder="Type message here"></textarea>
+							<div id="createMsg">
+								Create Message
 							</div>
 						</div>
 					</div>
+
+					<div id="deleteMsgPopup">
+						<div id="deleteMsgBox">
+							<div id="closeMsgDelPopup">&times;</div>
+							<div id="popupMsgDelTitle">
+								Are you sure you want to delete:
+								<br>
+								<span id="delMsgWarning">You will be unable to access message(s) once deleted</span> 
+							</div>
+							
+							<div id="msgTableWrap">
+								<table id="selectedMessages">
+									
+								</table>
+							</div>
+
+							<div id="deleteMessage"><!-- Send off ajax request to post new SNS topic -->
+								Delete Message(s)
+							</div>
+						</div>
+					</div>
+
+					<div id="editMsgPopup">
+						<div id="editMsgBox">
+							<div id="closeMsgEditPopup">&times;</div>
+							<div id="popupMsgEditTitle">You are now editing:</div>
+							<textarea rows="10" id="editMsgHere" placeholder="Your original message has been deleted. If unintentional, exit now."></textarea>
+							<div id="saveMessage">Save Message</div>
+						</div>
+					</div>
+
+					<div id="oldMsgContainer">
+							
+						<div id="msgCol"> <!-- messages are generate dynamically in this div -->
+	
+						</div>
+
+						
+						<div class="spinnerWrap">
+							<div class="spinner">
+							  <div class="rect1"></div>
+							  <div class="rect2"></div>
+							  <div class="rect3"></div>
+							  <div class="rect4"></div>
+							  <div class="rect5"></div>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 
 				<div id="openNewMsg">
@@ -433,6 +418,7 @@
 					</div>
 					
 				</div>
+
 			</div>
 
 

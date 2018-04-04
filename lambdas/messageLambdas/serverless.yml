@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: lanakilaGroups # NOTE: update this with your service name
+service: lanakilaMessages # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -57,15 +57,8 @@ provider:
 functions:
   # send:
   #   handler: sns.send
-  listTopics:
-    handler: lambdas/topicLambdas/listTopics.listTopics
-    events:
-      - http:
-          path: get
-          method: get
-          cors: true
-  createTopic:
-    handler: lambdas/topicLambdas/createTopic.createTopic
+  createMessage:
+    handler: lambdas/messageLambdas/addMessage.addMessage
     events:
       - http:
           path: post
@@ -75,28 +68,41 @@ functions:
       passThrough: WHEN_NO_TEMPLATES
       template:
         application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
-  deleteTopic:
-    handler: lambdas/topicLambdas/deleteTopic.deleteTopic
+  deleteMessage:
+    handler: lambdas/messageLambdas/deleteMessage.deleteMessage
     events:
       - http:
           path: delete
           method: delete
           cors: true
-  
-  # editQuickSend:
-  #   handler: lambdas/quickSendLambdas/editQuickSend.editQuickSend
-  #   events:
-  #     - http:
-  #         path: put
-  #         method: put
-  #         cors: true
-  # sendToAll:
-  #   handler: lambdas/quickSendLambdas/sendToAll.sendToAll
-  #   events:
-  #     - http:
-  #         path: get
-  #         method: get
-  #         cors: true
+  getMessages:
+    handler: lambdas/messageLambdas/getMessages.getMessages
+    events:
+      - http:
+          path: get
+          method: get
+          cors: true
+  editMessage:
+    handler: lambdas/messageLambdas/editMessage.editMessage
+    events:
+      - http:
+          path: put
+          method: put
+          cors: true
+  convertMessage:
+    handler: lambdas/messageLambdas/textToSpeech.convertToAudio
+    events:
+      - http:
+          path: convert
+          method: put
+          cors: true
+  broadcastMessage:
+    handler: lambdas/messageLambdas/broadcastMessage.broadcast
+    events:
+      - http:
+          path: broadcast
+          method: post
+          cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

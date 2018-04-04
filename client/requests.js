@@ -9,6 +9,7 @@ function startGrpLoadAnimation() { //runs loading animation for displaying group
 // Gets all topics from DB
 function loadGroups(){
   startGrpLoadAnimation();
+   enableDelete(); //removes highlight for trash
 
   $.ajax({
     url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -18,6 +19,7 @@ function loadGroups(){
   .done((response) => {
     $('.spinnerWrap')[0].style.display = "none";
   	//console.log(response)
+    $('#groupSelect').empty(); //clears options from dropdown in "add subscriber"
     response.map(currVal => { //adds groups to groups table
     	//console.log(currVal)
     	$('#grpTable tbody').append(`
@@ -86,29 +88,29 @@ $('#reloadGrp').click(function(){
 
 // Creates and adds new topic to DB
 $('#createGrp').click(function(){
-  $('#addPopup')[0].style.display = "none"; //auto closes the create group popup
-  startGrpLoadAnimation();
+  if($('#groupText').val().search(/^[a-zA-Z0-9-_ ]+$/) == -1) { //checks whether input has valid values
+    $('#validNameWarning')[0].innerText = "Must contain only alphanumeric characters, hyphens (-), or underscores ( _ )";
+  }else {
+    $('#addPopup')[0].style.display = "none"; //auto closes the create group popup
+    startGrpLoadAnimation();
 
-  $.ajax({
-    url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/post",
-    method: 'POST',
-    contentType: "application/json; charset=utf-8",
-    dataType: 'JSON',
-    data: JSON.stringify($('#groupText').val())
-  })
-  .done((response) => {
-    //console.log(response)
-    loadGroups(); //reload groups
-  })
-  .fail((err) => {
-    console.log(err.responseText);
-  }) 
+    $.ajax({
+      url: "https://siixxnppxa.execute-api.us-west-2.amazonaws.com/dev/post",
+      method: 'POST',
+      contentType: "application/json; charset=utf-8",
+      dataType: 'JSON',
+      data: JSON.stringify($('#groupText').val())
+    })
+    .done((response) => {
+      //console.log(response)
+      loadGroups(); //reload groups
+    })
+    .fail((err) => {
+      console.log(err.responseText);
+    }) 
 
-  $('#groupText').val(''); //resets input for group name
-})
-
-$('#closePopup').click(function(){
-  $('#groupText').val('');
+    $('#groupText').val(''); //resets input for group name
+  }  
 })
 
 // Deletes groups from DB and SNS
@@ -130,6 +132,7 @@ function deleteTopics(id) {
     console.log(err.responseText);
   }) 
 }
+
 
 
 // ENDPOINT FOR MANAGING SUBSCRIBER'S GROUPS:
@@ -160,6 +163,7 @@ function loadGrpSubs() {
           <span class="targetSubContact" style="display:none">${currVal.subscription_contact}</span>
         </div>
       `)
+
     })
 
     $('.singleSub').on('mousedown', function(event){ //adds event handler to open clone feature
@@ -209,9 +213,13 @@ function startSubLoadAnimation() {
   $('#subsTable tbody tr').remove(); //removes currently displayed subs
   $('.spinnerWrap')[1].style.display = "block";
 }
+
 //Managing subscriber requests
+let allSubContacts = [];
 function loadSubscribers() {
   startSubLoadAnimation();
+  allSubContacts = [];
+  enableDeleteSubs(); //removes highlight for trash
 
   $.ajax({
     url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -235,7 +243,11 @@ function loadSubscribers() {
           <td class="subContact">${currVal.subscription_contact}</td>
         </tr>
       `)
+
+      allSubContacts.push(currVal.subscription_contact);
     })
+    //console.log(allSubContacts);
+
   })
   .fail((err) => {
     console.log('error', err);
@@ -248,7 +260,7 @@ $('#reloadSub').click(function(){
   loadSubscribers();
 })
 
-function resetAddSubPop(){ //removes all unsubmited data from form
+function resetAddSubPop() { //removes all unsubmited data from form in subs tab
   $('#subText').val('');
   $('#contactInfo').val('');
   //resets circle option back to "text"
@@ -263,12 +275,12 @@ function resetAddSubPop(){ //removes all unsubmited data from form
   $('#textProtText')[0].style.color = "black";
   $('#contactTitle')[0].innerText = "Phone Number (With International Call Prefix):";
   $('#contactInfo').attr("placeholder", "Ex. 18081234567");
+
+  $('#addSubWarning')[0].innerText = ""; //removes warning message
+  $('#addSubNameWarning')[0].innerText = "";
 }
 
 $('#createSub').click(function(){
-  $('#addSubPop')[0].style.display = "none";
-  startSubLoadAnimation();
-
   let subName, subProtocol, subContact, groupID;
   subName = $('#subText').val();
   subProtocol;
@@ -281,27 +293,53 @@ $('#createSub').click(function(){
     subProtocol = 'email';
   }
 
-  $.ajax({
-    url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/post",
-    method: 'POST',
-    contentType: "application/json; charset=utf-8",
-    dataType: 'JSON',
-    data: JSON.stringify({
-      "subName" : subName,
-      "subProtocol" : subProtocol,
-      "subContact" : subContact,
-      "groupID" : groupID
+  if($('#subText').val().length === 0 || allSubContacts.includes(subContact) || $('#contactInfo').val().length === 0) { //adds warning if any fields are left blank or the contact typed in already exists in the DB
+
+    if($('#subText').val().length === 0) { //adds warning if no name is typed in
+      $('#addSubNameWarning')[0].innerText = "Field is empty, please type in a name"; 
+    }else {
+      $('#addSubNameWarning')[0].innerText = "";
+    }
+
+    if($('#contactInfo').val().length === 0) {
+      $('#addSubWarning')[0].innerText = "Field is empty, please type in a phone number or email contact";
+    }else {
+      if(allSubContacts.includes(subContact)) {
+        $('#addSubWarning')[0].innerText = "The phone number or email inputted already exists in the system";
+      }else {
+        $('#addSubWarning')[0].innerText = "";
+      }
+    }
+    
+  }else {
+
+    $('#addSubPop')[0].style.display = "none";
+    startSubLoadAnimation();
+
+    $.ajax({
+      url: "https://tp2yeoirff.execute-api.us-west-2.amazonaws.com/dev/post",
+      method: 'POST',
+      contentType: "application/json; charset=utf-8",
+      dataType: 'JSON',
+      data: JSON.stringify({
+        "subName" : subName,
+        "subProtocol" : subProtocol,
+        "subContact" : subContact,
+        "groupID" : groupID
+      })
     })
-  })
-  .done((response) => {
-    //console.log(response)
-    loadSubscribers();
-    loadGrpSubs();
-  })
-  .fail((err) => {
-    console.log(err);
-  }) 
-  resetAddSubPop();
+    .done((response) => {
+      //console.log(response)
+      loadSubscribers();
+      loadGrpSubs();
+    })
+    .fail((err) => {
+      console.log(err);
+    }) 
+
+    resetAddSubPop(); //resets values in "add subscriber" popup
+    
+  }
 })
 
 $('#closeAddSub').click(function(){ //closes "add subscriber" popup when pressing the X
@@ -328,7 +366,166 @@ function deleteSubs(id) {
   }) 
 }
 
-///quickSend
+
+
+// ENDPOINT FOR MESSAGE LAMBDAS:
+// https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/
+
+//Start load animation for messages workspace
+function startMsgLoadAnimation() {
+  $('#msgCol').empty(); //removes currently displayed subs
+  $('.spinnerWrap')[2].style.display = "block";
+}
+
+function getMessages() {
+  startMsgLoadAnimation();
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/get",
+    method: 'GET',
+    "Content-Type": "application/json",
+  })
+  .done((response) => {
+    $('.spinnerWrap')[2].style.display = "none";
+    $('#msgOverlayWrap').empty();
+
+    //console.log(response);
+
+    response.map(currVal => {
+      $('#msgCol').prepend(`
+        <div class="msgGradient" id="msg000${currVal.id}" onclick="checkMsg(this)">
+          <div class="msgAndDate">
+            <p class="message">${currVal.message_text}</p>
+            <span class="date">${currVal.last_edited.substring(0, 10)}</span>
+          </div>
+
+          <div class="modeContainer">
+            <div class="msgCheck"></div>
+            <button class="msgEdit" onclick="editMsgText(this)"><img src="./images/edit.png"></button>
+          </div>
+        </div>
+      `);
+
+      $('#msgOverlayWrap').prepend(`
+        <div class="draggableMsg" ondragstart="dragStart(event)" draggable="true" id="msgDrag0${currVal.id}">${currVal.message_text}</div>
+
+      `)
+    
+    })
+
+    //for recent messages
+    let reversedMsgs = response.slice(0).reverse();
+    $('.scrolls').empty();
+    for(let i = 0; i < 5; i++){ //change second statement to determine how many messages show up in recent messages
+      //console.log(reversedMsgs[i]);
+      $('.scrolls').append(`
+        <div class="recentText">
+          ${reversedMsgs[i].message_text}
+          <br>
+          <br>
+          <span>Created On: ${reversedMsgs[i].last_edited.substring(0, 10)} at ${reversedMsgs[i].last_edited.substring(10, 16)}</span>
+        </div>
+      `)
+    }
+
+  })
+  .fail((err) => {
+    console.log('error', err);
+  })
+}
+getMessages();
+
+$('#reloadMsg').click(function(){
+  getMessages();
+})
+
+$('#createMsg').click(function(){
+  $('#addMsgPopup')[0].style.display = "none";
+  startMsgLoadAnimation();
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/post",
+    method: 'POST',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify($('#typeMsg').val())
+  })
+  .done((response) => {
+    //console.log(response)
+    getMessages();
+  })
+  .fail((err) => {
+    console.log(err);
+  })
+
+  $('#typeMsg').val('');
+});
+
+function deleteMessage(id) {
+  startMsgLoadAnimation();
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/delete",
+    method: 'DELETE',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify(id)
+  })
+  .done((response) => {
+    console.log(response)
+    getMessages();
+  })
+  .fail((err) => {
+    console.log(err);
+  }) 
+  
+}
+
+$('#saveMessage').click(function(){
+  let newMsgText = $('#editMsgHere').val();
+  startMsgLoadAnimation();
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/put",
+    method: 'PUT',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify([newMsgText, oldMsgText])
+  })
+  .done((response) => {
+    console.log(response)
+    getMessages();
+  })
+  .fail((err) => {
+    console.log(err);
+  }) 
+})
+
+//BROADCAST
+$('#sendButton').click(function(){ //broadcasts message to groups
+  let msgData = $('#msgInput').find('.draggableMsg')[0].innerText;
+  let grpID = $('#groupInput').find('.draggableGrp')[0].id.slice(-2);
+  let msgID = $('#msgInput').find('.draggableMsg')[0].id.slice(-2);
+
+  $.ajax({
+    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/broadcast",
+    method: 'POST',
+    contentType: "application/json; charset=utf-8",
+    dataType: 'JSON',
+    data: JSON.stringify([grpID, msgData, msgID])
+  })
+  .done((response) => {
+    console.log(response)
+
+  })
+  .fail((err) => {
+    console.log(err);
+  }) 
+})
+
+
+
+//quickSend
 var concatedMessage ="";
 function sendToAll(){
   var arr = document.getElementById(currentType+"-msg").querySelectorAll("input");

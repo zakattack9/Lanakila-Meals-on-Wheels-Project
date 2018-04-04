@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: lanakilaGroups # NOTE: update this with your service name
+service: lanakilaGroupsSubs # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -55,48 +55,25 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  # send:
-  #   handler: sns.send
-  listTopics:
-    handler: lambdas/topicLambdas/listTopics.listTopics
+  getGroupSubs:
+    handler: lambdas/groupSubsLambdas/getGroupSubs.getGroupSubs
     events:
       - http:
           path: get
           method: get
           cors: true
-  createTopic:
-    handler: lambdas/topicLambdas/createTopic.createTopic
-    events:
-      - http:
-          path: post
-          method: post
-          cors: true
-    request:
-      passThrough: WHEN_NO_TEMPLATES
-      template:
-        application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
-  deleteTopic:
-    handler: lambdas/topicLambdas/deleteTopic.deleteTopic
-    events:
-      - http:
-          path: delete
-          method: delete
-          cors: true
-  
-  # editQuickSend:
-  #   handler: lambdas/quickSendLambdas/editQuickSend.editQuickSend
-  #   events:
-  #     - http:
-  #         path: put
-  #         method: put
-  #         cors: true
-  # sendToAll:
-  #   handler: lambdas/quickSendLambdas/sendToAll.sendToAll
-  #   events:
-  #     - http:
-  #         path: get
-  #         method: get
-  #         cors: true
+  changeSubsGroup:
+      handler: lambdas/groupSubsLambdas/changeSubsGroup.changeSubsGroup
+      events:
+        - http:
+            path: post
+            method: post
+            cors: true
+      request:
+        passThrough: WHEN_NO_TEMPLATES
+        template:
+          application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -109,6 +86,7 @@ functions:
 #      - sns: greeter-topic
 #      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
 #      - alexaSkill
+#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
 #      - iot:
 #          sql: "SELECT * FROM 'some_topic'"
 #      - cloudwatchEvent:
