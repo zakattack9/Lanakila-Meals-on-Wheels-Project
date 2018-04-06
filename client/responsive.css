@@ -1,0 +1,45 @@
+@media (max-width: 599px) {
+	#menuOverlay {
+		width: 80%;
+		background-color: #13896D;
+		font-family: 'Roboto Slab', serif;
+	}
+	
+	/*menu icon*/
+	#mobileLogo {
+		width: 50px;
+		float: left;
+		margin: 7px;
+	}
+
+	#mobileUsername {
+		font-size: 35px;
+		overflow: auto;
+		line-height: 65px;
+		color: #F58F31;
+	}
+
+	#sideBar {
+		display: none;
+	}
+
+	////////////////////
+
+	#workspace {
+		scroll: auto;
+	}
+}
+
+@media (min-width: 600px) {
+	
+}
+
+@media (min-width: 900px) {
+	
+}
+
+@media (min-width: 1200px) {
+	#menuOverlay {
+		display: none;
+	}
+}

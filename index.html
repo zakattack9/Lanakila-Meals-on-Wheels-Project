@@ -7,6 +7,7 @@
 	<link rel="icon" href="./images/lanakilaLogo.png"> <!-- For tab icon -->
 	<link rel="stylesheet" type="text/css" href="./client/animations.css">
 	<link rel="stylesheet" type="text/css" href="./client/styles.css">
+	<link rel="stylesheet" type="text/css" href="./client/responsive.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
@@ -14,6 +15,21 @@
 <body>
 
 	<div id="container">
+		<div id="menuOverlay">
+			<div id="mobileLogin">				
+				<img id="mobileLogo" src="./images/lanakilaLogo.png">
+				<div id="mobileUsername">Lanakila</div>
+			</div>
+
+			<div id="optionsGroup">
+				<div onclick="switchWorkspace(this);" class="option broadcast">BROADCAST</div>
+				<div onclick="switchWorkspace(this);" class="option groups">GROUPS</div>
+				<div onclick="switchWorkspace(this);" class="option subscribers">SUBSCRIBERS</div>
+				<div onclick="switchWorkspace(this);" class="option messages">MESSAGES</div>
+				<div onclick="switchWorkspace(this);" class="option quickSend">QUICK SEND</div>
+			</div>
+		</div>
+
 		<div id="sideBar">
 			<div id="login">
 				<img id="logo" src="./images/lanakilaLogo.png">
@@ -100,6 +116,7 @@
 
 					</div>
 				</div>
+
 
 			</div>
 
