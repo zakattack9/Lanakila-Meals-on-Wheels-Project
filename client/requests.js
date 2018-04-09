@@ -531,22 +531,18 @@ function loadQuickSend() {
   })
   .done((response) => {
     console.log(response);
-
     // $('.scroll').empty();
     // $('#msgContainer span').empty();
 
     response.map(currVal => {
-      $('.scroll').append(`
-        <div class="msgType" id="${currVal.message_type}" onclick="switchType(this.id)" onclick="exitMsg(this.id)">
-          <h3>${currVal.message_type}</h3>
-        </div>
-      `)
-      
-      $('#msgContainer').append(`
-        <div id="${currVal.message_type}-msg" class="msgPre">
-          <p>${currVal.message_text}</p>
-        </div>
-      `)
+      var newCurrVal;
+      var regex = /{\s*(.*?)\s*}/g;
+      while (m = regex.exec(currVal.message_text)) {
+        newCurrVal = currVal.message_text.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
+        console.log(newCurrVal)
+      }
+      $('.scroll').append(`<div class="msgType" id="${currVal.message_type}" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>${currVal.message_type}</h3></div>`)
+      $('#msgContainer').append(`${newCurrVal}`)
 
     })
   })
