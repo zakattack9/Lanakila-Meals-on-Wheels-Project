@@ -523,6 +523,39 @@ $('#sendButton').click(function(){ //broadcasts message to groups
 
 
 //quickSend
+function loadQuickSend() {
+  $.ajax({
+    url: "https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/get",
+    method: 'GET',
+    "Content-Type": "application/json",
+  })
+  .done((response) => {
+    console.log(response);
+
+    // $('.scroll').empty();
+    // $('#msgContainer span').empty();
+
+    response.map(currVal => {
+      $('.scroll').append(`
+        <div class="msgType" id="${currVal.message_type}" onclick="switchType(this.id)" onclick="exitMsg(this.id)">
+          <h3>${currVal.message_type}</h3>
+        </div>
+      `)
+      
+      $('#msgContainer').append(`
+        <div id="${currVal.message_type}-msg" class="msgPre">
+          <p>${currVal.message_text}</p>
+        </div>
+      `)
+
+    })
+  })
+  .fail((err) => {
+    console.log('error', err);
+  })
+}
+loadQuickSend();
+
 var concatedMessage ="";
 function sendToAll(){
   var arr = document.getElementById(currentType+"-msg").querySelectorAll("input");
@@ -534,7 +567,7 @@ function sendToAll(){
     while (m = regex.exec(concatedMessage)) {
       if (arr[counter].value!=="" ){
         concatedMessage = concatedMessage.replace('<input type="textbox" placeholder="'+m[1]+'">',arr[counter].value);
-      console.log(arr[counter].value)
+        console.log(concatedMessage)
       counter +=1;
       }
       else{
@@ -542,23 +575,24 @@ function sendToAll(){
         break;
       }
     }
-  var textMessage = `[${currentType}] ${concatedMessage}`;
 
+  console.log("test", currentType, concatedMessage)
   $.ajax({
    url: 'api_url',
     method: 'POST',
     contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
-    data: textMessage
+    dataType: 'JSON',
+    data: JSON.stringify([currentType, concatedMessage])
   });
 }
 
 function editQS(){
+  console.log(oldContent, newContent)
   if (typeFirst == false){
     newContent.type = document.getElementById('editTypeBox').value
   }
   if( textFirst == false){
-     newContent.text = document.getElementById("editBox").value
+    newContent.text = document.getElementById("editBox").value
   }
   $.ajax({
     url: "update_url",
