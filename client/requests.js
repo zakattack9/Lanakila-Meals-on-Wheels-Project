@@ -522,7 +522,7 @@ $('#sendButton').click(function(){ //broadcasts message to groups
 
 
 
-//quickSend
+//QUICK SEND
 function loadQuickSend() {
   $.ajax({
     url: "https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/get",
@@ -578,7 +578,7 @@ function sendToAll(){
 
   console.log("test", currentType, concatedMessage)
   $.ajax({
-   url: 'api_url',
+   url: 'https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/send',
     method: 'POST',
     contentType: 'application/json; charset=utf-8',
     dataType: 'JSON',
@@ -595,7 +595,7 @@ function editQS(){
     newContent.text = document.getElementById("editBox").value
   }
   $.ajax({
-    url: "update_url",
+    url: "https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/put",
     method: 'PUT',
     contentType: "application/json; charset=utf-8",
     dataType: 'JSON',
