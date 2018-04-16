@@ -1247,7 +1247,7 @@ html, body {
 
 #tempSide {
 	width: 0px;
-	height: 100px;
+	height: 120px;
 	background-color: #F58F31;
 	position: fixed;
 	bottom: 0;
@@ -1266,7 +1266,7 @@ html, body {
 
 #tempInp {
 	width: 86%;
-	height: 60px;
+	height: 75px;
 	background-color: white;
 	border-radius: 10px;
 	margin-left: auto;
@@ -1278,7 +1278,7 @@ html, body {
 	height: 25px;
 	background-color: white;
 	position: fixed;
-	bottom: 75px;
+	bottom: 85px;
 	left: 20px;
 	text-align: center;
 	overflow: hidden;

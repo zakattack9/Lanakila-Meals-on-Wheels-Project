@@ -86,19 +86,19 @@ function drop(event, element) {
 	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open
 		if(element.id === 'tempInp'){ //expands message on drop
 	  	document.getElementById(data).style.width = "190px"; //sets card to width of temp input
-	  	document.getElementById(data).style.height = "60px";
+	  	document.getElementById(data).style.height = "75px";
 
 
 	  	$('#cloneBtn')[0].style.width = "180px";
 	  	setTimeout(function(){
-				$('#cloneBtn')[0].style.bottom = "100px";
+				$('#cloneBtn')[0].style.bottom = "120px";
 	  	}, 400);
 	  }else{
 	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
 	  	document.getElementById(data).style.height = "80px";
 
 	  	clearTimeout(timer);
-			$('#cloneBtn')[0].style.bottom = "75px";
+			$('#cloneBtn')[0].style.bottom = "85px";
 			timer = setTimeout(function () {
         $('#cloneBtn')[0].style.width = '0'; 
   			setTimeout(function(){
@@ -612,7 +612,7 @@ function changeSubGroup(id) {
 	console.log(changedSubs);
 
 
-	if(changedSubs.length > 0){
+	if(changedSubs.length > 0) {
 		showSave = true; //show saves indicates whether to show save icon when switching from "Groups" to "All Subscribers" tab
 		$('#saveSub')[0].style.left = "0px";
 		$('#saveSub')[0].style.top = "65px";	
@@ -623,12 +623,22 @@ function changeSubGroup(id) {
 	}
 }
 
-$('#saveSub').click(function(){
+$('#saveSub').click(function() {
 	changeGrpSubs(changedSubs);
 	changedSubs = []; //resets sub queue
 	showSave = false; //hides save icon
 	$('#saveSub')[0].style.left = "-40px";
 	$('#saveSub')[0].style.top = "0px";
+})
+
+$('#cloneBtn').click(function() {
+	console.log($('#tempInp')[0].children[0]);
+	let tempChild = $('#tempInp')[0].children[0];
+	let clonedEl = $(tempChild).clone()[0];
+	console.log(clonedEl);
+
+	$('#tempSide')[0].style.height = "215px"
+	$('#tempInp').append(clonedEl);
 })
 //SUBSCRIBERS JS END
 
