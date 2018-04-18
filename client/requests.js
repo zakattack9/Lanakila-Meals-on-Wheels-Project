@@ -582,7 +582,7 @@ function sendToAll(){
     method: 'POST',
     contentType: 'application/json; charset=utf-8',
     dataType: 'JSON',
-    data: JSON.stringify([currentType, concatedMessage])
+    data: JSON.stringify([43, concatedMessage, currentType])
   });
 }
 
@@ -599,9 +599,6 @@ function editQS(){
     method: 'PUT',
     contentType: "application/json; charset=utf-8",
     dataType: 'JSON',
-    data: JSON.stringify({
-      "oldContent" : oldContent,
-      "newContent" : newContent
-    })
+    data: JSON.stringify([newContent, oldContent])
   })
 }

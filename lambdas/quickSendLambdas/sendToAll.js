@@ -20,20 +20,21 @@ module.exports.sendToAll = (event, context, callback) => {
   let grpID = parseEvent[0];
   let msgText = parseEvent[1];
   let msgType = parseEvent[2];
+  console.log("Parse E", parseEvent);
 
   let getTopicARN = "SELECT topic_arn FROM " + table[0] + " WHERE id = $1;";
 
   Client.connect()
     .then(client => {
       client.release();
-      return client.query(getTopicARN, [grpID]);
+      return client.query(getTopicARN, [43]);
     })
     .then(res => {
       //console.log(res.rows);
       let topicARN = res.rows[0].topic_arn;
       console.log(topicARN);
       let snsparams = {
-        Message: "Message from Lanakila: ["+msgType+"]" + "\n" + msgText + "\n" + "\n",
+        Message: "Message from Lanakila: " + "\n" + "Category: ["+msgType+"]" + "\n" + msgText + "\n" + "\n",
         MessageStructure: 'string',
         TopicArn: topicARN
       };

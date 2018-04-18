@@ -22,14 +22,20 @@ module.exports.editQuickSend = (event, context, callback) => {
   let newMsgText = messageText[0];
   let oldMsgText = messageText[1];
 
-  let editMsg = "UPDATE " + table[3] + " SET message_type = $1, SET message_text= $2 WHERE message_text = $3;"; //replace old message with new message
+  let newMsgType = newMsgText.type;
+  let newMsg = newMsgText.text;
+  let oldMsg = oldMsgText.text;
+  console.log(newMsgType, newMsg, oldMsg)
+
+  let editMsg = "UPDATE " + table[4] + " SET message_type = $1, message_text= $2 WHERE message_text = $3;"; //replace old message with new message
 
   Client.connect() //connect to database
     .then(client => {
       client.release();
-      return client.query(editMsg, [newMsgText.type, newMsgText.text, oldMsgText.text]);
+      return client.query(editMsg, [newMsgType, newMsg, oldMsg]);
     })
     .then(res => {
+      console.log(res);
       const response = {
         statusCode: 200,
         headers: {
@@ -39,6 +45,7 @@ module.exports.editQuickSend = (event, context, callback) => {
         body: JSON.stringify(res)
       }
       callback(null, response);
+    })  
     .catch(err => {
       console.log(err.stack);
       const response = {

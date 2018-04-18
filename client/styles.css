@@ -1732,9 +1732,9 @@ html, body {
 
 #qsContainer{
 	width: 70%;
-	height: 85%;
+	height: 80%;
 	margin: auto;
-	margin-top: 40px;
+	margin-top: 60px;
 	background-color: #F58F31;
 	border-radius: 40px;
 }
@@ -1772,7 +1772,14 @@ html, body {
 	vertical-align: middle;
 	line-height: 50px;  
 	border-radius: 10px;
+	transition: 0.2s;
 }
+
+#qsSend:hover {
+	transform: scale(1.03);
+	transition: 0.2s;
+}
+
 .msgPre{
 	font-size: 15px;
 	overflow-y: auto;
