@@ -531,8 +531,8 @@ function loadQuickSend() {
   })
   .done((response) => {
     console.log(response);
-    // $('.scroll').empty();
-    // $('#msgContainer span').empty();
+    $('.scroll').empty();
+    $('#msgContainer span').empty();
 
     response.map(currVal => {
       console.log(currVal)
