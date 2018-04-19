@@ -16,18 +16,29 @@
 
 	<div id="container">
 		<div id="menuOverlay">
-			<div id="mobileLogin">				
-				<img id="mobileLogo" src="./images/lanakilaLogo.png">
-				<div id="mobileUsername">Lanakila</div>
+			<div id="openMenu">
+				<img id="menuImg" src="./images/menu.png">
 			</div>
 
-			<div id="optionsGroup">
-				<div onclick="switchWorkspace(this);" class="option broadcast">BROADCAST</div>
-				<div onclick="switchWorkspace(this);" class="option groups">GROUPS</div>
-				<div onclick="switchWorkspace(this);" class="option subscribers">SUBSCRIBERS</div>
-				<div onclick="switchWorkspace(this);" class="option messages">MESSAGES</div>
-				<div onclick="switchWorkspace(this);" class="option quickSend">QUICK SEND</div>
+			<div id="menu">
+				
+				<div id="mobileLogin">				
+					<img id="mobileLogo" src="./images/lanakilaLogo.png">
+					<div id="mobileUsername">Lanakila</div>
+				</div>
+
+				<div id="mobileOptionsGroup">
+					<div onclick="switchWorkspace(this);" class="mobileOption broadcast">BROADCAST</div>
+					<div onclick="switchWorkspace(this);" class="mobileOption groups">GROUPS</div>
+					<div onclick="switchWorkspace(this);" class="mobileOption subscribers">SUBSCRIBERS</div>
+					<div onclick="switchWorkspace(this);" class="mobileOption messages">MESSAGES</div>
+					<div onclick="switchWorkspace(this);" class="mobileOption quickSend">QUICK SEND</div>
+				</div>
 			</div>
+		</div>
+
+		<div id="mobileTools">
+			
 		</div>
 
 		<div id="sideBar">
@@ -59,6 +70,9 @@
 					</div>
 			<!--BROADCAST-->
 			<div class="" id="broadcast"><!--default screen on load-->
+				<div id="broadcastTopBar">
+					<div id="broadcastTitle">Broadcast</div>
+				</div>
 				<div id="msgMakerSpace">
 					<div id="msgMaker">
 						
@@ -459,45 +473,52 @@
 
 			<!--QUICK SEND-->
 			<div class="hidden" id="quickSend"><!--broadcasts preset messages to EVERYONE-->
-				<div id="msgTypePanel">
-					<div class="tab"><h3>Type</h3></div>
-					<div class="scroll">
-						<div class="msgType" id="Traffic" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Traffic</h3></div>
-						<div class="msgType" id="Storm" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Storm</h3></div>
-						<div class="msgType" id="Tsunami" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Tsunami</h3></div>
-						<div class="msgType" id="Earthquake" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Earthquake</h3></div>
-						<div class="msgType" id="Other1" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other1</h3></div>
-						<div class="msgType" id="Other2" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other2</h3></div>
-						<div class="msgType" id="Other3" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other3</h3></div>
-						<div class="msgType" id="Other4" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other4</h3></div>
-						<div class="msgType" id="Other5" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other5</h3></div>
-					</div>
+				<div id="quickSendTopBar">
+					<div id="quickSendTitle">Quick Send</div>
 				</div>
-				<div id="msgPanel">
-					<div class="tab"><h3>Message</h3></div>
-					<div id="qsContainer">
-						<div id= "qsType">
-							<input type="text" size="25" id="editTypeBox">
-							<h3 id="typeHeader">Preview</h3>	
-							<img id ="edit-saveType" src="./images/edit.png" onclick="editType()">
+				<div id="qsChoosePanel">
+					<div class="tab" id="qsTypeTab"><h3>Type</h3></div>
+					<div class="tab" id="qsMessageTab"><h3>Message</h3></div>
+				</div>
+				<div id="qsPanelContainer">
+					<div id="msgTypePanel">
+						<div class="scroll">
+							<div class="msgType" id="Traffic" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Traffic</h3></div>
+							<div class="msgType" id="Storm" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Storm</h3></div>
+							<div class="msgType" id="Tsunami" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Tsunami</h3></div>
+							<div class="msgType" id="Earthquake" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Earthquake</h3></div>
+							<div class="msgType" id="Other1" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other1</h3></div>
+							<div class="msgType" id="Other2" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other2</h3></div>
+							<div class="msgType" id="Other3" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other3</h3></div>
+							<div class="msgType" id="Other4" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other4</h3></div>
+							<div class="msgType" id="Other5" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>Other5</h3></div>
 						</div>
-						<div id = "msgContainer">
-							<div id="Traffic-msg" class="msgPre"><p>trafficasfdsfsa adipiscing elit, sed do <input type="textbox" placeholder="dfdsfe"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dfdsf"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="fdasfde"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="hgfd"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
-							<div id="Storm-msg" class="msgPre"><p>storms fsadfsdaf sadfsad fsa fsad <input type="textbox" placeholder="hgfdgh"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dgfsde"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="date"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="gfsdge"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
-							<div id="Tsunami-msg" class="msgPre"><p>fasfd asfs TSUNAMI TSUNAMI FSAFSADo <input type="textbox" placeholder="gfsdge"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dgfsdgs"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="gfdsg"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="trwete"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
-							<div id="Earthquake-msg" class="msgPre"><p>Lorem ipsum EARTHQUAKEFSDAFDSFS, sed do <input type="textbox" placeholder="fgd"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="k"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="or"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="df"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. fdsa fdsa fsa fdsa fs fsd fs fds fds fsd fds.</p></div>
-							<div id="Other1-msg" class="msgPre"></div>
-							<div id="Other2-msg" class="msgPre"></div>
-							<div id="Other3-msg" class="msgPre"></div>
-							<div id="Other4-msg" class="msgPre"></div>
-							<div id="Other5-msg" class="msgPre"></div>
-							<textarea id="editBox" class="msgBox"></textarea>
-							<p id="note">Note: Use { } to create a textbox</p>
-							<div id="editButton" onclick="editMsg()">
-								<img id ="edit-saveMsg" src="./images/edit.png">
+					</div>
+					<div id="msgPanel">
+						<div id="qsContainer">
+							<div id= "qsType">
+								<input type="text" size="25" id="editTypeBox">
+								<h3 id="typeHeader">Preview</h3>	
+								<img id ="edit-saveType" src="./images/edit.png" onclick="editType()">
 							</div>
+							<div id = "msgContainer">
+								<div id="Traffic-msg" class="msgPre"><p>trafficasfdsfsa adipiscing elit, sed do <input type="textbox" placeholder="dfdsfe"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dfdsf"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="fdasfde"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="hgfd"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+								<div id="Storm-msg" class="msgPre"><p>storms fsadfsdaf sadfsad fsa fsad <input type="textbox" placeholder="hgfdgh"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dgfsde"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="date"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="gfsdge"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+								<div id="Tsunami-msg" class="msgPre"><p>fasfd asfs TSUNAMI TSUNAMI FSAFSADo <input type="textbox" placeholder="gfsdge"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="dgfsdgs"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="gfdsg"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="trwete"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+								<div id="Earthquake-msg" class="msgPre"><p>Lorem ipsum EARTHQUAKEFSDAFDSFS, sed do <input type="textbox" placeholder="fgd"> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <input type="textbox" placeholder="k"> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure <input type="textbox" placeholder="or"> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  <input type="textbox" placeholder="df"> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. fdsa fdsa fsa fdsa fs fsd fs fds fds fsd fds.</p></div>
+								<div id="Other1-msg" class="msgPre"></div>
+								<div id="Other2-msg" class="msgPre"></div>
+								<div id="Other3-msg" class="msgPre"></div>
+								<div id="Other4-msg" class="msgPre"></div>
+								<div id="Other5-msg" class="msgPre"></div>
+								<textarea id="editBox" class="msgBox"></textarea>
+								<p id="note">Note: Use { } to create a textbox</p>
+								<div id="editButton" onclick="editMsg()">
+									<img id ="edit-saveMsg" src="./images/edit.png">
+								</div>
+							</div>
+							<div id = "qsSend" onclick="sendToAll()"><h3>Send!</h3></div>
 						</div>
-						<div id = "qsSend" onclick="sendToAll()"><h3>Send!</h3></div>
 					</div>
 				</div>
 

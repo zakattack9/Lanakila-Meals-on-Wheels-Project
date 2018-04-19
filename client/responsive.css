@@ -1,45 +1,208 @@
-@media (max-width: 599px) {
-	#menuOverlay {
-		width: 80%;
-		background-color: #13896D;
-		font-family: 'Roboto Slab', serif;
-	}
-	
-	/*menu icon*/
-	#mobileLogo {
-		width: 50px;
-		float: left;
-		margin: 7px;
+@media (min-width: 300px) and (max-width: 1200px) {
+	/*////////SCROLL BAR Styles///////*/
+	::-webkit-scrollbar { /*scroll bar styling */
+		height: 0px;
+		width: 0px;
 	}
 
-	#mobileUsername {
-		font-size: 35px;
-		overflow: auto;
-		line-height: 65px;
-		color: #F58F31;
+	/*////////SIDE BAR Styles///////*/
+	#sideBar {
+		display: none;
 	}
+
+	/*////////WORKSPACE Styles///////*/
+	#workspace {
+		overflow: auto;
+	}
+
+	/*////////BROADCAST Styles///////*/
+	#msgMakerSpace {
+		width: 100%
+	}
+
+	#msgMaker {
+		width: 90%;
+		height: 92%;
+		border-radius: 25px;
+	}
+
+	#msgSpace {
+		height: 40vh;
+		padding-top: 2%;
+	}
+
+	#msgInput {
+		margin-top: 7px;
+	}
+
+	#groupSpace {
+		height: 39vh;
+	}
+
+	#groupInput {
+		margin-top: 9px;
+		height: 80%;
+	}
+
+	#recentMsgs {
+		width: 100%;
+		border-left: none;
+		border-top: 2px darkgray solid;
+	}
+
+	/*////////GROUPS Styles///////*/
+
+	/*////////SUBSCRIBERS Styles///////*/
+		#subscribers {
+			overflow: auto;
+			scroll-behavior: auto;
+		}
+
+		#grpTab, #subsTab {
+			display: none;
+		}
+	/*////////MESSAGES Styles///////*/
+	#msgCol {
+		column-count: 1;
+		padding-bottom: 0;
+	}
+
+	.msgGradient {
+	/*	padding-left: 0;
+		padding-right: 0;*/
+	}
+
+	/*////////QUICK SEND Styles///////*/
+
+}
+
+@media (min-width: 600px) and (max-width: 1200px) {
 
 	#sideBar {
 		display: none;
 	}
 
-	////////////////////
-
+	/*////////WORKSPACE Styles///////*/
 	#workspace {
-		scroll: auto;
+		overflow: auto;
+	}
+
+	/*////////MESSAGES Styles///////*/
+	#msgCol {
+		column-count: 2;
+		padding-bottom: 0;
+	}
+
+	.msgGradient {
+		margin: 2px 5px;
 	}
 }
 
-@media (min-width: 600px) {
-	
+
+@media (max-width: 450px) {
+	/*table styles*/
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	thead tr {
+		position: absolute;
+		top:-9999px;
+		left: -9999px;
+	}
+
+	tr {
+		border: 1px solid #ccc;
+	}
+
+	td {
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+	td:before {
+		position: absolute;
+		left: 6px;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+
+	td, th {
+		padding: 6px;
+	}
+
+	.customCheck {
+		left: 14em;
+	}
+
+	#grpTable tr td:not(:first-child) {
+		padding-left: 14em;
+	}
+
+	#grpTable td {
+		border-bottom: none;
+	}
+
+	#grpTable td:nth-of-type(1):before { content: "Checkbox"; }
+	#grpTable td:nth-of-type(2):before { content: "Group Name"; }
+	#grpTable td:nth-of-type(3):before { content: "Number of Members"; }
+	#grpTable td:nth-of-type(4):before { content: "Date Created"; }
+
+	.customCheckSub {
+		left: 14em;
+	}
+
+	#subsTable tr td:not(:first-child) {
+		padding-left: 14em;
+	}
+
+	#subsTable td {
+		border-bottom: none;
+	}
+
+	#subsTable td:nth-of-type(1):before { content: "Checkbox"; }
+	#subsTable td:nth-of-type(2):before { content: "Name"; }
+	#subsTable td:nth-of-type(3):before { content: "Medium"; }
+	#subsTable td:nth-of-type(4):before { content: "Contact"; }
 }
 
-@media (min-width: 900px) {
-	
+@media (max-width: 390px) {
+	#grpTable tr td:not(:first-child) {
+		padding-left: 10em;
+	}
+
+	#subsTable tr td:not(:first-child) {
+		padding-left: 10em;
+	}
+
+	.customCheck {
+		left: 10em;
+	}
+	.customCheckSub {
+		left: 10em;
+	}
+
+	#qsContainer {
+		width: 90%;
+	}
 }
 
-@media (min-width: 1200px) {
+@media (max-width: 900px) { /*styles for tool bar*/
+
+}
+
+@media (min-width: 900px){
+	#sideBar {
+		display: block;
+	}
+
 	#menuOverlay {
 		display: none;
 	}
+}
+
+@media (min-width: 1200px) {
+	
 }

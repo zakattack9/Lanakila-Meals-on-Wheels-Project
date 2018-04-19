@@ -22,12 +22,43 @@ function switchWorkspace(el) {
 	}
 	document.getElementById(elClass).classList.remove("hidden");
 	document.getElementById(elClass).classList.add("visisble");
+
+	$("#optionsGroup").on('click','.option', function(){ //keeps sidebar items white
+	  $(this).addClass('active');
+	  $(this).siblings().removeClass('active');
+	});
+	$("#mobileOptionsGroup").on('click','.mobileOption', function(){ //keeps sidebar items white
+	  $(this).addClass('active');
+	  $(this).siblings().removeClass('active');
+	})
 }
 
-$("#optionsGroup").on('click','.option', function(){ //keeps sidebar items white
-  $(this).addClass('active');
-  $(this).siblings().removeClass('active');
+$('#menuImg').on('click', function () { //opens/closes the menu 
+	$('#menuOverlay').toggleClass('toggleMenuSize');
+	console.log('open/close');
+
+	if($('#menuOverlay').hasClass('toggleMenuSize')) {
+		$('#menuOverlay')[0].style.width = "0";
+		$('#menu')[0].style.display = "none";
+	} else {
+		$('#menuOverlay')[0].style.width = "220px";
+		$('#menu')[0].style.display = "block";
+	}
 })
+
+$('.mobileOption').on('click', function () { //automatically closes the menu upon option selection
+	$('#menuOverlay').toggleClass('toggleMenuSize');
+	console.log('open/close');
+
+	if($('#menuOverlay').hasClass('toggleMenuSize')) {
+		$('#menuOverlay')[0].style.width = "0";
+		$('#menu')[0].style.display = "none";
+	} else {
+		$('#menuOverlay')[0].style.width = "220px";
+		$('#menu')[0].style.display = "block";
+	}
+})
+
 
 //BROADCAST JS START
 var openOverlay;
@@ -35,8 +66,13 @@ $('#msgInput').on('click', function(){ //opens overlay for messages
 	$('#groupInput').removeAttr('ondrop ondragover');
 	$('#msgInput').attr({ondrop:'drop(event, this)', ondragover:'allowDrop(event)'});
 
-	$('#groupOverlay')[0].style.width = "0";
-	$('#msgOverlay')[0].style.width = "400px";
+	if ($(window).width() <= 599) {
+		$('#groupOverlay')[0].style.width = "0";
+		$('#msgOverlay')[0].style.width = "270px";
+	} else {
+		$('#groupOverlay')[0].style.width = "0";
+		$('#msgOverlay')[0].style.width = "400px";
+	}
 	openOverlay = 'msg';
 })
 
@@ -44,8 +80,17 @@ $('#groupInput').on('click', function(){ //opens overlay for groups
 	$('#msgInput').removeAttr('ondrop ondragover');
 	$('#groupInput').attr({ondrop:'drop(event, this)', ondragover:'allowDrop(event)'});
 
-	$('#msgOverlay')[0].style.width = "0";
-	$('#groupOverlay')[0].style.width = "400px";
+	if ($(window).width() <= 599) {
+		console.log("you can do something with this");
+		$('#groupOverlay')[0].style.width = "270px";
+		$('#msgOverlay')[0].style.width = "0";
+	} else {
+		$('#groupOverlay')[0].style.width = "400px";
+		$('#msgOverlay')[0].style.width = "0";
+	}
+
+	// $('#msgOverlay')[0].style.width = "0";
+	// $('#groupOverlay')[0].style.width = "400px";
 	openOverlay = 'group';
 })
 
@@ -771,6 +816,29 @@ $('#reloadMsg').click(function(){ //runs refresh button animation for subs tab
 
 
 //QUICK SEND JS START
+
+//switch between message type and message
+$('.tab').on('click', function () {
+	console.log(this);
+	if ($(this).attr('id') == 'qsTypeTab'){
+		// $('#msgTypePanel')[0].addClass('activePanel');
+		// $('#msgPanel')[0].removeClass('activePanel');
+
+		$('#msgTypePanel')[0].style.display = 'block';
+		$('#msgPanel')[0].style.display = 'none';
+	} else{
+		// $('#msgPanel')[0].addClass('activePanel');
+		// $('#msgTypePanel')[0].removeClass('activePanel');
+		$('#msgPanel')[0].style.display = 'block';
+		$('#msgTypePanel')[0].style.display = 'none';
+	}
+})
+
+$('.msgType').on('click', function () {
+	$('#msgPanel')[0].style.display = 'block';
+	$('#msgTypePanel')[0].style.display = 'none';
+})
+
 var currentType;
 function switchType(el){
 	currentType=el;
