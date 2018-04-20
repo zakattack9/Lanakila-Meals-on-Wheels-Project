@@ -787,13 +787,13 @@ function switchType(el){
 	currentType=el;
 	console.log(currentType)
 	for (var i = 0; i < document.getElementsByClassName('msgType').length; i++) {
-		document.getElementsByClassName('msgType')[i].style.backgroundColor="#F58F31";
-		document.getElementsByClassName('msgType')[i].style.color="white";
-		document.getElementsByClassName('msgType')[i].style="border-color: #F58F31;";
+		document.getElementsByClassName('msgType')[i].style.backgroundColor=document.getElementsByClassName('msgType')[i].style.borderColor;
+		//document.getElementsByClassName('msgType')[i].style.color="white";
+		//document.getElementsByClassName('msgType')[i].style="border-color: #F58F31;";
 	}
 	document.getElementById(el).style.backgroundColor="white";
-	document.getElementById(el).style.color="#F58F31";
-	document.getElementById(el).style.borderColor= "#F58F31";
+	//document.getElementById(el).style.color="#F58F31";
+	//document.getElementById(el).style.borderColor= "#F58F31";
 	document.getElementById('typeHeader').innerHTML=el;
 	for (var i = 0; i < document.getElementsByClassName('msgPre').length; i++) {
 		document.getElementsByClassName('msgPre')[i].style.display="none";

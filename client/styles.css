@@ -1692,8 +1692,7 @@ html, body {
 .msgType{
 	margin: 20px;
 	padding: 10px;	
-	background-color: #F58F31;
-	color: white;
+	color: black;
 	border-radius: 20px;
 	border-width: 5px;
 	border-style: solid; 
@@ -1721,13 +1720,36 @@ html, body {
 .tab{
 	background-color: #F58F31;
 	text-align: center;
-	color: white;
+	color: black;
 	padding: 5px;
 	height: 10vh; 
 }
 .scroll{
 	overflow-y: auto;
 	height: 90vh;
+}
+
+.msgType:nth-child(n) {
+	background-color: #84c5cc;
+	border-color: #84c5cc;
+}
+
+.msgType:nth-child(2n) {
+	background-color: #61a9b0;
+	border-color: #61a9b0;
+}
+
+.msgType:nth-child(3n) {
+	background-color: #4e989f;
+	border-color: #4e989f;
+}
+.msgType:nth-child(4n) {
+	background-color: #3b8b92;
+	border-color: #3b8b92;
+}
+.msgType:nth-child(5n) {
+	background-color: #2b8087;
+	border-color: #2b8087;
 }
 
 #qsContainer{

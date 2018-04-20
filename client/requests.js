@@ -524,6 +524,7 @@ $('#sendButton').click(function(){ //broadcasts message to groups
 
 //QUICK SEND
 function loadQuickSend() {
+  $('.spinnerWrap')[4].style.display = "block";
   $.ajax({
     url: "https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/get",
     method: 'GET',
@@ -531,17 +532,14 @@ function loadQuickSend() {
   })
   .done((response) => {
     console.log(response);
+    $('.spinnerWrap')[4].style.display = "none";
     $('.scroll').empty();
     $('#msgContainer span').empty();
-
     response.map(currVal => {
-      console.log(currVal)
-      var newCurrVal;
+      var newCurrVal = currVal.message_text;
       var regex = /{\s*(.*?)\s*}/g;
-        while (m = regex.exec(currVal.message_text)) {
-          console.log("made it 2")
-          newCurrVal = currVal.message_text.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
-          console.log("fdsfsdf  "+newCurrVal)
+        while (m = regex.exec(newCurrVal)) {
+          newCurrVal = newCurrVal.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
         }
         $('.scroll').append(`<div class="msgType" id="${currVal.message_type}" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>${currVal.message_type}</h3></div>`)
         $('#msgContainer').append(`<div id="${currVal.message_type}-msg" class="msgPre">${newCurrVal}</div>`)
