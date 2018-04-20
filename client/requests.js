@@ -535,11 +535,10 @@ function loadQuickSend() {
     $('#msgContainer span').empty();
 
     response.map(currVal => {
-      console.log(currVal)
+      //console.log(currVal)
       var newCurrVal;
       var regex = /{\s*(.*?)\s*}/g;
         while (m = regex.exec(currVal.message_text)) {
-          console.log("made it 2")
           newCurrVal = currVal.message_text.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
           console.log("fdsfsdf  "+newCurrVal)
         }
