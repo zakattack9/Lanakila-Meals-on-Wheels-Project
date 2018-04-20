@@ -794,7 +794,9 @@ function switchType(el){
 	document.getElementById(el).style.backgroundColor="white";
 	//document.getElementById(el).style.color="#F58F31";
 	//document.getElementById(el).style.borderColor= "#F58F31";
-	document.getElementById('typeHeader').innerHTML=el;
+	console.log(qsTypeData)
+	console.log(qsTypeData[el] + el)
+	document.getElementById('typeHeader').innerHTML=qsTypeData[el];
 	for (var i = 0; i < document.getElementsByClassName('msgPre').length; i++) {
 		document.getElementsByClassName('msgPre')[i].style.display="none";
 	}
@@ -820,7 +822,8 @@ function switchType(el){
 }
 
 var editing = false;
-var oldContent = {};
+var oldContent;
+var qsid;
 var newContent = {};
 var textFirst = true;
 var typeFirst = true;
@@ -845,8 +848,7 @@ function editMsg(){
 		document.getElementById('edit-saveMsg').src='./images/save.png'
 		document.getElementById('edit-saveType').style.display="none";
 		document.getElementById('note').style.display="block";
-		oldContent.type = currentType;
-		oldContent.text = convertText();
+		oldContent= currentType;
 		newContent.type = currentType;
 		newContent.text = convertText();
 	}
@@ -874,13 +876,12 @@ function editType(){
 	if(typeEditing==false){
 		typeEditing=true;
 		document.getElementById("typeHeader").style.display="none";
-		document.getElementById('editTypeBox').value = currentType;
+		document.getElementById('editTypeBox').value = qsTypeData[currentType];
 		tempId=currentType;
 		document.getElementById('editTypeBox').style.display="inline-block";
 		document.getElementById('edit-saveType').src='./images/save.png'
 		document.getElementById('editButton').style.display="none";
-		oldContent.type = currentType;
-		oldContent.text = convertText();
+		oldContent = currentType;
 		newContent.type = currentType;
 		newContent.text = convertText();
 	}
@@ -891,10 +892,7 @@ function editType(){
 		document.getElementById(currentType).style.display="block";
 		document.getElementById("typeHeader").innerHTML = document.getElementById('editTypeBox').value
 		document.getElementById("typeHeader").style.display="inline-block";
-		
-		document.getElementById(currentType).setAttribute("id", document.getElementById('editTypeBox').value);
-		document.getElementById(currentType+"-msg").setAttribute("id", document.getElementById('editTypeBox').value+"-msg");
-		currentType = document.getElementById('editTypeBox').value;
+	
 		document.getElementById('editTypeBox').style.display="none";
 		document.getElementById('edit-saveType').src='./images/edit.png'
 		document.getElementById('editButton').style.display="inline-block";

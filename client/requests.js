@@ -523,6 +523,8 @@ $('#sendButton').click(function(){ //broadcasts message to groups
 
 
 //QUICK SEND
+var qsTypeData = [];
+var qsTextData = [];
 function loadQuickSend() {
   $('.spinnerWrap')[4].style.display = "block";
   $.ajax({
@@ -541,11 +543,10 @@ function loadQuickSend() {
         while (m = regex.exec(newCurrVal)) {
           newCurrVal = newCurrVal.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
         }
-        $('.scroll').append(`<div class="msgType" id="${currVal.message_type}" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>${currVal.message_type}</h3></div>`)
-        $('#msgContainer').append(`<div id="${currVal.message_type}-msg" class="msgPre">${newCurrVal}</div>`)
-      if(newCurrVal === undefined){
-        document.getElementById(currVal.message_type+"-msg").innerHTML = currVal.message_text
-      }
+        qsTypeData[currVal.id]=currVal.message_type;
+        qsTextData[currVal.id]=currVal.message_text;
+        $('.scroll').append(`<div class="msgType" id="${currVal.id}" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>${currVal.message_type}</h3></div>`)
+        $('#msgContainer').append(`<div id="${currVal.id}-msg" class="msgPre">${newCurrVal}</div>`)
     })
   })
   .fail((err) => {
