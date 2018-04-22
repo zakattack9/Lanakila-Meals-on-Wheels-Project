@@ -825,21 +825,20 @@ var editing = false;
 var oldContent;
 var qsid;
 var newContent = {};
-var textFirst = true;
-var typeFirst = true;
 function convertText(){
-	var htmlText = document.getElementById(currentType+"-msg").innerHTML;
-    var regex = /placeholder="\s*(.*?)\s*">/g;
-    console.log("--------------LOADING-------------")
-    htmlText = htmlText.replace("<p>","");
-    htmlText = htmlText.replace("</p>","");
-    while (m = regex.exec(htmlText)) {
-        console.log("here: " + m[0])
-        htmlText = htmlText.replace('<input type="textbox" '+m[0],"{"+m[1]+"}");
-        console.log(htmlText)
-    }
-	temp=htmlText
-	return htmlText;
+	var string = document.getElementById(currentType+"-msg").innerHTML;
+	var newString = string;
+	var pattern = /placeholder="[^"]*"/g;
+	newString = newString.replace("<p>","");
+	newString = newString.replace("</p>","");
+	var current;
+	while(current = pattern.exec(string)){
+	  var rep = current[0].substring(13, current[0].length-1)
+	   console.log(rep)
+	   newString = newString.replace('<input type="textbox" placeholder="'+rep+'">',"{"+rep+"}");
+	}
+	temp=string
+	return newString;
 }
 function editMsg(){
 	if (editing == false){
@@ -855,27 +854,23 @@ function editMsg(){
 	else{
 		editing=false;
 		oldContent= currentType;
-		newContent.type = currentType;
-		newContent.text = convertText();
-
+		console.log(qsTypeData)
+		console.log("current Type: "+currentType)
+		console.log(qsTypeData[currentType])
+		newContent.type = qsTypeData[currentType]
+		console.log(newContent.type)
+		newContent.text =convertText();
 		document.getElementById(currentType+"-msg").style.display="block";
 		document.getElementById('editBox').style.display="none";
 	    var htmlText = document.getElementById("editBox").value;
-	    //qsTextData[currentType]=htmlText;
-	    console.log("--------------EDITING-------------")
-	    console.log("html text: "+htmlText)
 	    var regex = /{\s*(.*?)\s*}/g;
 		while (m = regex.exec(htmlText)) {
-			console.log(m[1])
 			htmlText = htmlText.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
-			console.log(htmlText)
 		}
-		console.log("Final "+ htmlText)
 		document.getElementById(currentType+"-msg").innerHTML = "<p>"+htmlText+"</p>";
 		document.getElementById('edit-saveMsg').src='./images/edit.png';
 		document.getElementById('edit-saveType').style.display="inline-block";
 		document.getElementById('note').style.display="none";
-		textFirst=false;
 		editQS();
 	}
 }
@@ -894,18 +889,16 @@ function editType(){
 	else{
 		typeEditing=false;
 		oldContent = currentType;
-		newContent.type = currentType;
+		qsTypeData[currentType]=document.getElementById('editTypeBox').value;
+		newContent.type = qsTypeData[currentType];
 		newContent.text = convertText();
-		console.log(document.getElementById('editTypeBox').value)
 		document.getElementById(currentType).innerHTML = "<h3>"+document.getElementById('editTypeBox').value+"</h3>"
 		document.getElementById(currentType).style.display="block";
 		document.getElementById("typeHeader").innerHTML = document.getElementById('editTypeBox').value
 		document.getElementById("typeHeader").style.display="inline-block";
-		qsTypeData[currentType]=document.getElementById('editTypeBox').value;
 		document.getElementById('editTypeBox').style.display="none";
 		document.getElementById('edit-saveType').src='./images/edit.png'
 		document.getElementById('editButton').style.display="inline-block";
-		typeFirst=false;
 		editQS();
 	}
 }

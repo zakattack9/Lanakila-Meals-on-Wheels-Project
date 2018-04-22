@@ -560,14 +560,15 @@ loadQuickSend();
 var concatedMessage ="";
 function sendToAll(){
   var arr = document.getElementById(currentType+"-msg").querySelectorAll("input");
-  concatedMessage = document.getElementById(currentType+"-msg").innerHTML;
+  var htmlText= document.getElementById(currentType+"-msg").innerHTML;
+  concatedMessage = htmlText;
   var filled = true;
     var regex = /placeholder="\s*(.*?)\s*">/g;
     concatedMessage = concatedMessage.replace("<p>","");
     concatedMessage = concatedMessage.replace("</p>","");
     var counter = 0;
     console.log(concatedMessage)
-    while (m = regex.exec(concatedMessage)) {
+    while (m = regex.exec(htmlText)) {
       if (arr[counter].value!=="" ){
         console.log("here: " + m[0])
         concatedMessage = concatedMessage.replace('<input type="textbox" '+m[0],arr[counter].value);
@@ -594,13 +595,9 @@ function sendToAll(){
 }
 
 function editQS(){
-  if (typeFirst == false){
-    newContent.type = document.getElementById('editTypeBox').value
-  }
-  if( textFirst == false){
-    newContent.text = document.getElementById("editBox").value
-  }
-  console.log(newContent,oldContent)
+
+  console.log(oldContent)
+  console.log(newContent)
   $.ajax({
     url: "https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/put",
     method: 'PUT',
@@ -608,4 +605,5 @@ function editQS(){
     dataType: 'JSON',
     data: JSON.stringify([newContent, oldContent])
   })
+  newContent={};
 }
