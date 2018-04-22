@@ -525,6 +525,7 @@ $('#sendButton').click(function(){ //broadcasts message to groups
 //QUICK SEND
 var qsTypeData = [];
 var qsTextData = [];
+var loaded = false;
 function loadQuickSend() {
   $('.spinnerWrap')[4].style.display = "block";
   $.ajax({
@@ -545,6 +546,7 @@ function loadQuickSend() {
         }
         qsTypeData[currVal.id]=currVal.message_type;
         qsTextData[currVal.id]=currVal.message_text;
+        loaded=true;
         $('.scroll').append(`<div class="msgType" id="${currVal.id}" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>${currVal.message_type}</h3></div>`)
         $('#msgContainer').append(`<div id="${currVal.id}-msg" class="msgPre">${newCurrVal}</div>`)
     })
@@ -559,40 +561,46 @@ var concatedMessage ="";
 function sendToAll(){
   var arr = document.getElementById(currentType+"-msg").querySelectorAll("input");
   concatedMessage = document.getElementById(currentType+"-msg").innerHTML;
+  var filled = true;
     var regex = /placeholder="\s*(.*?)\s*">/g;
     concatedMessage = concatedMessage.replace("<p>","");
     concatedMessage = concatedMessage.replace("</p>","");
     var counter = 0;
+    console.log(concatedMessage)
     while (m = regex.exec(concatedMessage)) {
       if (arr[counter].value!=="" ){
-        concatedMessage = concatedMessage.replace('<input type="textbox" placeholder="'+m[1]+'">',arr[counter].value);
+        console.log("here: " + m[0])
+        concatedMessage = concatedMessage.replace('<input type="textbox" '+m[0],arr[counter].value);
         console.log(concatedMessage)
       counter +=1;
       }
       else{
+        filled=false;
         alert("please fill in all fields");
         break;
       }
     }
 
-  console.log("test", currentType, concatedMessage)
-  $.ajax({
-   url: 'https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/send',
-    method: 'POST',
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'JSON',
-    data: JSON.stringify([43, concatedMessage, currentType])
-  });
+  if(filled==true){
+    console.log("test", currentType, concatedMessage)
+    $.ajax({
+     url: 'https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/send',
+      method: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'JSON',
+      data: JSON.stringify([43, concatedMessage, qsTypeData[currentType]])
+    });
+  }
 }
 
 function editQS(){
-  console.log(oldContent, newContent)
   if (typeFirst == false){
     newContent.type = document.getElementById('editTypeBox').value
   }
   if( textFirst == false){
     newContent.text = document.getElementById("editBox").value
   }
+  console.log(newContent,oldContent)
   $.ajax({
     url: "https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/put",
     method: 'PUT',

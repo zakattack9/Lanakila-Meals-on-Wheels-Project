@@ -829,12 +829,15 @@ var textFirst = true;
 var typeFirst = true;
 function convertText(){
 	var htmlText = document.getElementById(currentType+"-msg").innerHTML;
-	var regex = /placeholder="\s*(.*?)\s*">/g;
-	htmlText = htmlText.replace("<p>","");
-	htmlText = htmlText.replace("</p>","");
-	while (m = regex.exec(htmlText)) {
-		htmlText = htmlText.replace('<input type="textbox" placeholder="'+m[1]+'">',"{"+m[1]+"}");
-	}
+    var regex = /placeholder="\s*(.*?)\s*">/g;
+    console.log("--------------LOADING-------------")
+    htmlText = htmlText.replace("<p>","");
+    htmlText = htmlText.replace("</p>","");
+    while (m = regex.exec(htmlText)) {
+        console.log("here: " + m[0])
+        htmlText = htmlText.replace('<input type="textbox" '+m[0],"{"+m[1]+"}");
+        console.log(htmlText)
+    }
 	temp=htmlText
 	return htmlText;
 }
@@ -848,20 +851,26 @@ function editMsg(){
 		document.getElementById('edit-saveMsg').src='./images/save.png'
 		document.getElementById('edit-saveType').style.display="none";
 		document.getElementById('note').style.display="block";
-		oldContent= currentType;
-		newContent.type = currentType;
-		newContent.text = convertText();
 	}
 	else{
 		editing=false;
+		oldContent= currentType;
+		newContent.type = currentType;
+		newContent.text = convertText();
+
 		document.getElementById(currentType+"-msg").style.display="block";
 		document.getElementById('editBox').style.display="none";
 	    var htmlText = document.getElementById("editBox").value;
+	    //qsTextData[currentType]=htmlText;
+	    console.log("--------------EDITING-------------")
+	    console.log("html text: "+htmlText)
 	    var regex = /{\s*(.*?)\s*}/g;
 		while (m = regex.exec(htmlText)) {
 			console.log(m[1])
 			htmlText = htmlText.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
+			console.log(htmlText)
 		}
+		console.log("Final "+ htmlText)
 		document.getElementById(currentType+"-msg").innerHTML = "<p>"+htmlText+"</p>";
 		document.getElementById('edit-saveMsg').src='./images/edit.png';
 		document.getElementById('edit-saveType').style.display="inline-block";
@@ -881,18 +890,18 @@ function editType(){
 		document.getElementById('editTypeBox').style.display="inline-block";
 		document.getElementById('edit-saveType').src='./images/save.png'
 		document.getElementById('editButton').style.display="none";
-		oldContent = currentType;
-		newContent.type = currentType;
-		newContent.text = convertText();
 	}
 	else{
 		typeEditing=false;
+		oldContent = currentType;
+		newContent.type = currentType;
+		newContent.text = convertText();
 		console.log(document.getElementById('editTypeBox').value)
 		document.getElementById(currentType).innerHTML = "<h3>"+document.getElementById('editTypeBox').value+"</h3>"
 		document.getElementById(currentType).style.display="block";
 		document.getElementById("typeHeader").innerHTML = document.getElementById('editTypeBox').value
 		document.getElementById("typeHeader").style.display="inline-block";
-	
+		qsTypeData[currentType]=document.getElementById('editTypeBox').value;
 		document.getElementById('editTypeBox').style.display="none";
 		document.getElementById('edit-saveType').src='./images/edit.png'
 		document.getElementById('editButton').style.display="inline-block";
@@ -900,4 +909,5 @@ function editType(){
 		editQS();
 	}
 }
+
 //QUICK SEND JS END
