@@ -20,19 +20,18 @@ module.exports.editQuickSend = (event, context, callback) => {
   console.log("event", event.body);
   let messageText = JSON.parse(event.body);
   let newMsgText = messageText[0];
-  let oldMsgText = messageText[1];
+  let msgId = messageText[1];
 
   let newMsgType = newMsgText.type;
   let newMsg = newMsgText.text;
-  let oldMsg = oldMsgText.text;
-  console.log(newMsgType, newMsg, oldMsg)
+  console.log(newMsgType, newMsg, msgId);
 
-  let editMsg = "UPDATE " + table[4] + " SET message_type = $1, message_text= $2 WHERE message_text = $3;"; //replace old message with new message
+  let editMsg = "UPDATE " + table[4] + " SET message_type = $1, message_text= $2 WHERE id = $3;"; //replace old message with new message
 
   Client.connect() //connect to database
     .then(client => {
       client.release();
-      return client.query(editMsg, [newMsgType, newMsg, oldMsg]);
+      return client.query(editMsg, [newMsgType, newMsg, msgId]);
     })
     .then(res => {
       console.log(res);
