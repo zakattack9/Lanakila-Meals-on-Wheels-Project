@@ -1729,25 +1729,48 @@ html, body {
 	height: 90vh;
 }
 
-.msgType:nth-child(n) {
+.msgType:nth-child(1) {
 	background-color: #84c5cc;
 	border-color: #84c5cc;
 }
 
-.msgType:nth-child(2n) {
+.msgType:nth-child(2) {
 	background-color: #61a9b0;
 	border-color: #61a9b0;
 }
 
-.msgType:nth-child(3n) {
+.msgType:nth-child(3) {
 	background-color: #4e989f;
 	border-color: #4e989f;
 }
-.msgType:nth-child(4n) {
+.msgType:nth-child(4) {
 	background-color: #3b8b92;
 	border-color: #3b8b92;
 }
-.msgType:nth-child(5n) {
+.msgType:nth-child(5) {
+	background-color: #2b8087;
+	border-color: #2b8087;
+}
+
+.msgType:nth-child(10) {
+	background-color: #84c5cc;
+	border-color: #84c5cc;
+}
+
+.msgType:nth-child(9) {
+	background-color: #61a9b0;
+	border-color: #61a9b0;
+}
+
+.msgType:nth-child(8) {
+	background-color: #4e989f;
+	border-color: #4e989f;
+}
+.msgType:nth-child(7) {
+	background-color: #3b8b92;
+	border-color: #3b8b92;
+}
+.msgType:nth-child(6) {
 	background-color: #2b8087;
 	border-color: #2b8087;
 }
