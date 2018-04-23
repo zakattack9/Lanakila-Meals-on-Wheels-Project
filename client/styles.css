@@ -177,6 +177,8 @@ html, body {
 	overflow-y: scroll;
 	overflow: auto;
 	border-left: 3px darkgray solid;
+	position: relative;
+	right: 6px;
 }
 
 #recentTitle {
