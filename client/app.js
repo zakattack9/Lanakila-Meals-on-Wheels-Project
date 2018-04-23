@@ -827,6 +827,7 @@ var qsid;
 var newContent = {};
 function convertText(){
 	var string = document.getElementById(currentType+"-msg").innerHTML;
+	console.log("converting this: "+string)
 	var newString = string;
 	var pattern = /placeholder="[^"]*"/g;
 	newString = newString.replace("<p>","");
@@ -857,9 +858,6 @@ function editMsg(){
 		console.log(qsTypeData)
 		console.log("current Type: "+currentType)
 		console.log(qsTypeData[currentType])
-		newContent.type = qsTypeData[currentType]
-		console.log(newContent.type)
-		newContent.text =convertText();
 		document.getElementById(currentType+"-msg").style.display="block";
 		document.getElementById('editBox').style.display="none";
 	    var htmlText = document.getElementById("editBox").value;
@@ -871,6 +869,8 @@ function editMsg(){
 		document.getElementById('edit-saveMsg').src='./images/edit.png';
 		document.getElementById('edit-saveType').style.display="inline-block";
 		document.getElementById('note').style.display="none";
+		newContent.type = qsTypeData[currentType]
+		newContent.text =convertText();
 		editQS();
 	}
 }
