@@ -17,7 +17,7 @@ const Client = new Pool ({ //creating template
 const sns = new AWS.SNS({apiVersion: '2010-03-31'});
 
 module.exports.changeSubsGroup = (event, context, callback) => {
-  console.log("Event Body",  event.body);
+  console.log("Event Body", event.body);
   let parseData = JSON.parse(event.body);
 
   //console.log(parseData);
@@ -31,7 +31,7 @@ module.exports.changeSubsGroup = (event, context, callback) => {
 
     //unsubscribers users to new group and deletes item from groups_subscribers table
     let getSubARN = "SELECT subscription_arn FROM " + table[2] + " WHERE group_id = $1 AND subscriber_id = $2;";
-
+ 
     Client.connect() //connect to database
       .then(client => {
         console.log('connected to DB ' + Client.options.database + ' ready to GET')

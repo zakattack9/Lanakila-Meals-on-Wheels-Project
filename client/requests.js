@@ -152,7 +152,7 @@ function loadGrpSubs() {
       let grpColumn = '#grp_' + currVal.id;
       //console.log(appendTo)
       $(grpColumn).append(`
-        <div class="singleSub draggableSub" ondragstart="dragStart(event)" draggable="true" id="${currVal.id}${currVal.sub_id}">
+        <div class="singleSub draggableSub" ondragstart="dragStart(event)" draggable="true" id="${currVal.id}-${currVal.sub_id}">
           <span class="targetSubName">${currVal.subscription_name}</span>
           <br>
           <span class="subEndpoint">${currVal.subscription_endpoint.toUpperCase()}</span>

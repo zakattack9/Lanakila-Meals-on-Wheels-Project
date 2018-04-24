@@ -133,9 +133,12 @@ function drop(event, element) {
   	return "element prevented from being appended";
   }else {
   	element.prepend(document.getElementById(data)); //adds to top of div
+
+  	if($('.subscribers')[0].classList[2] === 'active'){
+			changeSubGroup(data); //must go after the prepend (for switching subscribers)
+  	}
   }
 	
-	changeSubGroup(data); //must go after the prepend (for switching subscribers)
 }
 
 //$(document).on() allows event handlers to be attached to dynamically generated elements
@@ -611,13 +614,23 @@ function changeSubGroup(id) {
 	//first two digits of a sub's id is their original group id
 	//the last two digits is their sub id
 	let element = document.getElementById(id);
+	//console.log(id.split('-'))
 	
+	/*
+
 	// NEED TO FIX SLICE, IF ID IS ONLY ONE DIGIT IT WILL BE GRABBING A NUMBER AND LETTER
 	// to fix issue above, you can add a zero in front of the id number when appending (requests.js), this will ensure it will always grab either 01 or 11
 	let personID = element.id.slice(-2); //grabs last two digits of id
 	let ogGrpID = element.id.substring(0, 2); //grabs first two digits of id
 	let newGrpID = element.parentElement.id.slice(-2); //grabs new group's id
 	//console.log(personID, ogGrpID, newGrpID);
+
+	*/
+
+	//should fix issue with id's over two digits
+	let personID = element.id.split('-')[1]; //grabs last two digits of id
+	let ogGrpID = element.id.split('-')[0]; //grabs first two digits of id
+	let newGrpID = element.parentElement.id.slice(-2); //grabs new group's id
 
 	let newObj = {};
 	newObj.oldGroup_id = ogGrpID;
@@ -660,7 +673,7 @@ function changeSubGroup(id) {
 	}
 }
 
-$('#saveSub').click(function() {
+$('#saveSub').click(function() { //saves changes to subscribers who switched groups
 	changeGrpSubs(changedSubs);
 	changedSubs = []; //resets sub queue
 	showSave = false; //hides save icon
@@ -673,9 +686,13 @@ $('#cloneBtn').click(function() {
 	let tempChild = $('#tempInp')[0].children[0];
 	let clonedEl = $(tempChild).clone()[0];
 	console.log(clonedEl);
+	let idOfSub = clonedEl.id.split('-')[1];
+	clonedEl.id = "00-" + idOfSub;
+	console.log(clonedEl.id)
 
-	$('#tempSide')[0].style.height = "215px"
-	$('#tempInp').append(clonedEl);
+	$('#tempSide')[0].style.height = "215px";
+	$('#tempSide').append(`<div id="clonedInp"></div>`)
+	$('#clonedInp').append(clonedEl);
 })
 //SUBSCRIBERS JS END
 

@@ -1270,13 +1270,17 @@ html, body {
 	overflow: hidden;
 }
 
-#tempInp {
+#tempInp, #clonedInp {
 	width: 86%;
 	height: 75px;
 	background-color: white;
 	border-radius: 10px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#clonedInp {
+	margin-top: 17px;
 }
 
 #cloneBtn {
@@ -1486,7 +1490,7 @@ html, body {
 }
 
 .msgGradient:nth-child(2n) {
-	background-color: #4ba9b4;
+	background-color: #5db2bb;
 }
 
 .msgGradient:nth-child(3n) {
