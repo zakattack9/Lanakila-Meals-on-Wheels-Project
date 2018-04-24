@@ -179,8 +179,6 @@ html, body {
 	overflow-y: scroll;
 	overflow: auto;
 	border-left: 3px darkgray solid;
-	position: relative;
-	right: 6px;
 }
 
 #recentTitle {
@@ -1441,7 +1439,7 @@ html, body {
 }*/
 
 #oldMsgContainer {
-	width: 99.4%;
+	width: 100%;
 	height: 100%;
 /*	height: 95%;*/
 	overflow-y: auto;
