@@ -107,6 +107,8 @@ html, body {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 5vh;
+	border-top-left-radius: 0;
+	border-bottom-right-radius: 0;
 }
 
 #msgSpace {
@@ -260,7 +262,7 @@ html, body {
 	right: 0;
   height: 100%;
   width: 0;
-  background-color: lightblue;
+  background-color: #a5d4d9;
   overflow-x: hidden;
   transition: 0.3s;
 }
@@ -335,6 +337,8 @@ html, body {
 	height: 100%;
 	position: relative;
 	z-index: 1;
+/*	border-top-left-radius: 0px;
+	border-bottom-right-radius: 0px;*/
 }
 
 /* Styles for groups workspace */

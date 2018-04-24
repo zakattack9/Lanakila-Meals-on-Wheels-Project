@@ -126,29 +126,54 @@ function drop(event, element) {
 	changeSubGroup(data); //must go after the prepend (for switching subscribers)
 }
 
-$('.draggable').mousedown(function(){ //shows message in message input on hold
+//$(document).on() allows event handlers to be attached to dynamically generated elements
+$(document).on('mousedown', '.draggableMsg, .draggableGrp', function() {
 	if(openOverlay === 'msg'){
 	  $('#msgWarning').text("Drag Your Message Here");	
 	}else if(openOverlay == 'group'){
 		$('#grpWarning').text("Drag Your Group Here");
 	}
-})
+});
 
-$('.draggable').mouseup(function(){ //shows message in group input on hold
+// $('.draggableMsg').mousedown(function(){ //shows message in message input on hold
+// 	if(openOverlay === 'msg'){
+// 	  $('#msgWarning').text("Drag Your Message Here");	
+// 	}else if(openOverlay == 'group'){
+// 		$('#grpWarning').text("Drag Your Group Here");
+// 	}
+// })
+
+$(document).on('mouseup', '.draggableMsg, .draggableGrp', function() {
 	if(openOverlay === 'msg'){
 	  $('#msgWarning').text("");	
 	}else if(openOverlay == 'group'){
 		$('#grpWarning').text("");
 	}
-})
+});
 
-$('.draggable').mouseover(function(){ //shows message in group input on hold
+// $('.draggableMsg').mouseup(function(){ //shows message in group input on hold
+// 	if(openOverlay === 'msg'){
+// 	  $('#msgWarning').text("");	
+// 	}else if(openOverlay == 'group'){
+// 		$('#grpWarning').text("");
+// 	}
+// })
+
+$(document).on('mouseover', '.draggableMsg, .draggableGrp', function() {
 	if(openOverlay === 'msg'){
 	  $('#msgWarning').text("");	
 	}else if(openOverlay == 'group'){
 		$('#grpWarning').text("");
 	}
-})
+});
+
+// $('.draggableMsg').mouseover(function(){ //shows message in group input on hold
+// 	if(openOverlay === 'msg'){
+// 	  $('#msgWarning').text("");	
+// 	}else if(openOverlay == 'group'){
+// 		$('#grpWarning').text("");
+// 	}
+// })
 //BROADCAST JS END
 
 
