@@ -534,7 +534,7 @@ function loadQuickSend() {
     "Content-Type": "application/json",
   })
   .done((response) => {
-    console.log(response);
+    //console.log(response);
     $('.spinnerWrap')[4].style.display = "none";
     $('.scroll').empty();
     $('#msgContainer span').empty();

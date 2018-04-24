@@ -73,6 +73,7 @@ function allowDrop(event) {
 
 var timer;
 function drop(event, element) {
+	var dontAppend = false;
 	//element.parentElement.id
   event.preventDefault();
   var data = event.dataTransfer.getData("Text");
@@ -81,9 +82,15 @@ function drop(event, element) {
 	  if(element.id === 'msgInput' || element.id === 'groupInput'){ //expands message on drop
 	  	document.getElementById(data).classList.add('expand');
 	  }else if(element.id === 'msgOverlayWrap' || element.id === 'groupOverlayWrap'){
-	  	document.getElementById(data).classList.remove('expand');
+	  	if(element.id === 'msgOverlayWrap' && document.getElementById(data).classList[0] === 'draggableMsg') {
+	  		document.getElementById(data).classList.remove('expand');
+	  	}else if(element.id === 'groupOverlayWrap' && document.getElementById(data).classList[0] === 'draggableGrp') {
+	  		document.getElementById(data).classList.remove('expand');
+	  	}else {
+	  		dontAppend = true; //prevents messages from being dragged into grp overlay and groups from being dragged into msg overlay
+	  	}
 	  }
-	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open
+	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open (expands card for clone button)
 		if(element.id === 'tempInp'){ //expands message on drop
 	  	document.getElementById(data).style.width = "190px"; //sets card to width of temp input
 	  	document.getElementById(data).style.height = "75px";
@@ -93,7 +100,7 @@ function drop(event, element) {
 	  	setTimeout(function(){
 				$('#cloneBtn')[0].style.bottom = "120px";
 	  	}, 400);
-	  }else{
+	  }else{ //checks if dragging back to trello like section
 	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
 	  	document.getElementById(data).style.height = "80px";
 
@@ -108,20 +115,25 @@ function drop(event, element) {
 	  }
 	}
 
+	//sends card back to overlay if there is already a message/group in the input field for broadcast tab
 	if(element.id === 'msgInput'){
-		if(element.children.length > 1){
+		if(element.children.length > 1 && document.getElementById(data) != element.children[0]){
 			element.children[0].classList.remove('expand');
 			$('#msgOverlayWrap').prepend(element.children[0]);
 		}
 	}else if(element.id === 'groupInput'){
-		if(element.children.length > 1){
+		if(element.children.length > 1  && document.getElementById(data) != element.children[0]){
 			element.children[0].classList.remove('expand');
 			$('#groupOverlayWrap').prepend(element.children[0]);
 		}
 	}
 
-  //conditional must go before appending
-  element.prepend(document.getElementById(data)); //adds to top of div
+  //conditional must go after all conditionals above
+  if(dontAppend) {
+  	return "element prevented from being appended";
+  }else {
+  	element.prepend(document.getElementById(data)); //adds to top of div
+  }
 	
 	changeSubGroup(data); //must go after the prepend (for switching subscribers)
 }

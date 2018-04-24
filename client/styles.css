@@ -337,6 +337,7 @@ html, body {
 	height: 100%;
 	position: relative;
 	z-index: 1;
+	background-color: #fcd8b6;
 /*	border-top-left-radius: 0px;
 	border-bottom-right-radius: 0px;*/
 }
