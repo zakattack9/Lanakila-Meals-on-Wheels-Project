@@ -158,20 +158,21 @@ html, body {
 #sendButton {
 	font-size: 17px;
 	background-color: #13896D;
-	height: 35px;
-	width: 80px;
+	height: 40px;
+	width: 125px;
 	text-align: center;
-	line-height: 35px;
+	line-height: 40px;
 	float: right;
 	border-radius: 10px;
 	margin-right: 30px;
+	margin-top: -5px;
 	transition: 0.1s;
 }
 
 #sendButton:hover {
 	transform: scale(1.05);
-	transition: 0.4s;
 	color: white;
+	transition: 0.4s;
 }
 
 #recentMsgs {
@@ -1324,7 +1325,7 @@ html, body {
 
 #trashMsg {
 	position: absolute;
-	top: 14px;
+	top: 17px;
 	margin-left: 15px;
 }
 
@@ -1335,7 +1336,7 @@ html, body {
 
 #reloadMsg {
 	position: absolute;
-	top: 14px;
+	top: 16px;
 	margin-left: 50px;
 }
 
@@ -1347,7 +1348,7 @@ html, body {
 
 #searchMsg {
 	position: absolute;
-	top: 14px;
+	top: 16px;
 	margin-left: 85px;
 }
 
@@ -1357,7 +1358,7 @@ html, body {
 
 #addMsg {
 	position: absolute;
-	top: 15px;
+	top: 17px;
 	right: 0;
 	margin-right: 15px;
 }
@@ -1535,6 +1536,10 @@ html, body {
  	z-index: 1;
 }
 
+#addMsgPopup {
+	z-index: 3;
+}
+
 #addMsgPopup:after, #deleteMsgPopup:after, #editMsgPopup:after, #addMsgPopupBC:after {
 	content: '';
 	position: absolute;
@@ -1709,7 +1714,7 @@ html, body {
 .msgType{
 	margin: 20px;
 	padding: 10px;	
-	color: black;
+	color: #333333;
 	border-radius: 20px;
 	border-width: 5px;
 	border-style: solid; 
@@ -1718,29 +1723,35 @@ html, body {
 	transition: all 0.2s;
 	transition-timing-function: ease;
 }
+
 .msgType:hover { 
 	margin-left: 10px;
 	margin-right: 10px;
   transition: all 0.2s;
   transition-timing-function: ease-in;
 }
+
 #msgPanel{
 	height: 90vh;
 	width: 65%;
 	float: left;
 }
+
 #msgTypePanel{
 	float: left	;
 	width: 35%;
 	height: 90vh;
 }
+
 .tab{
 	background-color: #F58F31;
 	text-align: center;
 	color: black;
 	padding: 5px;
-	height: 10vh; 
+	height: 10vh;
+	font-size: 18px;
 }
+
 .scroll{
 	overflow-y: auto;
 	height: 90vh;
@@ -1839,6 +1850,7 @@ html, body {
 
 #qsSend:hover {
 	transform: scale(1.03);
+	color: white;
 	transition: 0.2s;
 }
 
