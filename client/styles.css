@@ -1298,7 +1298,28 @@ html, body {
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
 	z-index: 0;
-	transition: 0.5s;
+	transition: 0.3s;
+}
+
+#cloneBtn:hover {
+	height: 27px;
+	transition: 0.2s;
+}
+
+#delSubCard {
+	transition: 0.3s;
+}
+
+#closeClone {
+	font-size: 16px;
+	transition: 0.2s;
+}
+
+#closeClone:hover {
+	font-size: 17px;
+	color: #e60000;
+	text-decoration: underline;
+	transition: 0.3s;
 }
 
 

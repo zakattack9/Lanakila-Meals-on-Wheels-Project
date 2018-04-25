@@ -92,6 +92,8 @@ function drop(event, element) {
 	  }
 	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open (expands card for clone button)
 		if(element.id === 'tempInp'){ //expands message on drop
+			clearTimeout(timer);
+
 	  	document.getElementById(data).style.width = "190px"; //sets card to width of temp input
 	  	document.getElementById(data).style.height = "75px";
 
@@ -105,7 +107,7 @@ function drop(event, element) {
 	  	document.getElementById(data).style.height = "80px";
 
 	  	element.prepend(document.getElementById(data)); 
-	  	
+
 	  	if($('#tempSide')[0].style.height === "215px") {
 		  	if($('#tempInp')[0].children.length < 1 && $('#clonedInp')[0].children.length < 1) { //prevents clone temp side from closing when a card is inside the cloned input or temp input
 		  		clearTimeout(timer);
@@ -710,6 +712,35 @@ $('#cloneBtn').click(function() {
 	$('#tempSide')[0].style.height = "215px";
 	$('#tempSide').append(`<div id="clonedInp"></div>`)
 	$('#clonedInp').append(clonedEl);
+
+	$('#tempTitle').empty();
+	$('#tempTitle').append(`<span id="closeClone">Close Clone</span>`);
+})
+
+$(document).on('click', '#closeClone', function() {
+	$('#tempSide')[0].style.height = "120px";
+
+	$('#tempSide').children().last().fadeOut(200); //removes cloned card
+	setTimeout(function(){
+		$('#tempSide').children().last().remove();
+	}, 200);
+
+	$('#tempTitle').empty();
+	$('#tempTitle').append(`<span id="delSubCard">Delete</span> | Hold`);
+})
+
+$(document).on("mouseover", '#delSubCard', function() {
+	$('#tempSide')[0].style.backgroundColor = "red";
+	$('#delSubCard')[0].style.color = "white";
+})
+
+$(document).on("mouseout", '#delSubCard', function() {
+	$('#tempSide')[0].style.backgroundColor = "#F58F31";
+	$('#delSubCard')[0].style.color = "black";
+})
+
+$(document).on("click", '#delSubCard', function() {
+	$('#tempInp').empty();
 })
 //SUBSCRIBERS JS END
 
