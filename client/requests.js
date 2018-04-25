@@ -376,9 +376,10 @@ function startMsgLoadAnimation() {
   $('.spinnerWrap')[0].style.display = "block";
 }
 
+var allMessages = [];
 function getMessages() {
   startMsgLoadAnimation();
-
+  allMessages = [];
   $.ajax({
     url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/get",
     method: 'GET',
@@ -392,6 +393,7 @@ function getMessages() {
     //console.log(response);
 
     response.map(currVal => {
+      allMessages.push(currVal.message_text);
       $('#msgCol').prepend(`
         <div class="msgGradient" id="msg000${currVal.id}" onclick="checkMsg(this)">
           <div class="msgAndDate">
@@ -437,10 +439,25 @@ $('#reloadMsg').click(function(){
 })
 
 $('#createMsg').click(function(){
-  $('#addMsgPopup')[0].style.display = "none";
-  startMsgLoadAnimation();
+  if($('#typeMsg').val().length === 0 || allMessages.includes($('#typeMsg').val())) { //adds warning if any fields are left blank or the contact typed in already exists in the DB
 
-  $.ajax({
+    if($('#typeMsg').val().length === 0) { //adds warning if no name is typed in
+      $('#addMsgWarning')[0].innerText = "Field is empty, please type in a name";
+      console.log ("Field is empty, please type in a name")
+    }else {
+       if(allMessages.includes($('#typeMsg').val())) {
+        $('#addMsgWarning')[0].innerText = "The message inputted already exists in the system";
+        console.log ("The message inputted already exists in the system")
+      }else {
+        $('#addMsgWarning')[0].innerText = "";
+      }
+    }    
+  }
+  else{
+  $('#addMsgPopup')[0].style.display = "none";
+  $('#addMsgWarning')[0].innerText = "";
+  startMsgLoadAnimation();
+    $.ajax({
     url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/post",
     method: 'POST',
     contentType: "application/json; charset=utf-8",
@@ -456,6 +473,7 @@ $('#createMsg').click(function(){
   })
 
   $('#typeMsg').val('');
+  }
 });
 
 function deleteMessage(id) {

@@ -826,6 +826,7 @@ $('#newMsg').click(function(){
 // });
 
 $('#closeMsgPopup').click(function(){
+	$('#addMsgWarning')[0].innerText = "";
 	$('#addMsgPopup')[0].style.display = "none";
 	$('#typeMsg').val('');
 })
