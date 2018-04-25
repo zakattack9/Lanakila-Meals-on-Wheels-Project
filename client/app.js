@@ -104,14 +104,31 @@ function drop(event, element) {
 	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
 	  	document.getElementById(data).style.height = "80px";
 
-	  	clearTimeout(timer);
-			$('#cloneBtn')[0].style.bottom = "85px";
-			timer = setTimeout(function () {
-        $('#cloneBtn')[0].style.width = '0'; 
-  			setTimeout(function(){
-					$('#tempSide')[0].style.width = "0";
-		  	}, 200);
-      }, 5000);
+	  	element.prepend(document.getElementById(data)); 
+	  	
+	  	if($('#tempSide')[0].style.height === "215px") {
+		  	if($('#tempInp')[0].children.length < 1 && $('#clonedInp')[0].children.length < 1) { //prevents clone temp side from closing when a card is inside the cloned input or temp input
+		  		clearTimeout(timer);
+					$('#cloneBtn')[0].style.bottom = "85px";
+					timer = setTimeout(function () {
+		        $('#cloneBtn')[0].style.width = '0'; 
+		  			setTimeout(function(){
+							$('#tempSide')[0].style.width = "0";
+				  	}, 200);
+		      }, 5000);
+		  	}
+		  }else{
+		  	if($('#tempInp')[0].children.length < 1) { //prevents clone temp side from closing when a card is inside
+		  		clearTimeout(timer);
+					$('#cloneBtn')[0].style.bottom = "85px";
+					timer = setTimeout(function () {
+		        $('#cloneBtn')[0].style.width = '0'; 
+		  			setTimeout(function(){
+							$('#tempSide')[0].style.width = "0";
+				  	}, 200);
+		      }, 5000);
+		  	}
+		  }
 	  }
 	}
 
