@@ -145,6 +145,16 @@ function drop(event, element) {
 			element.children[0].classList.remove('expand');
 			$('#groupOverlayWrap').prepend(element.children[0]);
 		}
+	}else if(element.id === 'tempInp'){
+		console.log(element.children.length)
+		if(element.children.length > 0  && document.getElementById(data) != element.children[0]){
+			let tempInpGrpID = element.children[0].id.split('-')[0];
+			let grpCol = "#grp_" + tempInpGrpID;
+			element.children[0].style.width = "255px"; //sets card back to original height
+	 	  element.children[0].style.height = "80px";
+			$(grpCol).prepend(element.children[0])
+
+		}
 	}
 
   //conditional must go after all conditionals above
