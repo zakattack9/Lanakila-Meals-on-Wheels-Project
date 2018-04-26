@@ -1882,6 +1882,10 @@ html, body {
 	transition: 0.2s;
 }
 
+#qsSend h3 {
+	margin-top: 15px;
+}
+
 .msgPre{
 	font-size: 15px;
 	overflow-y: auto;
