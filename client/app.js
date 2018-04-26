@@ -251,8 +251,6 @@ function highlightTopic(selected) {
 	enableDelete();
 }
 
-
-
 $('#checkAll').click(function(){ //checks all boxes on/off
 	if($(this).hasClass('isChecked')){
 		$(this).removeClass('isChecked');

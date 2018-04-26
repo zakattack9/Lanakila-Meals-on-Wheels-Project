@@ -11,6 +11,18 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script>
+		window.onbeforeunload = function() {
+		  if(showSave) {
+		  	console.log("don't leave")
+		  	alert("Are you sure you want to leave? There are still unsaved changes, please click the save button in the subscriber's group organizer tab to ensure all modified subscribers are saved in the specified groups");
+
+		  	return "Are you sure you want to leave? There are still unsaved changes, please click the save button in the subscriber's group organizer tab to ensure all modified subscribers are saved in the specified groups";
+
+		  }
+		};
+	</script>
 </head>
 <body>
 
