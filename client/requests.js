@@ -504,6 +504,10 @@ $('#sendButton').click(function(){ //broadcasts message to groups
   let grpID = $('#groupInput').find('.draggableGrp')[0].id.slice(-2);
   let msgID = $('#msgInput').find('.draggableMsg')[0].id.slice(-2);
 
+  //sending animations
+  document.getElementById("sendButton").innerHTML = 'Sending <i class="fa fa-spinner fa-spin"></i>';
+   $( "div#sendButton > i" ).css( "display", "inline-block" );
+  $("#sendButton").css("pointer-events", "none")
   $.ajax({
     url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/broadcast",
     method: 'POST',
@@ -513,10 +517,14 @@ $('#sendButton').click(function(){ //broadcasts message to groups
   })
   .done((response) => {
     console.log(response)
+    $("#sendButton").css("pointer-events", "auto")
+    document.getElementById("sendButton").innerHTML = 'Send!';
 
   })
   .fail((err) => {
     console.log(err);
+    $("#sendButton").css("pointer-events", "auto")
+    document.getElementById("sendButton").innerHTML = 'Send!';
   }) 
 })
 
@@ -558,7 +566,19 @@ function loadQuickSend() {
 loadQuickSend();
 
 var concatedMessage ="";
+
+function disableQS(){
+  document.getElementById('editButton').style.display="none";
+  document.getElementById('edit-saveType').style.display="none";
+  $("#qsSend").css("pointer-events", "none")
+}
+function enableQS(){
+  document.getElementById('editButton').style.display="block";
+  document.getElementById('edit-saveType').style.display="block";
+  $("#qsSend").css("pointer-events", "auto")
+}
 function sendToAll(){
+
   var arr = document.getElementById(currentType+"-msg").querySelectorAll("input");
   var htmlText= document.getElementById(currentType+"-msg").innerHTML;
   concatedMessage = htmlText;
@@ -582,20 +602,34 @@ function sendToAll(){
       }
     }
 
-  if(filled==true){
+  if(filled==true&&editing==false&&typeEditing==false){
     console.log("test", currentType, concatedMessage)
+    disableQS();
+    $( "div#qsSend > i" ).css( "display", "inline-block" );
+    $( "div#qsSend > h3" ).text("Sending");
     $.ajax({
      url: 'https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/send',
       method: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: 'JSON',
       data: JSON.stringify([43, concatedMessage, qsTypeData[currentType]])
-    });
+    })
+    .done((response) => {
+      console.log(response)
+      enableQS();
+      $( "div#qsSend > i" ).css( "display", "none" );
+      $( "div#qsSend > h3" ).text("Send!");
+    })
+    .fail((err) => {
+      console.log(err)
+      enableQS();
+      $( "div#qsSend > i" ).css( "display", "none" );
+      $( "div#qsSend > h3" ).text("Send!");
+    })
   }
 }
 
 function editQS(){
-
   console.log(oldContent)
   console.log(newContent)
   $.ajax({

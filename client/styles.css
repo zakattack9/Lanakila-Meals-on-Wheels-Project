@@ -168,6 +168,7 @@ html, body {
 	/*margin-right: 30px;
 	margin-top: -5px;*/
 	transition: 0.1s;
+	user-select: none;
 	position: absolute;
 	bottom: 20px;
 	right: 30px;
@@ -1781,6 +1782,7 @@ html, body {
 .scroll{
 	overflow-y: auto;
 	height: 90vh;
+	user-select: none;
 }
 
 .msgType:nth-child(1) {
@@ -1868,10 +1870,10 @@ html, body {
 	margin: auto;
 	margin-top: 5%;
 	text-align: center;
-	vertical-align: middle;
-	line-height: 50px;  
+	vertical-align: middle; 
 	border-radius: 10px;
 	transition: 0.2s;
+	user-select: none;
 }
 
 #qsSend:hover {
@@ -1955,3 +1957,11 @@ input {
 	margin-left: 5px;
 }
 
+#qsSend i, #sendButton i{
+	display: none;
+	margin: 5px;
+}
+
+#qsSend h3{
+	display: inline-block;
+}
