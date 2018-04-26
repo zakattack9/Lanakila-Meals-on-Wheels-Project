@@ -891,24 +891,27 @@ function editMsgText(currMsgEdit){
 }
 
 $('#saveMessage').click(function(){
-	let insertText = $('#editMsgHere').val();
-	$('#editingOn').replaceWith(`
-		<p class="message">${insertText}</p>
-	`);
+	let newMsgText = $('#editMsgHere').val();
+	if (!(newMsgText.length === 0 || allMessages.includes(newMsgText)&&newMsgText!==oldMsgText)) {
+		let insertText = $('#editMsgHere').val();
+		$('#editingOn').replaceWith(`
+			<p class="message">${insertText}</p>
+		`);
+			$('#editMsgPopup')[0].style.display = "none";
+		}
+	})
+
+	$('#closeMsgEditPopup').click(function(){
 		$('#editMsgPopup')[0].style.display = "none";
-})
+	})
 
-$('#closeMsgEditPopup').click(function(){
-	$('#editMsgPopup')[0].style.display = "none";
-})
-
-$('#reloadMsg').click(function(){ //runs refresh button animation for subs tab
-	if($('#reloadMsg img')[0].style.animationName == "reload"){
-		$('#reloadMsg img')[0].style.animationName = "resetReload";
-	}else{
-		$('#reloadMsg img')[0].style.animationName = "reload"
-		$('#reloadMsg img')[0].style.animationPlayState = "running";
-	}
+	$('#reloadMsg').click(function(){ //runs refresh button animation for subs tab
+		if($('#reloadMsg img')[0].style.animationName == "reload"){
+			$('#reloadMsg img')[0].style.animationName = "resetReload";
+		}else{
+			$('#reloadMsg img')[0].style.animationName = "reload"
+			$('#reloadMsg img')[0].style.animationPlayState = "running";
+		}
 })
 //MESSAGES JS END
 
