@@ -150,6 +150,7 @@ function drop(event, element) {
 		if(element.children.length > 0  && document.getElementById(data) != element.children[0]){
 			let tempInpGrpID = element.children[0].id.split('-')[0];
 			let grpCol = "#grp_" + tempInpGrpID;
+
 			element.children[0].style.width = "255px"; //sets card back to original height
 	 	  element.children[0].style.height = "80px";
 			$(grpCol).prepend(element.children[0])
@@ -703,7 +704,49 @@ function changeSubGroup(id) {
 }
 
 $('#saveSub').click(function() { //saves changes to subscribers who switched groups
-	changeGrpSubs(changedSubs);
+  for (var i = 0; i < changedSubs.length; i++) { //algorithm to filter out cloned cards to prevent errors
+  	if(changedSubs.length > 1) {
+	    for (var j = i + 1; j < changedSubs.length; j++) {
+	      if (changedSubs[i].sub_id === changedSubs[j].sub_id) {
+	      	// console.log(changedSubs[i]);
+	      	// console.log(changedSubs[j]);
+		    	if(changedSubs[i].oldGroup_id === "00" || +changedSubs[i].oldGroup_id === 0) {
+		    		if(changedSubs[i].newGroup_id === changedSubs[j].oldGroup_id) {
+		    			changedSubs[i].newGroup_id = changedSubs[j].newGroup_id;
+
+		    			let index = changedSubs.indexOf(changedSubs[j]);
+	    				changedSubs.splice(index, 1);
+	    				console.log(changedSubs);
+
+	    				changeGrpSubs(changedSubs);
+		    		}else {
+			    		changeGrpSubs(changedSubs);
+			    	}
+		    	}else if(changedSubs[j].oldGroup_id === "00" || +changedSubs[j].oldGroup_id === 0) {
+		    		if(changedSubs[j].newGroup_id === changedSubs[i].oldGroup_id) {
+		    			changedSubs[j].newGroup_id = changedSubs[i].newGroup_id;
+
+		    			let index = changedSubs.indexOf(changedSubs[i]);
+	    				changedSubs.splice(index, 1);
+	    				console.log(changedSubs);
+
+	    				changeGrpSubs(changedSubs);
+		    		}else {
+			    		changeGrpSubs(changedSubs);
+			    	}
+		    	}else {
+		    		changeGrpSubs(changedSubs);
+		    	}
+	      }else {
+		    	changeGrpSubs(changedSubs);
+		    }
+	    }
+	  }else {
+    	changeGrpSubs(changedSubs);
+    }
+ 	}
+
+	
 	changedSubs = []; //resets sub queue
 	showSave = false; //hides save icon
 	$('#saveSub')[0].style.left = "-40px";
@@ -711,13 +754,18 @@ $('#saveSub').click(function() { //saves changes to subscribers who switched gro
 })
 
 $('#cloneBtn').click(function() {
-	console.log($('#tempInp')[0].children[0]);
+	//console.log($('#tempInp')[0].children[0]);
 	let tempChild = $('#tempInp')[0].children[0];
 	let clonedEl = $(tempChild).clone()[0];
-	console.log(clonedEl);
+	//console.log(clonedEl);
 	let idOfSub = clonedEl.id.split('-')[1];
-	clonedEl.id = "00-" + idOfSub;
-	console.log(clonedEl.id)
+
+	if(clonedEl.id.split('-')[0].length > 2 || clonedEl.id.split('-')[0] === "00") {
+		clonedEl.id = clonedEl.id.split('-')[0] + "0-" + idOfSub;
+	}else {
+		clonedEl.id = "00-" + idOfSub;
+	}
+	//console.log(clonedEl.id)
 
 	$('#tempSide')[0].style.height = "215px";
 	$('#tempSide').append(`<div id="clonedInp"></div>`)
