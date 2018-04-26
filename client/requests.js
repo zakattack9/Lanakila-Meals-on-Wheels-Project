@@ -193,6 +193,7 @@ function changeGrpSubs(subQueue) {
   .done((response) => {
     console.log(response)
     loadGrpSubs();
+    loadGroups();
   })
   .fail((err) => {
     console.log(err);
