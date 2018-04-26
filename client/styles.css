@@ -234,7 +234,7 @@ html, body {
 	right: 0;
   height: 100%;
   width: 0;
-  background-color: lightyellow;
+  background-color: #c9e5e8;
   overflow-x: hidden;
   transition: 0.3s;
 }
@@ -265,7 +265,8 @@ html, body {
 	right: 0;
   height: 100%;
   width: 0;
-  background-color: #a5d4d9;
+  /*background-color: #81c3ca;*/
+  background-color: #5db2bb;
   overflow-x: hidden;
   transition: 0.3s;
 }
@@ -310,7 +311,8 @@ html, body {
 }
 
 .draggableGrp, .draggableMsg, .draggableSub {
-	background-color: lightgray;
+	background-color: #6fbac3;
+	color: #333333;
 	width: 90%;
 	border-radius: 10px;
 	display: block;
@@ -324,10 +326,10 @@ html, body {
 
 .draggableGrp {
 	height: 100px;
-}
+	/*background-color: #dbeef0;*/
+	background-color: #3c8790;
+	color: black;
 
-.draggableGrp {
-	background-color: #e6e6e6;
 }
 
 .draggableGrp:hover, .draggableMsg:hover, .draggableSub:hover {
