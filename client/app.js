@@ -753,6 +753,8 @@ $('#saveSub').click(function() { //saves changes to subscribers who switched gro
 	$('#saveSub')[0].style.top = "0px";
 })
 
+var idZeros = "00";
+let clonedSubIds = [];
 $('#cloneBtn').click(function() {
 	//console.log($('#tempInp')[0].children[0]);
 	let tempChild = $('#tempInp')[0].children[0];
@@ -762,8 +764,20 @@ $('#cloneBtn').click(function() {
 
 	if(clonedEl.id.split('-')[0].length > 2 || clonedEl.id.split('-')[0] === "00") {
 		clonedEl.id = clonedEl.id.split('-')[0] + "0-" + idOfSub;
+		clonedSubIds.push(idOfSub);
+		idZeros = idZeros + "0";
+		console.log(idZeros);
 	}else {
-		clonedEl.id = "00-" + idOfSub;
+		console.log(clonedSubIds)
+		if(clonedSubIds.includes(idOfSub)) {
+			clonedEl.id = idZeros + "0-" + idOfSub;
+			clonedSubIds.push(idOfSub);
+			idZeros = idZeros + "0";
+		}else {
+		console.log("conditional running")
+			clonedEl.id = "00-" + idOfSub;
+			clonedSubIds.push(idOfSub);
+		}
 	}
 	//console.log(clonedEl.id)
 
