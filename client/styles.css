@@ -982,7 +982,7 @@ html, body {
 	margin-top: 5px;
 }
 
-#addSubNameWarning, #addSubWarning {
+#addSubNameWarning, #addSubWarning, #addMsgWarning {
 	display: block;
 	height: 25px;
 	font-size: 13px;

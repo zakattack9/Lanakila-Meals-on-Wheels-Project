@@ -251,6 +251,8 @@ function highlightTopic(selected) {
 	enableDelete();
 }
 
+
+
 $('#checkAll').click(function(){ //checks all boxes on/off
 	if($(this).hasClass('isChecked')){
 		$(this).removeClass('isChecked');
@@ -479,16 +481,6 @@ $('#addSub').click(function() {
 	$('#delSubPop')[0].style.display = "none";
 })
 
-function enableDeleteSubs() {
-	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
-	if($('#subsTable tbody').find('.isCheckedBackground').length !== 0) {
-		$('#trashSub').attr("onclick", "deleteSelectedSubs();");
-		$('#trashSub')[0].style.opacity = "1";
-	}else {
-		$('#trashSub').removeAttr("onclick");
-		$('#trashSub')[0].style.opacity = "0.5";
-	}
-}
 
 let subIDs = [];
 function deleteSelectedSubs() {
@@ -525,8 +517,20 @@ $('#closeDelSub').click(function() {
 
 $('#deleteSub').click(function(){
 	$('#delSubPop')[0].style.display = "none";
-  deleteSubs(subIDs);
+  deleteSubs(subIDs);z
 })
+
+
+function enableDeleteSubs() {
+	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
+	if($('#subsTable tbody').find('.isCheckedBackground').length !== 0) {
+		$('#trashSub').attr("onclick", "deleteSelectedSubs();");
+		$('#trashSub')[0].style.opacity = "1";
+	}else {
+		$('#trashSub').removeAttr("onclick");
+		$('#trashSub')[0].style.opacity = "0.5";
+	}
+}
 
 function highlightSub(selected) {
 	let checkBox = selected.firstElementChild.firstElementChild;
@@ -819,11 +823,27 @@ $(document).on("click", '#delSubCard', function() {
 
 
 //MESSAGES JS START
+
+function enableDeleteMsgs() {
+	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
+	if($('#msgCol').find('.isCheckedBackground').length !== 0) {
+		$('#trashMsg').attr("onclick", "deleteSelectedSubs();");
+		$('#trashMsg')[0].style.opacity = "1";
+	}else {
+		$('#trashMsg').removeAttr("onclick");
+		$('#trashMsg')[0].style.opacity = "0.5";
+	}
+}
+
 function checkMsg(msgCheck) {
 	$(msgCheck).find('.msgCheck').toggleClass('checked');
 	//$(msgCheck).toggleClass('checked');
 	$(msgCheck).toggleClass('msgReady');
 	//console.log('checkkkk');
+	let checkBox = msgCheck.firstElementChild.firstElementChild;
+	$(msgCheck).toggleClass('isCheckedBackground');
+	enableDeleteMsgs();
+
 }
 
 $('#addMsg').click(function(){
@@ -868,6 +888,7 @@ $('#newMsg').click(function(){
 // });
 
 $('#closeMsgPopup').click(function(){
+	$('#addMsgWarning')[0].innerText = "";
 	$('#addMsgPopup')[0].style.display = "none";
 	$('#typeMsg').val('');
 })
