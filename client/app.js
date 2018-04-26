@@ -92,6 +92,8 @@ function drop(event, element) {
 	  }
 	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open (expands card for clone button)
 		if(element.id === 'tempInp'){ //expands message on drop
+			clearTimeout(timer);
+
 	  	document.getElementById(data).style.width = "190px"; //sets card to width of temp input
 	  	document.getElementById(data).style.height = "75px";
 
@@ -104,14 +106,31 @@ function drop(event, element) {
 	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
 	  	document.getElementById(data).style.height = "80px";
 
-	  	clearTimeout(timer);
-			$('#cloneBtn')[0].style.bottom = "85px";
-			timer = setTimeout(function () {
-        $('#cloneBtn')[0].style.width = '0'; 
-  			setTimeout(function(){
-					$('#tempSide')[0].style.width = "0";
-		  	}, 200);
-      }, 5000);
+	  	element.prepend(document.getElementById(data)); 
+
+	  	if($('#tempSide')[0].style.height === "215px") {
+		  	if($('#tempInp')[0].children.length < 1 && $('#clonedInp')[0].children.length < 1) { //prevents clone temp side from closing when a card is inside the cloned input or temp input
+		  		clearTimeout(timer);
+					$('#cloneBtn')[0].style.bottom = "85px";
+					timer = setTimeout(function () {
+		        $('#cloneBtn')[0].style.width = '0'; 
+		  			setTimeout(function(){
+							$('#tempSide')[0].style.width = "0";
+				  	}, 200);
+		      }, 5000);
+		  	}
+		  }else{
+		  	if($('#tempInp')[0].children.length < 1) { //prevents clone temp side from closing when a card is inside
+		  		clearTimeout(timer);
+					$('#cloneBtn')[0].style.bottom = "85px";
+					timer = setTimeout(function () {
+		        $('#cloneBtn')[0].style.width = '0'; 
+		  			setTimeout(function(){
+							$('#tempSide')[0].style.width = "0";
+				  	}, 200);
+		      }, 5000);
+		  	}
+		  }
 	  }
 	}
 
@@ -125,6 +144,17 @@ function drop(event, element) {
 		if(element.children.length > 1  && document.getElementById(data) != element.children[0]){
 			element.children[0].classList.remove('expand');
 			$('#groupOverlayWrap').prepend(element.children[0]);
+		}
+	}else if(element.id === 'tempInp'){
+		console.log(element.children.length)
+		if(element.children.length > 0  && document.getElementById(data) != element.children[0]){
+			let tempInpGrpID = element.children[0].id.split('-')[0];
+			let grpCol = "#grp_" + tempInpGrpID;
+
+			element.children[0].style.width = "255px"; //sets card back to original height
+	 	  element.children[0].style.height = "80px";
+			$(grpCol).prepend(element.children[0])
+
 		}
 	}
 
@@ -674,7 +704,49 @@ function changeSubGroup(id) {
 }
 
 $('#saveSub').click(function() { //saves changes to subscribers who switched groups
-	changeGrpSubs(changedSubs);
+  for (var i = 0; i < changedSubs.length; i++) { //algorithm to filter out cloned cards to prevent errors
+  	if(changedSubs.length > 1) {
+	    for (var j = i + 1; j < changedSubs.length; j++) {
+	      if (changedSubs[i].sub_id === changedSubs[j].sub_id) {
+	      	// console.log(changedSubs[i]);
+	      	// console.log(changedSubs[j]);
+		    	if(changedSubs[i].oldGroup_id === "00" || +changedSubs[i].oldGroup_id === 0) {
+		    		if(changedSubs[i].newGroup_id === changedSubs[j].oldGroup_id) {
+		    			changedSubs[i].newGroup_id = changedSubs[j].newGroup_id;
+
+		    			let index = changedSubs.indexOf(changedSubs[j]);
+	    				changedSubs.splice(index, 1);
+	    				console.log(changedSubs);
+
+	    				changeGrpSubs(changedSubs);
+		    		}else {
+			    		changeGrpSubs(changedSubs);
+			    	}
+		    	}else if(changedSubs[j].oldGroup_id === "00" || +changedSubs[j].oldGroup_id === 0) {
+		    		if(changedSubs[j].newGroup_id === changedSubs[i].oldGroup_id) {
+		    			changedSubs[j].newGroup_id = changedSubs[i].newGroup_id;
+
+		    			let index = changedSubs.indexOf(changedSubs[i]);
+	    				changedSubs.splice(index, 1);
+	    				console.log(changedSubs);
+
+	    				changeGrpSubs(changedSubs);
+		    		}else {
+			    		changeGrpSubs(changedSubs);
+			    	}
+		    	}else {
+		    		changeGrpSubs(changedSubs);
+		    	}
+	      }else {
+		    	changeGrpSubs(changedSubs);
+		    }
+	    }
+	  }else {
+    	changeGrpSubs(changedSubs);
+    }
+ 	}
+
+	
 	changedSubs = []; //resets sub queue
 	showSave = false; //hides save icon
 	$('#saveSub')[0].style.left = "-40px";
@@ -682,17 +754,51 @@ $('#saveSub').click(function() { //saves changes to subscribers who switched gro
 })
 
 $('#cloneBtn').click(function() {
-	console.log($('#tempInp')[0].children[0]);
+	//console.log($('#tempInp')[0].children[0]);
 	let tempChild = $('#tempInp')[0].children[0];
 	let clonedEl = $(tempChild).clone()[0];
-	console.log(clonedEl);
+	//console.log(clonedEl);
 	let idOfSub = clonedEl.id.split('-')[1];
-	clonedEl.id = "00-" + idOfSub;
-	console.log(clonedEl.id)
+
+	if(clonedEl.id.split('-')[0].length > 2 || clonedEl.id.split('-')[0] === "00") {
+		clonedEl.id = clonedEl.id.split('-')[0] + "0-" + idOfSub;
+	}else {
+		clonedEl.id = "00-" + idOfSub;
+	}
+	//console.log(clonedEl.id)
 
 	$('#tempSide')[0].style.height = "215px";
 	$('#tempSide').append(`<div id="clonedInp"></div>`)
 	$('#clonedInp').append(clonedEl);
+
+	$('#tempTitle').empty();
+	$('#tempTitle').append(`<span id="closeClone">Close Clone</span>`);
+})
+
+$(document).on('click', '#closeClone', function() {
+	$('#tempSide')[0].style.height = "120px";
+
+	$('#tempSide').children().last().fadeOut(200); //removes cloned card
+	setTimeout(function(){
+		$('#tempSide').children().last().remove();
+	}, 200);
+
+	$('#tempTitle').empty();
+	$('#tempTitle').append(`<span id="delSubCard">Delete</span> | Hold`);
+})
+
+$(document).on("mouseover", '#delSubCard', function() {
+	$('#tempSide')[0].style.backgroundColor = "red";
+	$('#delSubCard')[0].style.color = "white";
+})
+
+$(document).on("mouseout", '#delSubCard', function() {
+	$('#tempSide')[0].style.backgroundColor = "#F58F31";
+	$('#delSubCard')[0].style.color = "black";
+})
+
+$(document).on("click", '#delSubCard', function() {
+	$('#tempInp').empty();
 })
 //SUBSCRIBERS JS END
 

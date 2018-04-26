@@ -109,6 +109,7 @@ html, body {
 	margin-top: 5vh;
 	border-top-left-radius: 0;
 	border-bottom-right-radius: 0;
+	position: relative;
 }
 
 #msgSpace {
@@ -164,10 +165,13 @@ html, body {
 	line-height: 40px;
 	float: right;
 	border-radius: 10px;
-	margin-right: 30px;
-	margin-top: -5px;
+	/*margin-right: 30px;
+	margin-top: -5px;*/
 	transition: 0.1s;
 	user-select: none;
+	position: absolute;
+	bottom: 20px;
+	right: 30px;
 }
 
 #sendButton:hover {
@@ -1255,6 +1259,7 @@ html, body {
 	width: 0px;
 	height: 120px;
 	background-color: #F58F31;
+	/*background: linear-gradient(#F58F31, #f9bd85);*/
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -1295,7 +1300,28 @@ html, body {
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
 	z-index: 0;
-	transition: 0.5s;
+	transition: 0.3s;
+}
+
+#cloneBtn:hover {
+	height: 27px;
+	transition: 0.2s;
+}
+
+#delSubCard {
+	transition: 0.3s;
+}
+
+#closeClone {
+	font-size: 16px;
+	transition: 0.2s;
+}
+
+#closeClone:hover {
+	font-size: 17px;
+	color: #e60000;
+	text-decoration: underline;
+	transition: 0.3s;
 }
 
 
@@ -1842,7 +1868,7 @@ html, body {
 	height: 50px;
 	width: 190px;
 	margin: auto;
-	margin-top:15px;
+	margin-top: 5%;
 	text-align: center;
 	vertical-align: middle; 
 	border-radius: 10px;

@@ -162,7 +162,7 @@ function loadGrpSubs() {
 
     })
 
-    $('.singleSub').on('mousedown', function(event){ //adds event handler to open clone feature
+    $(document).on('mousedown', '.singleSub', function(event){ //adds event handler to open clone feature
       $('#tempSide')[0].style.width = "220px";
     })
 
