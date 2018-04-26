@@ -443,12 +443,10 @@ $('#createMsg').click(function(){
   if($('#typeMsg').val().length === 0 || allMessages.includes($('#typeMsg').val())) { //adds warning if any fields are left blank or the contact typed in already exists in the DB
 
     if($('#typeMsg').val().length === 0) { //adds warning if no name is typed in
-      $('#addMsgWarning')[0].innerText = "Field is empty, please type in a name";
-      console.log ("Field is empty, please type in a name")
+      $('#addMsgWarning')[0].innerText = "Field is empty, please type in a message";
     }else {
        if(allMessages.includes($('#typeMsg').val())) {
         $('#addMsgWarning')[0].innerText = "The message inputted already exists in the system";
-        console.log ("The message inputted already exists in the system")
       }else {
         $('#addMsgWarning')[0].innerText = "";
       }
@@ -499,22 +497,38 @@ function deleteMessage(id) {
 
 $('#saveMessage').click(function(){
   let newMsgText = $('#editMsgHere').val();
-  startMsgLoadAnimation();
+  if(newMsgText.length === 0 || allMessages.includes(newMsgText)&&newMsgText!==oldMsgText) { //adds warning if any fields are left blank or the contact typed in already exists in the DB
 
-  $.ajax({
-    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/put",
-    method: 'PUT',
-    contentType: "application/json; charset=utf-8",
-    dataType: 'JSON',
-    data: JSON.stringify([newMsgText, oldMsgText, +editedMsgID])
-  })
-  .done((response) => {
-    console.log(response)
-    getMessages();
-  })
-  .fail((err) => {
-    console.log(err);
-  }) 
+    if(newMsgText.length === 0) { //adds warning if no name is typed in
+      $('#editMsgWarning')[0].innerText = "Field is empty, please type in a message";
+    }else {
+       if(allMessages.includes(newMsgText)&&newMsgText!==oldMsgText) {
+        $('#editMsgWarning')[0].innerText = "The message inputted already exists in the system";
+      }else {
+        $('#editMsgWarning')[0].innerText = "";
+      }
+    }    
+  }
+  else{
+    $('#editMsgPopup')[0].style.display = "none";
+    $('#editMsgWarning')[0].innerText = "";
+    startMsgLoadAnimation();
+    $.ajax({
+      url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/put",
+      method: 'PUT',
+      contentType: "application/json; charset=utf-8",
+      dataType: 'JSON',
+      data: JSON.stringify([newMsgText, oldMsgText, +editedMsgID])
+    })
+    .done((response) => {
+      console.log(response)
+      getMessages();
+    })
+    .fail((err) => {
+      console.log(err);
+    })
+    $('#editMsgHere').val('');
+  }
 })
 
 //BROADCAST
