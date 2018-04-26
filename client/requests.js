@@ -22,18 +22,33 @@ function loadGroups(){
     $('#groupSelect').empty(); //clears options from dropdown in "add subscriber"
     response.map(currVal => { //adds groups to groups table
       //console.log(currVal)
-      $('#grpTable tbody').append(`
-        <tr id="${currVal.id}" onclick="highlightTopic(this);">
-          <td>
-            <div class="customCheck">
-                
-            </div>
-          </td>
-          <td class="groupName">${currVal.group_name}</td>
-          <td class="memberCount">Loading...</td>
-          <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
-        </tr>
-      `)
+
+      if(currVal.group_name === "Everyone") {
+        $('#grpTable tbody').append(`
+          <tr id="${currVal.id}">
+            <td>
+              
+            </td>
+            <td class="groupName">${currVal.group_name}</td>
+            <td class="memberCount">Loading...</td>
+            <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
+          </tr>
+        `)
+      }else {
+        $('#grpTable tbody').append(`
+          <tr id="${currVal.id}" onclick="highlightTopic(this);">
+            <td>
+              <div class="customCheck">
+                  
+              </div>
+            </td>
+            <td class="groupName">${currVal.group_name}</td>
+            <td class="memberCount">Loading...</td>
+            <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
+          </tr>
+        `)
+      }
+      
 
       if(currVal.group_name === "Everyone"){
         return "Skipping this selection" //prevents this option from being added to dropdown
@@ -59,7 +74,8 @@ function loadGroups(){
     loadGrpSubs();
 
     $('#groupOverlayWrap').empty();
-    response.map(currVal => { //adds group columns in subscribers tab
+    response.map(currVal => { //adds groups to overlay in broadcast tab
+
       $('#groupOverlayWrap').append(`
         <div class="draggableGrp" ondragstart="dragStart(event)" draggable="true" id="dragGroup${currVal.id}">
           ${currVal.group_name}
