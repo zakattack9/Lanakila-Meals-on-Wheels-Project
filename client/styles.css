@@ -362,7 +362,7 @@ html, body {
 	position: absolute;
 	top: 17px;
 	margin-left: 15px;
-	transition: 0.1s;
+	transition: 0.2s;
 	opacity: 0.5;
 }
 
@@ -1350,6 +1350,7 @@ html, body {
 	position: absolute;
 	top: 17px;
 	margin-left: 15px;
+	transition: 0.2s;
 }
 
 #trashMsg img {
@@ -1970,7 +1971,7 @@ input {
 	display: inline-block;
 }
 
-#addMsgWarning {
+#addMsgWarning, #editMsgWarning {
 	font-size: 13px;
 	margin-left: 4%;
 	color: red;
