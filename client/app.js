@@ -131,19 +131,19 @@ function drop(event, element) {
 	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open
 		if(element.id === 'tempInp'){ //expands message on drop
 	  	document.getElementById(data).style.width = "190px"; //sets card to width of temp input
-	  	document.getElementById(data).style.height = "60px";
+	  	document.getElementById(data).style.height = "75px";
 
 
 	  	$('#cloneBtn')[0].style.width = "180px";
 	  	setTimeout(function(){
-				$('#cloneBtn')[0].style.bottom = "100px";
+				$('#cloneBtn')[0].style.bottom = "120px";
 	  	}, 400);
 	  }else{
 	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
 	  	document.getElementById(data).style.height = "80px";
 
 	  	clearTimeout(timer);
-			$('#cloneBtn')[0].style.bottom = "75px";
+			$('#cloneBtn')[0].style.bottom = "85px";
 			timer = setTimeout(function () {
         $('#cloneBtn')[0].style.width = '0'; 
   			setTimeout(function(){
@@ -214,7 +214,7 @@ function enableDelete() {
 		$('#trashGrp')[0].style.opacity = "1";
 	}else {
 		$('#trashGrp').removeAttr("onclick");
-		$('#trashGrp')[0].style.opacity = "0.7";
+		$('#trashGrp')[0].style.opacity = "0.5";
 	}
 }
 
@@ -393,6 +393,7 @@ function grpSearch() { //filters group on search
 
 //SUBSCRIBERS JS START
 $('#subsTab').click(function() {
+	console.log('i been click');
 	$('#subsTab')[0].style.backgroundColor = '#EAEAEA'; //could condense using css jquery property
 	$('#grpTab')[0].style.backgroundColor = '#fcd8b6';
 	$('#subsTab')[0].style.position = 'relative';
@@ -415,6 +416,7 @@ $('#subsTab').click(function() {
 
 let showSave = false;
 $('#grpTab').click(function() {
+	console.log('group tab been click');
 	$('#subsTab')[0].style.backgroundColor = '#fcd8b6';
 	$('#grpTab')[0].style.backgroundColor = 'white';
 	$('#grpTab')[0].style.position = 'relative';
@@ -461,7 +463,7 @@ function enableDeleteSubs() {
 		$('#trashSub')[0].style.opacity = "1";
 	}else {
 		$('#trashSub').removeAttr("onclick");
-		$('#trashSub')[0].style.opacity = "0.7";
+		$('#trashSub')[0].style.opacity = "0.5";
 	}
 }
 
@@ -657,7 +659,7 @@ function changeSubGroup(id) {
 	console.log(changedSubs);
 
 
-	if(changedSubs.length > 0){
+	if(changedSubs.length > 0) {
 		showSave = true; //show saves indicates whether to show save icon when switching from "Groups" to "All Subscribers" tab
 		$('#saveSub')[0].style.left = "0px";
 		$('#saveSub')[0].style.top = "65px";	
@@ -668,12 +670,22 @@ function changeSubGroup(id) {
 	}
 }
 
-$('#saveSub').click(function(){
+$('#saveSub').click(function() {
 	changeGrpSubs(changedSubs);
 	changedSubs = []; //resets sub queue
 	showSave = false; //hides save icon
 	$('#saveSub')[0].style.left = "-40px";
 	$('#saveSub')[0].style.top = "0px";
+})
+
+$('#cloneBtn').click(function() {
+	console.log($('#tempInp')[0].children[0]);
+	let tempChild = $('#tempInp')[0].children[0];
+	let clonedEl = $(tempChild).clone()[0];
+	console.log(clonedEl);
+
+	$('#tempSide')[0].style.height = "215px"
+	$('#tempInp').append(clonedEl);
 })
 //SUBSCRIBERS JS END
 
@@ -686,6 +698,17 @@ function checkMsg(msgCheck) {
 	$(msgCheck).toggleClass('msgReady');
 	//console.log('checkkkk');
 }
+
+// function enableDeleteMsgs() {
+// 	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
+// 	if($('#msgCol').find('.msgReady').length !== 0) {
+// 		$('#trashMsg').attr("onclick", "deleteSelectedMsgs();");
+// 		$('#trashMsg')[0].style.opacity = "1";
+// 	}else {
+// 		$('#trashMsg').removeAttr("onclick");
+// 		$('#trashMsg')[0].style.opacity = "0.5";
+// 	}
+// }
 
 $('#addMsg').click(function(){
 	$('#addMsgPopup')[0].style.display = "block";
@@ -772,9 +795,10 @@ $('#closeMsgDelPopup').click(function(){
 
 var currentEdit;
 var oldMsgText; //passed in to update lambda
+var editedMsgID;
 function editMsgText(currMsgEdit){
 	currentEdit = $(currMsgEdit).parent().parent();
-	console.log(currentEdit);
+	editedMsgID = currentEdit[0].id.slice(-5);
 	let insertText = currentEdit.find('.msgAndDate').find('.message').text();
 	oldMsgText = insertText;
 	console.log(insertText);
@@ -810,6 +834,34 @@ $('#reloadMsg').click(function(){ //runs refresh button animation for subs tab
 		$('#reloadMsg img')[0].style.animationPlayState = "running";
 	}
 })
+
+
+$('#searchMsg').click(function(){//SEARCH MESSAGE
+	if($('#msgSearchBox')[0].style.width === "150px"){
+		$('#msgSearchInput').val('');
+		msgSearch(); //needs to run grpSearch() again to reset values
+		$('#msgSearchBox')[0].style.width = "0px";
+		console.log('closing');
+	}else {
+		$('#msgSearchBox')[0].style.width = "150px";
+	}
+})
+
+//adapted from: https://www.w3schools.com/howto/howto_js_filter_lists.asp
+function msgSearch() { //filters group on search
+  var input, filter, msgInstance, searchName;
+  input = $("#msgSearchInput");
+  filter = input.val().toUpperCase();
+  msgInstance = $('.msgGradient');
+  for (var i = 0; i < msgInstance.length; i++) {
+    searchName = msgInstance[i].getElementsByClassName("message")[0];
+    if (searchName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      msgInstance[i].style.display = "";
+    } else {
+      msgInstance[i].style.display = "none";
+    }
+  }
+}
 //MESSAGES JS END
 
 
@@ -832,6 +884,8 @@ $('.tab').on('click', function () {
 		$('#msgPanel')[0].style.display = 'block';
 		$('#msgTypePanel')[0].style.display = 'none';
 	}
+	$('#qsTypeTab').toggleClass('activePanel');
+	$('#qsMessageTab').toggleClass('activePanel');
 })
 
 $('.msgType').on('click', function () {
@@ -960,3 +1014,27 @@ function editType(){
 	}
 }
 //QUICK SEND JS END
+
+//TOOLBAR JS START
+
+$('.dropIcon').on('click', function() {
+	let dropdown = $(this).parent().find('.dropdown');
+	dropdown.toggleClass('activeDots');
+	if (dropdown.hasClass('activeDots') === true) {
+		dropdown.show()
+		// dropdown.fadeIn();
+		console.log('its happening :0');
+	} else {
+		dropdown.hide()
+		// dropdown.fadeOut();
+		console.log('ok nvm');
+	}
+	console.log('clicking dots');
+})
+
+$(window).resize(function(){
+	if ($(window).width() >= 900) {
+		$('.dropdown').show();
+		console.log('afdf');
+	}
+});

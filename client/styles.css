@@ -428,37 +428,21 @@ html, body {
 	line-height: 65px;
 }
 
-#trashGrp {
-	position: absolute;
-	top: 17px;
-	margin-left: 15px;
-	transition: 0.1s;
-	opacity: 0.7;
-}
+
 
 #trashGrp img{
 	width: 30px;
 	border-radius: 50%;
 }
 
-#addGrp {
-	position: absolute;
-	top: 17px;
-	right: 0;
-	margin-right: 15px;
-	transition: 0.2s;
-}
+
 
 #addGrp img{
 	width: 30px;
 	border-radius: 50%;
 }
 
-#reloadGrp {
-	position: absolute;
-	top: 16px;
-	margin-left: 50px;
-}
+
 
 #reloadGrp img{
 	width: 32px;
@@ -466,24 +450,13 @@ html, body {
 	animation: reload 0.3s ease-in-out forwards paused;
 }
 
-#searchGrp {
-	position: absolute;
-	top: 16px;
-	margin-left: 85px;
-}
+
 
 #searchGrp img{
 	width: 32px;
 }
 
-#searchBox {
-	width: 0;
-	position: absolute;
-	top: 19px;
-	margin-left: 120px;
-	overflow: hidden;
-	transition: 0.2s;
-}
+
 
 #searchBox input {
 	height: 23px;
@@ -502,7 +475,7 @@ html, body {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-  z-index: 1;
+ 	z-index: 3;
 }
 
 #addPopup:after, #deletePopup:after {
@@ -526,18 +499,18 @@ html, body {
 	top: 30%;
 	left: 15%;
 	z-index: 2;
-	padding-bottom: 5px;
+	padding-bottom: 20px;
 }
 
 #deleteBox {
-	width: 50%;
+	/*width: 50%;*/
 	padding-bottom: 55px;
 	background-color: white;
 	border-radius: 15px;
 	opacity: 1;
 	position: relative;
 	top: 20%;
-	left: 15%;
+	/*left: 15%;*/
 	z-index: 2;
 }
 
@@ -618,11 +591,12 @@ html, body {
 #selectedGroups {
 	width: 80%;
 	position: relative;
-	left: 50px;
+	left: 10%;
 }
 
 #selectedGroupText {
 	height: 30px;
+	margin-bottom: 35px;
 }
 
 #grpTable {
@@ -824,49 +798,16 @@ html, body {
 	margin-right: 10px;
 }
 
-#subsIconRow {
-	z-index: 0;
-	position: relative;
-	left: 317px;
-	bottom: 12px;
-	width: 380px;
-	height: 35px;
-	margin-top: 30px; 
-	display: inline-block;
-	float: left;
-	overflow: hidden;
-	opacity: 1;
-	transition: 0.2s;
-}
-
 /*sub icons*/
-#trashSub {
-	display: inline-block;
-	margin-right: 2px;
-	transition: 0.2s;
-	opacity: 0.7;
-}
 
 #trashSub img{
 	width: 30px;
 	border-radius: 50%;
 }
 
-#addSub {
-	display: inline-block;
-	margin-right: 2px;
-	transition: 0.2s;
-}
-
 #addSub img{
 	width: 31px;
 	border-radius: 50%;
-}
-
-#reloadSub {
-	display: inline-block;
-	margin-right: 1px;
-	transition: 0.2s;
 }
 
 #reloadSub img{
@@ -875,22 +816,8 @@ html, body {
 	animation: reload 0.3s ease-in-out forwards paused;
 }
 
-#searchSub {
-	display: inline-block;
-	margin-right: 2px;
-	transition: 0.2s;
-}
-
 #searchSub img{
 	width: 32px;
-}
-
-#searchBoxSub {
-	width: 0;
-	display: inline-block;
-	margin-bottom: 3px;
-	overflow: hidden;
-	transition: 0.2s;
 }
 
 #searchBoxSub input {
@@ -942,7 +869,7 @@ html, body {
 	height: 100%;
 	top: 0;
 	opacity: 0.7;
-  filter: blur(1px);
+ 	filter: blur(1px);
 }
 
 #addSubBox {
@@ -1097,14 +1024,14 @@ html, body {
 }
 
 #delSubBox {
-	width: 50%;
+	/*width: 50%;*/
 	background-color: white;
 	padding-bottom: 55px;
 	border-radius: 15px;
 	opacity: 1;
 	position: relative;
 	top: 20%;
-	left: 26%;
+	/*left: 26%;*/
 	z-index: 2;
 }
 
@@ -1326,7 +1253,7 @@ html, body {
 
 #tempSide {
 	width: 0px;
-	height: 100px;
+	height: 120px;
 	background-color: #F58F31;
 	position: fixed;
 	bottom: 0;
@@ -1345,7 +1272,7 @@ html, body {
 
 #tempInp {
 	width: 86%;
-	height: 60px;
+	height: 75px;
 	background-color: white;
 	border-radius: 10px;
 	margin-left: auto;
@@ -1357,7 +1284,7 @@ html, body {
 	height: 25px;
 	background-color: white;
 	position: fixed;
-	bottom: 75px;
+	bottom: 85px;
 	left: 20px;
 	text-align: center;
 	overflow: hidden;
@@ -1374,7 +1301,6 @@ html, body {
 }
 
 /*	MESSAGE TOP BAR	START 	*/
-
 #msgsTopBar {
 	width: 100%;
 	height: 65px;
@@ -1393,21 +1319,9 @@ html, body {
 	transition: 0.2s;
 }
 
-#trashMsg {
-	position: absolute;
-	top: 14px;
-	margin-left: 15px;
-}
-
 #trashMsg img {
 	width: 30px;
 	border-radius: 50%;
-}
-
-#reloadMsg {
-	position: absolute;
-	top: 14px;
-	margin-left: 50px;
 }
 
 #reloadMsg img{
@@ -1416,21 +1330,8 @@ html, body {
 	animation: reload 0.3s ease-in-out forwards paused;
 }
 
-#searchMsg {
-	position: absolute;
-	top: 14px;
-	margin-left: 85px;
-}
-
 #searchMsg img{
 	width: 32px;
-}
-
-#addMsg {
-	position: absolute;
-	top: 15px;
-	right: 0;
-	margin-right: 15px;
 }
 
 #addMsg img {
@@ -1594,7 +1495,7 @@ html, body {
 	position: absolute;
 	width: 100%;
 	height: 100%;
- 	z-index: 1;
+ 	z-index: 4;
 }
 
 #addMsgPopup:after, #deleteMsgPopup:after, #editMsgPopup:after, #addMsgPopupBC:after {
@@ -1609,14 +1510,14 @@ html, body {
 }
 
 #msgPopupBox, #deleteMsgBox, #editMsgBox {
-	width: 50%;
+	/*width: 50%;*/
 	background-color: white;
 	border-radius: 15px;
 	opacity: 1;
 	position: relative;
 	top: 25%;
-	left: 17%;
-	z-index: 2;
+	/*left: 17%;*/
+	z-index: 1;
 }
 
 #deleteMsgBox {
@@ -1641,6 +1542,11 @@ html, body {
 	top: 10px;
 }
 
+#closeMsgPopup:hover, #closeMsgDelPopup:hover, #closeMsgEditPopup:hover {
+	transform: scale(2);
+	transition: 0.2s;
+}
+
 #delMsgWarning {
 	font-size: 14px;
 	font-weight: normal;
@@ -1656,9 +1562,9 @@ html, body {
 }
 
 #selectedMessages {
-	width: 85%;
-	position: relative;
-	left: 45px;
+	width: 90%;
+    position: relative;
+    left: 5%;
 }
 
 #selectedMessages tr td:first-child {
@@ -1685,6 +1591,7 @@ html, body {
 	margin-bottom: 58px;
 	margin-left: 4%;
 	outline: none;
+	resize: none;
 }
 
 #createMsg, #deleteMessage, #saveMessage { 
@@ -1790,6 +1697,7 @@ html, body {
 	padding: 5px;
 	width: 50%;
 	border-bottom: 1.5px solid #F58F31;
+	border-top: 2px solid white;
 	cursor: pointer;
 }
 
@@ -1842,9 +1750,9 @@ html, body {
 }
 
 .activePanel {
-	background-color: white;
-	color: #F58F31;
-	border-color: #F58F31;
+	background-color: #F58F31;
+	color: white;
+	border-color: #F58F31;	
 }
 
 .scroll{
@@ -1854,9 +1762,9 @@ html, body {
 
 #qsContainer{
 	width: 70%;
-	height: 85%;
+	height: 80%;
 	margin: auto;
-	margin-top: 40px;
+	margin-top: 1%;
 	background-color: #F58F31;
 	border-radius: 40px;
 }
@@ -1894,7 +1802,14 @@ html, body {
 	vertical-align: middle;
 	line-height: 50px;  
 	border-radius: 10px;
+	transition: 0.2s;
 }
+
+#qsSend:hover {
+	transform: scale(1.03);
+	transition: 0.2s;
+}
+
 .msgPre{
 	font-size: 15px;
 	overflow-y: auto;
@@ -1970,3 +1885,35 @@ input {
 	margin-left: 5px;
 }
 
+/*TOOL DROP DOWN STYLES (group, subscribers, messages)*/
+
+
+.activeDots {/*sets height to 400 in mobile*/
+	display: flex;
+}
+
+.verticalDots {
+	width: 100%;
+	height: 65px;
+	z-index: 3;
+	top: 0;
+}
+
+.dropIcon {
+	z-index: 3;
+    width: 30px;
+    height: 28px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    filter: contrast(38%);
+    margin-right: 15px;
+}
+
+.dropdown {
+	width: 100%;
+	height: 65px;
+	position: absolute;
+	z-index: 2;
+	top:0;
+}

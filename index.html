@@ -140,29 +140,34 @@
 				<div id="grpTopBar">
 					<div id="topTitle">Manage Groups</div>
 
-					<div id="trashGrp">
-						<img src="./images/trashBin.png">
-					</div>
+					<div id="grpTools" class="verticalDots">
+						<img class="dropIcon" src="./images/vertical-dots.png">
+						<div id="grpToolCont" class="dropdown activeDots">
+							<div id="trashGrp">
+								<img src="./images/trashBin.png">
+							</div>
 
-					<div id="addGrp">
-						<img src="./images/addBtn.png">
-					</div>
+							<div id="addGrp">
+								<img src="./images/addBtn.png">
+							</div>
 
-					<div id="reloadGrp">
-						<img src="./images/reload.png">
-					</div>
+							<div id="reloadGrp">
+								<img src="./images/reload.png">
+							</div>
 
-					<div id="searchGrp">
-						<img src="./images/search.png">
-					</div>
+							<div id="searchGrp">
+								<img src="./images/search.png">
+							</div>
 
-					<div id="searchBox">
-						<input type="text" id="searchInput" onkeyup="grpSearch();" placeholder=" Search for groups..">
+							<div id="searchBox">
+								<input type="text" id="searchInput" onkeyup="grpSearch();" placeholder=" Search for groups..">
+							</div>
+						</div>
 					</div>
 				</div>
 
 				<div id="addPopup">
-					<div id="popupBox">
+					<div id="popupBox" class="mobilePopup">
 						<div id="closePopup">&times;</div>
 						<div id="popupTitle">Group Name:</div>
 						<input id="groupText" type="text">
@@ -175,7 +180,7 @@
 				</div>
 
 				<div id="deletePopup">
-					<div id="deleteBox">
+					<div id="deleteBox" class="mobilePopup">
 						<div id="closeDelPopup">&times;</div>
 						<div id="popupDelTitle">
 							Are you sure you want to delete:
@@ -236,41 +241,48 @@
 				<div id="subsTopBar">
 					<div id="subsTitle">Manage Subscriptions</div>
 
-					<div id="grpTab">
-						Groups
+					<div id="subTools" class="verticalDots">
+						<img class="dropIcon" src="./images/vertical-dots.png">
+						<div id="subToolCont" class="dropdown activeDots">
+							<!-- the icons go here -->
+							<div id="subsIconRow">
+								<div id="addSub">
+									<img src="./images/addBtn.png">
+								</div>
+
+								<div id="trashSub">
+									<img src="./images/trashBin.png">
+								</div>
+
+								<div id="reloadSub">
+									<img src="./images/reload.png">
+								</div>
+
+								<div id="searchSub">
+									<img src="./images/search.png">
+								</div>
+
+								<div id="searchBoxSub">
+									<input type="text" id="searchInputSub" onkeyup="subSearch();" placeholder=" Search for subs...">
+								</div>
+							</div>
+						</div>
+
+					
+						<div id="grpTab">
+							Groups
+						</div>
+
+						<div id="subsTab">
+							All Subscriptions
+						</div>
 					</div>
 
-					<div id="subsTab">
-						All Subscriptions
-					</div>
-
-					<div id="subsIconRow">
-						<div id="addSub">
-							<img src="./images/addBtn.png">
-						</div>
-
-						<div id="trashSub">
-							<img src="./images/trashBin.png">
-						</div>
-
-						<div id="reloadSub">
-							<img src="./images/reload.png">
-						</div>
-
-						<div id="searchSub">
-							<img src="./images/search.png">
-						</div>
-
-						<div id="searchBoxSub">
-							<input type="text" id="searchInputSub" onkeyup="subSearch();" placeholder=" Search for subs...">
-						</div>
-
-					</div>
 
 				</div>
 
 				<div id="addSubPop">
-					<div id="addSubBox">
+					<div id="addSubBox" class="mobilePopup">
 						<div id="closeAddSub">&times;</div>
 						<div id="popSubTitle">Subscriber Information:</div>
 
@@ -305,7 +317,7 @@
 				</div>
 
 				<div id="delSubPop">
-					<div id="delSubBox">
+					<div id="delSubBox" class="mobilePopup">
 						<div id="closeDelSub">&times;</div>
 						<div id="delSubTitle">
 							Are you sure you want to remove:
@@ -383,23 +395,37 @@
 				<div id="msgsTopBar">
 					<div id="msgsTitle">Manage Messages</div>
 					
-					<div id="trashMsg">
-						<img src="./images/trashBin.png">
+					<div id="msgTools" class="verticalDots">
+						<img class="dropIcon" src="./images/vertical-dots.png">
+						<div id="msgToolCont" class="dropdown activeDots">
+							<div id="trashMsg">
+								<img src="./images/trashBin.png">
+							</div>
+
+							<div id="addMsg">
+								<img src="./images/addBtn.png">
+							</div>
+
+							<div id="reloadMsg">
+								<img src="./images/reload.png">
+							</div>
+
+							<div id="searchMsg">
+								<img src="./images/search.png">
+							</div>
+
+							<div id="msgSearchBox">
+								<input type="text" id="msgSearchInput" onkeyup="msgSearch();" placeholder=" Search for messages..">
+							</div>
+						</div>
 					</div>
-					<div id="reloadMsg">
-						<img src="./images/reload.png">
-					</div>
-					<div id="searchMsg">
-						<img src="./images/search.png">
-					</div>
-					<div id="addMsg">
-						<img src="./images/addBtn.png">
-					</div>
+
+					
 				</div>
 
 				<div id="openOldMsg">
 					<div id="addMsgPopup">
-						<div id="msgPopupBox">
+						<div id="msgPopupBox" class="mobilePopup">
 							<div id="closeMsgPopup">&times;</div>
 							<div id="msgPopupTitle">Message:</div>
 							<textarea rows="10" id="typeMsg" placeholder="Type message here"></textarea>
@@ -410,7 +436,7 @@
 					</div>
 
 					<div id="deleteMsgPopup">
-						<div id="deleteMsgBox">
+						<div id="deleteMsgBox" class="mobilePopup">
 							<div id="closeMsgDelPopup">&times;</div>
 							<div id="popupMsgDelTitle">
 								Are you sure you want to delete:
@@ -431,7 +457,7 @@
 					</div>
 
 					<div id="editMsgPopup">
-						<div id="editMsgBox">
+						<div id="editMsgBox" class="mobilePopup">
 							<div id="closeMsgEditPopup">&times;</div>
 							<div id="popupMsgEditTitle">You are now editing:</div>
 							<textarea rows="10" id="editMsgHere" placeholder="Your original message has been deleted. If unintentional, exit now."></textarea>
@@ -477,7 +503,7 @@
 					<div id="quickSendTitle">Quick Send</div>
 				</div>
 				<div id="qsChoosePanel">
-					<div class="tab" id="qsTypeTab"><h3>Type</h3></div>
+					<div class="tab activePanel" id="qsTypeTab"><h3>Type</h3></div>
 					<div class="tab" id="qsMessageTab"><h3>Message</h3></div>
 				</div>
 				<div id="qsPanelContainer">
@@ -511,6 +537,7 @@
 								<div id="Other3-msg" class="msgPre"></div>
 								<div id="Other4-msg" class="msgPre"></div>
 								<div id="Other5-msg" class="msgPre"></div>
+
 								<textarea id="editBox" class="msgBox"></textarea>
 								<p id="note">Note: Use { } to create a textbox</p>
 								<div id="editButton" onclick="editMsg()">
