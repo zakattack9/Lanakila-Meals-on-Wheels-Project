@@ -442,12 +442,10 @@ $('#createMsg').click(function(){
   if($('#typeMsg').val().length === 0 || allMessages.includes($('#typeMsg').val())) { //adds warning if any fields are left blank or the contact typed in already exists in the DB
 
     if($('#typeMsg').val().length === 0) { //adds warning if no name is typed in
-      $('#addMsgWarning')[0].innerText = "Field is empty, please type in a name";
-      console.log ("Field is empty, please type in a name")
+      $('#addMsgWarning')[0].innerText = "Field is empty, please type in a message";
     }else {
        if(allMessages.includes($('#typeMsg').val())) {
         $('#addMsgWarning')[0].innerText = "The message inputted already exists in the system";
-        console.log ("The message inputted already exists in the system")
       }else {
         $('#addMsgWarning')[0].innerText = "";
       }

@@ -2,7 +2,6 @@
 COLORS:
 GREEN — #13896D
 ORANGE — #F58F31
-
 FONTS: (Narrow Down Later)
 font-family: 'Lato', sans-serif;
 font-family: 'Noto Sans', sans-serif;
@@ -168,6 +167,7 @@ html, body {
 	/*margin-right: 30px;
 	margin-top: -5px;*/
 	transition: 0.1s;
+	user-select: none;
 	position: absolute;
 	bottom: 20px;
 	right: 30px;
@@ -605,7 +605,6 @@ html, body {
   -ms-user-select: none;
   user-select: none;
 }
-
 .customBox {
   position: relative;
   top: 15px;
@@ -616,13 +615,11 @@ html, body {
   -ms-user-select: none;
   user-select: none;
 }
-
 .customBox input, #checkAll input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
 }
-
 .checkmark {
   position: absolute;
   top: 0;
@@ -981,7 +978,7 @@ html, body {
 	margin-top: 5px;
 }
 
-#addSubNameWarning, #addSubWarning, #addMsgWarning {
+#addSubNameWarning, #addSubWarning {
 	display: block;
 	height: 25px;
 	font-size: 13px;
@@ -1258,6 +1255,7 @@ html, body {
 	width: 0px;
 	height: 120px;
 	background-color: #F58F31;
+	/*background: linear-gradient(#F58F31, #f9bd85);*/
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -1459,7 +1457,6 @@ html, body {
 	display: flex;
 	flex-direction: row;
 }
-
 .msgColumn {
 	width: 34%;
 }*/
@@ -1587,6 +1584,10 @@ html, body {
 	z-index: 2;
 }
 
+#msgPopupBox, #editMsgBox {
+	height: 320px;
+}
+
 #deleteMsgBox {
 	top: 20%;
 	padding-bottom: 55px;
@@ -1655,9 +1656,10 @@ html, body {
 	font-size: 14px;
 	width: 90%;
 	height: 80%;
-	margin-bottom: 58px;
 	margin-left: 4%;
 	outline: none;
+	height: 200px;
+	resize: none;
 }
 
 #createMsg, #deleteMessage, #saveMessage { 
@@ -1780,6 +1782,7 @@ html, body {
 .scroll{
 	overflow-y: auto;
 	height: 90vh;
+	user-select: none;
 }
 
 .msgType:nth-child(1) {
@@ -1867,10 +1870,10 @@ html, body {
 	margin: auto;
 	margin-top: 5%;
 	text-align: center;
-	vertical-align: middle;
-	line-height: 50px;  
+	vertical-align: middle; 
 	border-radius: 10px;
 	transition: 0.2s;
+	user-select: none;
 }
 
 #qsSend:hover {
@@ -1954,3 +1957,18 @@ input {
 	margin-left: 5px;
 }
 
+#qsSend i, #sendButton i{
+	display: none;
+	margin: 5px;
+}
+
+#qsSend h3{
+	display: inline-block;
+}
+
+#addMsgWarning {
+	font-size: 13px;
+	margin-left: 4%;
+	color: red;
+	font-style: italic;
+}

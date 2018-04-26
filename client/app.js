@@ -765,7 +765,6 @@ $(document).on("click", '#delSubCard', function() {
 function enableDeleteMsgs() {
 	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
 	if($('#msgCol').find('.isCheckedBackground').length !== 0) {
-		$('#trashMsg').attr("onclick", "deleteSelectedSubs();");
 		$('#trashMsg')[0].style.opacity = "1";
 	}else {
 		$('#trashMsg').removeAttr("onclick");
@@ -833,28 +832,30 @@ $('#closeMsgPopup').click(function(){
 
 var msgIDs = [];
 $('#trashMsg').click(function(){
-	$('#selectedMessages').empty(); //empties out previously selected groups
-	msgIDs = []; //resets groups to delete queue
+	if($('#msgCol').find('.isCheckedBackground').length !== 0) {
+		$('#selectedMessages').empty(); //empties out previously selected groups
+		msgIDs = []; //resets groups to delete queue
 
-	let checkedElements = $('#oldMsgContainer #msgCol .msgGradient').filter('.msgReady');
-	//console.log(checkedElements);
-	checkedElements.map((currVal, index) => {
-		let insertMsg = $(index).find('.message')[0].innerText;
-		let insertMsgDate = $(index).find('.date')[0].innerText;
+		let checkedElements = $('#oldMsgContainer #msgCol .msgGradient').filter('.msgReady');
+		//console.log(checkedElements);
+		checkedElements.map((currVal, index) => {
+			let insertMsg = $(index).find('.message')[0].innerText;
+			let insertMsgDate = $(index).find('.date')[0].innerText;
 
-		msgIDs.push(+$(index).attr('id').slice(-4)); //needs to be converted to number (unary operator)
+			msgIDs.push(+$(index).attr('id').slice(-4)); //needs to be converted to number (unary operator)
 
-  	$('#selectedMessages').append(`
-			<tr id="selectedMsgText">
-				<td>${insertMsg}</td>
-				<td><span style="font-weight: bold"> Created On:</span>&nbsp; ${insertMsgDate}</td>
-			</tr>
-  	`)
-	}); //end of checkedElements.map
-	//displays popup
-	$('#addMsgPopup')[0].style.display = "none";
-	$('#deleteMsgPopup')[0].style.display = "block";
-	$('#editMsgPopup')[0].style.display = "none";
+	  	$('#selectedMessages').append(`
+				<tr id="selectedMsgText">
+					<td>${insertMsg}</td>
+					<td><span style="font-weight: bold"> Created On:</span>&nbsp; ${insertMsgDate}</td>
+				</tr>
+	  	`)
+		}); //end of checkedElements.map
+		//displays popup
+		$('#addMsgPopup')[0].style.display = "none";
+		$('#deleteMsgPopup')[0].style.display = "block";
+		$('#editMsgPopup')[0].style.display = "none";
+	}
 })
 
 $('#deleteMessage').click(function(){
