@@ -515,7 +515,7 @@ $('#closeDelSub').click(function() {
 
 $('#deleteSub').click(function(){
 	$('#delSubPop')[0].style.display = "none";
-  deleteSubs(subIDs);z
+  deleteSubs(subIDs);
 })
 
 
