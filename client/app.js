@@ -116,6 +116,10 @@ function drop(event, element) {
 		        $('#cloneBtn')[0].style.width = '0'; 
 		  			setTimeout(function(){
 							$('#tempSide')[0].style.width = "0";
+
+							setTimeout(function() { //closes clone button if open
+								closeCloneFunc();
+							}, 400);
 				  	}, 200);
 		      }, 5000);
 		  	}
@@ -791,7 +795,7 @@ $('#cloneBtn').click(function() {
 	$('#tempTitle').append(`<span id="closeClone">Close Clone</span>`);
 })
 
-$(document).on('click', '#closeClone', function() {
+function closeCloneFunc() {
 	$('#tempSide')[0].style.height = "120px";
 
 	$('#tempSide').children().last().fadeOut(200); //removes cloned card
@@ -801,6 +805,10 @@ $(document).on('click', '#closeClone', function() {
 
 	$('#tempTitle').empty();
 	$('#tempTitle').append(`<span id="delSubCard">Delete</span> | Hold`);
+}
+
+$(document).on('click', '#closeClone', function() {
+	closeCloneFunc();
 })
 
 $(document).on("mouseover", '#delSubCard', function() {
