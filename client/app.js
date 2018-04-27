@@ -118,6 +118,7 @@ function allowDrop(event) {
 
 var timer;
 function drop(event, element) {
+	var dontAppend = false;
 	//element.parentElement.id
   event.preventDefault();
   var data = event.dataTransfer.getData("Text");
@@ -126,10 +127,18 @@ function drop(event, element) {
 	  if(element.id === 'msgInput' || element.id === 'groupInput'){ //expands message on drop
 	  	document.getElementById(data).classList.add('expand');
 	  }else if(element.id === 'msgOverlayWrap' || element.id === 'groupOverlayWrap'){
-	  	document.getElementById(data).classList.remove('expand');
+	  	if(element.id === 'msgOverlayWrap' && document.getElementById(data).classList[0] === 'draggableMsg') {
+	  		document.getElementById(data).classList.remove('expand');
+	  	}else if(element.id === 'groupOverlayWrap' && document.getElementById(data).classList[0] === 'draggableGrp') {
+	  		document.getElementById(data).classList.remove('expand');
+	  	}else {
+	  		dontAppend = true; //prevents messages from being dragged into grp overlay and groups from being dragged into msg overlay
+	  	}
 	  }
-	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open
+	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open (expands card for clone button)
 		if(element.id === 'tempInp'){ //expands message on drop
+			clearTimeout(timer);
+
 	  	document.getElementById(data).style.width = "190px"; //sets card to width of temp input
 	  	document.getElementById(data).style.height = "75px";
 
@@ -138,62 +147,123 @@ function drop(event, element) {
 	  	setTimeout(function(){
 				$('#cloneBtn')[0].style.bottom = "120px";
 	  	}, 400);
-	  }else{
+	  }else{ //checks if dragging back to trello like section
 	  	document.getElementById(data).style.width = "255px"; //sets card back to original height
 	  	document.getElementById(data).style.height = "80px";
 
-	  	clearTimeout(timer);
-			$('#cloneBtn')[0].style.bottom = "85px";
-			timer = setTimeout(function () {
-        $('#cloneBtn')[0].style.width = '0'; 
-  			setTimeout(function(){
-					$('#tempSide')[0].style.width = "0";
-		  	}, 200);
-      }, 5000);
+	  	element.prepend(document.getElementById(data)); 
+
+	  	if($('#tempSide')[0].style.height === "215px") {
+		  	if($('#tempInp')[0].children.length < 1 && $('#clonedInp')[0].children.length < 1) { //prevents clone temp side from closing when a card is inside the cloned input or temp input
+		  		clearTimeout(timer);
+					$('#cloneBtn')[0].style.bottom = "85px";
+					timer = setTimeout(function () {
+		        $('#cloneBtn')[0].style.width = '0'; 
+		  			setTimeout(function(){
+							$('#tempSide')[0].style.width = "0";
+				  	}, 200);
+		      }, 5000);
+		  	}
+		  }else{
+		  	if($('#tempInp')[0].children.length < 1) { //prevents clone temp side from closing when a card is inside
+		  		clearTimeout(timer);
+					$('#cloneBtn')[0].style.bottom = "85px";
+					timer = setTimeout(function () {
+		        $('#cloneBtn')[0].style.width = '0'; 
+		  			setTimeout(function(){
+							$('#tempSide')[0].style.width = "0";
+				  	}, 200);
+		      }, 5000);
+		  	}
+		  }
 	  }
 	}
 
+	//sends card back to overlay if there is already a message/group in the input field for broadcast tab
 	if(element.id === 'msgInput'){
-		if(element.children.length > 1){
+		if(element.children.length > 1 && document.getElementById(data) != element.children[0]){
 			element.children[0].classList.remove('expand');
 			$('#msgOverlayWrap').prepend(element.children[0]);
 		}
 	}else if(element.id === 'groupInput'){
-		if(element.children.length > 1){
+		if(element.children.length > 1  && document.getElementById(data) != element.children[0]){
 			element.children[0].classList.remove('expand');
 			$('#groupOverlayWrap').prepend(element.children[0]);
 		}
+	}else if(element.id === 'tempInp'){
+		console.log(element.children.length)
+		if(element.children.length > 0  && document.getElementById(data) != element.children[0]){
+			let tempInpGrpID = element.children[0].id.split('-')[0];
+			let grpCol = "#grp_" + tempInpGrpID;
+
+			element.children[0].style.width = "255px"; //sets card back to original height
+	 	  element.children[0].style.height = "80px";
+			$(grpCol).prepend(element.children[0])
+
+		}
 	}
 
-  //conditional must go before appending
-  element.prepend(document.getElementById(data)); //adds to top of div
+  //conditional must go after all conditionals above
+  if(dontAppend) {
+  	return "element prevented from being appended";
+  }else {
+  	element.prepend(document.getElementById(data)); //adds to top of div
+
+  	if($('.subscribers')[0].classList[2] === 'active'){
+			changeSubGroup(data); //must go after the prepend (for switching subscribers)
+  	}
+  }
 	
-	changeSubGroup(data); //must go after the prepend (for switching subscribers)
 }
 
-$('.draggable').mousedown(function(){ //shows message in message input on hold
+//$(document).on() allows event handlers to be attached to dynamically generated elements
+$(document).on('mousedown', '.draggableMsg, .draggableGrp', function() {
 	if(openOverlay === 'msg'){
 	  $('#msgWarning').text("Drag Your Message Here");	
 	}else if(openOverlay == 'group'){
 		$('#grpWarning').text("Drag Your Group Here");
 	}
-})
+});
 
-$('.draggable').mouseup(function(){ //shows message in group input on hold
+// $('.draggableMsg').mousedown(function(){ //shows message in message input on hold
+// 	if(openOverlay === 'msg'){
+// 	  $('#msgWarning').text("Drag Your Message Here");	
+// 	}else if(openOverlay == 'group'){
+// 		$('#grpWarning').text("Drag Your Group Here");
+// 	}
+// })
+
+$(document).on('mouseup', '.draggableMsg, .draggableGrp', function() {
 	if(openOverlay === 'msg'){
 	  $('#msgWarning').text("");	
 	}else if(openOverlay == 'group'){
 		$('#grpWarning').text("");
 	}
-})
+});
 
-$('.draggable').mouseover(function(){ //shows message in group input on hold
+// $('.draggableMsg').mouseup(function(){ //shows message in group input on hold
+// 	if(openOverlay === 'msg'){
+// 	  $('#msgWarning').text("");	
+// 	}else if(openOverlay == 'group'){
+// 		$('#grpWarning').text("");
+// 	}
+// })
+
+$(document).on('mouseover', '.draggableMsg, .draggableGrp', function() {
 	if(openOverlay === 'msg'){
 	  $('#msgWarning').text("");	
 	}else if(openOverlay == 'group'){
 		$('#grpWarning').text("");
 	}
-})
+});
+
+// $('.draggableMsg').mouseover(function(){ //shows message in group input on hold
+// 	if(openOverlay === 'msg'){
+// 	  $('#msgWarning').text("");	
+// 	}else if(openOverlay == 'group'){
+// 		$('#grpWarning').text("");
+// 	}
+// })
 //BROADCAST JS END
 
 
@@ -456,17 +526,6 @@ $('#addSub').click(function() {
 	$('#delSubPop')[0].style.display = "none";
 })
 
-function enableDeleteSubs() {
-	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
-	if($('#subsTable tbody').find('.isCheckedBackground').length !== 0) {
-		$('#trashSub').attr("onclick", "deleteSelectedSubs();");
-		$('#trashSub')[0].style.opacity = "1";
-	}else {
-		$('#trashSub').removeAttr("onclick");
-		$('#trashSub')[0].style.opacity = "0.5";
-	}
-}
-
 let subIDs = [];
 function deleteSelectedSubs() {
   let checkedElements = $('#subsTable tbody tr').filter('.isCheckedBackground'); //filter grabs elements only with that class
@@ -504,6 +563,18 @@ $('#deleteSub').click(function(){
 	$('#delSubPop')[0].style.display = "none";
   deleteSubs(subIDs);
 })
+
+
+function enableDeleteSubs() {
+	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
+	if($('#subsTable tbody').find('.isCheckedBackground').length !== 0) {
+		$('#trashSub').attr("onclick", "deleteSelectedSubs();");
+		$('#trashSub')[0].style.opacity = "1";
+	}else {
+		$('#trashSub').removeAttr("onclick");
+		$('#trashSub')[0].style.opacity = "0.5";
+	}
+}
 
 function highlightSub(selected) {
 	let checkBox = selected.firstElementChild.firstElementChild;
@@ -621,13 +692,23 @@ function changeSubGroup(id) {
 	//first two digits of a sub's id is their original group id
 	//the last two digits is their sub id
 	let element = document.getElementById(id);
+	//console.log(id.split('-'))
 	
+	/*
+
 	// NEED TO FIX SLICE, IF ID IS ONLY ONE DIGIT IT WILL BE GRABBING A NUMBER AND LETTER
 	// to fix issue above, you can add a zero in front of the id number when appending (requests.js), this will ensure it will always grab either 01 or 11
 	let personID = element.id.slice(-2); //grabs last two digits of id
 	let ogGrpID = element.id.substring(0, 2); //grabs first two digits of id
 	let newGrpID = element.parentElement.id.slice(-2); //grabs new group's id
 	//console.log(personID, ogGrpID, newGrpID);
+
+	*/
+
+	//should fix issue with id's over two digits
+	let personID = element.id.split('-')[1]; //grabs last two digits of id
+	let ogGrpID = element.id.split('-')[0]; //grabs first two digits of id
+	let newGrpID = element.parentElement.id.slice(-2); //grabs new group's id
 
 	let newObj = {};
 	newObj.oldGroup_id = ogGrpID;
@@ -670,33 +751,142 @@ function changeSubGroup(id) {
 	}
 }
 
-$('#saveSub').click(function() {
-	changeGrpSubs(changedSubs);
+$('#saveSub').click(function() { //saves changes to subscribers who switched groups
+  for (var i = 0; i < changedSubs.length; i++) { //algorithm to filter out cloned cards to prevent errors
+  	if(changedSubs.length > 1) {
+	    for (var j = i + 1; j < changedSubs.length; j++) {
+	      if (changedSubs[i].sub_id === changedSubs[j].sub_id) {
+	      	// console.log(changedSubs[i]);
+	      	// console.log(changedSubs[j]);
+		    	if(changedSubs[i].oldGroup_id === "00" || +changedSubs[i].oldGroup_id === 0) {
+		    		if(changedSubs[i].newGroup_id === changedSubs[j].oldGroup_id) {
+		    			changedSubs[i].newGroup_id = changedSubs[j].newGroup_id;
+
+		    			let index = changedSubs.indexOf(changedSubs[j]);
+	    				changedSubs.splice(index, 1);
+	    				console.log(changedSubs);
+
+	    				changeGrpSubs(changedSubs);
+		    		}else {
+			    		changeGrpSubs(changedSubs);
+			    	}
+		    	}else if(changedSubs[j].oldGroup_id === "00" || +changedSubs[j].oldGroup_id === 0) {
+		    		if(changedSubs[j].newGroup_id === changedSubs[i].oldGroup_id) {
+		    			changedSubs[j].newGroup_id = changedSubs[i].newGroup_id;
+
+		    			let index = changedSubs.indexOf(changedSubs[i]);
+	    				changedSubs.splice(index, 1);
+	    				console.log(changedSubs);
+
+	    				changeGrpSubs(changedSubs);
+		    		}else {
+			    		changeGrpSubs(changedSubs);
+			    	}
+		    	}else {
+		    		changeGrpSubs(changedSubs);
+		    	}
+	      }else {
+		    	changeGrpSubs(changedSubs);
+		    }
+	    }
+	  }else {
+    	changeGrpSubs(changedSubs);
+    }
+ 	}
+
+
 	changedSubs = []; //resets sub queue
 	showSave = false; //hides save icon
 	$('#saveSub')[0].style.left = "-40px";
 	$('#saveSub')[0].style.top = "0px";
 })
 
+var idZeros = "00";
+let clonedSubIds = [];
 $('#cloneBtn').click(function() {
-	console.log($('#tempInp')[0].children[0]);
+	//console.log($('#tempInp')[0].children[0]);
 	let tempChild = $('#tempInp')[0].children[0];
 	let clonedEl = $(tempChild).clone()[0];
-	console.log(clonedEl);
+	//console.log(clonedEl);
+	let idOfSub = clonedEl.id.split('-')[1];
 
-	$('#tempSide')[0].style.height = "215px"
-	$('#tempInp').append(clonedEl);
+	if(clonedEl.id.split('-')[0].length > 2 || clonedEl.id.split('-')[0] === "00") {
+		clonedEl.id = clonedEl.id.split('-')[0] + "0-" + idOfSub;
+		clonedSubIds.push(idOfSub);
+		idZeros = idZeros + "0";
+		console.log(idZeros);
+	}else {
+		console.log(clonedSubIds)
+		if(clonedSubIds.includes(idOfSub)) {
+			clonedEl.id = idZeros + "0-" + idOfSub;
+			clonedSubIds.push(idOfSub);
+			idZeros = idZeros + "0";
+		}else {
+		console.log("conditional running")
+			clonedEl.id = "00-" + idOfSub;
+			clonedSubIds.push(idOfSub);
+		}
+	}
+	//console.log(clonedEl.id)
+
+	$('#tempSide')[0].style.height = "215px";
+	$('#tempSide').append(`<div id="clonedInp"></div>`)
+	$('#clonedInp').append(clonedEl);
+
+	$('#tempTitle').empty();
+	$('#tempTitle').append(`<span id="closeClone">Close Clone</span>`);
+})
+
+$(document).on('click', '#closeClone', function() {
+	$('#tempSide')[0].style.height = "120px";
+
+	$('#tempSide').children().last().fadeOut(200); //removes cloned card
+	setTimeout(function(){
+		$('#tempSide').children().last().remove();
+	}, 200);
+
+	$('#tempTitle').empty();
+	$('#tempTitle').append(`<span id="delSubCard">Delete</span> | Hold`);
+})
+
+$(document).on("mouseover", '#delSubCard', function() {
+	$('#tempSide')[0].style.backgroundColor = "red";
+	$('#delSubCard')[0].style.color = "white";
+})
+
+$(document).on("mouseout", '#delSubCard', function() {
+	$('#tempSide')[0].style.backgroundColor = "#F58F31";
+	$('#delSubCard')[0].style.color = "black";
+})
+
+$(document).on("click", '#delSubCard', function() {
+	$('#tempInp').empty();
 })
 //SUBSCRIBERS JS END
 
 
 
 //MESSAGES JS START
+
+function enableDeleteMsgs() {
+	//console.log($('#grpTable tbody').find('.isCheckedBackground').length);
+	if($('#msgCol').find('.isCheckedBackground').length !== 0) {
+		$('#trashMsg')[0].style.opacity = "1";
+	}else {
+		$('#trashMsg').removeAttr("onclick");
+		$('#trashMsg')[0].style.opacity = "0.5";
+	}
+}
+
 function checkMsg(msgCheck) {
 	$(msgCheck).find('.msgCheck').toggleClass('checked');
 	//$(msgCheck).toggleClass('checked');
 	$(msgCheck).toggleClass('msgReady');
 	//console.log('checkkkk');
+	let checkBox = msgCheck.firstElementChild.firstElementChild;
+	$(msgCheck).toggleClass('isCheckedBackground');
+	enableDeleteMsgs();
+
 }
 
 // function enableDeleteMsgs() {
@@ -752,34 +942,37 @@ $('#newMsg').click(function(){
 // });
 
 $('#closeMsgPopup').click(function(){
+	$('#addMsgWarning')[0].innerText = "";
 	$('#addMsgPopup')[0].style.display = "none";
 	$('#typeMsg').val('');
 })
 
 var msgIDs = [];
 $('#trashMsg').click(function(){
-	$('#selectedMessages').empty(); //empties out previously selected groups
-	msgIDs = []; //resets groups to delete queue
+	if($('#msgCol').find('.isCheckedBackground').length !== 0) {
+		$('#selectedMessages').empty(); //empties out previously selected groups
+		msgIDs = []; //resets groups to delete queue
 
-	let checkedElements = $('#oldMsgContainer #msgCol .msgGradient').filter('.msgReady');
-	//console.log(checkedElements);
-	checkedElements.map((currVal, index) => {
-		let insertMsg = $(index).find('.message')[0].innerText;
-		let insertMsgDate = $(index).find('.date')[0].innerText;
+		let checkedElements = $('#oldMsgContainer #msgCol .msgGradient').filter('.msgReady');
+		//console.log(checkedElements);
+		checkedElements.map((currVal, index) => {
+			let insertMsg = $(index).find('.message')[0].innerText;
+			let insertMsgDate = $(index).find('.date')[0].innerText;
 
-		msgIDs.push(+$(index).attr('id').slice(-4)); //needs to be converted to number (unary operator)
+			msgIDs.push(+$(index).attr('id').slice(-4)); //needs to be converted to number (unary operator)
 
-  	$('#selectedMessages').append(`
-			<tr id="selectedMsgText">
-				<td>${insertMsg}</td>
-				<td><span style="font-weight: bold"> Created On:</span>&nbsp; ${insertMsgDate}</td>
-			</tr>
-  	`)
-	}); //end of checkedElements.map
-	//displays popup
-	$('#addMsgPopup')[0].style.display = "none";
-	$('#deleteMsgPopup')[0].style.display = "block";
-	$('#editMsgPopup')[0].style.display = "none";
+	  	$('#selectedMessages').append(`
+				<tr id="selectedMsgText">
+					<td>${insertMsg}</td>
+					<td><span style="font-weight: bold"> Created On:</span>&nbsp; ${insertMsgDate}</td>
+				</tr>
+	  	`)
+		}); //end of checkedElements.map
+		//displays popup
+		$('#addMsgPopup')[0].style.display = "none";
+		$('#deleteMsgPopup')[0].style.display = "block";
+		$('#editMsgPopup')[0].style.display = "none";
+	}
 })
 
 $('#deleteMessage').click(function(){
@@ -815,24 +1008,27 @@ function editMsgText(currMsgEdit){
 }
 
 $('#saveMessage').click(function(){
-	let insertText = $('#editMsgHere').val();
-	$('#editingOn').replaceWith(`
-		<p class="message">${insertText}</p>
-	`);
+	let newMsgText = $('#editMsgHere').val();
+	if (!(newMsgText.length === 0 || allMessages.includes(newMsgText)&&newMsgText!==oldMsgText)) {
+		let insertText = $('#editMsgHere').val();
+		$('#editingOn').replaceWith(`
+			<p class="message">${insertText}</p>
+		`);
+			$('#editMsgPopup')[0].style.display = "none";
+		}
+	})
+
+	$('#closeMsgEditPopup').click(function(){
 		$('#editMsgPopup')[0].style.display = "none";
-})
+	})
 
-$('#closeMsgEditPopup').click(function(){
-	$('#editMsgPopup')[0].style.display = "none";
-})
-
-$('#reloadMsg').click(function(){ //runs refresh button animation for subs tab
-	if($('#reloadMsg img')[0].style.animationName == "reload"){
-		$('#reloadMsg img')[0].style.animationName = "resetReload";
-	}else{
-		$('#reloadMsg img')[0].style.animationName = "reload"
-		$('#reloadMsg img')[0].style.animationPlayState = "running";
-	}
+	$('#reloadMsg').click(function(){ //runs refresh button animation for subs tab
+		if($('#reloadMsg img')[0].style.animationName == "reload"){
+			$('#reloadMsg img')[0].style.animationName = "resetReload";
+		}else{
+			$('#reloadMsg img')[0].style.animationName = "reload"
+			$('#reloadMsg img')[0].style.animationPlayState = "running";
+		}
 })
 
 
@@ -898,14 +1094,16 @@ function switchType(el){
 	currentType=el;
 	console.log(currentType)
 	for (var i = 0; i < document.getElementsByClassName('msgType').length; i++) {
-		document.getElementsByClassName('msgType')[i].style.backgroundColor="#F58F31";
-		document.getElementsByClassName('msgType')[i].style.color="white";
-		document.getElementsByClassName('msgType')[i].style="border-color: #F58F31;";
+		document.getElementsByClassName('msgType')[i].style.backgroundColor=document.getElementsByClassName('msgType')[i].style.borderColor;
+		//document.getElementsByClassName('msgType')[i].style.color="white";
+		//document.getElementsByClassName('msgType')[i].style="border-color: #F58F31;";
 	}
 	document.getElementById(el).style.backgroundColor="white";
-	document.getElementById(el).style.color="#F58F31";
-	document.getElementById(el).style.borderColor= "#F58F31";
-	document.getElementById('typeHeader').innerHTML=el;
+	//document.getElementById(el).style.color="#F58F31";
+	//document.getElementById(el).style.borderColor= "#F58F31";
+	console.log(qsTypeData)
+	console.log(qsTypeData[el] + el)
+	document.getElementById('typeHeader').innerHTML=qsTypeData[el];
 	for (var i = 0; i < document.getElementsByClassName('msgPre').length; i++) {
 		document.getElementsByClassName('msgPre')[i].style.display="none";
 	}
@@ -931,20 +1129,24 @@ function switchType(el){
 }
 
 var editing = false;
-var oldContent = {};
+var oldContent;
+var qsid;
 var newContent = {};
-var textFirst = true;
-var typeFirst = true;
 function convertText(){
-	var htmlText = document.getElementById(currentType+"-msg").innerHTML;
-	var regex = /placeholder="\s*(.*?)\s*">/g;
-	htmlText = htmlText.replace("<p>","");
-	htmlText = htmlText.replace("</p>","");
-	while (m = regex.exec(htmlText)) {
-		htmlText = htmlText.replace('<input type="textbox" placeholder="'+m[1]+'">',"{"+m[1]+"}");
+	var string = document.getElementById(currentType+"-msg").innerHTML;
+	console.log("converting this: "+string)
+	var newString = string;
+	var pattern = /placeholder="[^"]*"/g;
+	newString = newString.replace("<p>","");
+	newString = newString.replace("</p>","");
+	var current;
+	while(current = pattern.exec(string)){
+	  var rep = current[0].substring(13, current[0].length-1)
+	   console.log(rep)
+	   newString = newString.replace('<input type="textbox" placeholder="'+rep+'">',"{"+rep+"}");
 	}
-	temp=htmlText
-	return htmlText;
+	temp=string
+	return newString;
 }
 function editMsg(){
 	if (editing == false){
@@ -956,26 +1158,26 @@ function editMsg(){
 		document.getElementById('edit-saveMsg').src='./images/save.png'
 		document.getElementById('edit-saveType').style.display="none";
 		document.getElementById('note').style.display="block";
-		oldContent.type = currentType;
-		oldContent.text = convertText();
-		newContent.type = currentType;
-		newContent.text = convertText();
 	}
 	else{
 		editing=false;
+		oldContent= currentType;
+		console.log(qsTypeData)
+		console.log("current Type: "+currentType)
+		console.log(qsTypeData[currentType])
 		document.getElementById(currentType+"-msg").style.display="block";
 		document.getElementById('editBox').style.display="none";
 	    var htmlText = document.getElementById("editBox").value;
 	    var regex = /{\s*(.*?)\s*}/g;
 		while (m = regex.exec(htmlText)) {
-			console.log(m[1])
 			htmlText = htmlText.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
 		}
 		document.getElementById(currentType+"-msg").innerHTML = "<p>"+htmlText+"</p>";
 		document.getElementById('edit-saveMsg').src='./images/edit.png';
 		document.getElementById('edit-saveType').style.display="inline-block";
 		document.getElementById('note').style.display="none";
-		textFirst=false;
+		newContent.type = qsTypeData[currentType]
+		newContent.text =convertText();
 		editQS();
 	}
 }
@@ -985,38 +1187,33 @@ function editType(){
 	if(typeEditing==false){
 		typeEditing=true;
 		document.getElementById("typeHeader").style.display="none";
-		document.getElementById('editTypeBox').value = currentType;
+		document.getElementById('editTypeBox').value = qsTypeData[currentType];
 		tempId=currentType;
 		document.getElementById('editTypeBox').style.display="inline-block";
 		document.getElementById('edit-saveType').src='./images/save.png'
 		document.getElementById('editButton').style.display="none";
-		oldContent.type = currentType;
-		oldContent.text = convertText();
-		newContent.type = currentType;
-		newContent.text = convertText();
 	}
 	else{
 		typeEditing=false;
-		console.log(document.getElementById('editTypeBox').value)
+		oldContent = currentType;
+		qsTypeData[currentType]=document.getElementById('editTypeBox').value;
+		newContent.type = qsTypeData[currentType];
+		newContent.text = convertText();
 		document.getElementById(currentType).innerHTML = "<h3>"+document.getElementById('editTypeBox').value+"</h3>"
 		document.getElementById(currentType).style.display="block";
 		document.getElementById("typeHeader").innerHTML = document.getElementById('editTypeBox').value
 		document.getElementById("typeHeader").style.display="inline-block";
-		
-		document.getElementById(currentType).setAttribute("id", document.getElementById('editTypeBox').value);
-		document.getElementById(currentType+"-msg").setAttribute("id", document.getElementById('editTypeBox').value+"-msg");
-		currentType = document.getElementById('editTypeBox').value;
 		document.getElementById('editTypeBox').style.display="none";
 		document.getElementById('edit-saveType').src='./images/edit.png'
 		document.getElementById('editButton').style.display="inline-block";
-		typeFirst=false;
 		editQS();
 	}
 }
 //QUICK SEND JS END
 
-//TOOLBAR JS START
 
+
+//TOOLBAR JS START
 $('.dropIcon').on('click', function() {
 	let dropdown = $(this).parent().find('.dropdown');
 	dropdown.toggleClass('activeDots');
@@ -1038,3 +1235,6 @@ $(window).resize(function(){
 		console.log('afdf');
 	}
 });
+
+//TOOLBAR JS END
+

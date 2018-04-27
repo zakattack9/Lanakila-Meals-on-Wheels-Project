@@ -1,7 +1,4 @@
 'use strict';
-
-const AWS = require('aws-sdk');
-AWS.config.update({region: 'us-west-2'});
 const Pool = require('pg-pool');
 const config = require('../config.json');
 const {host, database, table, user, password, port, idleTimeoutMillis} = config;
@@ -14,37 +11,26 @@ const Client = new Pool ({
   idleTimeoutMillis : 1000
 });
 
-const sns = new AWS.SNS({apiVersion: '2010-03-31'});
-
-module.exports.editQuickSend = (event, context, callback) => {
-  console.log("event", event.body);
-  let messageText = JSON.parse(event.body);
-  let newMsgText = messageText[0];
-  let msgId = messageText[1];
-
-  let newMsgType = newMsgText.type;
-  let newMsg = newMsgText.text;
-  console.log(newMsgType, newMsg, msgId);
-
-  let editMsg = "UPDATE " + table[4] + " SET message_type = $1, message_text= $2 WHERE id = $3;"; //replace old message with new message
-
-  Client.connect() //connect to database
+module.exports.getQuickSend = (event, context, callback) => {
+  let getQSmsgs = "SELECT * FROM " + table[4] + " ORDER BY id;";
+  Client.connect() 
     .then(client => {
       client.release();
-      return client.query(editMsg, [newMsgType, newMsg, msgId]);
+      return client.query(getQSmsgs);
     })
     .then(res => {
-      console.log(res);
+      console.log(res)
       const response = {
         statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Methods" : "*"
         },
-        body: JSON.stringify(res)
+        body: JSON.stringify(res.rows)
       }
       callback(null, response);
-    })  
+    })
     .catch(err => {
       console.log(err.stack);
       const response = {

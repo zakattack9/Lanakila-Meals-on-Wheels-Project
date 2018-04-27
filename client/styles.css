@@ -2,7 +2,6 @@
 COLORS:
 GREEN — #13896D
 ORANGE — #F58F31
-
 FONTS: (Narrow Down Later)
 font-family: 'Lato', sans-serif;
 font-family: 'Noto Sans', sans-serif;
@@ -180,6 +179,9 @@ html, body {
 	background-color: #F58F31;
 	margin: 0 auto;
 	margin-top: 5vh;
+	border-top-left-radius: 0;
+	border-bottom-right-radius: 0;
+	position: relative;
 }
 
 #msgSpace {
@@ -215,7 +217,7 @@ html, body {
 	padding-top: 10px;
 }
 
-#groupSpace span {
+#groupSpace span:first-child {
 	font-size: 20px;
 	font-weight: bold;
 	margin-left: 30px;
@@ -235,20 +237,25 @@ html, body {
 #sendButton {
 	font-size: 17px;
 	background-color: #13896D;
-	height: 35px;
-	width: 80px;
+	height: 40px;
+	width: 125px;
 	text-align: center;
-	line-height: 35px;
+	line-height: 40px;
 	float: right;
 	border-radius: 10px;
-	margin-right: 30px;
+	/*margin-right: 30px;
+	margin-top: -5px;*/
 	transition: 0.1s;
+	user-select: none;
+	position: absolute;
+	bottom: 20px;
+	right: 30px;
 }
 
 #sendButton:hover {
 	transform: scale(1.05);
-	transition: 0.4s;
 	color: white;
+	transition: 0.4s;
 }
 
 #recentMsgs {
@@ -306,7 +313,7 @@ html, body {
 	right: 0;
   height: 100%;
   width: 0;
-  background-color: lightyellow;
+  background-color: #c9e5e8;
   overflow-x: hidden;
   transition: 0.3s;
 }
@@ -337,7 +344,8 @@ html, body {
 	right: 0;
   height: 100%;
   width: 0;
-  background-color: lightblue;
+  /*background-color: #81c3ca;*/
+  background-color: #5db2bb;
   overflow-x: hidden;
   transition: 0.3s;
 }
@@ -382,7 +390,8 @@ html, body {
 }
 
 .draggableGrp, .draggableMsg, .draggableSub {
-	background-color: lightgray;
+	background-color: #6fbac3;
+	color: #333333;
 	width: 90%;
 	border-radius: 10px;
 	display: block;
@@ -396,10 +405,10 @@ html, body {
 
 .draggableGrp {
 	height: 100px;
-}
+	/*background-color: #dbeef0;*/
+	background-color: #3c8790;
+	color: black;
 
-.draggableGrp {
-	background-color: #e6e6e6;
 }
 
 .draggableGrp:hover, .draggableMsg:hover, .draggableSub:hover {
@@ -412,8 +421,10 @@ html, body {
 	height: 100%;
 	position: relative;
 	z-index: 1;
+	background-color: #fcd8b6;
+/*	border-top-left-radius: 0px;
+	border-bottom-right-radius: 0px;*/
 }
-
 
 /* Styles for groups workspace */
 #grpTopBar {
@@ -427,7 +438,6 @@ html, body {
 	text-align: center;
 	line-height: 65px;
 }
-
 
 
 #trashGrp img{
@@ -649,7 +659,6 @@ html, body {
   -ms-user-select: none;
   user-select: none;
 }
-
 .customBox {
   position: relative;
   top: 15px;
@@ -660,13 +669,11 @@ html, body {
   -ms-user-select: none;
   user-select: none;
 }
-
 .customBox input, #checkAll input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
 }
-
 .checkmark {
   position: absolute;
   top: 0;
@@ -799,7 +806,6 @@ html, body {
 }
 
 /*sub icons*/
-
 #trashSub img{
 	width: 30px;
 	border-radius: 50%;
@@ -1255,6 +1261,7 @@ html, body {
 	width: 0px;
 	height: 120px;
 	background-color: #F58F31;
+	/*background: linear-gradient(#F58F31, #f9bd85);*/
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -1270,13 +1277,17 @@ html, body {
 	overflow: hidden;
 }
 
-#tempInp {
+#tempInp, #clonedInp {
 	width: 86%;
 	height: 75px;
 	background-color: white;
 	border-radius: 10px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#clonedInp {
+	margin-top: 17px;
 }
 
 #cloneBtn {
@@ -1291,7 +1302,28 @@ html, body {
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
 	z-index: 0;
-	transition: 0.5s;
+	transition: 0.3s;
+}
+
+#cloneBtn:hover {
+	height: 27px;
+	transition: 0.2s;
+}
+
+#delSubCard {
+	transition: 0.3s;
+}
+
+#closeClone {
+	font-size: 16px;
+	transition: 0.2s;
+}
+
+#closeClone:hover {
+	font-size: 17px;
+	color: #e60000;
+	text-decoration: underline;
+	transition: 0.3s;
 }
 
 
@@ -1405,7 +1437,6 @@ html, body {
 	display: flex;
 	flex-direction: row;
 }
-
 .msgColumn {
 	width: 34%;
 }*/
@@ -1424,6 +1455,7 @@ html, body {
 	column-gap: 0px;
 	padding-bottom: 66px;
 	margin: 0 auto;
+	margin-right: .7%;
 	padding-top: 1px;
 }
 
@@ -1455,17 +1487,25 @@ html, body {
 }
 
 .msgGradient:nth-child(n) {
-	background-color: #a7daf1;
+	background-color: #84c5cc;
 }
 
 .msgGradient:nth-child(2n) {
-	background-color: #1ccaa1;
+	background-color: #5db2bb;
 }
 
 .msgGradient:nth-child(3n) {
-	background-color: #e6e6e6;
+	background-color: #4498a2;
 }
 
+.msgGradient:nth-child(4n) {
+	background-color: #b7dde1;
+}
+
+/*
+.msgGradient:nth-child(5n) {
+	background-color: #c9e5e8;
+}*/
 
 .modeContainer {
 	width: 41px;
@@ -1498,6 +1538,10 @@ html, body {
  	z-index: 4;
 }
 
+#addMsgPopup {
+	z-index: 3;
+}
+
 #addMsgPopup:after, #deleteMsgPopup:after, #editMsgPopup:after, #addMsgPopupBC:after {
 	content: '';
 	position: absolute;
@@ -1518,6 +1562,10 @@ html, body {
 	top: 25%;
 	/*left: 17%;*/
 	z-index: 1;
+}
+
+#msgPopupBox, #editMsgBox {
+	height: 320px;
 }
 
 #deleteMsgBox {
@@ -1588,7 +1636,6 @@ html, body {
 	font-size: 14px;
 	width: 90%;
 	height: 80%;
-	margin-bottom: 58px;
 	margin-left: 4%;
 	outline: none;
 	resize: none;
@@ -1720,8 +1767,7 @@ html, body {
 .msgType{
 	margin: 10px;
 	padding: 10px;	
-	background-color: #F58F31;
-	color: white;
+	color: #333333;
 	border-radius: 20px;
 	border-width: 5px;
 	border-style: solid; 
@@ -1731,6 +1777,7 @@ html, body {
 	transition-timing-function: ease;
 	cursor: pointer;
 }
+
 .msgType:hover { 
 	margin-left: 10px;
 	margin-right: 10px;
@@ -1740,9 +1787,9 @@ html, body {
  	transition: all 0.2s;
  	transition-timing-function: ease-in;
 }
+
 #msgPanel, #msgTypePanel{
 	height: 90vh;
-	/*width: 0;*/
 }
 
 #msgPanel {
@@ -1753,18 +1800,67 @@ html, body {
 	background-color: #F58F31;
 	color: white;
 	border-color: #F58F31;	
+
 }
 
 .scroll{
 	overflow-y: auto;
 	height: 90vh;
+	user-select: none;
+}
+
+.msgType:nth-child(1) {
+	background-color: #84c5cc;
+	border-color: #84c5cc;
+}
+
+.msgType:nth-child(2) {
+	background-color: #61a9b0;
+	border-color: #61a9b0;
+}
+
+.msgType:nth-child(3) {
+	background-color: #4e989f;
+	border-color: #4e989f;
+}
+.msgType:nth-child(4) {
+	background-color: #3b8b92;
+	border-color: #3b8b92;
+}
+.msgType:nth-child(5) {
+	background-color: #2b8087;
+	border-color: #2b8087;
+}
+
+.msgType:nth-child(10) {
+	background-color: #84c5cc;
+	border-color: #84c5cc;
+}
+
+.msgType:nth-child(9) {
+	background-color: #61a9b0;
+	border-color: #61a9b0;
+}
+
+.msgType:nth-child(8) {
+	background-color: #4e989f;
+	border-color: #4e989f;
+}
+.msgType:nth-child(7) {
+	background-color: #3b8b92;
+	border-color: #3b8b92;
+}
+.msgType:nth-child(6) {
+	background-color: #2b8087;
+	border-color: #2b8087;
 }
 
 #qsContainer{
 	width: 70%;
 	height: 80%;
-	margin: auto;
-	margin-top: 1%;
+	margin: auto;	margin-top: 1%;
+
+	margin-top: 60px;
 	background-color: #F58F31;
 	border-radius: 40px;
 }
@@ -1797,17 +1893,22 @@ html, body {
 	height: 50px;
 	width: 190px;
 	margin: auto;
-	margin-top:15px;
+	margin-top: 5%;
 	text-align: center;
-	vertical-align: middle;
-	line-height: 50px;  
+	vertical-align: middle; 
 	border-radius: 10px;
 	transition: 0.2s;
-}
+
 
 #qsSend:hover {
 	transform: scale(1.03);
+	color: white;
 	transition: 0.2s;
+  user-select: none;
+}
+
+#qsSend h3 {
+	margin-top: 15px;
 }
 
 .msgPre{
@@ -1885,9 +1986,23 @@ input {
 	margin-left: 5px;
 }
 
+  #qsSend i, #sendButton i{
+	display: none;
+	margin: 5px;
+}
+
+#qsSend h3{
+	display: inline-block;
+}
+
+#addMsgWarning, #editMsgWarning {
+	font-size: 13px;
+	margin-left: 4%;
+	color: red;
+	font-style: italic;
+}
+  
 /*TOOL DROP DOWN STYLES (group, subscribers, messages)*/
-
-
 .activeDots {/*sets height to 400 in mobile*/
 	display: flex;
 }
@@ -1916,4 +2031,3 @@ input {
 	position: absolute;
 	z-index: 2;
 	top:0;
-}

@@ -11,6 +11,19 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script>
+		window.onbeforeunload = function() {
+		  if(showSave) {
+		  	console.log("don't leave")
+		  	alert("Are you sure you want to leave? There are still unsaved changes, please click the save button in the subscriber's group organizer tab to ensure all modified subscribers are saved in the specified groups");
+
+		  	return "Are you sure you want to leave? There are still unsaved changes, please click the save button in the subscriber's group organizer tab to ensure all modified subscribers are saved in the specified groups";
+
+		  }
+		};
+	</script>
 </head>
 <body>
 
@@ -63,6 +76,7 @@
 							<div id="closeMsgPopup">&times;</div>
 							<div id="msgPopupTitle">Message:</div>
 							<textarea rows="10" id="typeMsg" placeholder="Type message here"></textarea>
+							<span id = "addMsgWarning"></span>
 							<div id="createMsg">
 								Create Message
 							</div>
@@ -91,7 +105,8 @@
 						</div>
 
 						<div id="sendButton">
-							Send
+							Send!
+							<i class="fa fa-spinner fa-spin"></i>
 						</div>
 					</div>
 				</div>
@@ -367,7 +382,7 @@
 				</div>
 
 				<div id="tempSide"> <!--side div that pops out to temp store card-->
-					<div id="tempTitle">Temporary Holder</div>
+					<div id="tempTitle"><span id="delSubCard">Delete</span> | Hold</div>
 					<div id="tempInp" ondrop="drop(event, this)" ondragover="allowDrop(event)">
 						
 					</div>
@@ -376,6 +391,8 @@
 				<div id="cloneBtn">
 					Clone
 				</div>
+
+
 
 				<div id="saveSub">
 					<img src="./images/save.png">
@@ -461,6 +478,7 @@
 							<div id="closeMsgEditPopup">&times;</div>
 							<div id="popupMsgEditTitle">You are now editing:</div>
 							<textarea rows="10" id="editMsgHere" placeholder="Your original message has been deleted. If unintentional, exit now."></textarea>
+							<span id = "editMsgWarning"></span>
 							<div id="saveMessage">Save Message</div>
 						</div>
 					</div>
@@ -499,9 +517,25 @@
 
 			<!--QUICK SEND-->
 			<div class="hidden" id="quickSend"><!--broadcasts preset messages to EVERYONE-->
+
 				<div id="quickSendTopBar">
 					<div id="quickSendTitle">Quick Send</div>
-				</div>
+        </div>
+
+				<div id="msgTypePanel">
+					<div class="tab"><h3>Type</h3></div>
+					<div class="scroll">
+						<div class="spinnerWrap">
+              <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+              </div>
+					  </div>
+				  </div>
+
 				<div id="qsChoosePanel">
 					<div class="tab activePanel" id="qsTypeTab"><h3>Type</h3></div>
 					<div class="tab" id="qsMessageTab"><h3>Message</h3></div>
@@ -543,8 +577,12 @@
 								<div id="editButton" onclick="editMsg()">
 									<img id ="edit-saveMsg" src="./images/edit.png">
 								</div>
+
 							</div>
-							<div id = "qsSend" onclick="sendToAll()"><h3>Send!</h3></div>
+							<div id = "qsSend" onclick="sendToAll()">
+							  <h3>Send!</h3>
+							  <i class="fa fa-spinner fa-spin"></i>
+						  </div>
 						</div>
 					</div>
 				</div>

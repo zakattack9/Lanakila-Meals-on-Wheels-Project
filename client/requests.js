@@ -22,18 +22,33 @@ function loadGroups(){
     $('#groupSelect').empty(); //clears options from dropdown in "add subscriber"
     response.map(currVal => { //adds groups to groups table
       //console.log(currVal)
-      $('#grpTable tbody').append(`
-        <tr id="${currVal.id}" onclick="highlightTopic(this);">
-          <td>
-            <div class="customCheck">
-                
-            </div>
-          </td>
-          <td class="groupName">${currVal.group_name}</td>
-          <td class="memberCount">Loading...</td>
-          <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
-        </tr>
-      `)
+
+      if(currVal.group_name === "Everyone") {
+        $('#grpTable tbody').append(`
+          <tr id="${currVal.id}">
+            <td>
+              
+            </td>
+            <td class="groupName">${currVal.group_name}</td>
+            <td class="memberCount">Loading...</td>
+            <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
+          </tr>
+        `)
+      }else {
+        $('#grpTable tbody').append(`
+          <tr id="${currVal.id}" onclick="highlightTopic(this);">
+            <td>
+              <div class="customCheck">
+                  
+              </div>
+            </td>
+            <td class="groupName">${currVal.group_name}</td>
+            <td class="memberCount">Loading...</td>
+            <td class="groupDate">${currVal.date_created.substring(0, 10)}</td>
+          </tr>
+        `)
+      }
+      
 
       if(currVal.group_name === "Everyone"){
         return "Skipping this selection" //prevents this option from being added to dropdown
@@ -59,7 +74,8 @@ function loadGroups(){
     loadGrpSubs();
 
     $('#groupOverlayWrap').empty();
-    response.map(currVal => { //adds group columns in subscribers tab
+    response.map(currVal => { //adds groups to overlay in broadcast tab
+
       $('#groupOverlayWrap').append(`
         <div class="draggableGrp" ondragstart="dragStart(event)" draggable="true" id="dragGroup${currVal.id}">
           ${currVal.group_name}
@@ -152,7 +168,7 @@ function loadGrpSubs() {
       let grpColumn = '#grp_' + currVal.id;
       //console.log(appendTo)
       $(grpColumn).append(`
-        <div class="singleSub draggableSub" ondragstart="dragStart(event)" draggable="true" id="${currVal.id}${currVal.sub_id}">
+        <div class="singleSub draggableSub" ondragstart="dragStart(event)" draggable="true" id="${currVal.id}-${currVal.sub_id}">
           <span class="targetSubName">${currVal.subscription_name}</span>
           <br>
           <span class="subEndpoint">${currVal.subscription_endpoint.toUpperCase()}</span>
@@ -162,7 +178,7 @@ function loadGrpSubs() {
 
     })
 
-    $('.singleSub').on('mousedown', function(event){ //adds event handler to open clone feature
+    $(document).on('mousedown', '.singleSub', function(event){ //adds event handler to open clone feature
       $('#tempSide')[0].style.width = "220px";
     })
 
@@ -193,6 +209,7 @@ function changeGrpSubs(subQueue) {
   .done((response) => {
     console.log(response)
     loadGrpSubs();
+    loadGroups();
   })
   .fail((err) => {
     console.log(err);
@@ -376,9 +393,10 @@ function startMsgLoadAnimation() {
   $('.spinnerWrap')[0].style.display = "block";
 }
 
+var allMessages = [];
 function getMessages() {
   startMsgLoadAnimation();
-
+  allMessages = [];
   $.ajax({
     url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/get",
     method: 'GET',
@@ -392,6 +410,7 @@ function getMessages() {
     //console.log(response);
 
     response.map(currVal => {
+      allMessages.push(currVal.message_text);
       $('#msgCol').prepend(`
         <div class="msgGradient" id="msg000${currVal.id}" onclick="checkMsg(this)">
           <div class="msgAndDate">
@@ -437,10 +456,23 @@ $('#reloadMsg').click(function(){
 })
 
 $('#createMsg').click(function(){
-  $('#addMsgPopup')[0].style.display = "none";
-  startMsgLoadAnimation();
+  if($('#typeMsg').val().length === 0 || allMessages.includes($('#typeMsg').val())) { //adds warning if any fields are left blank or the contact typed in already exists in the DB
 
-  $.ajax({
+    if($('#typeMsg').val().length === 0) { //adds warning if no name is typed in
+      $('#addMsgWarning')[0].innerText = "Field is empty, please type in a message";
+    }else {
+       if(allMessages.includes($('#typeMsg').val())) {
+        $('#addMsgWarning')[0].innerText = "The message inputted already exists in the system";
+      }else {
+        $('#addMsgWarning')[0].innerText = "";
+      }
+    }    
+  }
+  else{
+  $('#addMsgPopup')[0].style.display = "none";
+  $('#addMsgWarning')[0].innerText = "";
+  startMsgLoadAnimation();
+    $.ajax({
     url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/post",
     method: 'POST',
     contentType: "application/json; charset=utf-8",
@@ -456,6 +488,7 @@ $('#createMsg').click(function(){
   })
 
   $('#typeMsg').val('');
+  }
 });
 
 function deleteMessage(id) {
@@ -480,22 +513,38 @@ function deleteMessage(id) {
 
 $('#saveMessage').click(function(){
   let newMsgText = $('#editMsgHere').val();
-  startMsgLoadAnimation();
+  if(newMsgText.length === 0 || allMessages.includes(newMsgText)&&newMsgText!==oldMsgText) { //adds warning if any fields are left blank or the contact typed in already exists in the DB
 
-  $.ajax({
-    url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/put",
-    method: 'PUT',
-    contentType: "application/json; charset=utf-8",
-    dataType: 'JSON',
-    data: JSON.stringify([newMsgText, oldMsgText])
-  })
-  .done((response) => {
-    console.log(response)
-    getMessages();
-  })
-  .fail((err) => {
-    console.log(err);
-  }) 
+    if(newMsgText.length === 0) { //adds warning if no name is typed in
+      $('#editMsgWarning')[0].innerText = "Field is empty, please type in a message";
+    }else {
+       if(allMessages.includes(newMsgText)&&newMsgText!==oldMsgText) {
+        $('#editMsgWarning')[0].innerText = "The message inputted already exists in the system";
+      }else {
+        $('#editMsgWarning')[0].innerText = "";
+      }
+    }    
+  }
+  else{
+    $('#editMsgPopup')[0].style.display = "none";
+    $('#editMsgWarning')[0].innerText = "";
+    startMsgLoadAnimation();
+    $.ajax({
+      url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/put",
+      method: 'PUT',
+      contentType: "application/json; charset=utf-8",
+      dataType: 'JSON',
+      data: JSON.stringify([newMsgText, oldMsgText, +editedMsgID])
+    })
+    .done((response) => {
+      console.log(response)
+      getMessages();
+    })
+    .fail((err) => {
+      console.log(err);
+    })
+    $('#editMsgHere').val('');
+  }
 })
 
 //BROADCAST
@@ -504,6 +553,10 @@ $('#sendButton').click(function(){ //broadcasts message to groups
   let grpID = $('#groupInput').find('.draggableGrp')[0].id.slice(-2);
   let msgID = $('#msgInput').find('.draggableMsg')[0].id.slice(-2);
 
+  //sending animations
+  document.getElementById("sendButton").innerHTML = 'Sending <i class="fa fa-spinner fa-spin"></i>';
+   $( "div#sendButton > i" ).css( "display", "inline-block" );
+  $("#sendButton").css("pointer-events", "none")
   $.ajax({
     url: "https://c7ujder64c.execute-api.us-west-2.amazonaws.com/dev/broadcast",
     method: 'POST',
@@ -513,61 +566,127 @@ $('#sendButton').click(function(){ //broadcasts message to groups
   })
   .done((response) => {
     console.log(response)
+    $("#sendButton").css("pointer-events", "auto")
+    document.getElementById("sendButton").innerHTML = 'Send!';
 
   })
   .fail((err) => {
     console.log(err);
+    $("#sendButton").css("pointer-events", "auto")
+    document.getElementById("sendButton").innerHTML = 'Send!';
   }) 
 })
 
 
 
-//quickSend
+//QUICK SEND
+var qsTypeData = [];
+var qsTextData = [];
+var loaded = false;
+function loadQuickSend() {
+  $('.spinnerWrap')[4].style.display = "block";
+  $.ajax({
+    url: "https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/get",
+    method: 'GET',
+    "Content-Type": "application/json",
+  })
+  .done((response) => {
+    //console.log(response);
+    $('.spinnerWrap')[4].style.display = "none";
+    $('.scroll').empty();
+    $('#msgContainer span').empty();
+    response.map(currVal => {
+      var newCurrVal = currVal.message_text;
+      var regex = /{\s*(.*?)\s*}/g;
+        while (m = regex.exec(newCurrVal)) {
+          newCurrVal = newCurrVal.replace("{"+m[1]+"}",'<input type="textbox" placeholder="'+m[1]+'">');
+        }
+        qsTypeData[currVal.id]=currVal.message_type;
+        qsTextData[currVal.id]=currVal.message_text;
+        loaded=true;
+        $('.scroll').append(`<div class="msgType" id="${currVal.id}" onclick="switchType(this.id)" onclick="exitMsg(this.id)"><h3>${currVal.message_type}</h3></div>`)
+        $('#msgContainer').append(`<div id="${currVal.id}-msg" class="msgPre">${newCurrVal}</div>`)
+    })
+  })
+  .fail((err) => {
+    console.log('error', err);
+  })
+}
+loadQuickSend();
+
 var concatedMessage ="";
+
+function disableQS(){
+  document.getElementById('editButton').style.display="none";
+  document.getElementById('edit-saveType').style.display="none";
+  $("#qsSend").css("pointer-events", "none")
+}
+function enableQS(){
+  document.getElementById('editButton').style.display="block";
+  document.getElementById('edit-saveType').style.display="block";
+  $("#qsSend").css("pointer-events", "auto")
+}
 function sendToAll(){
+
   var arr = document.getElementById(currentType+"-msg").querySelectorAll("input");
-  concatedMessage = document.getElementById(currentType+"-msg").innerHTML;
+  var htmlText= document.getElementById(currentType+"-msg").innerHTML;
+  concatedMessage = htmlText;
+  var filled = true;
     var regex = /placeholder="\s*(.*?)\s*">/g;
     concatedMessage = concatedMessage.replace("<p>","");
     concatedMessage = concatedMessage.replace("</p>","");
     var counter = 0;
-    while (m = regex.exec(concatedMessage)) {
+    console.log(concatedMessage)
+    while (m = regex.exec(htmlText)) {
       if (arr[counter].value!=="" ){
-        concatedMessage = concatedMessage.replace('<input type="textbox" placeholder="'+m[1]+'">',arr[counter].value);
-      console.log(arr[counter].value)
+        console.log("here: " + m[0])
+        concatedMessage = concatedMessage.replace('<input type="textbox" '+m[0],arr[counter].value);
+        console.log(concatedMessage)
       counter +=1;
       }
       else{
+        filled=false;
         alert("please fill in all fields");
         break;
       }
     }
-  var textMessage = `[${currentType}] ${concatedMessage}`;
 
-  $.ajax({
-   url: 'api_url',
-    method: 'POST',
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
-    data: textMessage
-  });
+  if(filled==true&&editing==false&&typeEditing==false){
+    console.log("test", currentType, concatedMessage)
+    disableQS();
+    $( "div#qsSend > i" ).css( "display", "inline-block" );
+    $( "div#qsSend > h3" ).text("Sending");
+    $.ajax({
+     url: 'https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/send',
+      method: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'JSON',
+      data: JSON.stringify([43, concatedMessage, qsTypeData[currentType]])
+    })
+    .done((response) => {
+      console.log(response)
+      enableQS();
+      $( "div#qsSend > i" ).css( "display", "none" );
+      $( "div#qsSend > h3" ).text("Send!");
+    })
+    .fail((err) => {
+      console.log(err)
+      enableQS();
+      $( "div#qsSend > i" ).css( "display", "none" );
+      $( "div#qsSend > h3" ).text("Send!");
+    })
+  }
 }
 
 function editQS(){
-  if (typeFirst == false){
-    newContent.type = document.getElementById('editTypeBox').value
-  }
-  if( textFirst == false){
-     newContent.text = document.getElementById("editBox").value
-  }
+  console.log(oldContent)
+  console.log(newContent)
   $.ajax({
-    url: "update_url",
+    url: "https://1j9grmyxgj.execute-api.us-west-2.amazonaws.com/dev/put",
     method: 'PUT',
     contentType: "application/json; charset=utf-8",
     dataType: 'JSON',
-    data: JSON.stringify({
-      "oldContent" : oldContent,
-      "newContent" : newContent
-    })
+    data: JSON.stringify([newContent, oldContent])
   })
+  newContent={};
 }
