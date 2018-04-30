@@ -80,7 +80,15 @@ function drop(event, element) {
   
   if($('.broadcast')[0].classList[2] === 'active'){ //only expands message if the broadcast tab is open
 	  if(element.id === 'msgInput' || element.id === 'groupInput'){ //expands message on drop
-	  	document.getElementById(data).classList.add('expand');
+	  	console.log(element.id)
+	  	if(element.id === 'groupInput' && document.getElementById(data).classList[0] === 'draggableMsg'){
+	  		dontAppend = true;
+	  	}else if(element.id === 'msgInput' && document.getElementById(data).classList[0] === 'draggableGrp'){
+	  		dontAppend = true;
+	  	}else {
+	  		document.getElementById(data).classList.add('expand');
+	  	}
+
 	  }else if(element.id === 'msgOverlayWrap' || element.id === 'groupOverlayWrap'){
 	  	if(element.id === 'msgOverlayWrap' && document.getElementById(data).classList[0] === 'draggableMsg') {
 	  		document.getElementById(data).classList.remove('expand');
@@ -139,12 +147,12 @@ function drop(event, element) {
 	}
 
 	//sends card back to overlay if there is already a message/group in the input field for broadcast tab
-	if(element.id === 'msgInput'){
+	if(element.id === 'msgInput' && dontAppend === false){
 		if(element.children.length > 1 && document.getElementById(data) != element.children[0]){
 			element.children[0].classList.remove('expand');
 			$('#msgOverlayWrap').prepend(element.children[0]);
 		}
-	}else if(element.id === 'groupInput'){
+	}else if(element.id === 'groupInput' && dontAppend === false){
 		if(element.children.length > 1  && document.getElementById(data) != element.children[0]){
 			element.children[0].classList.remove('expand');
 			$('#groupOverlayWrap').prepend(element.children[0]);
