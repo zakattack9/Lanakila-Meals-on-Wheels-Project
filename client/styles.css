@@ -1716,9 +1716,6 @@ html, body {
 /* Styles for quick send workspace */
 #quickSend{
 	height: 100vh;
-	width: 100%;
-	overflow-x: hidden;
-	overflow-y: hidden;
 }
 #quickSendTopBar {
 	width: 100%;
@@ -1736,20 +1733,13 @@ html, body {
 }
 
 /*////panel styles/////*/
-.tab {
-	background-color: white;
-	color: #F58F31;
+.tab{
+	background-color: #F58F31;
 	text-align: center;
-	color: #F58F31;;
+	color: black;
 	padding: 5px;
-	width: 50%;
-	border-bottom: 1.5px solid #F58F31;
-	border-top: 2px solid white;
-	cursor: pointer;
-}
-
-.tab:first-child {
-	border-right: 1.5px solid #F58F31;
+	height: 10vh;
+	font-size: 18px;
 }
 
 #qsChoosePanel {
@@ -1788,12 +1778,18 @@ html, body {
  	transition-timing-function: ease-in;
 }
 
-#msgPanel, #msgTypePanel{
-	height: 90vh;
+
+#msgTypePanel{
+	float: left;
+	width: 35%;
+	height: 91vh;
 }
 
-#msgPanel {
-	width: 100%;
+#msgPanel{
+	height: 91vh;
+	width: 65%;
+	float: left;
+	display: block;
 }
 
 .activePanel {
@@ -1805,7 +1801,7 @@ html, body {
 
 .scroll{
 	overflow-y: auto;
-	height: 90vh;
+	height: 91vh;
 	user-select: none;
 }
 
@@ -1858,12 +1854,12 @@ html, body {
 #qsContainer{
 	width: 70%;
 	height: 80%;
-	margin: auto;	margin-top: 1%;
-
+	margin: auto;
 	margin-top: 60px;
 	background-color: #F58F31;
 	border-radius: 4%;
 }
+
 #qsType{
 	padding: 2px;
 	text-align: center;
@@ -1898,13 +1894,13 @@ html, body {
 	vertical-align: middle; 
 	border-radius: 10px;
 	transition: 0.2s;
-
+	user-select: none;
+}
 
 #qsSend:hover {
 	transform: scale(1.03);
 	color: white;
 	transition: 0.2s;
-  user-select: none;
 }
 
 #qsSend h3 {
@@ -1986,7 +1982,7 @@ input {
 	margin-left: 5px;
 }
 
-  #qsSend i, #sendButton i{
+#qsSend i, #sendButton i{
 	display: none;
 	margin: 5px;
 }
@@ -2031,3 +2027,22 @@ input {
 	position: absolute;
 	z-index: 2;
 	top:0;
+}
+#qsBack {
+	position: absolute;
+	top: 17px;
+    margin-left: 60px;
+    transition: 0.1s;
+    opacity: 0.5;
+    width: 32px;
+    display: none;
+}
+#qsBack img{
+	width: 32px;
+}
+
+#qsBack:hover {
+	transform: scale(1.05);
+	color: white;
+	transition: 0.4s;
+}

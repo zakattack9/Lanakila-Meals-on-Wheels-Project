@@ -1106,7 +1106,31 @@ $('.msgType').on('click', function () {
 })
 
 var currentType;
+$(window).resize(function(){
+    if ($(window).width()>=800){
+    	$("#msgPanel").css("display","block")
+		$("#msgTypePanel").css("display","block")
+		$("#qsBack").css("display","none")
+    }
+    else{
+    	$("#msgPanel").css("display","none")
+		$("#msgTypePanel").css("display","block")
+		$("#qsBack").css("display","block")
+    }
+});
+$('#qsBack').on('click', function () {
+	console.log("bacl")
+	$("#msgPanel").css("display","none")
+	$("#msgTypePanel").css("display","block")
+})
+
 function switchType(el){
+	if ($(window).width()<=799){
+		console.log("slide")
+		$("#msgPanel").css("display","block")
+		$("#msgTypePanel").css("display","none")
+	}
+
 	currentType=el;
 	console.log(currentType)
 	for (var i = 0; i < document.getElementsByClassName('msgType').length; i++) {
