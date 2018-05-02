@@ -1106,29 +1106,59 @@ $('.msgType').on('click', function () {
 })
 
 var currentType;
+var currentPanel = "";
+if ($(window).width()<=799){
+	currentPanel = "type"
+}
 $(window).resize(function(){
     if ($(window).width()>=800){
     	$("#msgPanel").css("display","block")
 		$("#msgTypePanel").css("display","block")
 		$("#qsBack").css("display","none")
+
+		$("#typeTitle").css("display","block")
+		$("#qsmsgTitle").css("display","block")
     }
     else{
-    	$("#msgPanel").css("display","none")
-		$("#msgTypePanel").css("display","block")
-		$("#qsBack").css("display","block")
+	    if (currentPanel=="type"){
+	    	$("#msgPanel").css("display","none")
+			$("#msgTypePanel").css("display","block")
+			$("#qsBack").css("display","none")
+
+			$("#typeTitle").css("display","block")
+			$("#qsmsgTitle").css("display","none")
+	    }
+	    else if (currentPanel=="message"){
+	    	$("#msgPanel").css("display","block")
+			$("#msgTypePanel").css("display","none")
+			$("#qsBack").css("display","block")
+
+			$("#typeTitle").css("display","none")
+			$("#qsmsgTitle").css("display","block")
+	    }
     }
+
 });
 $('#qsBack').on('click', function () {
 	console.log("bacl")
+	currentPanel = "type"
 	$("#msgPanel").css("display","none")
 	$("#msgTypePanel").css("display","block")
+	$("#typeTitle").css("display","block")
+	$("#qsmsgTitle").css("display","none")
+	$("#qsBack").css("display","none")
 })
 
 function switchType(el){
 	if ($(window).width()<=799){
+		currentPanel = "message"
 		console.log("slide")
 		$("#msgPanel").css("display","block")
+		$("#qsmsgTitle").css("display","block")
 		$("#msgTypePanel").css("display","none")
+		$("#typeTitle").css("display","none")
+		$("#qsBack").css("display","block")
+
 	}
 
 	currentType=el;

@@ -2046,3 +2046,13 @@ input {
 	color: white;
 	transition: 0.4s;
 }
+#typeTitle{
+	width: 35%;
+	float: left;
+	height : 65px;
+}
+#msgTitle{
+	width: 65%;
+	float: left;
+	height : 65px;
+}

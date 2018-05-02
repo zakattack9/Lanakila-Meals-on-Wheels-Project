@@ -444,22 +444,23 @@
 
 /*QUICK SEND */
 @media (max-width: 799px) {
-	#msgPanel{
+	#msgPanel,#qsmsgTitle{
 		width: 100%;
+		display: none;
 	}
-	#msgTypePanel{
+	#msgTypePanel,#typeTitle{
 		width: 100%;
 	}
 	#qsBack{
-		display:block;
+		display:none;
 	}
 }
 
 @media (min-width: 800px){
-	#msgPanel{
+	#msgPanel,#qsmsgTitle{
 	    width : 65%;
 	}
-	#msgTypePanel{
+	#msgTypePanel,#typeTitle{
 		width: 35%;
 	}
 }
