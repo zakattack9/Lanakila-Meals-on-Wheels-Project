@@ -46,6 +46,13 @@ html, body {
 	color: #F58F31;
 }
 
+/*#openMenu {
+	width: 52px;
+    height: 65px;
+    background-color: #F58F31;
+    border-bottom-right-radius: 20px;
+}*/
+
 #openMenu img {
 	width: 30px;
 	height: 35px;
@@ -105,6 +112,7 @@ html, body {
 	height: 50px;
 	line-height: 50px;
 	padding-left: 30px;
+	user-select: none;
 }
 
 .option:hover {
@@ -500,14 +508,12 @@ html, body {
 }
 
 #popupBox{
-	width: 50%;
-	height: 20%;
+	height: 15%;
 	background-color: white;
 	border-radius: 15px;
 	opacity: 1;
 	position: relative;
-	top: 30%;
-	left: 15%;
+	top: 18%;
 	z-index: 2;
 	padding-bottom: 20px;
 }
@@ -784,6 +790,7 @@ html, body {
 
 #subsTab, #grpTab {
 	z-index: 2;
+	position: relative;
 	width: 200px;
 	height: 40px;
 	text-align: center;
@@ -794,7 +801,7 @@ html, body {
 	display: inline-block;
 	float: right;
 	margin-top: 25px;
-	margin-right: -10px;
+	margin-right: 0px;
 }
 
 #subsTab {
@@ -824,6 +831,10 @@ html, body {
 
 #searchSub img{
 	width: 32px;
+}
+
+#searchBoxSub {
+	top: ;
 }
 
 #searchBoxSub input {
@@ -1538,9 +1549,9 @@ html, body {
  	z-index: 4;
 }
 
-#addMsgPopup {
+/*#addMsgPopup {
 	z-index: 3;
-}
+}*/
 
 #addMsgPopup:after, #deleteMsgPopup:after, #editMsgPopup:after, #addMsgPopupBC:after {
 	content: '';
@@ -1635,7 +1646,7 @@ html, body {
 #typeMsg, #editMsgHere {
 	font-size: 14px;
 	width: 90%;
-	height: 80%;
+	height: 200px;
 	margin-left: 4%;
 	outline: none;
 	resize: none;
@@ -1857,7 +1868,7 @@ html, body {
 	margin: auto;
 	margin-top: 60px;
 	background-color: #F58F31;
-	border-radius: 4%;
+	border-radius: 25px;
 }
 
 #qsType{
@@ -2025,12 +2036,13 @@ input {
 	width: 100%;
 	height: 65px;
 	position: absolute;
-	z-index: 2;
+	z-index: 0;
 	top:0;
 }
 #qsBack {
 	position: absolute;
 	top: 17px;
+	right: 17px;
     margin-left: 60px;
     transition: 0.1s;
     opacity: 0.5;

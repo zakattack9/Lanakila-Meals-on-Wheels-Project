@@ -154,6 +154,7 @@
 
 	#selectedSubsWrap {
 		margin-top: 0;
+		padding-bottom: 35px;
 	}
 
 	#msgPopupTitle, #popupMsgDelTitle, #popupMsgEditTitle {
@@ -172,7 +173,7 @@
 		border-bottom: none;
 	}
 
-	#grpTable td:nth-of-type(1):before { content: "Checkbox"; }
+	#grpTable tr:not(:first-child) td:nth-of-type(1):before { content: "Checkbox"; } /*adds "Checkbox" label to all except "Everyone" row*/
 	#grpTable td:nth-of-type(2):before { content: "Group Name"; }
 	#grpTable td:nth-of-type(3):before { content: "Number of Members"; }
 	#grpTable td:nth-of-type(4):before { content: "Date Created"; }
@@ -240,15 +241,10 @@
 		transition: 0.2s;
 	}
 
-	#popupBox {
-    	width: 80%;
-    	left: 10%;
-	}
-
 	/*#delSubTitle {
 		margin-bottom: 10%;
 	}*/
-
+	/*ICON STYLES*/
 	#subsIconRow {
 		height: 400px;
 		width: 56px;
@@ -274,6 +270,7 @@
 	#msgSearchBox {
 		display: none;
 	}
+	/*ICON STYLES END*/
 
 	/*#selectedGroupText tr td {
 		border-top: none;
@@ -285,7 +282,23 @@
 		width: 80%;
 		left: 10%;
 	}
+	/*POPUP STYLES END*/
 
+
+
+	/*BOX STYLES*/
+	#popupBox {
+    	width: 80%;
+    	left: 10%;
+	}
+
+	#msgPopupBox {
+		width: 80%;
+		left: 10%;
+	}
+	/*BOX STYLES END*/
+
+	
 	/*QS STYLES*/
 	#qsContainer {
 		margin-top: 14px;
@@ -295,7 +308,7 @@
 @media (min-width: 900px){
 	.mobilePopup {
 		width: 50%;
-		left: 17%;
+		left: 25%;
 	}
 
 	.dropIcon {
@@ -316,6 +329,17 @@
 		position: absolute;
 		right: 0;
 	}*/
+
+	/*BOX STYLES*/
+	#delSubBox {
+		width: 50%;
+		left: 20%;
+	}
+
+	#msgPopupBox {
+		width: 50%;
+		left: 17%;
+	}
 
 	/*GROUP ICON STYLES*/
 	#trashGrp {

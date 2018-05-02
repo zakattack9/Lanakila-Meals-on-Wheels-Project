@@ -12,7 +12,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 	<script>
 		window.onbeforeunload = function() {
 		  if(showSave) {
@@ -173,10 +172,10 @@
 								<img src="./images/search.png">
 							</div>
 
+						</div>
 							<div id="searchBox">
 								<input type="text" id="searchInput" onkeyup="grpSearch();" placeholder=" Search for groups..">
 							</div>
-						</div>
 					</div>
 				</div>
 
@@ -254,7 +253,14 @@
 			<div class="hidden" id="subscribers">
 				<div id="subsTopBar">
 					<div id="subsTitle">Manage Subscriptions</div>
+					<div id="grpTab">
+						Groups
+					</div>
 
+					<div id="subsTab">
+						All Subscriptions
+					</div>
+					
 					<div id="subTools" class="verticalDots">
 						<img class="dropIcon" src="./images/vertical-dots.png">
 						<div id="subToolCont" class="dropdown activeDots">
@@ -280,16 +286,7 @@
 									<input type="text" id="searchInputSub" onkeyup="subSearch();" placeholder=" Search for subs...">
 								</div>
 							</div>
-						</div>
-
-					
-						<div id="grpTab">
-							Groups
-						</div>
-
-						<div id="subsTab">
-							All Subscriptions
-						</div>
+						</div>	
 					</div>
 
 
