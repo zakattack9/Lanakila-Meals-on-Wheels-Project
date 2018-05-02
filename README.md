@@ -57,7 +57,7 @@ psql --host endpointExample --port 5432 --username exUser --dbname exampleDBname
 
 _replace "endpointExample" with the endpoint generated after creation of your database, also make sure to replace "username" and "db-name" values with the ones you created in the previous step_ 
 
-3) After connecting to your database, use the command, ```\connect db-name``` to access the contents inside your DB
+3) After connecting to your database, use the command, ```\connect "db-name"``` to access the contents inside your DB
 
 4) Once inside your DB create a table to hold "subscriber" information:
 
@@ -120,6 +120,8 @@ subscription_arn TEXT NOT NULL
 ```
 
 _make sure to add this file to your .gitignore_
+
+10)
 
 
 
