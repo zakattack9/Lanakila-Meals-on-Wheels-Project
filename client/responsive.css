@@ -234,16 +234,18 @@
 		z-index: 3;
 		border-top-left-radius: 30px; 
 		border-bottom-left-radius: 30px;
-		display: flex;
+		display: none;
 		flex-direction: column;
 		justify-content: space-around;
 		align-items: center;
 		transition: 0.2s;
 	}
 
-	/*#delSubTitle {
-		margin-bottom: 10%;
-	}*/
+	#subsTitle {
+		width: 100%;
+		margin-left: 0;
+	}
+
 	/*ICON STYLES*/
 	#subsIconRow {
 		height: 400px;
@@ -333,13 +335,13 @@
 	/*BOX STYLES*/
 	#delSubBox {
 		width: 50%;
-		left: 20%;
+		left: 25%;
 	}
 
-	#msgPopupBox {
+	/*#msgPopupBox {
 		width: 50%;
 		left: 17%;
-	}
+	}*/
 
 	/*GROUP ICON STYLES*/
 	#trashGrp {

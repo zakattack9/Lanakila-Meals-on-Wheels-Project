@@ -1284,17 +1284,17 @@ function editType(){
 
 
 //TOOLBAR JS START
-$('.dropIcon').on('click', function() {
+
+$('.dropIcon').on('click', function(){
 	let dropdown = $(this).parent().find('.dropdown');
 	dropdown.toggleClass('activeDots');
 	if (dropdown.hasClass('activeDots') === true) {
-		dropdown.show()
-		// dropdown.fadeIn();
-		console.log('its happening :0');
+		dropdown.css('display', 'flex');
+		// dropdown.show()
+		// removed show and hide because it 'shows' as block instead of flex
 	} else {
-		dropdown.hide()
-		// dropdown.fadeOut();
-		console.log('ok nvm');
+		dropdown.css('display', 'none');
+		// dropdown.hide()
 	}
 	console.log('clicking dots');
 })
@@ -1308,3 +1308,22 @@ $(window).resize(function(){
 
 //TOOLBAR JS END
 
+//SEARCH BAR JS START
+let searchIds = ['searchGrp', 'searchSub', 'searchMsg'];
+
+
+
+//SEARCH BAR JS END
+
+//MESSAGES TAB AFTER START
+// this makes sure the width of the popups are the same as the container
+$('.afterBtn').on('click', function(){
+	let correctWidth = $('#oldMsgContainer').width();
+	$('.msgAfter').width(correctWidth);
+})
+
+$(window).resize(function(){
+	let correctWidth = $('#oldMsgContainer').width();
+	$('.msgAfter').width(correctWidth);
+});
+//MESSAGES TAB AFTER END

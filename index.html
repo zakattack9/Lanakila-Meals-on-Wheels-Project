@@ -70,17 +70,7 @@
 		</div>
 
 		<div id="workspace">
-			<div id="addMsgPopup">
-						<div id="msgPopupBox">
-							<div id="closeMsgPopup">&times;</div>
-							<div id="msgPopupTitle">Message:</div>
-							<textarea rows="10" id="typeMsg" placeholder="Type message here"></textarea>
-							<span id = "addMsgWarning"></span>
-							<div id="createMsg">
-								Create Message
-							</div>
-						</div>
-					</div>
+			
 			<!--BROADCAST-->
 			<div class="" id="broadcast"><!--default screen on load-->
 				<div id="broadcastTopBar">
@@ -155,7 +145,7 @@
 
 					<div id="grpTools" class="verticalDots">
 						<img class="dropIcon" src="./images/vertical-dots.png">
-						<div id="grpToolCont" class="dropdown activeDots">
+						<div id="grpToolCont" class="dropdown">
 							<div id="trashGrp">
 								<img src="./images/trashBin.png">
 							</div>
@@ -263,7 +253,7 @@
 					
 					<div id="subTools" class="verticalDots">
 						<img class="dropIcon" src="./images/vertical-dots.png">
-						<div id="subToolCont" class="dropdown activeDots">
+						<div id="subToolCont" class="dropdown ">
 							<!-- the icons go here -->
 							<div id="subsIconRow">
 								<div id="addSub">
@@ -278,7 +268,7 @@
 									<img src="./images/reload.png">
 								</div>
 
-								<div id="searchSub">
+								<div id="searchSub" >
 									<img src="./images/search.png">
 								</div>
 
@@ -410,12 +400,12 @@
 					
 					<div id="msgTools" class="verticalDots">
 						<img class="dropIcon" src="./images/vertical-dots.png">
-						<div id="msgToolCont" class="dropdown activeDots">
-							<div id="trashMsg">
+						<div id="msgToolCont" class="dropdown ">
+							<div id="trashMsg" class="afterBtn">
 								<img src="./images/trashBin.png">
 							</div>
 
-							<div id="addMsg">
+							<div id="addMsg" class="afterBtn">
 								<img src="./images/addBtn.png">
 							</div>
 
@@ -436,19 +426,20 @@
 					
 				</div>
 
-				<div id="openOldMsg">
-					<div id="addMsgPopup">
+				<div id="oldMsgContainer">
+					<div id="addMsgPopup" class="msgAfter">
 						<div id="msgPopupBox" class="mobilePopup">
 							<div id="closeMsgPopup">&times;</div>
 							<div id="msgPopupTitle">Message:</div>
 							<textarea rows="10" id="typeMsg" placeholder="Type message here"></textarea>
+							<span id = "addMsgWarning"></span>
 							<div id="createMsg">
 								Create Message
 							</div>
 						</div>
 					</div>
 
-					<div id="deleteMsgPopup">
+					<div id="deleteMsgPopup" class="msgAfter">
 						<div id="deleteMsgBox" class="mobilePopup">
 							<div id="closeMsgDelPopup">&times;</div>
 							<div id="popupMsgDelTitle">
@@ -469,7 +460,7 @@
 						</div>
 					</div>
 
-					<div id="editMsgPopup">
+					<div id="editMsgPopup" class="msgAfter">
 						<div id="editMsgBox" class="mobilePopup">
 							<div id="closeMsgEditPopup">&times;</div>
 							<div id="popupMsgEditTitle">You are now editing:</div>
@@ -479,34 +470,23 @@
 						</div>
 					</div>
 
-					<div id="oldMsgContainer">
-							
-						<div id="msgCol"> <!-- messages are generate dynamically in this div -->
-	
-						</div>
+					<div id="msgCol"> <!-- messages are generate dynamically in this div -->
 
+					</div>
+
+					
+					<div class="spinnerWrap">
+						<div class="spinner">
+						  <div class="rect1"></div>
+						  <div class="rect2"></div>
+						  <div class="rect3"></div>
+						  <div class="rect4"></div>
+						  <div class="rect5"></div>
+						</div>
+					</div>
 						
-						<div class="spinnerWrap">
-							<div class="spinner">
-							  <div class="rect1"></div>
-							  <div class="rect2"></div>
-							  <div class="rect3"></div>
-							  <div class="rect4"></div>
-							  <div class="rect5"></div>
-							</div>
-						</div>
-					</div>
-					
 				</div>
-
-				<div id="openNewMsg">
-					<div id="newMsgContainer">
-						<h2>Write Custom Message:</h2>
-			 			<textarea name="generalText" rows="15" id="typeMsg" placeholder="Type message here"></textarea>
-			 			<div id="submitMsg">Create</div>
-					</div>
 					
-				</div>
 
 			</div>
 
