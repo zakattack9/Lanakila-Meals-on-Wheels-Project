@@ -1198,7 +1198,7 @@ html, body {
 }
 
 ::-webkit-scrollbar { /*scroll bar styling */
-	height: 80px;
+	height: 75px;
 }
 
 ::-webkit-scrollbar-track {
@@ -1207,7 +1207,9 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #88CCF1; 
+    background: #13896D;
+    border-radius: 15px;
+    width: 15px;
 }
 
 #openGrp {
