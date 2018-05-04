@@ -58,9 +58,9 @@
 			scroll-behavior: auto;
 		}
 
-		#grpTab, #subsTab {
+		/*#grpTab, #subsTab {
 			display: none;
-		}
+		}*/
 	/*////////MESSAGES Styles///////*/
 	#msgCol {
 		column-count: 1;
@@ -566,5 +566,11 @@
 @media (min-width: 525px) and (max-width: 715px) {
 	#delSubTitle {
 		/*padding-bottom: 12px;*/
+	}
+}
+
+@media (max-width: 1229px) {
+	#grpTab, #subsTab {
+		display: none;
 	}
 }

@@ -94,6 +94,23 @@ $('#groupInput').on('click', function(){ //opens overlay for groups
 	openOverlay = 'group';
 })
 
+$(window).resize(function(){ //resizes overlays when window is resized
+	if ($(window).width() <= 599 && $('#msgOverlay').width() !== 0) { //resizes msg overlay
+		$('#groupOverlay')[0].style.width = "0";
+		$('#msgOverlay')[0].style.width = "270px";
+	} else if ($(window).width() > 599 && $('#msgOverlay').width() !== 0) {
+		$('#groupOverlay')[0].style.width = "0";
+		$('#msgOverlay')[0].style.width = "400px";
+	} else if ($(window).width() <= 599 && $('#groupOverlay').width() !== 0) { //resizes grp overlay
+		$('#groupOverlay')[0].style.width = "270px";
+		$('#msgOverlay')[0].style.width = "0";
+	} else if ($(window).width() > 599 && $('#groupOverlay').width() !== 0) {
+		$('#groupOverlay')[0].style.width = "400px";
+		$('#msgOverlay')[0].style.width = "0";
+	}
+})
+
+
 $('#closeMsg').on('click', function(){ //closes message overlay
 	$('#msgOverlay')[0].style.width = "0";
 })
