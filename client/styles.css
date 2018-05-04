@@ -801,7 +801,7 @@ html, body {
 	display: inline-block;
 	float: right;
 	margin-top: 25px;
-	margin-right: 0px;
+	margin-right: -10px;
 }
 
 #subsTab {

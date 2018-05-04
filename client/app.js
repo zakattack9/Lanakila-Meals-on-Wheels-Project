@@ -498,6 +498,8 @@ $('#subsTab').click(function() {
 	$('#subsTab')[0].style.position = 'relative';
 	$('#grpTab')[0].style.position = '';
 
+	$('#subsTab')[0].style.zIndex = '2';
+
 	$('#openSub')[0].style.display = 'block';
 	$('#openGrp')[0].style.display = 'none';
 
@@ -524,7 +526,7 @@ $('#grpTab').click(function() {
 	$('#openSub')[0].style.display = 'none';
 	$('#openGrp')[0].style.display = 'block';
 
-	$('#subsIconRow')[0].style.left = '204px';
+	$('#subsIconRow')[0].style.left = '203px';
 
 	$('#addSubPop')[0].style.display = "none";
 	$('#delSubPop')[0].style.display = "none";
@@ -540,6 +542,32 @@ $('#grpTab').click(function() {
 
 	$('#grpTab').addClass('groupTabOpen');
 })
+
+$(window).resize(function() { //returns user to subscription managing page if on grp drag/drop
+	if ($(window).width() <= 1229) {
+		console.log('setting to subscriptions');
+		$('#subsTab')[0].style.backgroundColor = '#EAEAEA'; //could condense using css jquery property
+		$('#grpTab')[0].style.backgroundColor = '#fcd8b6';
+		$('#subsTab')[0].style.position = 'relative';
+		$('#grpTab')[0].style.position = '';
+
+		$('#subsTab')[0].style.zIndex = '2';
+
+		$('#openSub')[0].style.display = 'block';
+		$('#openGrp')[0].style.display = 'none';
+
+		$('#subsIconRow')[0].style.left = '317px';
+
+		$('#searchBoxSub')[0].style.width = "0px"; //closes search field if open
+		$('#searchInputSub').val(''); //empties values of search field
+		subSearch();
+
+		$('#saveSub')[0].style.left = "-40px";
+		$('#saveSub')[0].style.top = "0px";
+
+		$('#grpTab').removeClass('groupTabOpen');
+	}
+});
 
 $('#reloadSub').click(function(){ //runs refresh button animation for subs tab
 	if($('#reloadSub img')[0].style.animationName == "reload"){
