@@ -1570,14 +1570,14 @@ html, body {
 }
 
 #msgPopupBox, #deleteMsgBox, #editMsgBox {
-	/*width: 50%;*/
+	width: 50%;
 	background-color: white;
 	border-radius: 15px;
 	opacity: 1;
 	position: relative;
 	top: 25%;
-	/*left: 17%;*/
-	z-index: 1;
+	left: 17%;
+	z-index: 2;
 }
 
 #msgPopupBox, #editMsgBox {
