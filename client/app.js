@@ -1433,14 +1433,17 @@ function mobileSearch(html) { //may need to fix the event listener for mobile
 
 
 $('.searchAll').click(function(){//SEARCH MESSAGE
-	if($('#mobileSearch').height() != 0){
-		$('#mobileSearchInput').val('');
-		$('#mobileSearch')[0].style.height = "0px";
-		mobileSearch(this); //needs to run mobileSearch() again to reset values
-		console.log('closing');
-	}else {
-		console.log('open mobile search');
-		$('#mobileSearch')[0].style.height = "45px";
+	if ($(window).width() <= 899) {
+		
+		if($('#mobileSearch').height() != 0){
+			$('#mobileSearchInput').val('');
+			$('#mobileSearch')[0].style.height = "0px";
+			mobileSearch(this); //needs to run mobileSearch() again to reset values
+			console.log('closing');
+		}else {
+			console.log('open mobile search');
+			$('#mobileSearch')[0].style.height = "45px";
+		}
 	}
 })
 
