@@ -31,6 +31,13 @@ function switchWorkspace(el) {
 	  $(this).addClass('active');
 	  $(this).siblings().removeClass('active');
 	})
+
+	$('#mobileSearchInput').val('');
+	$('#mobileSearch')[0].style.height = "0px";
+	mobileSearch(this);
+
+	// $('.dropdown').removeClass('activeDots');
+	// $('.dropdown').css('display', 'none');
 }
 
 $('#menuImg').on('click', function () { //opens/closes the menu 
@@ -1151,10 +1158,8 @@ $('.msgType').on('click', function () {
 })
 
 var currentType;
-var currentPanel = "";
-if ($(window).width()<=799){
-	currentPanel = "type"
-}
+var currentPanel = "type";
+
 $(window).resize(function(){
     if ($(window).width()>=800){
     	$("#msgPanel").css("display","block")
@@ -1353,22 +1358,104 @@ $(window).resize(function(){
 
 //TOOLBAR JS END
 
-//SEARCH BAR JS START
-let searchIds = ['searchGrp', 'searchSub', 'searchMsg'];
-
-
-
-//SEARCH BAR JS END
 
 //MESSAGES TAB AFTER START
 // this makes sure the width of the popups are the same as the container
 $('.afterBtn').on('click', function(){
-	let correctWidth = $('#oldMsgContainer').width();
+	let correctWidth = $('.visisble').width();
 	$('.msgAfter').width(correctWidth);
 })
 
 $(window).resize(function(){
-	let correctWidth = $('#oldMsgContainer').width();
+	let correctWidth = $('.visisble').width();
 	$('.msgAfter').width(correctWidth);
 });
 //MESSAGES TAB AFTER END
+
+
+//SEARCH BAR JS START
+let searchIds = [];
+
+if ($(window).width() <= 899) {
+	$('.searchAll').on('click', function(){
+		console.log(this.id);
+		searchIds.push(this.id);
+		console.log(searchIds);
+	})
+}
+
+function mobileSearch(html) { //may need to fix the event listener for mobile
+	let target = searchIds[searchIds.length - 1];
+	console.log('accessing ' + target + ' statements');
+	if (target == 'searchGrp') {
+		var input, filter, tbody, trow, searchName;
+		input = $("#mobileSearchInput");
+		filter = input.val().toUpperCase();
+		tbody = $("#grpTable tbody");
+		trow = $("#grpTable tbody tr");
+		for (var i = 0; i < trow.length; i++) {
+			searchName = trow[i].getElementsByClassName("groupName")[0];
+			if (searchName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+				trow[i].style.display = "";
+			} else {
+				trow[i].style.display = "none";
+	    	}
+  		}
+	} else if (target == 'searchSub') {
+		var input, filter, tbody, trow, searchName;
+		input = $("#mobileSearchInput");
+		filter = input.val().toUpperCase();
+		tbody = $("#subsTable tbody");
+		trow = $("#subsTable tbody tr");
+		for (var i = 0; i < trow.length; i++) {
+			searchName = trow[i].getElementsByClassName("subName")[0];
+			if (searchName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+				trow[i].style.display = "";
+			} else {
+				trow[i].style.display = "none";
+			}
+  		}
+	} else if (target == 'searchMsg') {
+		var input, filter, msgInstance, searchName;
+		input = $("#mobileSearchInput");
+		filter = input.val().toUpperCase();
+		msgInstance = $('.msgGradient');
+		for (var i = 0; i < msgInstance.length; i++) {
+			searchName = msgInstance[i].getElementsByClassName("message")[0];
+			if (searchName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+				msgInstance[i].style.display = "";
+			} else {
+				msgInstance[i].style.display = "none";
+			}
+		}
+	}
+}
+
+
+$('.searchAll').click(function(){//SEARCH MESSAGE
+	if($('#mobileSearch').height() != 0){
+		$('#mobileSearchInput').val('');
+		$('#mobileSearch')[0].style.height = "0px";
+		mobileSearch(this); //needs to run mobileSearch() again to reset values
+		console.log('closing');
+	}else {
+		console.log('open mobile search');
+		$('#mobileSearch')[0].style.height = "45px";
+	}
+})
+
+$(window).resize(function(){
+	if ($(window).width() >= 900){
+		$('#mobileSearchInput').val('');
+		$('#mobileSearch')[0].style.height = "0px";
+	}
+	mobileSearch(this);
+
+})
+
+$('#closeMobileSearch').on('click', function(){
+	$('#mobileSearchInput').val('');
+	$('#mobileSearch')[0].style.height = "0px";
+	mobileSearch(this);
+})
+//SEARCH BAR JS END

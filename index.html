@@ -49,8 +49,10 @@
 			</div>
 		</div>
 
-		<div id="mobileTools">
-			
+		<div id="mobileSearch">
+			<div id="closeMobileSearch">&times;</div>
+			<input type="text" id="mobileSearchInput" onkeyup="mobileSearch(this);" placeholder=" Search for an item...">
+			<!-- <img src="./images/search.png"> -->
 		</div>
 
 		<div id="sideBar">
@@ -158,7 +160,7 @@
 								<img src="./images/reload.png">
 							</div>
 
-							<div id="searchGrp">
+							<div id="searchGrp" class="searchAll">
 								<img src="./images/search.png">
 							</div>
 
@@ -268,7 +270,7 @@
 									<img src="./images/reload.png">
 								</div>
 
-								<div id="searchSub" >
+								<div id="searchSub" class="searchAll">
 									<img src="./images/search.png">
 								</div>
 
@@ -413,7 +415,7 @@
 								<img src="./images/reload.png">
 							</div>
 
-							<div id="searchMsg">
+							<div id="searchMsg" class="searchAll">
 								<img src="./images/search.png">
 							</div>
 
@@ -528,7 +530,6 @@
 							
 							<textarea id="editBox" class="msgBox"></textarea>
 							<p id="note">Note: Use { } to create a textbox</p>
-
 							<div id="editButton" onclick="editMsg()">
 								<img id ="edit-saveMsg" src="./images/edit.png">
 							</div>

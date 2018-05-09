@@ -39,6 +39,10 @@ html, body {
 	margin: 7px;
 }
 
+#mobileLogin {
+	height: 100px;
+}
+
 #mobileUsername {
 	font-size: 35px;
 	overflow: auto;
@@ -316,15 +320,15 @@ html, body {
 
 #msgOverlay {
 	z-index: 1;
-  position: fixed;
-  top: 0;
+	position: fixed;
+	top: 0;
 	right: 0;
-  height: 100%;
-  width: 0;
-  background-color: #c9e5e8;
-  overflow-x: hidden;
-  transition: 0.3s;
-}
+	height: 100%;
+	width: 0;
+	background-color: #c9e5e8;
+	overflow-x: hidden;
+	transition: 0.3s;
+	}
 
 #msgOverlayWrap {
 	height: 100%;
@@ -332,12 +336,12 @@ html, body {
 
 #newMsg {
 	display: block;
-  width: 30px;
-  font-size: 30px;
-  position: absolute;
+	width: 30px;
+	font-size: 30px;
+	position: absolute;
 	top: 5px;
 	right: 20px;
-  cursor: default;
+	cursor: default;
 }
 
 #newMsg:hover {
@@ -347,15 +351,15 @@ html, body {
 
 #groupOverlay {
 	z-index: 1;
-  position: fixed;
-  top: 0;
+	position: fixed;
+	top: 0;
 	right: 0;
-  height: 100%;
-  width: 0;
-  /*background-color: #81c3ca;*/
-  background-color: #5db2bb;
-  overflow-x: hidden;
-  transition: 0.3s;
+	height: 100%;
+	width: 0;
+	/*background-color: #81c3ca;*/
+	background-color: #5db2bb;
+	overflow-x: hidden;
+	transition: 0.3s;
 }
 
 #groupOverlayWrap {
@@ -364,14 +368,14 @@ html, body {
 
 #closeMsg, #closeGroup{
 	display: block;
-  transform: rotate(0deg);
-  width: 30px;
-  font-size: 30px;
-  position: absolute;
+	transform: rotate(0deg);
+	width: 30px;
+	font-size: 30px;
+	position: absolute;
 	top: 5px;
 	left: 20px;
-  cursor: default;
-  transition: 0.3s;
+	cursor: default;
+	transition: 0.3s;
 }
 
 #closeMsg:hover, #closeGroup:hover {
@@ -644,9 +648,9 @@ html, body {
 }
 
 #grpTable th {
-  border-left: darkgray 2px solid;
-  border-right: darkgray 2px solid;
-  border-bottom: darkgray 2px solid;
+	border-left: darkgray 2px solid;
+	border-right: darkgray 2px solid;
+	border-bottom: darkgray 2px solid;
 }
 
 #grpTable td {
@@ -693,27 +697,27 @@ html, body {
 
 #checkAll {
 	position: relative;
-  top: 2px;
-  left: 17px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  height: 21px;
-  width: 21px;
-  border-radius: 5px;
-  box-shadow: inset 0 0 3px darkgray;
+	top: 2px;
+	left: 17px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	height: 21px;
+	width: 21px;
+	border-radius: 5px;
+	box-shadow: inset 0 0 3px darkgray;
 }
 
 .customCheck {
 	position: relative;
-  left: 17px;
-  height: 20px;
-  width: 20px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: inset 0 0 3px darkgray;
+	left: 17px;
+	height: 20px;
+	width: 20px;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: inset 0 0 3px darkgray;
 }
 
 /* .customBox input:checked ~ .checkmark, #checkAll input:checked ~ .checkmark  {
@@ -722,14 +726,14 @@ html, body {
 } */
 
 #grpTable td:first-child, #grpTable th:first-child {
-  border-left: none;
-  text-align: center;
-  box-sizing: border-box;
-  width: 55px;
+	border-left: none;
+	text-align: center;
+	box-sizing: border-box;
+	width: 55px;
 }
 
 #grpTable td:last-child, #grpTable th:last-child {
-  border-right: none;
+	border-right: none;
 }
 
 #grpTable tr th:not(:first-child) {
@@ -1198,7 +1202,7 @@ html, body {
 }
 
 ::-webkit-scrollbar { /*scroll bar styling */
-	height: 75px;
+	height: 80px;
 }
 
 ::-webkit-scrollbar-track {
@@ -1207,8 +1211,7 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #13896D;
-    border-radius: 15px;
+    background: #88CCF1;
     width: 15px;
 }
 
@@ -1411,20 +1414,20 @@ html, body {
 }
 
 #checkAll2 {
-  position: relative;
-  top: 19px;
-  left: 17px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+	position: relative;
+	top: 19px;
+	left: 17px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 #checkAll2 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
 }
 
 #openOldMsg {
@@ -1883,11 +1886,13 @@ html, body {
 	align-items: center;
 	height: 50px;
 }
+
 #typeHeader{
 	color: white;
 	text-align: center;
 	display: inline-block;
 }
+
 #msgContainer{
 	margin: auto;
 	background-color: white;
@@ -1896,18 +1901,20 @@ html, body {
 	border-radius: 20px;
 	padding: 10px;
 	position: relative;
+	margin-bottom: 5%;
 }
+
 #qsSend{
 	background-color: #13896D;
-	height: 50px;
-	width: 190px;
+	height: 10%;
+	width: 30%;
 	margin: auto;
-	margin-top: 5%;
 	text-align: center;
 	vertical-align: middle; 
 	border-radius: 10px;
 	transition: 0.2s;
 	user-select: none;
+	position: bottom;
 }
 
 #qsSend:hover {
@@ -1941,8 +1948,8 @@ html, body {
 	height: 90%;
 	display: none;
 	outline: none;
-  border: darkgray solid 2px;
-  border-radius: 20px;
+	border: darkgray solid 2px;
+  	border-radius: 20px;
 	resize: none;
 	line-height: 20px;
 }
@@ -1957,14 +1964,14 @@ input {
 	position: absolute;
 	padding: 5px 10px;   
 	bottom: 10px;
-  right: 10px;
-  text-align: center;
-  display: none;
-  flex-direction: row;
-  align-items: center;
-  transition: all 0.15s;
-  transition-timing-function: ease-out;
-  border-radius: 20px;
+	right: 10px;
+	text-align: center;
+	display: none;
+	flex-direction: row;
+	align-items: center;
+	transition: all 0.15s;
+	transition-timing-function: ease-out;
+	border-radius: 20px;
 }
 #editButton img{
 	width:32px;
@@ -1973,8 +1980,8 @@ input {
 }
 #editButton:hover{
 	padding-left:20px;   
-  transition: all 0.15s;
-  transition-timing-function: ease-in;
+	transition: all 0.15s;
+	transition-timing-function: ease-in;
 }
 #editBox{
 	width: 100%;
@@ -2067,4 +2074,38 @@ input {
 	width: 65%;
 	float: left;
 	height : 65px;
+}
+
+/*SEARCH BAR STYLES*/
+#mobileSearch {
+	width: 100%;
+	height: 0;
+	z-index: 5;
+	position: absolute;
+	bottom: 0;
+	background-color: #F9C834;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	overflow: hidden; /*hides input when height = 0*/
+	transition: 0.2s;
+}
+
+#mobileSearchInput {
+	width: 85%;
+}
+
+#mobileSearch img {
+	width: 32px;
+}
+
+#closeMobileSearch {
+    font-size: 26px;
+    margin: auto 5px;
+    cursor: pointer;
+}
+
+#closeMobileSearch:hover {
+	transform: scale(1.2);
+	transition: 0.2s;
 }
