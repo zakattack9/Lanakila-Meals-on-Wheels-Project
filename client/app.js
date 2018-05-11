@@ -148,6 +148,7 @@ function drop(event, element) {
   var data = event.dataTransfer.getData("Text");
   
   if($('.broadcast')[0].classList[2] === 'active'){ //only expands message if the broadcast tab is open
+	  console.log('dropping in broadcast');
 	  if(element.id === 'msgInput' || element.id === 'groupInput'){ //expands message on drop
 	  	console.log(element.id)
 	  	if(element.id === 'groupInput' && document.getElementById(data).classList[0] === 'draggableMsg'){
@@ -167,7 +168,9 @@ function drop(event, element) {
 	  		dontAppend = true; //prevents messages from being dragged into grp overlay and groups from being dragged into msg overlay
 	  	}
 	  }
-	}else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open (expands card for clone button)
+
+	} else if($('.subscribers')[0].classList[2] === 'active'){ //checks if subs tab is open (expands card for clone button)
+		console.log('dropping in subs');
 		if(element.id === 'tempInp'){ //expands message on drop
 			clearTimeout(timer);
 
@@ -231,7 +234,7 @@ function drop(event, element) {
 		if(element.children.length > 0  && document.getElementById(data) != element.children[0]){
 			let tempInpGrpID = element.children[0].id.split('-')[0];
 			let grpCol = "#grp_" + tempInpGrpID;
-
+			console.log('hidden msg');
 			element.children[0].style.width = "255px"; //sets card back to original height
 	 	  element.children[0].style.height = "80px";
 			$(grpCol).prepend(element.children[0])
