@@ -751,7 +751,7 @@ function subGrpSearch() { //filters group on search
   }
 }
 
-var changedSubs = []
+var changedSubs = [];
 function changeSubGroup(id) {
 	//first two digits of a sub's id is their original group id
 	//the last two digits is their sub id
@@ -1376,13 +1376,12 @@ $(window).resize(function(){
 //SEARCH BAR JS START
 let searchIds = [];
 
-if ($(window).width() <= 899) {
-	$('.searchAll').on('click', function(){
-		console.log(this.id);
-		searchIds.push(this.id);
-		console.log(searchIds);
-	})
-}
+$('.searchAll').on('click', function(){
+	console.log(this.id);
+	searchIds.push(this.id);
+	console.log(searchIds);
+	$('#mobileSearchInput').focus();
+})
 
 function mobileSearch(html) { //may need to fix the event listener for mobile
 	let target = searchIds[searchIds.length - 1];

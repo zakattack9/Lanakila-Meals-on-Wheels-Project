@@ -50,12 +50,12 @@ html, body {
 	color: #F58F31;
 }
 
-/*#openMenu {
+#openMenu {
 	width: 52px;
     height: 65px;
     background-color: #F58F31;
     border-bottom-right-radius: 20px;
-}*/
+}
 
 #openMenu img {
 	width: 30px;
