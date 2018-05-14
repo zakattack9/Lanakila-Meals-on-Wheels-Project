@@ -198,7 +198,7 @@
 
 @media (max-width: 390px) {
 	#subsTitle {
-		font-size: 22px;
+		font-size: 21px;
 	}
 
 	#grpTable tr td:not(:first-child) {

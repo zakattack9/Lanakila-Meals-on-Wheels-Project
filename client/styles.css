@@ -23,7 +23,7 @@ html, body {
 }
 
 /*////////MENU Styles///////*/
-#menuOverlay {
+.menuOverlay {
 	width: 220px;
 	background-color: #13896D;
 	font-family: 'Roboto Slab', serif;
@@ -51,19 +51,23 @@ html, body {
 }
 
 #openMenu {
-	width: 52px;
-    height: 65px;
+	width: 48px;
+    height: 60px;
+    position: absolute;
     background-color: #F58F31;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+    right: -48px;
+    top: 5px;
 }
 
 #openMenu img {
 	width: 30px;
-	height: 35px;
-	position: absolute;
-	filter: brightness(65%);
-	right: -40px;
-	top: 14px;
+    height: 35px;
+    position: relative;
+    filter: brightness(65%);
+    right: -7px;
+    top: 11px;
 }
 
 .toggleMenuSize {
@@ -75,7 +79,7 @@ html, body {
 }*/
 /*////////MENU Styles END///////*/
 
-#sideBar {
+.sideBar {
 	font-family: 'Roboto Slab', serif;
 	height: 100%;
 	width: 220px;
@@ -1570,14 +1574,14 @@ html, body {
 }
 
 #msgPopupBox, #deleteMsgBox, #editMsgBox {
-	/*width: 50%;*/
+	width: 50%;
 	background-color: white;
 	border-radius: 15px;
 	opacity: 1;
 	position: relative;
 	top: 25%;
-	/*left: 17%;*/
-	z-index: 1;
+	left: 17%;
+	z-index: 2;
 }
 
 #msgPopupBox, #editMsgBox {

@@ -27,7 +27,7 @@
 <body>
 
 	<div id="container">
-		<div id="menuOverlay">
+		<!-- <div id="menuOverlay">
 			<div id="openMenu">
 				<img id="menuImg" src="./images/menu.png">
 			</div>
@@ -40,14 +40,14 @@
 				</div>
 
 				<div id="mobileOptionsGroup">
-					<div onclick="switchWorkspace(this);" class="mobileOption broadcastMobile">BROADCAST</div>
-					<div onclick="switchWorkspace(this);" class="mobileOption groupsMobile">GROUPS</div>
-					<div onclick="switchWorkspace(this);" class="mobileOption subscribersMobile">SUBSCRIBERS</div>
-					<div onclick="switchWorkspace(this);" class="mobileOption messagesMobile">MESSAGES</div>
-					<div onclick="switchWorkspace(this);" class="mobileOption quickSendMobile">QUICK SEND</div>
+					<div onclick="switchWorkspace(this);" class="mobileOption broadcast">BROADCAST</div>
+					<div onclick="switchWorkspace(this);" class="mobileOption groups">GROUPS</div>
+					<div onclick="switchWorkspace(this);" class="mobileOption subscribers">SUBSCRIBERS</div>
+					<div onclick="switchWorkspace(this);" class="mobileOption messages">MESSAGES</div>
+					<div onclick="switchWorkspace(this);" class="mobileOption quickSend">QUICK SEND</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div id="mobileSearch">
 			<div id="closeMobileSearch">&times;</div>
@@ -55,35 +55,40 @@
 			<!-- <img src="./images/search.png"> -->
 		</div>
 
-		<div id="sideBar">
-			<div id="login">
-				<img id="logo" src="./images/lanakilaLogo.png">
-				<div id="username">Lanakila</div>
+		<div id="barProp">
+			<div id="openMenu">
+				<img id="menuImg" src="./images/menu.png">
 			</div>
+			<div id="menu">
+				
+				<div id="login">
+					<img id="logo" src="./images/lanakilaLogo.png">
+					<div id="username">Lanakila</div>
+				</div>
 
-			<div id="optionsGroup">
-				<div onclick="switchWorkspace(this);" class="option broadcast">BROADCAST</div>
-				<div onclick="switchWorkspace(this);" class="option groups">GROUPS</div>
-				<div onclick="switchWorkspace(this);" class="option subscribers">SUBSCRIBERS</div>
-				<div onclick="switchWorkspace(this);" class="option messages">MESSAGES</div>
-				<div onclick="switchWorkspace(this);" class="option quickSend">QUICK SEND</div>
+				<div id="optionsGroup">
+					<div onclick="switchWorkspace(this);" class="option broadcast">BROADCAST</div>
+					<div onclick="switchWorkspace(this);" class="option groups">GROUPS</div>
+					<div onclick="switchWorkspace(this);" class="option subscribers">SUBSCRIBERS</div>
+					<div onclick="switchWorkspace(this);" class="option messages">MESSAGES</div>
+					<div onclick="switchWorkspace(this);" class="option quickSend">QUICK SEND</div>
+				</div>
 			</div>
 			
 		</div>
 
 		<div id="workspace">
-			<div id="addMsgPopupBC">
-				<div id="msgPopupBoxBC">
-					<div id="closeMsgPopupBC">×</div>
-					<div id="msgPopupTitleBC">Message:</div>
-					<textarea rows="10" id="typeMsgBC" placeholder="Type message here"></textarea>
-					<span id="addMsgWarningBC"></span>
-					<div id="createMsgBC">
+			<div id="addMsgPopup">
+				<div id="msgPopupBox">
+					<div id="closeMsgPopup">&times;</div>
+					<div id="msgPopupTitle">Message:</div>
+					<textarea rows="10" id="typeMsg" placeholder="Type message here"></textarea>
+					<span id = "addMsgWarning"></span>
+					<div id="createMsg">
 						Create Message
 					</div>
 				</div>
 			</div>
-
 
 			<!--BROADCAST-->
 			<div class="" id="broadcast"><!--default screen on load-->
