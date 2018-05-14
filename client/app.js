@@ -371,6 +371,7 @@ $('#checkAll').click(function(){ //checks all boxes on/off
 })
 
 $('#reloadGrp').click(function(){ //runs refresh button animation
+	console.log('grp reload');
 	if($('#reloadGrp img')[0].style.animationName == "reload"){
 		$('#reloadGrp img')[0].style.animationName = "resetReload";
 	}else{

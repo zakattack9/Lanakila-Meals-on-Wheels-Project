@@ -186,7 +186,7 @@ function loadGrpSubs() {
       //console.log(index)
       let grpCountID = "#" + index.id.slice(-2);
       let grpAmt = $(index).children().length;
-      //console.log(grpAmt)
+      // console.log(grpAmt)
       $(grpCountID).find('.memberCount')[0].innerText = grpAmt
 
       let dragGrp = "#dragGroup" + index.id.slice(-2);
